@@ -23,7 +23,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>你好，世界，SUNNY！</h1>
+
     </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
