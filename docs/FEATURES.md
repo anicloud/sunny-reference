@@ -26,3 +26,6 @@ Anicloud Sunny is a personal console for the devices which connected to Anicloud
   - Sequence graph
   - Features timmer
  - Remove
+
+## Comments
+ - Dashboard -> Integrated fast controller __what is it?__
