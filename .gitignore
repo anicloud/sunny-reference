@@ -1,0 +1,8 @@
+sunny/target
+sunny/*.iml
+sunny/.idea
+*.o
+*.a
+.idea
+*.class
+*.iml
