@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${locale}" />
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -8,8 +10,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Anicloud Sunny!!!</title>
+    <title>
+        <fmt:bundle basename="messages/messages">
+            <fmt:message key="system.index.title" />
+        </fmt:bundle>
+    </title>
 
+
+    <link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/public/images/ani_logo.png">
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
@@ -23,7 +31,10 @@
 </head>
 <body>
     <div class="container">
-
+        <h2><fmt:bundle basename="messages/messages">
+            <fmt:message key="system.index.title" />
+        </fmt:bundle>
+        </h2>
     </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
