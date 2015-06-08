@@ -1,6 +1,6 @@
 sunny/target
 sunny/*.iml
-sunny/.idea/*
+sunny/.idea
 *.o
 *.a
 .idea
