@@ -36,10 +36,10 @@
    <%-- <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-route.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-cookies.js"></script>--%>
-    <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular-route.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular-cookies.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular-translate.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angular/angular.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angular/angular-route.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angular/angular-cookies.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angular/angular-translate.js" type="text/javascript"></script>
 
     <!-- config -->
     <script src="${pageContext.request.contextPath}/public/src/config/sunny-service-config.js" type="text/javascript"></script>
