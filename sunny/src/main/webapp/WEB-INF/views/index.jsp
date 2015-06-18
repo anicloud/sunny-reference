@@ -63,7 +63,8 @@
     <![endif]-->
 </head>
 <body ng-controller="HomePageCtrl">
-    <article class="container-fluid" ng-view></article>
+
+    <article class="" ng-view></article>
 </body>
 </html>
 

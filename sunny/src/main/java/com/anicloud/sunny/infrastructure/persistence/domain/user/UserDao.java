@@ -1,22 +1,17 @@
 package com.anicloud.sunny.infrastructure.persistence.domain.user;
 
+import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by zhaoyu on 15-6-8.
  */
 @Entity
-@Table(name = "t_user", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "hashUserId"),
-        @UniqueConstraint(columnNames = "email"),
-        @UniqueConstraint(columnNames = "screenName")
-})
+@Table(name = "t_user")
 public class UserDao extends AbstractEntity {
     private static final long serialVersionUID = -1856228190263844653L;
 
@@ -37,6 +32,9 @@ public class UserDao extends AbstractEntity {
     @Column(name = "scope")
     public String scope;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL)
+    public Set<DeviceDao> deviceDaoSet;
+
     public UserDao() {
     }
 
@@ -56,10 +54,5 @@ public class UserDao extends AbstractEntity {
         this.scope = scope;
         this.screenName = screenName;
         this.tokenType = tokenType;
-    }
-
-    @Override
-    public String toString() {
-       return ToStringBuilder.reflectionToString(this);
     }
 }
