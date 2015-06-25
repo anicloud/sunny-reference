@@ -43,7 +43,7 @@
 
     <!-- config -->
     <script src="${pageContext.request.contextPath}/public/src/config/sunny-service-config.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/config/language-config.js" type="text/javascript"></script>-
+    <script src="${pageContext.request.contextPath}/public/src/config/language-config.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/config/route-config.js" type="text/javascript"></script>
 
     <!-- services -->

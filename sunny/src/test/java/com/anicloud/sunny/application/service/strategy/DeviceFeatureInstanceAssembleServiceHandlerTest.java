@@ -65,7 +65,6 @@ public class DeviceFeatureInstanceAssembleServiceHandlerTest {
 
     @After
     public void after() {
-
     }
 
     private DeviceFeatureInstanceAssembleDto createData() {
