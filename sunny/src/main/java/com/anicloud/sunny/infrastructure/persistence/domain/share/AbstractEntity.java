@@ -7,12 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by zhaoyu on 15-6-8.
  */
 @MappedSuperclass
-public class AbstractEntity implements Serializable {
+public abstract class AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,22 @@ public class AbstractEntity implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractEntity that = (AbstractEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return "AbstractEntity{" +
+                "id=" + id +
+                '}';
     }
 }

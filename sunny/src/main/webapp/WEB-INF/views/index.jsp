@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${locale}" />
 
 <!DOCTYPE html>
 <html lang="zh-CN" ng-app="sunny">
@@ -41,10 +40,11 @@
    <%-- <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-route.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-cookies.js"></script>--%>
-    <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular-route.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular-cookies.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular-translate.js" type="text/javascript"></script>
+
+    <script src="${pageContext.request.contextPath}/public/lib/angular/angular.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angular/angular-route.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angular/angular-cookies.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angular/angular-translate.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/angularjs/javascript/ui-bootstrap-tpls-0.13.0.js" type="text/javascript"></script>
 
     <!-- config -->
@@ -71,7 +71,6 @@
 </head>
 
 <body ng-controller="HomePageCtrl">
-
         <!--header-->
         <header>
           <nav class="navbar navbar-default navbar-fixed-top">
@@ -110,10 +109,6 @@
         <footer class="navbar-fixed-bottom">
             <div id="foot"><p>copyright: Anicloud</p></div>
         </footer>
-
-
-
-
     </div>
 </body>
 </html>
