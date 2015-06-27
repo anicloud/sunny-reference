@@ -15,6 +15,7 @@ anicloud.sunny.global.loadApp = function (controllerObj, serviceObj, configServi
     var curApp = angular.module(appName, [
         'ngRoute',
         'ngCookies',
+        'ui.bootstrap'
     ]);
     //system services
     for (var oneSysServiceName in configServiceObj) {

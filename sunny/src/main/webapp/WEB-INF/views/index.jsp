@@ -20,6 +20,11 @@
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+    <%--<link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/sb-min2.css" rel="stylesheet">--%>
+    <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/sunny.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/timeline.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/public/lib/font-awesome-4.3.0/css/font-awesome.min.css">
+
 
     <!--websocket-->
     <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
@@ -40,10 +45,11 @@
     <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular-route.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular-cookies.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/jsangular/angular-translate.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angularjs/javascript/ui-bootstrap-tpls-0.13.0.js" type="text/javascript"></script>
 
     <!-- config -->
     <script src="${pageContext.request.contextPath}/public/src/config/sunny-service-config.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/config/language-config.js" type="text/javascript"></script>-
+    <script src="${pageContext.request.contextPath}/public/src/config/language-config.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/config/route-config.js" type="text/javascript"></script>
 
     <!-- services -->
@@ -52,6 +58,7 @@
     <!-- controllers -->
     <script src="${pageContext.request.contextPath}/public/src/controller/setting-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/controller/HomePageCtrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/controller/StrategyCtrl.js" type="text/javascript"></script>
 
     <!-- main -->
     <script src="${pageContext.request.contextPath}/public/src/sunny.js" type="text/javascript"></script>
@@ -62,8 +69,52 @@
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body ng-controller="HomePageCtrl">
-    <article class="container-fluid" ng-view></article>
+
+        <!--header-->
+        <header>
+          <nav class="navbar navbar-default navbar-fixed-top">
+              <%--<div class="container-fluid">--%>
+                  <div class="navbar-header">
+                      <a class="navbar-brand" href="#">Sunny</a>
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="glyphicon glyphicon-menu-hamburger"></span>
+                      </button>
+                  </div>
+
+                  <ul class="nav navbar-sunny navbar-right">
+                      <li><a href="#"><span class="glyphicon glyphicon-plus"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-play"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-pause"></span></a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-remove"></span></a></li>
+                  </ul>
+
+                  <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                      <li class="active"><a href="#">Dashboard</a></li>
+                      <li><a href="#">Strategy</a></li>
+                      <li><a href="#">Device</a></li>
+                    </ul>
+                  </div>
+
+              <%--</div>--%>
+          </nav>
+        </header>
+
+
+        <div class="container-fluid" ng-view>
+
+        </div>
+
+        <footer class="navbar-fixed-bottom">
+            <div id="foot"><p>copyright: Anicloud</p></div>
+        </footer>
+
+
+
+
+    </div>
 </body>
 </html>
 
