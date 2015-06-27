@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${locale}" />
 
 <!DOCTYPE html>
-<html lang="zh-CN" ng-app="sunny">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,28 +33,9 @@
     <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- angularjs -->
-   <%-- <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular.js"></script>
-    <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-route.js"></script>
-    <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-cookies.js"></script>--%>
-    <script src="${pageContext.request.contextPath}/public/lib/angular/angular.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/angular/angular-route.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/angular/angular-cookies.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/angular/angular-translate.js" type="text/javascript"></script>
-
-    <!-- config -->
-    <script src="${pageContext.request.contextPath}/public/src/config/sunny-service-config.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/config/language-config.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/config/route-config.js" type="text/javascript"></script>
-
-    <!-- services -->
-    <script src="${pageContext.request.contextPath}/public/src/service/system-service.js" type="text/javascript"></script>
-
-    <!-- controllers -->
-    <script src="${pageContext.request.contextPath}/public/src/controller/setting-ctrl.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/controller/HomePageCtrl.js" type="text/javascript"></script>
-
-    <!-- main -->
-    <script src="${pageContext.request.contextPath}/public/src/sunny.js" type="text/javascript"></script>
+    <%-- <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular.js"></script>
+     <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-route.js"></script>
+     <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-cookies.js"></script>--%>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -61,8 +43,18 @@
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body ng-controller="HomePageCtrl">
-    <article class="" ng-view></article>
+<body>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Welcome to Anicloud Sunny Smart Home Application!</h1>
+        </div>
+    </div>
+    <div class="">
+        <div class="col-sm-12">
+            <a href=" http://192.168.1.101:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" class="btn btn-primary">Use Anicloud Account to Login</a>
+        </div>
+    </div>
 </body>
 </html>
+
 

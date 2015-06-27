@@ -306,6 +306,13 @@
             <version>1.2</version>
         </dependency>
 
+        <!-- service-manager-agent-->
+        <dependency>
+            <groupId>com.ani.cel.service.manager</groupId>
+            <artifactId>service-manager-agent</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>

@@ -38,7 +38,7 @@ public class FeatureTriggerDtoAssembler {
     }
 
     public static List<FeatureTrigger> toFeatureTriggerList(List<FeatureTriggerDto> featureTriggerDtoList) {
-        List<FeatureTrigger> triggerList = new ArrayList<>();
+        List<FeatureTrigger> triggerList = new ArrayList<FeatureTrigger>();
         for (FeatureTriggerDto featureTriggerDto : featureTriggerDtoList) {
             triggerList.add(toFeatureTrigger(featureTriggerDto));
         }
@@ -46,7 +46,7 @@ public class FeatureTriggerDtoAssembler {
     }
 
     public static List<FeatureTriggerDto> toDtoList(List<FeatureTrigger> triggerList) {
-        List<FeatureTriggerDto> triggerDtoList = new ArrayList<>();
+        List<FeatureTriggerDto> triggerDtoList = new ArrayList<FeatureTriggerDto>();
         for (FeatureTrigger featureTrigger : triggerList) {
             triggerDtoList.add(toDto(featureTrigger));
         }
