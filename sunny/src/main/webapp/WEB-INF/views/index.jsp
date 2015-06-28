@@ -101,15 +101,12 @@
           </nav>
         </header>
 
-
         <div class="container-fluid" ng-view>
-
         </div>
 
         <footer class="navbar-fixed-bottom">
             <div id="foot"><p>copyright: Anicloud</p></div>
         </footer>
-    </div>
 </body>
 </html>
 
