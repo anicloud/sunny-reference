@@ -8,11 +8,21 @@ anicloud.sunny.config = anicloud.sunny.config || {};
 anicloud.sunny.config.route = {
     '/': [
         'src/view/home.html',
-        'HomePageCtrl'
+        ''
     ],
     //error page
     '/error': [
-        'src/view/error.html',
-        'HomePageCtrl'
+        'src/view/error.html'
+    ],
+    '/device': [
+        'src/view/device.html'
+    ],
+    '/strategy': [
+        'src/view/strategy.html'
+    ],
+    '/test': [
+        'src/view/test.html'
     ]
+
+
 }

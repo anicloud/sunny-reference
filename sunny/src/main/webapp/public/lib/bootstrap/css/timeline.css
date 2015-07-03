@@ -134,6 +134,10 @@
     color: inherit;
 }
 
+.timeline-body {
+
+
+}
 .timeline-body > p,
 .timeline-body > ul {
     margin-bottom: 0;
