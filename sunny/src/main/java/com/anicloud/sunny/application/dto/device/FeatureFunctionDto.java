@@ -1,6 +1,8 @@
 package com.anicloud.sunny.application.dto.device;
 
-import com.anicloud.sunny.infrastructure.persistence.domain.share.FunctionType;
+
+import com.ani.cel.service.manager.agent.core.share.FunctionType;
+import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
 
 import java.io.Serializable;
 import java.util.Set;

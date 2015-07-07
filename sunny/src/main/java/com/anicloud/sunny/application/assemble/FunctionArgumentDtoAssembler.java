@@ -1,6 +1,6 @@
 package com.anicloud.sunny.application.assemble;
 
-import com.anicloud.sunny.application.dto.device.FunctionArgumentDto;
+import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
 import com.anicloud.sunny.domain.model.device.FunctionArgument;
 
 import java.util.HashSet;
@@ -20,8 +20,7 @@ public class FunctionArgumentDtoAssembler {
 
         FunctionArgument argument = new FunctionArgument(
                 functionArgumentDto.dataType,
-                functionArgumentDto.name,
-                functionArgumentDto.objectState
+                functionArgumentDto.name
         );
         return argument;
     }
@@ -32,9 +31,8 @@ public class FunctionArgumentDtoAssembler {
         }
 
         FunctionArgumentDto argumentDto = new FunctionArgumentDto(
-                functionArgument.dataType,
                 functionArgument.name,
-                functionArgument.objectState
+                functionArgument.dataType
         );
         return argumentDto;
     }

@@ -18,6 +18,8 @@ public interface DeviceFeatureService {
 
     public DeviceFeatureDto saveDeviceFeature(DeviceFeatureDto deviceFeatureDto);
 
+    public void batchSaveDeviceFeature(List<DeviceFeatureDto> deviceFeatureDtoList);
+
     /**
      * just can modify feature name and description
      * @param deviceFeatureDto
@@ -25,9 +27,6 @@ public interface DeviceFeatureService {
      */
     public DeviceFeatureDto modifyDeviceFeature(DeviceFeatureDto deviceFeatureDto);
     public void removeDeviceFeature(String deviceFeatureNum);
-
-    public void batchInsertDeviceFeature(List<DeviceFeatureDto> featureDtoList);
-
     public DeviceFeatureDto getDeviceFeatureByNum(String deviceFeatureNum);
     public List<DeviceFeatureDto> getAllDeviceFeature();
 }

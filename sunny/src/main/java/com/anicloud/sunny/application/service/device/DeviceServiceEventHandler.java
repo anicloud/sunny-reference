@@ -1,11 +1,11 @@
 package com.anicloud.sunny.application.service.device;
 
+import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.application.assemble.DeviceDtoAssembler;
 import com.anicloud.sunny.application.assemble.UserDtoAssembler;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.domain.model.device.Device;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceState;
 import com.anicloud.sunny.infrastructure.persistence.service.DevicePersistenceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +32,13 @@ public class DeviceServiceEventHandler implements DeviceService {
         Device device = DeviceDtoAssembler.toDevice(deviceDto);
         device = Device.save(devicePersistenceService, device);
         return DeviceDtoAssembler.fromDevice(device);
+    }
+
+    @Override
+    public void batchSave(List<DeviceDto> deviceDtoList) {
+        for (DeviceDto deviceDto : deviceDtoList)  {
+            saveDevice(deviceDto);
+        }
     }
 
     @Override

@@ -1,9 +1,8 @@
 package com.anicloud.sunny.domain.model.device;
 
+import com.ani.cel.service.manager.agent.core.share.DataType;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FunctionArgumentDao;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DataType;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.ObjectState;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,15 +15,13 @@ public class FunctionArgument extends AbstractDomain {
 
     public String name;
     public DataType dataType;
-    public ObjectState objectState;
 
     public FunctionArgument() {
     }
 
-    public FunctionArgument(DataType dataType, String name, ObjectState objectState) {
+    public FunctionArgument(DataType dataType, String name) {
         this.dataType = dataType;
         this.name = name;
-        this.objectState = objectState;
     }
 
     public static FunctionArgument toFunctionArgument(FunctionArgumentDao argumentDao) {
@@ -33,8 +30,7 @@ public class FunctionArgument extends AbstractDomain {
         }
         FunctionArgument functionArgument = new FunctionArgument(
                 argumentDao.dataType,
-                argumentDao.name,
-                argumentDao.objectState
+                argumentDao.name
         );
         return functionArgument;
     }
@@ -45,8 +41,7 @@ public class FunctionArgument extends AbstractDomain {
         }
         FunctionArgumentDao argumentDao = new FunctionArgumentDao(
                 argument.dataType,
-                argument.name,
-                argument.objectState
+                argument.name
         );
         return argumentDao;
     }
@@ -80,7 +75,6 @@ public class FunctionArgument extends AbstractDomain {
         return "FunctionArgument{" +
                 "dataType=" + dataType +
                 ", name='" + name + '\'' +
-                ", objectState=" + objectState +
                 '}';
     }
 }

@@ -1,7 +1,7 @@
 package com.anicloud.sunny.infrastructure.persistence.domain.device;
 
+import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceState;
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 import org.apache.commons.lang.builder.ToStringBuilder;
 

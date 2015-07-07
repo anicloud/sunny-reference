@@ -1,5 +1,7 @@
 package com.anicloud.sunny.application.assemble;
 
+import com.ani.cel.service.manager.agent.oauth2.model.OAuth2AccessToken;
+import com.ani.cel.service.manager.agent.user.model.SysUserDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.domain.model.user.User;
 
@@ -22,7 +24,8 @@ public class UserDtoAssembler {
                 userDto.refreshToken,
                 userDto.scope,
                 userDto.screenName,
-                userDto.tokenType
+                userDto.tokenType,
+                userDto.createTime
         );
     }
 
@@ -39,7 +42,27 @@ public class UserDtoAssembler {
                 user.refreshToken,
                 user.scope,
                 user.screenName,
-                user.tokenType
+                user.tokenType,
+                user.createTime
         );
+    }
+
+    public static UserDto toUser(SysUserDto sysUserDto, OAuth2AccessToken accessToken) {
+        if (sysUserDto == null || accessToken == null) {
+            return null;
+        }
+
+        UserDto userDto = new UserDto(
+                accessToken.getAccessToken(),
+                sysUserDto.email,
+                accessToken.getExpiresIn(),
+                sysUserDto.hashUserId,
+                accessToken.getRefreshToken(),
+                accessToken.getScope(),
+                sysUserDto.screenName,
+                accessToken.getTokenType(),
+                System.currentTimeMillis()
+        );
+        return userDto;
     }
 }

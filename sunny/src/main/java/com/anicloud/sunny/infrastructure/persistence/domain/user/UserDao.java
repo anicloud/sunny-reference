@@ -3,6 +3,7 @@ package com.anicloud.sunny.infrastructure.persistence.domain.user;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -31,6 +32,9 @@ public class UserDao extends AbstractEntity {
     public Long expiresIn;
     @Column(name = "scope")
     public String scope;
+    @CreatedDate
+    @Column(name = "create_time")
+    public Long createTime;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL)
     public Set<DeviceDao> deviceDaoSet;
@@ -45,7 +49,7 @@ public class UserDao extends AbstractEntity {
     }
 
     public UserDao(String accessToken, String email, Long expiresIn, String hashUserId,
-                   String refreshToken, String scope, String screenName, String tokenType) {
+                   String refreshToken, String scope, String screenName, String tokenType, Long createTime) {
         this.accessToken = accessToken;
         this.email = email;
         this.expiresIn = expiresIn;
@@ -54,5 +58,6 @@ public class UserDao extends AbstractEntity {
         this.scope = scope;
         this.screenName = screenName;
         this.tokenType = tokenType;
+        this.createTime = createTime;
     }
 }

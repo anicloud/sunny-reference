@@ -1,21 +1,11 @@
 package com.anicloud.sunny.domain.model.device;
 
 
+import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.domain.model.user.User;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceDao;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceState;
-import com.anicloud.sunny.infrastructure.persistence.repository.device.DeviceRepository;
 import com.anicloud.sunny.infrastructure.persistence.service.DevicePersistenceService;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.dao.DataRetrievalFailureException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
 

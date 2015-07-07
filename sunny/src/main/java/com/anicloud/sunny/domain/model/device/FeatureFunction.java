@@ -1,8 +1,8 @@
 package com.anicloud.sunny.domain.model.device;
 
+import com.ani.cel.service.manager.agent.core.share.FunctionType;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureFunctionDao;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.FunctionType;
 
 import java.util.HashSet;
 import java.util.Set;

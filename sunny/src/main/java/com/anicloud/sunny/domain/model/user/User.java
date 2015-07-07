@@ -27,6 +27,7 @@ public class User extends AbstractDomain {
     public String refreshToken;
     public Long expiresIn;
     public String scope;
+    public Long createTime;
 
     public Set<Device> deviceSet;
 
@@ -35,7 +36,7 @@ public class User extends AbstractDomain {
 
     public User(String accessToken, String email,
                 Long expiresIn, String hashUserId, String refreshToken,
-                String scope, String screenName, String tokenType) {
+                String scope, String screenName, String tokenType, Long createTime) {
         this.accessToken = accessToken;
         this.email = email;
         this.expiresIn = expiresIn;
@@ -44,6 +45,7 @@ public class User extends AbstractDomain {
         this.scope = scope;
         this.screenName = screenName;
         this.tokenType = tokenType;
+        this.createTime = createTime;
     }
 
     public static User save(UserPersistenceService userPersistenceService, User user) {
@@ -78,7 +80,7 @@ public class User extends AbstractDomain {
     public static User getUserByHashUserId(UserPersistenceService userPersistenceService, String hashUserId) {
         UserDao userDao = userPersistenceService.getUserByHashUserId(hashUserId);
         if (userDao == null) {
-            throw new EmptyResultDataAccessException(1);
+            return null;
         }
         return toUser(userDao);
     }
@@ -86,7 +88,7 @@ public class User extends AbstractDomain {
     public static User getUserByEmail(UserPersistenceService userPersistenceService, String email) {
         UserDao userDao = userPersistenceService.getUserByEmail(email);
         if (userDao == null) {
-            throw new EmptyResultDataAccessException(1);
+            return null;
         }
         return toUser(userDao);
     }
@@ -100,7 +102,8 @@ public class User extends AbstractDomain {
                 userDao.refreshToken,
                 userDao.scope,
                 userDao.screenName,
-                userDao.tokenType);
+                userDao.tokenType,
+                userDao.createTime);
         return user;
     }
 
@@ -113,7 +116,8 @@ public class User extends AbstractDomain {
                 user.refreshToken,
                 user.scope,
                 user.screenName,
-                user.tokenType);
+                user.tokenType,
+                user.createTime);
         return userDao;
     }
 

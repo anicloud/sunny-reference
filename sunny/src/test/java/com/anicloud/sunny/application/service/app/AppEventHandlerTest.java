@@ -70,7 +70,7 @@ public class AppEventHandlerTest {
         System.out.println(objectMapper.writeValueAsString(clientDto));
     }
 
-    @Test
+    @Ignore
     public void testModify() throws Exception {
 
     }

@@ -1,8 +1,7 @@
 package com.anicloud.sunny.application.dto.device;
 
+import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.application.dto.user.UserDto;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceState;
-
 import java.io.Serializable;
 
 /**

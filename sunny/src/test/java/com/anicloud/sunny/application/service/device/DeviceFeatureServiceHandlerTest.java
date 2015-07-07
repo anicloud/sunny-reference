@@ -1,13 +1,12 @@
 package com.anicloud.sunny.application.service.device;
 
+import com.ani.cel.service.manager.agent.core.share.DataType;
+import com.ani.cel.service.manager.agent.core.share.FunctionType;
+import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
 import com.anicloud.sunny.application.builder.DeviceFeatureDtoBuilder;
 import com.anicloud.sunny.application.builder.FeatureFunctionDtoBuilder;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
-import com.anicloud.sunny.application.dto.device.FunctionArgumentDto;
-import com.anicloud.sunny.domain.model.device.FeatureFunction;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DataType;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.FunctionType;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.ObjectState;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,8 +20,6 @@ import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by zhaoyu on 15-6-15.
@@ -93,14 +90,12 @@ public class DeviceFeatureServiceHandlerTest {
                 .setFunctionName("setTemperature")
                 .setFunctionType(FunctionType.SYNC)
                 .setFunctionArgument(new FunctionArgumentDto(
-                        DataType.FLOAT,
                         "temperature",
-                        ObjectState.ACTIVE
+                        DataType.FLOAT
                 ))
                 .setFunctionArgument(new FunctionArgumentDto(
-                        DataType.BOOLEAN,
                         "isopen",
-                        ObjectState.ACTIVE
+                        DataType.BOOLEAN
                 ))
                 .instance();
 
@@ -108,9 +103,9 @@ public class DeviceFeatureServiceHandlerTest {
                 .setFunctionName("turnOn")
                 .setFunctionType(FunctionType.SYNC)
                 .setFunctionArgument(new FunctionArgumentDto(
-                        DataType.FLOAT,
                         "temperature",
-                        ObjectState.ACTIVE
+                        DataType.FLOAT
+
                 ))
                 .instance();
 
@@ -118,9 +113,8 @@ public class DeviceFeatureServiceHandlerTest {
                 .setFunctionName("turnOff")
                 .setFunctionType(FunctionType.SYNC)
                 .setFunctionArgument(new FunctionArgumentDto(
-                        DataType.FLOAT,
                         "temperature",
-                        ObjectState.ACTIVE
+                        DataType.FLOAT
                 ))
                 .instance();
 

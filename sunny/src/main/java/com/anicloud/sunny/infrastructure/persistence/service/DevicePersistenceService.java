@@ -1,7 +1,7 @@
 package com.anicloud.sunny.infrastructure.persistence.service;
 
+import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceDao;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceState;
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 import org.springframework.stereotype.Service;
 

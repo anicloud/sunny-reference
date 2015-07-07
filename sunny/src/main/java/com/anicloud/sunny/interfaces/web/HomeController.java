@@ -12,6 +12,7 @@ import com.ani.cel.service.manager.agent.user.service.UserServiceImpl;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.app.AppClientDto;
+import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.app.AppService;
 import com.anicloud.sunny.application.service.init.ApplicationInitService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -69,7 +70,7 @@ public class HomeController extends BaseController {
         AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.build(clientDto);
         OAuth2AccessToken oAuth2AccessToken = auth2ClientService.getOAuth2AccessToken(code, authorizationCodeParameter);
 
-        SysUserDto userDto = userService.getUserInfoByAccessToken(oAuth2AccessToken.getAccessToken());
+        UserDto userDto = initService.initApplication(oAuth2AccessToken);
         String currentUser = objectMapper.writeValueAsString(userDto);
 
         CookieGenerator cookieGenerator = new CookieGenerator();
@@ -78,7 +79,7 @@ public class HomeController extends BaseController {
         cookieGenerator.setCookieMaxAge(Constants.SUNNY_COOKIE_MAX_AGE);
         cookieGenerator.addCookie(response, currentUser);
         //cookieGenerator.removeCookie(response);
-        initService.initApplication(oAuth2AccessToken);
+
         return "redirect:home";
     }
 

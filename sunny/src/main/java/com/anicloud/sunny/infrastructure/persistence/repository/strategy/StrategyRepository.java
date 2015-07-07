@@ -1,6 +1,5 @@
 package com.anicloud.sunny.infrastructure.persistence.repository.strategy;
 
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceState;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.StrategyDao;
 import org.springframework.data.jpa.repository.Modifying;

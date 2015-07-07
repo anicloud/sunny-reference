@@ -5,9 +5,6 @@ import com.anicloud.sunny.application.dto.device.*;
 import com.anicloud.sunny.application.dto.share.FunctionValueDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.user.UserService;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DataType;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.FunctionType;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.ObjectState;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
@@ -20,10 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by zhaoyu on 15-6-16.

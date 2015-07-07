@@ -33,6 +33,13 @@ public class DeviceFeatureServiceHandler implements DeviceFeatureService {
     }
 
     @Override
+    public void batchSaveDeviceFeature(List<DeviceFeatureDto> deviceFeatureDtoList) {
+        for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtoList) {
+            saveDeviceFeature(deviceFeatureDto);
+        }
+    }
+
+    @Override
     public DeviceFeatureDto modifyDeviceFeature(DeviceFeatureDto deviceFeatureDto) {
         DeviceFeature deviceFeature = DeviceFeatureDtoAssembler.toDeviceFeature(deviceFeatureDto);
         deviceFeature = DeviceFeature.modify(deviceFeaturePersistenceService, deviceFeature);
@@ -42,13 +49,6 @@ public class DeviceFeatureServiceHandler implements DeviceFeatureService {
     @Override
     public void removeDeviceFeature(String deviceFeatureNum) {
         DeviceFeature.remove(deviceFeaturePersistenceService, deviceFeatureNum);
-    }
-
-    @Override
-    public void batchInsertDeviceFeature(List<DeviceFeatureDto> featureDtoList) {
-        List<DeviceFeature> deviceFeatureList = DeviceFeatureDtoAssembler
-                .toDeviceFeatureList(featureDtoList);
-        DeviceFeature.batchInsert(deviceFeaturePersistenceService, deviceFeatureList);
     }
 
     @Override

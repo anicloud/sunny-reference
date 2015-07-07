@@ -17,6 +17,7 @@ public class UserDto implements Serializable {
     public String refreshToken;
     public Long expiresIn;
     public String scope;
+    public Long createTime;
 
     public UserDto() {
     }
@@ -24,7 +25,8 @@ public class UserDto implements Serializable {
     public UserDto(String accessToken, String email,
                    Long expiresIn, String hashUserId,
                    String refreshToken, String scope,
-                   String screenName, String tokenType) {
+                   String screenName, String tokenType,
+                   Long createTime) {
         this.accessToken = accessToken;
         this.email = email;
         this.expiresIn = expiresIn;
@@ -33,5 +35,36 @@ public class UserDto implements Serializable {
         this.scope = scope;
         this.screenName = screenName;
         this.tokenType = tokenType;
+        this.createTime = createTime;
+    }
+
+    public UserDto(String accessToken, Long createTime, String email,
+                   Long expiresIn, String hashUserId,
+                   String refreshToken, String scope,
+                   String screenName, String tokenType) {
+        this.accessToken = accessToken;
+        this.createTime = createTime;
+        this.email = email;
+        this.expiresIn = expiresIn;
+        this.hashUserId = hashUserId;
+        this.refreshToken = refreshToken;
+        this.scope = scope;
+        this.screenName = screenName;
+        this.tokenType = tokenType;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "accessToken='" + accessToken + '\'' +
+                ", hashUserId='" + hashUserId + '\'' +
+                ", email='" + email + '\'' +
+                ", screenName='" + screenName + '\'' +
+                ", tokenType='" + tokenType + '\'' +
+                ", refreshToken='" + refreshToken + '\'' +
+                ", expiresIn=" + expiresIn +
+                ", scope='" + scope + '\'' +
+                ", createTime=" + createTime +
+                '}';
     }
 }

@@ -1,10 +1,7 @@
 package com.anicloud.sunny.infrastructure.persistence.domain.device;
 
+import com.ani.cel.service.manager.agent.core.share.DataType;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DataType;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.ObjectState;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 
 import javax.persistence.*;
 
@@ -21,17 +18,13 @@ public class FunctionArgumentDao extends AbstractEntity{
     @Column(name = "data_type", nullable = false)
     @Enumerated(EnumType.STRING)
     public DataType dataType;
-    @Column(name = "object_state", nullable = false)
-    @Enumerated(EnumType.STRING)
-    public ObjectState objectState;
 
     public FunctionArgumentDao() {
     }
 
-    public FunctionArgumentDao(DataType dataType, String name, ObjectState objectState) {
+    public FunctionArgumentDao(DataType dataType, String name) {
         this.dataType = dataType;
         this.name = name;
-        this.objectState = objectState;
     }
 
     @Override
@@ -58,7 +51,6 @@ public class FunctionArgumentDao extends AbstractEntity{
         return "FunctionArgumentDao{" +
                 "dataType=" + dataType +
                 ", name='" + name + '\'' +
-                ", objectState=" + objectState +
                 '}';
     }
 }

@@ -1,10 +1,10 @@
 package com.anicloud.sunny.application.service.device;
 
+import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.application.builder.DeviceDtoBuilder;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.user.UserService;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceState;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.*;

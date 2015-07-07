@@ -1,11 +1,10 @@
 package com.anicloud.sunny.application.builder;
 
+import com.ani.cel.service.manager.agent.core.share.FunctionType;
+import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
-import com.anicloud.sunny.application.dto.device.FunctionArgumentDto;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.FunctionType;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -47,6 +46,11 @@ public class FeatureFunctionDtoBuilder {
 
     public FeatureFunctionDtoBuilder setFunctionArgument(Set<FunctionArgumentDto> dtoSet) {
         this.featureFunctionDto.functionArgumentDtoSet = dtoSet;
+        return this;
+    }
+
+    public FeatureFunctionDtoBuilder setSequenceNum(Integer sequenceNum) {
+        this.featureFunctionDto.sequenceNum = sequenceNum;
         return this;
     }
 
