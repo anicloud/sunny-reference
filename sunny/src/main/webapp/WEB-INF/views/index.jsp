@@ -59,6 +59,7 @@
     <script src="${pageContext.request.contextPath}/public/src/controller/setting-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/controller/HomePageCtrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/controller/StrategyCtrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/controller/ModalCtrl.js" type="text/javascript"></script>
 
     <!-- main -->
     <script src="${pageContext.request.contextPath}/public/src/sunny.js" type="text/javascript"></script>
@@ -70,13 +71,13 @@
     <![endif]-->
 </head>
 
-<body ng-controller="HomePageCtrl">
+<body >
         <!--header-->
         <header>
           <nav class="navbar navbar-default navbar-fixed-top">
               <%--<div class="container-fluid">--%>
                   <div class="navbar-header">
-                      <a class="navbar-brand" href="#">Sunny</a>
+                      <a class="navbar-brand" href="#/">Sunny</a>
                       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                       <span class="glyphicon glyphicon-menu-hamburger"></span>
                       </button>
@@ -91,9 +92,9 @@
 
                   <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                      <li class="active"><a href="#">Dashboard</a></li>
-                      <li><a href="#">Strategy</a></li>
-                      <li><a href="#">Device</a></li>
+                      <li class="active"><a href="#/">Dashboard</a></li>
+                      <li><a href="#strategy">Strategy</a></li>
+                      <li><a href="#device">Device</a></li>
                     </ul>
                   </div>
 
@@ -104,6 +105,7 @@
         <div class="container-fluid" ng-view>
         </div>
 
+        <div>{{device}}</div>
         <footer class="navbar-fixed-bottom">
             <div id="foot"><p>copyright: Anicloud</p></div>
         </footer>

@@ -1,10 +1,12 @@
+
+/*dashboard */
 body {
     background-color: #eaeaea;
 }
 
 .navbar-sunny {
     margin-right: 0;
-    letter-spacing: -4px;
+    letter-spacing: -2px;
 
 }
 
@@ -58,7 +60,7 @@ body {
 /*}*/
 
 .strategy-body {
-    background-color: #f8f8f8;
+    background-color: #f3f4f4;
     margin-left: 15px;
     margin-right: 15px;
     padding: 5px 15px;
@@ -98,15 +100,17 @@ body {
     -moz-box-shadow: 0px 2px 1px #e0e0e0;
     margin-bottom: 15px;
     margin-top: 50px;
+
 }
 
 .device-body {
-    overflow-x: scroll;
-    overflow-y: hidden;
+
     width: 100%;
     height: 120px;
     white-space: nowrap;
     letter-spacing: -4px;
+    overflow-x: scroll;
+    overflow-y: hidden;
 
 
 }
@@ -142,9 +146,7 @@ body {
     margin-bottom: 0;
 }
 
-#strategy-title {
-    padding-left: 15px;
-}
+
 
 
 
@@ -160,4 +162,16 @@ body {
 
     }
 
+}
+
+
+/*Strategy*/
+#strategyList {
+    margin-right:90px;
+    background-color: #342df3;
+
+}
+
+ul.timeline  {
+    margin-bottom: 0;!important;
 }
