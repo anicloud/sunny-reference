@@ -29,7 +29,7 @@ public class StrategyDao extends AbstractEntity {
     @JoinColumn(name = "owner_user_id", referencedColumnName = "id")
     public UserDao owner;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "strategy_id", referencedColumnName = "id")
     public List<DeviceFeatureInstanceDao> deviceFeatureInstanceDaoList;
 

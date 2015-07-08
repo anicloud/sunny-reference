@@ -12,6 +12,9 @@ import java.util.List;
 public interface DeviceService {
     public DeviceDto saveDevice(DeviceDto deviceDto);
     public void batchSave(List<DeviceDto> deviceDtoList);
+
+
+
     public DeviceDto modifyDevice(DeviceDto deviceDto);
     public void removeDevice(DeviceDto deviceDto);
 

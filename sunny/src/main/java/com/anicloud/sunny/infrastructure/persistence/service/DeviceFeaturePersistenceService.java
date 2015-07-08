@@ -17,5 +17,6 @@ public interface DeviceFeaturePersistenceService {
     public void batchInsert(List<DeviceFeatureDao> deviceFeatureDaoList);
 
     public DeviceFeatureDao getDeviceFeatureByNum(String deviceFeatureNum);
+    public DeviceFeatureDao getDeviceFeatureByName(String deviceFeatureName);
     public List<DeviceFeatureDao> getAllDeviceFeature();
 }

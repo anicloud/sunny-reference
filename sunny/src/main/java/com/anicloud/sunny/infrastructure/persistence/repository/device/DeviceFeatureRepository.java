@@ -12,4 +12,7 @@ public interface DeviceFeatureRepository extends CrudRepository<DeviceFeatureDao
 
     @Query(value = "select d from DeviceFeatureDao d where d.featureNum = ?1")
     public DeviceFeatureDao findByFeatureNum(String featureNum);
+
+    @Query(value = "select d from DeviceFeatureDao d where d.featureName = ?1")
+    public DeviceFeatureDao findByFeatureName(String featureName);
 }

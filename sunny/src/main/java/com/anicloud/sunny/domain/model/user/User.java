@@ -94,6 +94,9 @@ public class User extends AbstractDomain {
     }
 
     public static User toUser(UserDao userDao) {
+        if (userDao == null) {
+            return null;
+        }
         User user = new User(
                 userDao.accessToken,
                 userDao.email,
@@ -108,6 +111,8 @@ public class User extends AbstractDomain {
     }
 
     public static UserDao toDao(User user) {
+        if (user == null) return null;
+
         UserDao userDao = new UserDao(
                 user.accessToken,
                 user.email,

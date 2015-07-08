@@ -71,6 +71,11 @@ public class DeviceFeaturePersistenceEventHandler implements DeviceFeaturePersis
     }
 
     @Override
+    public DeviceFeatureDao getDeviceFeatureByName(String deviceFeatureName) {
+        return deviceFeatureRepository.findByFeatureName(deviceFeatureName);
+    }
+
+    @Override
     public List<DeviceFeatureDao> getAllDeviceFeature() {
         Iterable<DeviceFeatureDao> iterable = deviceFeatureRepository.findAll();
         List<DeviceFeatureDao> deviceFeatureDaoList = IteratorUtils.toList(iterable.iterator());

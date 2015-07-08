@@ -21,6 +21,10 @@ public class DeviceDto implements Serializable {
     public DeviceDto() {
     }
 
+    public DeviceDto(String identificationCode) {
+        this.identificationCode = identificationCode;
+    }
+
     public DeviceDto(String deviceGroup, DeviceState deviceState, String deviceType,
                      String identificationCode, String name, UserDto owner) {
         this.deviceGroup = deviceGroup;

@@ -18,6 +18,10 @@ public class DeviceFeatureDto implements Serializable {
     public DeviceFeatureDto() {
     }
 
+    public DeviceFeatureDto(String featureName) {
+        this.featureName = featureName;
+    }
+
     public DeviceFeatureDto(String description, Set<FeatureFunctionDto> featureFunctionDtoSet,
                             String featureName) {
         this.description = description;

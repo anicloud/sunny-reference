@@ -18,8 +18,8 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class DeviceFeatureServiceHandler implements DeviceFeatureService {
-    private final static Logger LOGGER = LoggerFactory.getLogger(DeviceFeatureServiceHandler.class);
+public class DeviceFeatureEventHandler implements DeviceFeatureService {
+    private final static Logger LOGGER = LoggerFactory.getLogger(DeviceFeatureEventHandler.class);
 
     @Resource
     private DeviceFeaturePersistenceService deviceFeaturePersistenceService;

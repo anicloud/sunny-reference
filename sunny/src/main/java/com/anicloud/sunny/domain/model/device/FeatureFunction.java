@@ -61,7 +61,10 @@ public class FeatureFunction extends AbstractDomain {
     }
 
     public static Set<FeatureFunction> toFeatureFunctionSet(Set<FeatureFunctionDao> functionDaoSet) {
-        Set<FeatureFunction> functionSet = new HashSet<FeatureFunction>(functionDaoSet.size());
+        if (functionDaoSet == null) {
+            return null;
+        }
+        Set<FeatureFunction> functionSet = new HashSet<FeatureFunction>();
         for (FeatureFunctionDao functionDao : functionDaoSet) {
             functionSet.add(toFeatureFunction(functionDao));
         }
@@ -69,6 +72,9 @@ public class FeatureFunction extends AbstractDomain {
     }
 
     public static Set<FeatureFunctionDao> toDaoSet(Set<FeatureFunction> functionSet) {
+        if (functionSet == null) {
+            return null;
+        }
         Set<FeatureFunctionDao> functionDaoSet = new HashSet<FeatureFunctionDao>();
         for (FeatureFunction function : functionSet) {
             functionDaoSet.add(toDao(function));
