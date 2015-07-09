@@ -4,6 +4,7 @@ import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,15 +25,15 @@ public class DeviceFeatureDao extends AbstractEntity {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "device_feature_id", referencedColumnName = "id")
-    public Set<FeatureFunctionDao> featureFunctionDaoSet;
+    public List<FeatureFunctionDao> featureFunctionDaoList;
 
     public DeviceFeatureDao() {
     }
 
-    public DeviceFeatureDao(String description, Set<FeatureFunctionDao> featureFunctionDaoSet,
+    public DeviceFeatureDao(String description, List<FeatureFunctionDao> featureFunctionDaoList,
                             String featureName, String featureNum) {
         this.description = description;
-        this.featureFunctionDaoSet = featureFunctionDaoSet;
+        this.featureFunctionDaoList = featureFunctionDaoList;
         this.featureName = featureName;
         this.featureNum = featureNum;
     }

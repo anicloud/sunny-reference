@@ -5,6 +5,7 @@ import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.domain.model.user.User;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceDao;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.anicloud.sunny.infrastructure.persistence.service.DevicePersistenceService;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,8 @@ public class Device extends AbstractDomain {
     public String identificationCode;       // id of device, consist of masterDeviceId and slaveDeviceId
     public String name;
     public DeviceState deviceState;
+    // logic state
+    public DeviceLogicState logicState;
     public String deviceType;
     public String deviceGroup;
 
@@ -28,13 +31,14 @@ public class Device extends AbstractDomain {
 
     public Device(String deviceGroup, DeviceState deviceState,
                   String deviceType, String identificationCode,
-                  String name, User owner) {
+                  String name, User owner, DeviceLogicState logicState) {
         this.deviceGroup = deviceGroup;
         this.deviceState = deviceState;
         this.deviceType = deviceType;
         this.identificationCode = identificationCode;
         this.name = name;
         this.owner = owner;
+        this.logicState = logicState;
     }
 
     public static Device save(DevicePersistenceService persistenceService, Device device) {
@@ -58,6 +62,10 @@ public class Device extends AbstractDomain {
 
     public static void modifyDeviceState(DevicePersistenceService persistenceService, Device device, DeviceState deviceState) {
         persistenceService.modifyDeviceState(toDao(device), deviceState);
+    }
+
+    public static void modifyDeviceLogicState(DevicePersistenceService persistenceService, Device device, DeviceLogicState logicState) {
+        persistenceService.modifyDeviceLogicState(toDao(device), logicState);
     }
 
     public static Device getDeviceByIdentificationCode(DevicePersistenceService persistenceService, String identificationCode) {
@@ -93,6 +101,12 @@ public class Device extends AbstractDomain {
         return toDeviceList(deviceDaoList);
     }
 
+    public static List<Device> getDeviceByUserAndLogicState(DevicePersistenceService persistenceService, User user, DeviceLogicState logicState) {
+        List<DeviceDao> deviceDaoList =
+                persistenceService.getDeviceByUserAndLogicState(User.toDao(user), logicState);
+        return toDeviceList(deviceDaoList);
+    }
+
     public static List<String> getUserDeviceGroupList(DevicePersistenceService persistenceService, User user) {
         return persistenceService.getUserDeviceGroupList(User.toDao(user));
     }
@@ -107,7 +121,8 @@ public class Device extends AbstractDomain {
                 deviceDao.deviceType,
                 deviceDao.identificationCode,
                 deviceDao.name,
-                User.toUser(deviceDao.owner)
+                User.toUser(deviceDao.owner),
+                deviceDao.logicState
         );
         return device;
     }
@@ -122,7 +137,8 @@ public class Device extends AbstractDomain {
                 device.deviceType,
                 device.identificationCode,
                 device.name,
-                User.toDao(device.owner)
+                User.toDao(device.owner),
+                device.logicState
         );
         return deviceDao;
     }

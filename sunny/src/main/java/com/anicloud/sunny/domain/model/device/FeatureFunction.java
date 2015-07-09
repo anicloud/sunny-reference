@@ -4,7 +4,9 @@ import com.ani.cel.service.manager.agent.core.share.FunctionType;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureFunctionDao;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,26 +62,26 @@ public class FeatureFunction extends AbstractDomain {
         return functionDao;
     }
 
-    public static Set<FeatureFunction> toFeatureFunctionSet(Set<FeatureFunctionDao> functionDaoSet) {
-        if (functionDaoSet == null) {
+    public static List<FeatureFunction> toFeatureFunctionList(List<FeatureFunctionDao> functionDaoList) {
+        if (functionDaoList == null) {
             return null;
         }
-        Set<FeatureFunction> functionSet = new HashSet<FeatureFunction>();
-        for (FeatureFunctionDao functionDao : functionDaoSet) {
-            functionSet.add(toFeatureFunction(functionDao));
+        List<FeatureFunction> functionList = new ArrayList<>();
+        for (FeatureFunctionDao functionDao : functionDaoList) {
+            functionList.add(toFeatureFunction(functionDao));
         }
-        return functionSet;
+        return functionList;
     }
 
-    public static Set<FeatureFunctionDao> toDaoSet(Set<FeatureFunction> functionSet) {
-        if (functionSet == null) {
+    public static List<FeatureFunctionDao> toDaoSet(List<FeatureFunction> functionList) {
+        if (functionList == null) {
             return null;
         }
-        Set<FeatureFunctionDao> functionDaoSet = new HashSet<FeatureFunctionDao>();
-        for (FeatureFunction function : functionSet) {
-            functionDaoSet.add(toDao(function));
+        List<FeatureFunctionDao> functionDaoList = new ArrayList<>();
+        for (FeatureFunction function : functionList) {
+            functionDaoList.add(toDao(function));
         }
-        return functionDaoSet;
+        return functionDaoList;
     }
 
     @Override

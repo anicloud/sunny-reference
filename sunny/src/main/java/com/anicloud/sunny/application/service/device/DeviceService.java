@@ -3,6 +3,7 @@ package com.anicloud.sunny.application.service.device;
 import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface DeviceService {
     public void removeDevice(DeviceDto deviceDto);
 
     public void modifyDeviceState(DeviceDto deviceDto, DeviceState deviceState);
-
+    public void modifyDeviceLogicState(DeviceDto deviceDto, DeviceLogicState logicState);
     public DeviceDto getDeviceByIdentificationCode(String identificationCode);
     /**
      * find by user hashUserId or email
@@ -30,5 +31,6 @@ public interface DeviceService {
     public List<DeviceDto> getDeviceByUserAndGroup(UserDto userDto, String deviceGroup);
     public List<DeviceDto> getDeviceByUserAndType(UserDto userDto, String deviceType);
     public List<DeviceDto> getDeviceByUserAndState(UserDto userDto, DeviceState state);
+    public List<DeviceDto> getDeviceByUserAndLogicState(UserDto userDto, DeviceLogicState logicState);
     public List<String> getUserDeviceGroupList(UserDto userDto);
 }

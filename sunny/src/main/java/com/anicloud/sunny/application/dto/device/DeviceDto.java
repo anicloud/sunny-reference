@@ -2,6 +2,8 @@ package com.anicloud.sunny.application.dto.device;
 
 import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.application.dto.user.UserDto;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
+
 import java.io.Serializable;
 
 /**
@@ -12,7 +14,10 @@ public class DeviceDto implements Serializable {
 
     public String identificationCode;       // id of device, consist of masterDeviceId and slaveDeviceId
     public String name;
+    // physical state
     public DeviceState deviceState;
+    // logic state
+    public DeviceLogicState logicState;
     public String deviceType;
     public String deviceGroup;
 
@@ -26,13 +31,14 @@ public class DeviceDto implements Serializable {
     }
 
     public DeviceDto(String deviceGroup, DeviceState deviceState, String deviceType,
-                     String identificationCode, String name, UserDto owner) {
+                     String identificationCode, String name, UserDto owner, DeviceLogicState logicState) {
         this.deviceGroup = deviceGroup;
         this.deviceState = deviceState;
         this.deviceType = deviceType;
         this.identificationCode = identificationCode;
         this.name = name;
         this.owner = owner;
+        this.logicState = logicState;
     }
 
     @Override
@@ -42,6 +48,7 @@ public class DeviceDto implements Serializable {
                 ", identificationCode='" + identificationCode + '\'' +
                 ", name='" + name + '\'' +
                 ", deviceState=" + deviceState +
+                ", logicState=" + logicState +
                 ", deviceType='" + deviceType + '\'' +
                 ", owner=" + owner +
                 '}';

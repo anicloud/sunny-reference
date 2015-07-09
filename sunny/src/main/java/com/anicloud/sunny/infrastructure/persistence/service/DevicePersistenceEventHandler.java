@@ -2,6 +2,7 @@ package com.anicloud.sunny.infrastructure.persistence.service;
 
 import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceDao;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 import com.anicloud.sunny.infrastructure.persistence.repository.device.DeviceRepository;
 import com.anicloud.sunny.infrastructure.persistence.repository.user.UserRepository;
@@ -53,8 +54,12 @@ public class DevicePersistenceEventHandler implements DevicePersistenceService {
 
     @Override
     public void modifyDeviceState(DeviceDao device, DeviceState deviceState) {
-        deviceRepository.
-                updateDeviceStateByIdentificationCode(device.identificationCode, deviceState);
+        deviceRepository.updateDeviceStateByIdentificationCode(device.identificationCode, deviceState);
+    }
+
+    @Override
+    public void modifyDeviceLogicState(DeviceDao device, DeviceLogicState logicState) {
+        deviceRepository.updateDeviceLogicStateByIdentificationCode(device.identificationCode, logicState);
     }
 
     @Override
@@ -87,6 +92,11 @@ public class DevicePersistenceEventHandler implements DevicePersistenceService {
     @Override
     public List<DeviceDao> getDeviceByUserAndState(UserDao user, DeviceState deviceState) {
         return deviceRepository.findByUserAndState(user.hashUserId, deviceState);
+    }
+
+    @Override
+    public List<DeviceDao> getDeviceByUserAndLogicState(UserDao user, DeviceLogicState logicState) {
+        return deviceRepository.findByUserAndLogicState(user.hashUserId, logicState);
     }
 
     @Override

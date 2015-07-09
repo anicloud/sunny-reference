@@ -6,6 +6,7 @@ import com.anicloud.sunny.application.assemble.UserDtoAssembler;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.domain.model.device.Device;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.anicloud.sunny.infrastructure.persistence.service.DevicePersistenceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +60,11 @@ public class DeviceServiceEventHandler implements DeviceService {
     }
 
     @Override
+    public void modifyDeviceLogicState(DeviceDto deviceDto, DeviceLogicState logicState) {
+        Device.modifyDeviceLogicState(devicePersistenceService, DeviceDtoAssembler.toDevice(deviceDto), logicState);
+    }
+
+    @Override
     public List<DeviceDto> getDeviceByUser(UserDto userDto) {
         List<Device> deviceList = Device.getDeviceByUser(devicePersistenceService, UserDtoAssembler.toUser(userDto));
         return DeviceDtoAssembler.fromDeviceList(deviceList);
@@ -80,6 +86,12 @@ public class DeviceServiceEventHandler implements DeviceService {
     @Override
     public List<DeviceDto> getDeviceByUserAndState(UserDto userDto, DeviceState state) {
         List<Device> deviceList = Device.getDeviceByUserAndState(devicePersistenceService, UserDtoAssembler.toUser(userDto), state);
+        return DeviceDtoAssembler.fromDeviceList(deviceList);
+    }
+
+    @Override
+    public List<DeviceDto> getDeviceByUserAndLogicState(UserDto userDto, DeviceLogicState logicState) {
+        List<Device> deviceList = Device.getDeviceByUserAndLogicState(devicePersistenceService, UserDtoAssembler.toUser(userDto), logicState);
         return DeviceDtoAssembler.fromDeviceList(deviceList);
     }
 

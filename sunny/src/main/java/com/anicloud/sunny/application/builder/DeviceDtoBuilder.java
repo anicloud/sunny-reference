@@ -3,6 +3,7 @@ package com.anicloud.sunny.application.builder;
 import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 
 /**
  * Created by zhaoyu on 15-6-18.
@@ -45,6 +46,11 @@ public class DeviceDtoBuilder {
 
     public DeviceDtoBuilder setOwner(UserDto owner) {
         this.deviceDto.owner = owner;
+        return this;
+    }
+
+    public DeviceDtoBuilder setDeviceLogicState(DeviceLogicState logicState) {
+        this.deviceDto.logicState = logicState;
         return this;
     }
 

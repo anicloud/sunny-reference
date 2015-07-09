@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -118,7 +119,7 @@ public class DeviceFeatureServiceHandlerTest {
                 ))
                 .instance();
 
-        Set<FeatureFunctionDto> featureFunctionSet = new HashSet<>();
+        List<FeatureFunctionDto> featureFunctionSet = new ArrayList<>();
         featureFunctionSet.add(featureFunctionDto);
         featureFunctionSet.add(featureFunctionDto1);
         featureFunctionSet.add(featureFunctionDto2);

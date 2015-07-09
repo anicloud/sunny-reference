@@ -1,6 +1,7 @@
 package com.anicloud.sunny.application.dto.device;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,7 +14,7 @@ public class DeviceFeatureDto implements Serializable {
     public String featureName;
     public String description;
 
-    public Set<FeatureFunctionDto> featureFunctionDtoSet;
+    public List<FeatureFunctionDto> featureFunctionDtoList;
 
     public DeviceFeatureDto() {
     }
@@ -22,17 +23,17 @@ public class DeviceFeatureDto implements Serializable {
         this.featureName = featureName;
     }
 
-    public DeviceFeatureDto(String description, Set<FeatureFunctionDto> featureFunctionDtoSet,
+    public DeviceFeatureDto(String description, List<FeatureFunctionDto> featureFunctionDtoSet,
                             String featureName) {
         this.description = description;
-        this.featureFunctionDtoSet = featureFunctionDtoSet;
+        this.featureFunctionDtoList = featureFunctionDtoList;
         this.featureName = featureName;
     }
 
-    public DeviceFeatureDto(String description, Set<FeatureFunctionDto> featureFunctionDtoSet,
+    public DeviceFeatureDto(String description, List<FeatureFunctionDto> featureFunctionDtoList,
                             String featureName, String featureNum) {
         this.description = description;
-        this.featureFunctionDtoSet = featureFunctionDtoSet;
+        this.featureFunctionDtoList = featureFunctionDtoList;
         this.featureName = featureName;
         this.featureNum = featureNum;
     }

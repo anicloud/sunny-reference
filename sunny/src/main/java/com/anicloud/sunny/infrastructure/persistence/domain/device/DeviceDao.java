@@ -2,6 +2,7 @@ package com.anicloud.sunny.infrastructure.persistence.domain.device;
 
 import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -24,6 +25,9 @@ public class DeviceDao extends AbstractEntity {
     @Column(name = "device_state", nullable = false)
     @Enumerated(EnumType.STRING)
     public DeviceState deviceState;
+    @Column(name = "logic_state", nullable = false)
+    @Enumerated(EnumType.STRING)
+    public DeviceLogicState logicState;
     @Column(name = "device_type", length = 50)
     public String deviceType;
     @Column(name = "device_group", length = 50)
@@ -37,13 +41,14 @@ public class DeviceDao extends AbstractEntity {
     }
 
     public DeviceDao(String deviceGroup, DeviceState deviceState, String deviceType,
-                     String identificationCode, String name, UserDao owner) {
+                     String identificationCode, String name, UserDao owner, DeviceLogicState logicState) {
         this.deviceGroup = deviceGroup;
         this.deviceState = deviceState;
         this.deviceType = deviceType;
         this.identificationCode = identificationCode;
         this.name = name;
         this.owner = owner;
+        this.logicState = logicState;
     }
 
     @Override

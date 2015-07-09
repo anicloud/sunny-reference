@@ -3,6 +3,7 @@ package com.anicloud.sunny.application.builder;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,15 +33,15 @@ public class DeviceFeatureDtoBuilder {
     }
 
     public DeviceFeatureDtoBuilder setFeatureFunction(FeatureFunctionDto featureFunction) {
-        if (this.deviceFeatureDto.featureFunctionDtoSet == null) {
-            this.deviceFeatureDto.featureFunctionDtoSet = new HashSet<>();
+        if (this.deviceFeatureDto.featureFunctionDtoList == null) {
+            this.deviceFeatureDto.featureFunctionDtoList = new ArrayList<>();
         }
-        this.deviceFeatureDto.featureFunctionDtoSet.add(featureFunction);
+        this.deviceFeatureDto.featureFunctionDtoList.add(featureFunction);
         return this;
     }
 
-    public DeviceFeatureDtoBuilder setFeatureFunction(Set<FeatureFunctionDto> dtoList) {
-        this.deviceFeatureDto.featureFunctionDtoSet = dtoList;
+    public DeviceFeatureDtoBuilder setFeatureFunction(List<FeatureFunctionDto> dtoList) {
+        this.deviceFeatureDto.featureFunctionDtoList = dtoList;
         return this;
     }
 

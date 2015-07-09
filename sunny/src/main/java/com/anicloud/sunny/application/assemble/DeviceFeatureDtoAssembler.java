@@ -21,7 +21,7 @@ public class DeviceFeatureDtoAssembler {
 
         DeviceFeature deviceFeature = new DeviceFeature(
                 deviceFeatureDto.description,
-                FeatureFunctionDtoAssembler.toFeatureFunctionSet(deviceFeatureDto.featureFunctionDtoSet),
+                FeatureFunctionDtoAssembler.toFeatureFunctionList(deviceFeatureDto.featureFunctionDtoList),
                 deviceFeatureDto.featureName,
                 deviceFeatureDto.featureNum
         );
@@ -36,7 +36,7 @@ public class DeviceFeatureDtoAssembler {
 
         DeviceFeatureDto deviceFeatureDto = new DeviceFeatureDto(
                 deviceFeature.description,
-                FeatureFunctionDtoAssembler.toDtoSet(deviceFeature.featureFunctionSet),
+                FeatureFunctionDtoAssembler.toDtoList(deviceFeature.featureFunctionList),
                 deviceFeature.featureName,
                 deviceFeature.featureNum
         );

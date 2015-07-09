@@ -141,7 +141,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         Map<String, List<FunctionInfoDto>> deviceFeatureNameMap = deviceInfoGeneratorService.generateDeviceFeatureSet(slaveInfoDto);
         Set<String> featureNameSet = deviceFeatureNameMap.keySet();
         for (String featureName : featureNameSet) {
-            Set<FeatureFunctionDto> functionDtoList = new HashSet<>();
+            List<FeatureFunctionDto> functionDtoList = new ArrayList<>();
             List<FunctionInfoDto> funcList = deviceFeatureNameMap.get(featureName);
             int sequenceNum = 0;
             for (FunctionInfoDto infoDto : funcList) {
@@ -183,6 +183,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                 .setDeviceName(deviceName)
                 .setDeviceGroup(Constants.SUNNY_DEVICE_DEFAULT_GROUP)
                 .setDeviceState(slaveInfoDto.deviceState)
+                .setDeviceLogicState(Constants.DEVICE_DEFAULT_LOGIC_STATE)
                 .setDeviceType(deviceType)
                 .setIdentificationCode(identificationCode)
                 .setOwner(super.userDto)

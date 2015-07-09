@@ -20,15 +20,15 @@ public class DeviceFeature extends AbstractDomain {
     public String featureName;
     public String description;
 
-    public Set<FeatureFunction> featureFunctionSet;
+    public List<FeatureFunction> featureFunctionList;
 
     public DeviceFeature() {
     }
 
-    public DeviceFeature(String description, Set<FeatureFunction> featureFunctionSet,
+    public DeviceFeature(String description, List<FeatureFunction> featureFunctionList,
                          String featureName, String featureNum) {
         this.description = description;
-        this.featureFunctionSet = featureFunctionSet;
+        this.featureFunctionList = featureFunctionList;
         this.featureName = featureName;
         this.featureNum = featureNum;
     }
@@ -73,7 +73,7 @@ public class DeviceFeature extends AbstractDomain {
         }
         DeviceFeature deviceFeature = new DeviceFeature(
                 featureDao.description,
-                FeatureFunction.toFeatureFunctionSet(featureDao.featureFunctionDaoSet),
+                FeatureFunction.toFeatureFunctionList(featureDao.featureFunctionDaoList),
                 featureDao.featureName,
                 featureDao.featureNum
         );
@@ -86,7 +86,7 @@ public class DeviceFeature extends AbstractDomain {
         }
         DeviceFeatureDao featureDao = new DeviceFeatureDao(
                 deviceFeature.description,
-                FeatureFunction.toDaoSet(deviceFeature.featureFunctionSet),
+                FeatureFunction.toDaoSet(deviceFeature.featureFunctionList),
                 deviceFeature.featureName,
                 deviceFeature.featureNum
         );

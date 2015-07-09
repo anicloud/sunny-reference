@@ -3,7 +3,9 @@ package com.anicloud.sunny.application.assemble;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 import com.anicloud.sunny.domain.model.device.FeatureFunction;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,25 +42,25 @@ public class FeatureFunctionDtoAssembler {
         return featureFunctionDto;
     }
 
-    public static Set<FeatureFunction> toFeatureFunctionSet(Set<FeatureFunctionDto> featureFunctionDtoSet) {
-        if (featureFunctionDtoSet == null) {
+    public static List<FeatureFunction> toFeatureFunctionList(List<FeatureFunctionDto> featureFunctionDtoList) {
+        if (featureFunctionDtoList == null) {
             return null;
         }
-        Set<FeatureFunction> functionSet = new HashSet<FeatureFunction>(featureFunctionDtoSet.size());
-        for (FeatureFunctionDto featureFunctionDto : featureFunctionDtoSet) {
+        List<FeatureFunction> functionSet = new ArrayList<>();
+        for (FeatureFunctionDto featureFunctionDto : featureFunctionDtoList) {
             functionSet.add(toFeatureFunction(featureFunctionDto));
         }
         return functionSet;
     }
 
-    public static Set<FeatureFunctionDto> toDtoSet(Set<FeatureFunction> featureFunctionSet) {
-        if (featureFunctionSet == null) {
+    public static List<FeatureFunctionDto> toDtoList(List<FeatureFunction> featureFunctionList) {
+        if (featureFunctionList == null) {
             return null;
         }
-        Set<FeatureFunctionDto> functionDtoSet = new HashSet<FeatureFunctionDto>(featureFunctionSet.size());
-        for (FeatureFunction featureFunction : featureFunctionSet) {
-            functionDtoSet.add(toDto(featureFunction));
+        List<FeatureFunctionDto> functionDtoList = new ArrayList<>();
+        for (FeatureFunction featureFunction : featureFunctionList) {
+            functionDtoList.add(toDto(featureFunction));
         }
-        return functionDtoSet;
+        return functionDtoList;
     }
 }

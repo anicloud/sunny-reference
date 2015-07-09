@@ -2,6 +2,7 @@ package com.anicloud.sunny.infrastructure.persistence.service;
 
 import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceDao;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,13 @@ public interface DevicePersistenceService {
     public DeviceDao modify(DeviceDao deviceDao);
     public void remove(DeviceDao deviceDao);
     public void modifyDeviceState(DeviceDao device, DeviceState deviceState);
+    public void modifyDeviceLogicState(DeviceDao device, DeviceLogicState logicState);
 
     public DeviceDao getDeviceByIdentificationCode(String identificationCode);
     public List<DeviceDao> getDeviceByUser(UserDao userDao);
     public List<DeviceDao> getDeviceByUserAndGroup(UserDao user, String deviceGroup);
     public List<DeviceDao> getDeviceByUserAndType(UserDao userDao, String deviceType);
     public List<DeviceDao> getDeviceByUserAndState(UserDao user, DeviceState deviceState);
+    public List<DeviceDao> getDeviceByUserAndLogicState(UserDao user, DeviceLogicState logicState);
     public List<String> getUserDeviceGroupList(UserDao user);
 }

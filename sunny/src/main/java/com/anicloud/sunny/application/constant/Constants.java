@@ -1,5 +1,7 @@
 package com.anicloud.sunny.application.constant;
 
+import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
+
 /**
  * Created by zhaoyu on 15-6-27.
  */
@@ -13,4 +15,5 @@ public class Constants {
     public final static String SUNNY_COOKIE_PATH = "sunny";
 
     public final static String SUNNY_DEVICE_DEFAULT_GROUP = "default";
+    public final static DeviceLogicState DEVICE_DEFAULT_LOGIC_STATE = DeviceLogicState.CLOSED;
 }
