@@ -18,10 +18,10 @@ public interface StrategyService {
      * @return
      */
     public StrategyDto modifyStrategy(StrategyDto strategyDto);
-    public void removeStrategy(String strategyNum);
+    public void removeStrategy(String strategyId);
 
-    public void modifyStrategyState(String strategyNum, StrategyState state);
-    public StrategyDto getStrategyByNum(String strategyNum);
+    public void modifyStrategyState(String strategyId, StrategyState state);
+    public StrategyDto getStrategyById(String strategyId);
     public List<StrategyDto> getStrategyByUser(String hashUserId);
     public List<StrategyDto> getStrategyByUserAndState(String hashUserId, StrategyState strategyState);
 }

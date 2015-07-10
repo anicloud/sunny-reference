@@ -19,11 +19,11 @@ public class FeatureFunctionDtoAssembler {
             return null;
         }
         FeatureFunction featureFunction = new FeatureFunction(
+                featureFunctionDto.featureFunctionId,
                 FunctionArgumentDtoAssembler.toFunctionArgumentSet(featureFunctionDto.functionArgumentDtoSet),
                 featureFunctionDto.functionGroup,
                 featureFunctionDto.functionName,
-                featureFunctionDto.functionType,
-                featureFunctionDto.sequenceNum
+                featureFunctionDto.functionType
         );
         return featureFunction;
     }
@@ -33,11 +33,11 @@ public class FeatureFunctionDtoAssembler {
             return null;
         }
         FeatureFunctionDto featureFunctionDto = new FeatureFunctionDto(
+                featureFunction.featureFunctionId,
                 FunctionArgumentDtoAssembler.toDtoSet(featureFunction.functionArgumentSet),
                 featureFunction.functionGroup,
                 featureFunction.functionName,
-                featureFunction.functionType,
-                featureFunction.sequenceNum
+                featureFunction.functionType
         );
         return featureFunctionDto;
     }

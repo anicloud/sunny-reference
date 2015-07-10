@@ -19,9 +19,9 @@ public interface StrategyPersistenceService {
      * @return
      */
     public StrategyDao modify(StrategyDao strategyDao);
-    public void modifyStrategyState(String strategyNum, StrategyState state);
-    public void removeByNum(String strategyNum);
-    public StrategyDao getStrategyByNum(String strategyNum);
+    public void modifyStrategyState(String strategyId, StrategyState state);
+    public void removeById(String strategyId);
+    public StrategyDao getStrategyById(String strategyId);
     public List<StrategyDao> getStrategyListByUser(String hashUserId);
     public List<StrategyDao> getStrategyByUserAndState(String hashUserId, StrategyState strategyState);
 }

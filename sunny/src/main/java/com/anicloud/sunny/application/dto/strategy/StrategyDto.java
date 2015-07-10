@@ -12,7 +12,7 @@ import java.util.List;
 public class StrategyDto implements Serializable {
     private static final long serialVersionUID = 614957459211270794L;
 
-    public String strategyNum;
+    public String strategyId;
     public String strategyName;
     public StrategyState state;
     public String description;
@@ -23,10 +23,10 @@ public class StrategyDto implements Serializable {
     public StrategyDto() {
     }
 
-    public StrategyDto(String strategyNum, String strategyName,
+    public StrategyDto(String strategyId, String strategyName,
                        StrategyState state, String description,
                        UserDto owner, List<DeviceFeatureInstanceDto> deviceFeatureInstanceList) {
-        this.strategyNum = strategyNum;
+        this.strategyId = strategyId;
         this.strategyName = strategyName;
         this.state = state;
         this.description = description;
@@ -37,7 +37,7 @@ public class StrategyDto implements Serializable {
     @Override
     public String toString() {
         return "StrategyDto{" +
-                "strategyNum='" + strategyNum + '\'' +
+                "strategyId='" + strategyId + '\'' +
                 ", strategyName='" + strategyName + '\'' +
                 ", state=" + state +
                 ", description='" + description + '\'' +

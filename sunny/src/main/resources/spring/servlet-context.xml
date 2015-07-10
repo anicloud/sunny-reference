@@ -13,7 +13,7 @@
                          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+	<context:property-placeholder location="classpath*:properties/config.properties" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<!-- 下面标签内建的就是 FormattingConversionServiceFactoryBean 所以 Spring MVC 对处理方法的入参绑定就支持注解驱动的功能-->
 	<context:component-scan base-package="com.anicloud.sunny.interfaces.web" />

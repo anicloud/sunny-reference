@@ -15,7 +15,7 @@ import java.util.List;
 public class Strategy extends AbstractDomain {
     private static final long serialVersionUID = -1540568663807896074L;
 
-    public String strategyNum;
+    public String strategyId;
     public String strategyName;
     public StrategyState state;
     public String description;
@@ -26,10 +26,10 @@ public class Strategy extends AbstractDomain {
     public Strategy() {
     }
 
-    public Strategy(String strategyNum, String strategyName, StrategyState state,
+    public Strategy(String strategyId, String strategyName, StrategyState state,
                     String description, User owner,
                     List<DeviceFeatureInstance> deviceFeatureInstanceList) {
-        this.strategyNum = strategyNum;
+        this.strategyId = strategyId;
         this.strategyName = strategyName;
         this.state = state;
         this.description = description;
@@ -48,16 +48,16 @@ public class Strategy extends AbstractDomain {
     }
 
     public static void modifyStrategyState(StrategyPersistenceService persistenceService,
-                                           String strategyNum, StrategyState state) {
-        persistenceService.modifyStrategyState(strategyNum, state);
+                                           String strategyId, StrategyState state) {
+        persistenceService.modifyStrategyState(strategyId, state);
     }
 
-    public static void remove(StrategyPersistenceService persistenceService, String strategyNum) {
-        persistenceService.removeByNum(strategyNum);
+    public static void remove(StrategyPersistenceService persistenceService, String strategyId) {
+        persistenceService.removeById(strategyId);
     }
 
-    public static Strategy getStrategyByNum(StrategyPersistenceService persistenceService, String strategyNum) {
-        StrategyDao strategyDao = persistenceService.getStrategyByNum(strategyNum);
+    public static Strategy getStrategyById(StrategyPersistenceService persistenceService, String strategyId) {
+        StrategyDao strategyDao = persistenceService.getStrategyById(strategyId);
         return toStrategy(strategyDao);
     }
 
@@ -78,7 +78,7 @@ public class Strategy extends AbstractDomain {
         }
 
         Strategy strategy = new Strategy(
-                strategyDao.strategyNum,
+                strategyDao.strategyId,
                 strategyDao.strategyName,
                 strategyDao.state,
                 strategyDao.description,
@@ -94,7 +94,7 @@ public class Strategy extends AbstractDomain {
         }
 
         StrategyDao strategyDao = new StrategyDao(
-                strategy.strategyNum,
+                strategy.strategyId,
                 strategy.strategyName,
                 strategy.state,
                 strategy.description,

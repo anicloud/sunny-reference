@@ -42,7 +42,7 @@ public class DeviceFeaturePersistenceEventHandler implements DeviceFeaturePersis
     @Override
     public DeviceFeatureDao modify(DeviceFeatureDao deviceFeatureDao) {
         DeviceFeatureDao orgDeviceFeatureDao =
-                deviceFeatureRepository.findByFeatureNum(deviceFeatureDao.featureNum);
+                deviceFeatureRepository.findByFeatureId(deviceFeatureDao.featureId);
         if (orgDeviceFeatureDao == null) {
             throw new EmptyResultDataAccessException(1);
         }
@@ -52,8 +52,8 @@ public class DeviceFeaturePersistenceEventHandler implements DeviceFeaturePersis
     }
 
     @Override
-    public void remove(String deviceFeatureNum) {
-        DeviceFeatureDao deviceFeatureDao = deviceFeatureRepository.findByFeatureNum(deviceFeatureNum);
+    public void remove(String deviceFeatureId) {
+        DeviceFeatureDao deviceFeatureDao = deviceFeatureRepository.findByFeatureId(deviceFeatureId);
         if (deviceFeatureDao == null) {
             throw new EmptyResultDataAccessException(1);
         }
@@ -66,8 +66,8 @@ public class DeviceFeaturePersistenceEventHandler implements DeviceFeaturePersis
     }
 
     @Override
-    public DeviceFeatureDao getDeviceFeatureByNum(String deviceFeatureNum) {
-        return deviceFeatureRepository.findByFeatureNum(deviceFeatureNum);
+    public DeviceFeatureDao getDeviceFeatureById(String featureId) {
+        return deviceFeatureRepository.findByFeatureId(featureId);
     }
 
     @Override

@@ -26,6 +26,11 @@ public class FeatureFunctionDtoBuilder {
         return this;
     }
 
+    public FeatureFunctionDtoBuilder setFunctionId(String functionId) {
+        this.featureFunctionDto.featureFunctionId = functionId;
+        return this;
+    }
+
     public FeatureFunctionDtoBuilder setFunctionName(String functionName) {
         this.featureFunctionDto.functionName = functionName;
         return this;
@@ -46,11 +51,6 @@ public class FeatureFunctionDtoBuilder {
 
     public FeatureFunctionDtoBuilder setFunctionArgument(Set<FunctionArgumentDto> dtoSet) {
         this.featureFunctionDto.functionArgumentDtoSet = dtoSet;
-        return this;
-    }
-
-    public FeatureFunctionDtoBuilder setSequenceNum(Integer sequenceNum) {
-        this.featureFunctionDto.sequenceNum = sequenceNum;
         return this;
     }
 

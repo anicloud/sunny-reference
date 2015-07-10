@@ -2,7 +2,6 @@ package com.anicloud.sunny.application.service.strategy;
 
 import com.anicloud.sunny.application.assemble.StrategyDtoAssembler;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
-import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.utils.NumGenerate;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
@@ -29,7 +28,7 @@ public class StrategyServiceHandler implements StrategyService {
     @Override
     public StrategyDto saveStrategy(StrategyDto strategyDto) {
         // generate the strategy number
-        strategyDto.strategyNum = NumGenerate.generate();
+        strategyDto.strategyId = NumGenerate.generate();
         Strategy strategy = StrategyDtoAssembler.toStrategy(strategyDto);
         strategy = Strategy.save(strategyPersistenceService, strategy);
         return StrategyDtoAssembler.toDto(strategy);
@@ -43,18 +42,18 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
-    public void removeStrategy(String strategyNum) {
-        Strategy.remove(strategyPersistenceService, strategyNum);
+    public void removeStrategy(String strategyId) {
+        Strategy.remove(strategyPersistenceService, strategyId);
     }
 
     @Override
-    public void modifyStrategyState(String strategyNum, StrategyState state) {
-        Strategy.modifyStrategyState(strategyPersistenceService, strategyNum, state);
+    public void modifyStrategyState(String strategyId, StrategyState state) {
+        Strategy.modifyStrategyState(strategyPersistenceService, strategyId, state);
     }
 
     @Override
-    public StrategyDto getStrategyByNum(String strategyNum) {
-        Strategy strategy = Strategy.getStrategyByNum(strategyPersistenceService, strategyNum);
+    public StrategyDto getStrategyById(String strategyId) {
+        Strategy strategy = Strategy.getStrategyById(strategyPersistenceService, strategyId);
         return StrategyDtoAssembler.toDto(strategy);
     }
 

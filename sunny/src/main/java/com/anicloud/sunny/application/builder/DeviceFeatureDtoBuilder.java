@@ -1,12 +1,12 @@
 package com.anicloud.sunny.application.builder;
 
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
+import com.anicloud.sunny.application.dto.device.FeatureArgDto;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 /**
  * Created by zhaoyu on 15-6-18.
@@ -24,6 +24,11 @@ public class DeviceFeatureDtoBuilder {
 
     public DeviceFeatureDtoBuilder setFeatureName(String featureName) {
         this.deviceFeatureDto.featureName = featureName;
+        return this;
+    }
+
+    public DeviceFeatureDtoBuilder setFeatureId(String featureId) {
+        this.deviceFeatureDto.featureId = featureId;
         return this;
     }
 
@@ -45,6 +50,30 @@ public class DeviceFeatureDtoBuilder {
         return this;
     }
 
+    public DeviceFeatureDtoBuilder setFeatureArg(FeatureArgDto featureArgDto) {
+        if (deviceFeatureDto.argDtoList == null)
+            deviceFeatureDto.argDtoList = new ArrayList<>();
+        this.deviceFeatureDto.argDtoList.add(featureArgDto);
+        return this;
+    }
+
+    public DeviceFeatureDtoBuilder setFeatureArg(List<FeatureArgDto> featureArgDtoList) {
+        this.deviceFeatureDto.argDtoList = featureArgDtoList;
+        return this;
+    }
+
+    public DeviceFeatureDtoBuilder setArgFunctionArgMap(Map<String, List<String>> map) {
+        if (this.deviceFeatureDto.featureArgFuncArgMapList == null) {
+            this.deviceFeatureDto.featureArgFuncArgMapList= new ArrayList<>();
+        }
+        this.deviceFeatureDto.featureArgFuncArgMapList.add(map);
+        return this;
+    }
+
+    public DeviceFeatureDtoBuilder setArgFunctionArgMap(List<Map<String, List<String>>> mapList) {
+        this.deviceFeatureDto.featureArgFuncArgMapList = mapList;
+        return this;
+    }
     public DeviceFeatureDto instance() {
         return this.deviceFeatureDto;
     }

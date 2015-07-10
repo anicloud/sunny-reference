@@ -2,6 +2,7 @@ package com.anicloud.sunny.infrastructure.convert;
 
 import com.ani.cel.service.manager.agent.device.model.DeviceSlaveInfoDto;
 import com.ani.cel.service.manager.agent.device.model.FunctionInfoDto;
+import com.anicloud.sunny.application.dto.device.ArgumentDto;
 import com.anicloud.sunny.infrastructure.exception.DeviceTypeCanNotGenerateException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +33,6 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
         funNameSet1.add("getTemperature");
         funNameSet1.add("getHumidity");
         super.deviceTypeGeneratorRule.put(funNameSet1, "Air-Sensor");
-
     }
 
     @Override

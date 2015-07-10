@@ -1,7 +1,9 @@
 package com.anicloud.sunny.infrastructure.convert;
 
 import com.ani.cel.service.manager.agent.device.model.DeviceSlaveInfoDto;
+import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
 import com.ani.cel.service.manager.agent.device.model.FunctionInfoDto;
+import com.anicloud.sunny.application.dto.device.ArgumentDto;
 
 import java.util.List;
 import java.util.Map;

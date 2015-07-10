@@ -12,11 +12,11 @@ import java.util.List;
 public interface DeviceFeaturePersistenceService {
     public DeviceFeatureDao save(DeviceFeatureDao deviceFeatureDao);
     public DeviceFeatureDao modify(DeviceFeatureDao deviceFeatureDao);
-    public void remove(String deviceFeatureNum);
+    public void remove(String deviceFeatureId);
 
     public void batchInsert(List<DeviceFeatureDao> deviceFeatureDaoList);
 
-    public DeviceFeatureDao getDeviceFeatureByNum(String deviceFeatureNum);
+    public DeviceFeatureDao getDeviceFeatureById(String deviceFeatureId);
     public DeviceFeatureDao getDeviceFeatureByName(String deviceFeatureName);
     public List<DeviceFeatureDao> getAllDeviceFeature();
 }

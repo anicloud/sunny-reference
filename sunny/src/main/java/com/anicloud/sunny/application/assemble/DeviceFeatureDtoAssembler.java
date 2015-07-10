@@ -2,6 +2,7 @@ package com.anicloud.sunny.application.assemble;
 
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
+import com.anicloud.sunny.domain.model.device.FeatureArg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,11 @@ public class DeviceFeatureDtoAssembler {
 
         DeviceFeature deviceFeature = new DeviceFeature(
                 deviceFeatureDto.description,
+                deviceFeatureDto.featureArgFuncArgMapList,
+                FeatureArgAssembler.toFeatureArgList(deviceFeatureDto.argDtoList),
                 FeatureFunctionDtoAssembler.toFeatureFunctionList(deviceFeatureDto.featureFunctionDtoList),
-                deviceFeatureDto.featureName,
-                deviceFeatureDto.featureNum
+                deviceFeatureDto.featureId,
+                deviceFeatureDto.featureName
         );
 
         return deviceFeature;
@@ -35,10 +38,12 @@ public class DeviceFeatureDtoAssembler {
         }
 
         DeviceFeatureDto deviceFeatureDto = new DeviceFeatureDto(
+                FeatureArgAssembler.toDtoList(deviceFeature.featureArgList),
                 deviceFeature.description,
+                deviceFeature.featureArgFuncArgMapList,
                 FeatureFunctionDtoAssembler.toDtoList(deviceFeature.featureFunctionList),
-                deviceFeature.featureName,
-                deviceFeature.featureNum
+                deviceFeature.featureId,
+                deviceFeature.featureName
         );
         return deviceFeatureDto;
     }

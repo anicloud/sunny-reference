@@ -22,7 +22,7 @@ public abstract class ApplicationInitService {
     }
 
     protected abstract void initUser(UserDto userDto);
-    protected abstract void initUserDevicesAndDeviceFeatures();
+    protected abstract void initUserDevice();
     protected abstract boolean isUserNotExists(String hashUserId);
 
     public UserDto initApplication(OAuth2AccessToken accessToken) {
@@ -30,9 +30,7 @@ public abstract class ApplicationInitService {
         SysUserDto sysUserDto = userService.getUserInfoByAccessToken(accessToken.getAccessToken());
         if (isUserNotExists(sysUserDto.hashUserId)) {
             this.initUser(UserDtoAssembler.toUser(sysUserDto, accessToken));
-            initUserDevicesAndDeviceFeatures();
         }
-
         return userDto;
     }
 }

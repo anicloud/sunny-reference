@@ -5,6 +5,7 @@ import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.utils.NumGenerate;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceFeaturePersistenceService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,10 @@ public class DeviceFeatureEventHandler implements DeviceFeatureService {
 
     @Override
     public DeviceFeatureDto saveDeviceFeature(DeviceFeatureDto deviceFeatureDto) {
-        deviceFeatureDto.featureNum = NumGenerate.generate();
+        if (StringUtils.isEmpty(deviceFeatureDto.featureId)) {
+            deviceFeatureDto.featureId = NumGenerate.generate();
+        }
+
         DeviceFeature deviceFeature = DeviceFeature.save(deviceFeaturePersistenceService,
                 DeviceFeatureDtoAssembler.toDeviceFeature(deviceFeatureDto));
         return DeviceFeatureDtoAssembler.toDto(deviceFeature);

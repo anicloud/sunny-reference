@@ -32,7 +32,7 @@ public class DeviceFeatureRunLogPersistenceEventHandler implements DeviceFeature
     @Override
     public DeviceFeatureRunLogDao save(DeviceFeatureRunLogDao deviceFeatureRunLogDao) {
         DeviceDao deviceDao = deviceRepository.findByIdentificationCode(deviceFeatureRunLogDao.deviceDao.identificationCode);
-        DeviceFeatureDao deviceFeatureDao = deviceFeatureRepository.findByFeatureNum(deviceFeatureRunLogDao.deviceFeatureDao.featureNum);
+        DeviceFeatureDao deviceFeatureDao = deviceFeatureRepository.findByFeatureId(deviceFeatureRunLogDao.deviceFeatureDao.featureId);
         UserDao userDao = userRepository.findByHashUserId(deviceFeatureRunLogDao.owner.hashUserId);
 
         deviceFeatureRunLogDao.deviceDao = deviceDao;

@@ -10,8 +10,8 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface DeviceFeatureRepository extends CrudRepository<DeviceFeatureDao, Long> {
 
-    @Query(value = "select d from DeviceFeatureDao d where d.featureNum = ?1")
-    public DeviceFeatureDao findByFeatureNum(String featureNum);
+    @Query(value = "select d from DeviceFeatureDao d where d.featureId = ?1")
+    public DeviceFeatureDao findByFeatureId(String featureId);
 
     @Query(value = "select d from DeviceFeatureDao d where d.featureName = ?1")
     public DeviceFeatureDao findByFeatureName(String featureName);

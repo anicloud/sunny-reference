@@ -56,7 +56,6 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     @Resource
     private DeviceAndFeatureRelationService deviceAndFeatureRelationService;
 
-
     private ObjectMapper objectMapper = new ObjectMapper();
     private Collection<DeviceMasterInfoDto> dtoCollection;
 
@@ -67,7 +66,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     @Override
-    protected void initUserDevicesAndDeviceFeatures() {
+    protected void initUserDevice() {
         DeviceService agentDeviceService = new DeviceServiceImpl(AnicelServiceConfig.getInstance());
         dtoCollection =  agentDeviceService.getDeviceMasterInfoList(this.userDto.email, this.accessToken.getAccessToken());
 
@@ -79,12 +78,14 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         List<Map<String, Set<String>>> featureRelation = returnMap.get(RETURN_RELATION_OF_DEVICE_AND_FEATURE);
         List<DeviceAndFeatureRelationDto> relationDtoList = toDeviceAndFeatureRelationDtoList(featureRelation);
 
-        sunnyDeviceService.batchSave(deviceDtoList);
-        deviceFeatureService.batchSaveDeviceFeature(deviceFeatureDtoList);
-        deviceAndFeatureRelationService.batchSave(relationDtoList);
+        //sunnyDeviceService.batchSave(deviceDtoList);
+        //deviceFeatureService.batchSaveDeviceFeature(deviceFeatureDtoList);
+        //deviceAndFeatureRelationService.batchSave(relationDtoList);
 
         LOGGER.info("init user's devices and device feature success.");
         try {
+            String dtoCollectionString = objectMapper.writeValueAsString(dtoCollection);
+            LOGGER.info("dtoCollectionString {}", dtoCollectionString);
             String dtoString = objectMapper.writeValueAsString(deviceDtoList);
             LOGGER.info("deviceDtoList {}", dtoString);
             String result = objectMapper.writeValueAsString(deviceFeatureDtoList);
@@ -143,14 +144,12 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         for (String featureName : featureNameSet) {
             List<FeatureFunctionDto> functionDtoList = new ArrayList<>();
             List<FunctionInfoDto> funcList = deviceFeatureNameMap.get(featureName);
-            int sequenceNum = 0;
             for (FunctionInfoDto infoDto : funcList) {
                 FeatureFunctionDtoBuilder featureFunctionDtoBuilder = new FeatureFunctionDtoBuilder()
                         .setFunctionName(infoDto.name)
                         .setFunctionGroup(infoDto.group.name)
                         .setFunctionType(infoDto.functionType)
-                        .setFunctionArgument(new HashSet<FunctionArgumentDto>(infoDto.inputArguments))
-                        .setSequenceNum(++sequenceNum);
+                        .setFunctionArgument(new HashSet<FunctionArgumentDto>(infoDto.inputArguments));
                 functionDtoList.add(featureFunctionDtoBuilder.instance());
             }
 

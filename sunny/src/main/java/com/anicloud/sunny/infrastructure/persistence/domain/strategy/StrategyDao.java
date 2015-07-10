@@ -15,8 +15,8 @@ import java.util.List;
 public class StrategyDao extends AbstractEntity {
     private static final long serialVersionUID = 6150221948952546939L;
 
-    @Column(name = "strategy_num", nullable = false, unique = true)
-    public String strategyNum;
+    @Column(name = "strategy_id", nullable = false, unique = true)
+    public String strategyId;
     @Column(name = "strategy_name", nullable = false, length = 150)
     public String strategyName;
     @Column(name = "state", nullable = false)
@@ -36,10 +36,10 @@ public class StrategyDao extends AbstractEntity {
     public StrategyDao() {
     }
 
-    public StrategyDao(String strategyNum, String strategyName,
+    public StrategyDao(String strategyId, String strategyName,
                        StrategyState state, String description, UserDao owner,
                        List<DeviceFeatureInstanceDao> deviceFeatureInstanceDaoList) {
-        this.strategyNum = strategyNum;
+        this.strategyId = strategyId;
         this.strategyName = strategyName;
         this.state = state;
         this.description = description;
@@ -55,7 +55,7 @@ public class StrategyDao extends AbstractEntity {
 
         StrategyDao that = (StrategyDao) o;
 
-        if (strategyNum != null ? !strategyNum.equals(that.strategyNum) : that.strategyNum != null) return false;
+        if (strategyId != null ? !strategyId.equals(that.strategyId) : that.strategyId != null) return false;
         return !(strategyName != null ? !strategyName.equals(that.strategyName) : that.strategyName != null);
 
     }
@@ -63,7 +63,7 @@ public class StrategyDao extends AbstractEntity {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (strategyNum != null ? strategyNum.hashCode() : 0);
+        result = 31 * result + (strategyId != null ? strategyId.hashCode() : 0);
         result = 31 * result + (strategyName != null ? strategyName.hashCode() : 0);
         return result;
     }
@@ -71,7 +71,7 @@ public class StrategyDao extends AbstractEntity {
     @Override
     public String toString() {
         return "StrategyDao{" +
-                "strategyNum='" + strategyNum + '\'' +
+                "strategyId='" + strategyId + '\'' +
                 ", strategyName='" + strategyName + '\'' +
                 ", state=" + state +
                 ", description='" + description + '\'' +

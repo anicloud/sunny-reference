@@ -15,23 +15,24 @@ import java.util.Set;
 public class FeatureFunction extends AbstractDomain {
     private static final long serialVersionUID = -3112990501367413230L;
 
+    public String featureFunctionId;
     public String functionGroup;
     public String functionName;
     public FunctionType functionType;
-    public Integer sequenceNum;
     public Set<FunctionArgument> functionArgumentSet;
 
     public FeatureFunction() {
     }
 
-    public FeatureFunction(Set<FunctionArgument> functionArgumentSet,
+    public FeatureFunction(String featureFunctionId,
+                           Set<FunctionArgument> functionArgumentSet,
                            String functionGroup, String functionName,
-                           FunctionType functionType, Integer sequenceNum) {
+                           FunctionType functionType) {
+        this.featureFunctionId = featureFunctionId;
         this.functionArgumentSet = functionArgumentSet;
         this.functionGroup = functionGroup;
         this.functionName = functionName;
         this.functionType = functionType;
-        this.sequenceNum = sequenceNum;
     }
 
     public static FeatureFunction toFeatureFunction(FeatureFunctionDao functionDao) {
@@ -39,11 +40,11 @@ public class FeatureFunction extends AbstractDomain {
             return null;
         }
         FeatureFunction featureFunction = new FeatureFunction(
+                functionDao.featureFunctionId,
                 FunctionArgument.toFunctionArgumentSet(functionDao.functionArgumentDaoSet),
                 functionDao.functionGroup,
                 functionDao.functionName,
-                functionDao.functionType,
-                functionDao.sequenceNum
+                functionDao.functionType
         );
         return featureFunction;
     }
@@ -53,11 +54,11 @@ public class FeatureFunction extends AbstractDomain {
             return null;
         }
         FeatureFunctionDao functionDao = new FeatureFunctionDao(
+                featureFunction.featureFunctionId,
                 FunctionArgument.toDaoSet(featureFunction.functionArgumentSet),
                 featureFunction.functionGroup,
                 featureFunction.functionName,
-                featureFunction.functionType,
-                featureFunction.sequenceNum
+                featureFunction.functionType
         );
         return functionDao;
     }
@@ -73,7 +74,7 @@ public class FeatureFunction extends AbstractDomain {
         return functionList;
     }
 
-    public static List<FeatureFunctionDao> toDaoSet(List<FeatureFunction> functionList) {
+    public static List<FeatureFunctionDao> toDaoList(List<FeatureFunction> functionList) {
         if (functionList == null) {
             return null;
         }
@@ -90,7 +91,6 @@ public class FeatureFunction extends AbstractDomain {
                 "functionGroup='" + functionGroup + '\'' +
                 ", functionName='" + functionName + '\'' +
                 ", functionType=" + functionType +
-                ", sequenceNum=" + sequenceNum +
                 '}';
     }
 }

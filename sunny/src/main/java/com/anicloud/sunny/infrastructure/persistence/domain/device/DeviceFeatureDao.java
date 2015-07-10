@@ -5,6 +5,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,8 +17,8 @@ import java.util.Set;
 public class DeviceFeatureDao extends AbstractEntity {
     private static final long serialVersionUID = 8025939205798572709L;
 
-    @Column(name = "feature_num", nullable = false, unique = true, length = 100)
-    public String featureNum;
+    @Column(name = "feature_Id", nullable = false, unique = true, length = 100)
+    public String featureId;
     @Column(name = "feature_name", nullable = false, unique = true, length = 150)
     public String featureName;
     @Column(name = "description", length = 255)
@@ -25,17 +26,30 @@ public class DeviceFeatureDao extends AbstractEntity {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "device_feature_id", referencedColumnName = "id")
+    public List<FeatureArgDao> featureArgDaoList;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "device_feature_id", referencedColumnName = "id")
     public List<FeatureFunctionDao> featureFunctionDaoList;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "device_feature_id", referencedColumnName = "id")
+    public List<FeatureArgFunctionArgRelationDao> argRelationDaoList;
 
     public DeviceFeatureDao() {
     }
 
-    public DeviceFeatureDao(String description, List<FeatureFunctionDao> featureFunctionDaoList,
-                            String featureName, String featureNum) {
+    public DeviceFeatureDao(String description,
+                            List<FeatureArgDao> featureArgDaoList,
+                            List<FeatureArgFunctionArgRelationDao> argRelationDaoList,
+                            List<FeatureFunctionDao> featureFunctionDaoList,
+                            String featureId, String featureName) {
         this.description = description;
+        this.featureArgDaoList = featureArgDaoList;
+        this.argRelationDaoList = argRelationDaoList;
         this.featureFunctionDaoList = featureFunctionDaoList;
+        this.featureId = featureId;
         this.featureName = featureName;
-        this.featureNum = featureNum;
     }
 
     @Override
@@ -43,21 +57,27 @@ public class DeviceFeatureDao extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         DeviceFeatureDao that = (DeviceFeatureDao) o;
-        return Objects.equals(featureNum, that.featureNum) &&
-                Objects.equals(featureName, that.featureName);
+
+        if (featureId != null ? !featureId.equals(that.featureId) : that.featureId != null) return false;
+        return !(featureName != null ? !featureName.equals(that.featureName) : that.featureName != null);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), featureNum, featureName);
+        int result = super.hashCode();
+        result = 31 * result + (featureId != null ? featureId.hashCode() : 0);
+        result = 31 * result + (featureName != null ? featureName.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
         return "DeviceFeatureDao{" +
                 "description='" + description + '\'' +
-                ", featureNum='" + featureNum + '\'' +
+                ", featureId='" + featureId + '\'' +
                 ", featureName='" + featureName + '\'' +
                 '}';
     }

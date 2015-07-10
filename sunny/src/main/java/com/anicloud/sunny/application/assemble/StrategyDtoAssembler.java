@@ -5,7 +5,6 @@ import com.anicloud.sunny.domain.model.strategy.Strategy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Created by zhaoyu on 15-6-17.
@@ -19,7 +18,7 @@ public class StrategyDtoAssembler {
         }
 
         Strategy strategy = new Strategy(
-                strategyDto.strategyNum,
+                strategyDto.strategyId,
                 strategyDto.strategyName,
                 strategyDto.state,
                 strategyDto.description,
@@ -35,7 +34,7 @@ public class StrategyDtoAssembler {
         }
 
         StrategyDto strategyDto = new StrategyDto(
-                strategy.strategyNum,
+                strategy.strategyId,
                 strategy.strategyName,
                 strategy.state,
                 strategy.description,

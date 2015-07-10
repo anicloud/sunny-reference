@@ -50,7 +50,7 @@ public class StrategyPersistenceEventHandler implements StrategyPersistenceServi
 
     @Override
     public StrategyDao modify(StrategyDao strategyDao) {
-        StrategyDao orgStrategyDao = strategyRepository.findByStrategyNum(strategyDao.strategyNum);
+        StrategyDao orgStrategyDao = strategyRepository.findByStrategyNum(strategyDao.strategyId);
         orgStrategyDao.strategyName = strategyDao.strategyName;
         orgStrategyDao.state = strategyDao.state;
         orgStrategyDao.description = strategyDao.description;
@@ -58,19 +58,19 @@ public class StrategyPersistenceEventHandler implements StrategyPersistenceServi
     }
 
     @Override
-    public void modifyStrategyState(String strategyNum, StrategyState state) {
-        strategyRepository.updateStrategyStateByStrategyNum(strategyNum, state);
+    public void modifyStrategyState(String strategyId, StrategyState state) {
+        strategyRepository.updateStrategyStateByStrategyId(strategyId, state);
     }
 
     @Override
-    public void removeByNum(String strategyNum) {
-        StrategyDao strategyDao = strategyRepository.findByStrategyNum(strategyNum);
+    public void removeById(String strategyId) {
+        StrategyDao strategyDao = strategyRepository.findByStrategyNum(strategyId);
         strategyRepository.delete(strategyDao);
     }
 
     @Override
-    public StrategyDao getStrategyByNum(String strategyNum) {
-        return strategyRepository.findByStrategyNum(strategyNum);
+    public StrategyDao getStrategyById(String strategyId) {
+        return strategyRepository.findByStrategyNum(strategyId);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class StrategyPersistenceEventHandler implements StrategyPersistenceServi
 
     private DeviceFeatureInstanceDao saveFeatureInstance(DeviceFeatureInstanceDao instanceDao) {
         DeviceDao deviceDao = deviceRepository.findByIdentificationCode(instanceDao.deviceDao.identificationCode);
-        DeviceFeatureDao deviceFeatureDao = deviceFeatureRepository.findByFeatureNum(instanceDao.deviceFeatureDao.featureNum);
+        DeviceFeatureDao deviceFeatureDao = deviceFeatureRepository.findByFeatureId(instanceDao.deviceFeatureDao.featureId);
 
         instanceDao.deviceDao = deviceDao;
         instanceDao.deviceFeatureDao = deviceFeatureDao;

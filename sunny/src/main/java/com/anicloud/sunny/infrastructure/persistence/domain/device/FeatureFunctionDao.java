@@ -15,6 +15,8 @@ import java.util.Set;
 public class FeatureFunctionDao extends AbstractEntity {
     private static final long serialVersionUID = -3121941490726390682L;
 
+    @Column(name = "feature_function_id", nullable = false, length = 100)
+    public String featureFunctionId;
     @Column(name = "function_group", nullable = false)
     public String functionGroup;
     @Column(name = "function_name", nullable = false)
@@ -22,8 +24,6 @@ public class FeatureFunctionDao extends AbstractEntity {
     @Column(name = "function_type", nullable = false)
     @Enumerated(EnumType.STRING)
     public FunctionType functionType;
-    @Column(name = "sequence_num", nullable = false)
-    public Integer sequenceNum;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "feature_function_id", referencedColumnName = "id")
@@ -32,14 +32,16 @@ public class FeatureFunctionDao extends AbstractEntity {
     public FeatureFunctionDao() {
     }
 
-    public FeatureFunctionDao(Set<FunctionArgumentDao> functionArgumentDaoSet,
-                              String functionGroup, String functionName,
-                              FunctionType functionType, Integer sequenceNum) {
+    public FeatureFunctionDao(String featureFunctionId,
+                              Set<FunctionArgumentDao> functionArgumentDaoSet,
+                              String functionGroup,
+                              String functionName,
+                              FunctionType functionType) {
+        this.featureFunctionId = featureFunctionId;
         this.functionArgumentDaoSet = functionArgumentDaoSet;
         this.functionGroup = functionGroup;
         this.functionName = functionName;
         this.functionType = functionType;
-        this.sequenceNum = sequenceNum;
     }
 
     @Override
@@ -47,15 +49,24 @@ public class FeatureFunctionDao extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         FeatureFunctionDao that = (FeatureFunctionDao) o;
-        return Objects.equals(functionGroup, that.functionGroup) &&
-                Objects.equals(functionName, that.functionName) &&
-                Objects.equals(sequenceNum, that.sequenceNum);
+
+        if (featureFunctionId != null ? !featureFunctionId.equals(that.featureFunctionId) : that.featureFunctionId != null)
+            return false;
+        if (functionGroup != null ? !functionGroup.equals(that.functionGroup) : that.functionGroup != null)
+            return false;
+        return !(functionName != null ? !functionName.equals(that.functionName) : that.functionName != null);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), functionGroup, functionName, sequenceNum);
+        int result = super.hashCode();
+        result = 31 * result + (featureFunctionId != null ? featureFunctionId.hashCode() : 0);
+        result = 31 * result + (functionGroup != null ? functionGroup.hashCode() : 0);
+        result = 31 * result + (functionName != null ? functionName.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -64,7 +75,6 @@ public class FeatureFunctionDao extends AbstractEntity {
                 "functionGroup='" + functionGroup + '\'' +
                 ", functionName='" + functionName + '\'' +
                 ", functionType=" + functionType +
-                ", sequenceNum=" + sequenceNum +
                 '}';
     }
 }
