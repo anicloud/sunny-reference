@@ -1,6 +1,5 @@
 package com.anicloud.sunny.application.service.strategy;
 
-import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.share.FunctionValueDto;
 import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.FeatureTriggerDto;
@@ -9,7 +8,6 @@ import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.device.DeviceService;
 import com.anicloud.sunny.application.service.user.UserService;
-import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceFeatureDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.TriggerType;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,7 +17,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.omg.CORBA.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -27,10 +24,7 @@ import javax.annotation.Resource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by zhaoyu on 15-6-17.
@@ -70,7 +64,7 @@ public class StrategyServiceHandlerTest {
     @Ignore
     public void testModifyStrategy() throws Exception {
         String strategyNum = "29f008cdc2834560a36e1b9cd9bf5ad8";
-        StrategyDto strategyDto = strategyService.getStrategyByNum(strategyNum);
+        StrategyDto strategyDto = strategyService.getStrategyById(strategyNum);
         strategyDto.strategyName = "strategy001";
         strategyDto.state = StrategyState.SCHEDULING;
 
@@ -91,7 +85,7 @@ public class StrategyServiceHandlerTest {
     @Ignore
     public void testGetStrategyByNum() throws Exception {
         String strategyNum = "29f008cdc2834560a36e1b9cd9bf5ad8";
-        StrategyDto strategyDto = strategyService.getStrategyByNum(strategyNum);
+        StrategyDto strategyDto = strategyService.getStrategyById(strategyNum);
         System.out.println(objectMapper.writeValueAsString(strategyDto));
     }
 

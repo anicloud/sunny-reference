@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,8 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by zhaoyu on 15-6-18.
@@ -70,7 +67,7 @@ public class DeviceFeatureInstanceAssembleServiceHandlerTest {
     private DeviceFeatureInstanceAssembleDto createData() {
         DeviceFeatureInstanceAssembleDto assembleDto = new DeviceFeatureInstanceAssembleDto();
         String strategyNum = "b754a544b41d4a7b813d2002c07bc138";
-        StrategyDto strategyDto = strategyService.getStrategyByNum(strategyNum);
+        StrategyDto strategyDto = strategyService.getStrategyById(strategyNum);
         assembleDto.featureInstanceDto = strategyDto.deviceFeatureInstanceList.get(0);
         assembleDto.assembleInstanceDto = strategyDto.deviceFeatureInstanceList.get(1);
         return assembleDto;

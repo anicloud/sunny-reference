@@ -74,10 +74,10 @@ public class DeviceFeatureServiceHandlerTest {
         System.out.println(objectMapper.writeValueAsString(deviceFeatureDto));
     }
 
-    @Ignore
-    public void testGetAllDeviceFeature() {
+    @Test
+    public void testGetAllDeviceFeature() throws JsonProcessingException {
         List<DeviceFeatureDto> deviceFeatureDtoList = deviceFeatureService.getAllDeviceFeature();
-        Assert.assertEquals(1, deviceFeatureDtoList.size());
+        System.out.println(objectMapper.writeValueAsString(deviceFeatureDtoList));
     }
 
     @After
