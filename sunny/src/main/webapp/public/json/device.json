@@ -1,107 +1,66 @@
 [
   {
-    "deviceName" : "空调",
-    "description" : "conditioner"
+    "id": "12345",
+    "name" : "空调",
+    "description" : "conditioner",
+    "deviceType": "",
+    "deviceGroup": "客厅"
   },
   {
-    "deviceName" : "开关",
-    "description" : "conditioner"
+    "id": "12346",
+    "name" : "热水壶",
+    "description" : "conditioner",
+    "deviceType": "",
+    "deviceGroup": "客厅"
   },
   {
-    "deviceName" : "热水器",
-    "description" : "conditioner"
+    "id": "12347",
+    "name" : "开关",
+    "description" : "conditioner",
+    "deviceType": "",
+    "deviceGroup": "客厅"
   },
   {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
+    "id": "12348",
+    "name" : "空调2",
+    "description" : "conditioner",
+    "deviceType": "",
+    "deviceGroup": "客厅"
   },
   {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
+    "id": "12349",
+    "name" : "收音机",
+    "description" : "conditioner",
+    "deviceType": "",
+    "deviceGroup": "客厅"
   },
   {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
+    "id": "12350",
+    "name" : "热水器",
+    "description" : "conditioner",
+    "deviceType": "",
+    "deviceGroup": "客厅"
   },
   {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
+    "id": "12351",
+    "name" : "空调",
+    "description" : "conditioner",
+    "deviceType": "",
+    "deviceGroup": "客厅"
   },
   {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
+    "id": "12352",
+    "name" : "微波炉",
+    "description" : "conditioner",
+    "deviceType": "",
+    "deviceGroup": "客厅"
   },
   {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
-  },
-  {
-    "deviceName" : "净化器",
-    "description" : "conditioner"
+    "id": "12353",
+    "name" : "客厅开关",
+    "description" : "conditioner",
+    "deviceType": "",
+    "deviceGroup": "客厅"
   }
 ]
 

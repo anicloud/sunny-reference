@@ -1,4 +1,4 @@
-<div id="homePage" ng-controller="HomePageCtrl">
+<div id="homePage" >
     <div class="row">
         <div class="col-xs-12">
             <div class="row" id="device-wrapper">
@@ -8,7 +8,7 @@
                         <div class="device-content">
                             <i class="fa fa-comments fa-2x"></i>
 
-                            <div>{{device.deviceName}}</div>
+                            <div>{{device.name}}</div>
                             <small>{{device.description}}</small>
                         </div>
                     </a>
@@ -24,7 +24,7 @@
         <h4><i class="fa fa-pencil"></i> Strategy</h4>
     </div>
     <!--</div>-->
-    <div>
+    <div ng-model="strategies">
         <div ng-repeat="strategy in strategies">
             <accordion close-others="isCollapsed">
                 <accordion-group is-open="status.open">
@@ -47,17 +47,17 @@
 
                     </accordion-heading>
                     <ul class="timeline" ng-repeat="feature in strategy.featureList track by $index">
-                        <li ng-class="{'timeline-inverted': !(feature.featureNum%2) }">
-                            <div class="timeline-badge" ng-style="setBadgeColor(feature.featureNum, strategy.strategyStage)">
+                        <li ng-class="{'timeline-inverted': ($index%2) }">
+                            <div class="timeline-badge" ng-style="setBadgeColor($index, strategy.strategyStage)">
                                 <i class="fa fa-check"></i>
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h2 class="timeline-title -align-rightright">{{feature.featureName}}</h2>
+                                    <h2 class="timeline-title">{{feature.featureName}}</h2>
                                 </div>
                                 <div class="timeline-body">
                                     <small class="timeline-title">设备：{{feature.device.name}}</small>
-                                    <small class="timeline-title pull-right">{{feature.triggerList[feature.triggerChosen].triggerValue}}min later</small>
+                                    <small class="timeline-title pull-right">{{feature.triggerList[0].triggerValue}}min later</small>
                                 </div>
                             </div>
                         </li>

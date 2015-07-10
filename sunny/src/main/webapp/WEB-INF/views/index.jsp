@@ -59,7 +59,7 @@
     <script src="${pageContext.request.contextPath}/public/src/controller/setting-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/controller/HomePageCtrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/controller/StrategyCtrl.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/controller/ModalCtrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/controller/DeviceCtrl.js" type="text/javascript"></script>
 
     <!-- main -->
     <script src="${pageContext.request.contextPath}/public/src/sunny.js" type="text/javascript"></script>
@@ -102,7 +102,7 @@
           </nav>
         </header>
 
-        <div class="container-fluid" ng-view>
+        <div class="container-fluid" ng-view ng-controller="HomePageCtrl">
         </div>
 
         <div>{{device}}</div>
