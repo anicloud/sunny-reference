@@ -12,11 +12,6 @@ import java.io.Serializable;
 public abstract class AbstractFunctionValue extends AbstractEntity {
     private static final long serialVersionUID = 3665289944779693813L;
 
-    @Column(name = "function_group", nullable = false)
-    public String functionGroup;
-    @Column(name = "function_name", nullable = false)
-    public String functionName;
-
     @Column(name = "arg_name", length = 50)
     public String argName;
     @Column(name = "value", length = 255)
@@ -25,10 +20,7 @@ public abstract class AbstractFunctionValue extends AbstractEntity {
     public AbstractFunctionValue() {
     }
 
-    public AbstractFunctionValue(String functionGroup, String functionName,
-                                 String argName, String value) {
-        this.functionGroup = functionGroup;
-        this.functionName = functionName;
+    public AbstractFunctionValue(String argName, String value) {
         this.argName = argName;
         this.value = value;
     }
@@ -36,10 +28,8 @@ public abstract class AbstractFunctionValue extends AbstractEntity {
     @Override
     public String toString() {
         return "AbstractFunctionValue{" +
-                "value='" + value + '\'' +
-                ", argName='" + argName + '\'' +
-                ", functionName='" + functionName + '\'' +
-                ", functionGroup='" + functionGroup + '\'' +
+                "argName='" + argName + '\'' +
+                ", value='" + value + '\'' +
                 '}';
     }
 }

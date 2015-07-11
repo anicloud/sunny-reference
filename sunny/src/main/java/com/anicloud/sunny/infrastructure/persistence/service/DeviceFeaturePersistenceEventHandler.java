@@ -32,7 +32,7 @@ public class DeviceFeaturePersistenceEventHandler implements DeviceFeaturePersis
     public DeviceFeatureDao save(DeviceFeatureDao deviceFeatureDao) {
         /*Set<FeatureFunctionDao> deviceFeatureDaoSet = deviceFeatureDao.featureFunctionDaoSet;
         for (FeatureFunctionDao featureFunctionDao : deviceFeatureDaoSet) {
-            functionArgumentRepository.save(featureFunctionDao.functionArgumentDaoSet);
+            functionArgumentRepository.save(featureFunctionDao.argumentDaoList);
             featureFunctionRepository.save(featureFunctionDao);
         }*/
         deviceFeatureDao = deviceFeatureRepository.save(deviceFeatureDao);

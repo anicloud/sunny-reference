@@ -14,18 +14,13 @@ import java.util.List;
 public class FunctionValue implements Serializable {
     private static final long serialVersionUID = 2743471870088769938L;
 
-    public String functionGroup;
-    public String functionName;
     public String argName;
     public String value;
 
     public FunctionValue() {
     }
 
-    public FunctionValue(String functionGroup, String functionName,
-                         String argName, String value) {
-        this.functionGroup = functionGroup;
-        this.functionName = functionName;
+    public FunctionValue(String argName, String value) {
         this.argName = argName;
         this.value = value;
     }
@@ -35,8 +30,6 @@ public class FunctionValue implements Serializable {
             return null;
         }
         return new FunctionValue(
-                logFunctionValueDao.functionGroup,
-                logFunctionValueDao.functionName,
                 logFunctionValueDao.argName,
                 logFunctionValueDao.value
         );
@@ -47,8 +40,6 @@ public class FunctionValue implements Serializable {
             return null;
         }
         return new LogFunctionValueDao(
-                functionValue.functionGroup,
-                functionValue.functionName,
                 functionValue.argName,
                 functionValue.value
         );
@@ -73,8 +64,6 @@ public class FunctionValue implements Serializable {
 
     public static FunctionValue toFunctionValue(FeatureInstanceFunctionValueDao valueDao) {
         return new FunctionValue(
-                valueDao.functionGroup,
-                valueDao.functionName,
                 valueDao.argName,
                 valueDao.value
         );
@@ -82,8 +71,6 @@ public class FunctionValue implements Serializable {
 
     public static FeatureInstanceFunctionValueDao toFeatureInstanceFuncValue(FunctionValue functionValue) {
         return new FeatureInstanceFunctionValueDao(
-                functionValue.functionGroup,
-                functionValue.functionName,
                 functionValue.argName,
                 functionValue.value
         );
@@ -113,9 +100,6 @@ public class FunctionValue implements Serializable {
 
         FunctionValue that = (FunctionValue) o;
 
-        if (functionGroup != null ? !functionGroup.equals(that.functionGroup) : that.functionGroup != null)
-            return false;
-        if (functionName != null ? !functionName.equals(that.functionName) : that.functionName != null) return false;
         if (argName != null ? !argName.equals(that.argName) : that.argName != null) return false;
         return !(value != null ? !value.equals(that.value) : that.value != null);
 
@@ -123,9 +107,7 @@ public class FunctionValue implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = functionGroup != null ? functionGroup.hashCode() : 0;
-        result = 31 * result + (functionName != null ? functionName.hashCode() : 0);
-        result = 31 * result + (argName != null ? argName.hashCode() : 0);
+        int result = argName != null ? argName.hashCode() : 0;
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
@@ -133,9 +115,7 @@ public class FunctionValue implements Serializable {
     @Override
     public String toString() {
         return "FunctionValue{" +
-                "functionGroup='" + functionGroup + '\'' +
-                ", functionName='" + functionName + '\'' +
-                ", argName='" + argName + '\'' +
+                "argName='" + argName + '\'' +
                 ", value='" + value + '\'' +
                 '}';
     }

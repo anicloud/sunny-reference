@@ -103,6 +103,7 @@ public class DeviceFeature extends AbstractDomain {
     }
 
     public static List<DeviceFeatureDao> toDaoList(List<DeviceFeature> deviceFeatureList) {
+        if (deviceFeatureList == null) return null;
         List<DeviceFeatureDao> deviceFeatureDaoList =
                 new ArrayList<DeviceFeatureDao>(deviceFeatureList.size());
         for (DeviceFeature deviceFeature : deviceFeatureList) {
@@ -112,6 +113,7 @@ public class DeviceFeature extends AbstractDomain {
     }
 
     public static List<DeviceFeature> toDeviceFeatureList(List<DeviceFeatureDao> deviceFeatureDaoList) {
+        if (deviceFeatureDaoList == null) return null;
         List<DeviceFeature> deviceFeatureList = new ArrayList<>();
         for (DeviceFeatureDao deviceFeatureDao : deviceFeatureDaoList) {
             deviceFeatureList.add(toDeviceFeature(deviceFeatureDao));
@@ -120,6 +122,8 @@ public class DeviceFeature extends AbstractDomain {
     }
 
     public static List<Map<String, List<String>>> toListMap(List<FeatureArgFunctionArgRelationDao> relationDaoList) {
+        if (relationDaoList == null) return null;
+
         List<Map<String, List<String>>> mapList = new ArrayList<>();
         for (FeatureArgFunctionArgRelationDao dao : relationDaoList) {
             Map<String, List<String>> listMap = new HashMap<>();
@@ -137,6 +141,8 @@ public class DeviceFeature extends AbstractDomain {
     }
 
     public static List<FeatureArgFunctionArgRelationDao> toRelationDaoList(List<Map<String, List<String>>> relationMap) {
+        if (relationMap == null) return null;
+
         List<FeatureArgFunctionArgRelationDao> daoList = new ArrayList<>();
         for (Map<String, List<String>> map : relationMap) {
             Set<String> keySet = map.keySet();

@@ -16,8 +16,12 @@ public class LogFunctionValueDao extends AbstractFunctionValue {
         super();
     }
 
-    public LogFunctionValueDao(String functionGroup, String functionName,
-                               String argName, String value) {
-        super(functionGroup, functionName, argName, value);
+    public LogFunctionValueDao(String argName, String value) {
+        super(argName, value);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

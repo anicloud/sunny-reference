@@ -17,13 +17,12 @@ public class FeatureInstanceFunctionValueDao extends AbstractFunctionValue {
         super();
     }
 
-    public FeatureInstanceFunctionValueDao(String functionGroup, String functionName,
-                                           String argName, String value) {
-        super(functionGroup, functionName, argName, value);
+    public FeatureInstanceFunctionValueDao(String argName, String value) {
+        super(argName, value);
     }
 
     @Override
     public String toString() {
-        return "FeatureInstanceFunctionValueDao{" + super.id + "}";
+        return super.toString();
     }
 }

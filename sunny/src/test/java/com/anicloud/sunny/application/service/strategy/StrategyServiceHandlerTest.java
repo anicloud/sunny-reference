@@ -108,12 +108,12 @@ public class StrategyServiceHandlerTest {
 
     private StrategyDto createData() throws JsonProcessingException {
         List<FunctionValueDto> functionValueDtoList = new ArrayList<>();
-        functionValueDtoList.add(new FunctionValueDto("deviceGroup", "setTemperature", "temperature", "25.5"));
-        functionValueDtoList.add(new FunctionValueDto("deviceGroup", "setTemperature", "isopen", "true"));
+        functionValueDtoList.add(new FunctionValueDto("temperature", "25.5"));
+        functionValueDtoList.add(new FunctionValueDto("isopen", "true"));
 
         List<FunctionValueDto> functionValueDtoList1 = new ArrayList<>();
-        functionValueDtoList1.add(new FunctionValueDto("deviceGroup", "setTemperature", "temperature", "30"));
-        functionValueDtoList1.add(new FunctionValueDto("deviceGroup", "setTemperature", "isopen", "false"));
+        functionValueDtoList1.add(new FunctionValueDto("temperature", "30"));
+        functionValueDtoList1.add(new FunctionValueDto("isopen", "false"));
 
 
         List<FeatureTriggerDto> triggerDtoList = new ArrayList<>();
@@ -121,13 +121,13 @@ public class StrategyServiceHandlerTest {
 
         DeviceFeatureInstanceDto instanceDto = new DeviceFeatureInstanceDto();
         instanceDto.deviceDto = deviceService.getDeviceByIdentificationCode("111222asdf|1212qdasdfasd");
-        instanceDto.deviceFeatureDto = deviceFeatureService.getDeviceFeatureByNum("3aa1831f0325477e988973e50dd74a2d");
+        instanceDto.deviceFeatureDto = deviceFeatureService.getDeviceFeatureById("3aa1831f0325477e988973e50dd74a2d");
         instanceDto.functionValueDtoList = functionValueDtoList;
         instanceDto.triggerDtoList = triggerDtoList;
 
         DeviceFeatureInstanceDto instanceDto1 = new DeviceFeatureInstanceDto();
         instanceDto1.deviceDto = deviceService.getDeviceByIdentificationCode("111222asdf|1212qdasdfasd");
-        instanceDto1.deviceFeatureDto = deviceFeatureService.getDeviceFeatureByNum("3aa1831f0325477e988973e50dd74a2d");
+        instanceDto1.deviceFeatureDto = deviceFeatureService.getDeviceFeatureById("3aa1831f0325477e988973e50dd74a2d");
         instanceDto1.functionValueDtoList = functionValueDtoList1;
         instanceDto1.triggerDtoList = triggerDtoList;
 

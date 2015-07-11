@@ -4,6 +4,7 @@ import com.ani.cel.service.manager.agent.core.share.FunctionType;
 import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,20 +18,21 @@ public class FeatureFunctionDto implements Serializable {
     public String functionGroup;
     public String functionName;
     public FunctionType functionType;
-    public Set<FunctionArgumentDto> functionArgumentDtoSet;
+    public List<FunctionArgumentDto> inputArgList;
+    public List<FunctionArgumentDto> outputArgList;
 
     public FeatureFunctionDto() {
     }
 
-    public FeatureFunctionDto(String featureFunctionId,
-                              Set<FunctionArgumentDto> functionArgumentDtoSet,
-                              String functionGroup, String functionName,
-                              FunctionType functionType) {
+    public FeatureFunctionDto(String featureFunctionId, String functionGroup, String functionName,
+                              FunctionType functionType, List<FunctionArgumentDto> inputArgList,
+                              List<FunctionArgumentDto> outputArgList) {
         this.featureFunctionId = featureFunctionId;
-        this.functionArgumentDtoSet = functionArgumentDtoSet;
         this.functionGroup = functionGroup;
         this.functionName = functionName;
         this.functionType = functionType;
+        this.inputArgList = inputArgList;
+        this.outputArgList = outputArgList;
     }
 
     @Override

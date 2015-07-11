@@ -46,12 +46,12 @@ public class DeviceFeatureRunLogServiceHandlerTest {
     @Before
     public void before() throws JsonProcessingException {
         DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode("111222asdf|1212qdasdfasd");
-        DeviceFeatureDto featureDto = deviceFeatureService.getDeviceFeatureByNum("3aa1831f0325477e988973e50dd74a2d");
+        DeviceFeatureDto featureDto = deviceFeatureService.getDeviceFeatureById("3aa1831f0325477e988973e50dd74a2d");
         UserDto userDto = userService.getUserByHashUserId("4c781d51d638cf133df74e6176f839e2");
 
         DeviceFeatureRunLogDtoBuilder dtoBuilder = new DeviceFeatureRunLogDtoBuilder();
-        dtoBuilder.setFunctionValue(new FunctionValueDto("deviceGroup", "setTemperature", "temperature", "25.5"));
-        dtoBuilder.setFunctionValue(new FunctionValueDto("deviceGroup", "setTemperature", "isopen", "true"));
+        dtoBuilder.setFunctionValue(new FunctionValueDto("temperature", "25.5"));
+        dtoBuilder.setFunctionValue(new FunctionValueDto("isopen", "true"));
         dtoBuilder.setDevice(deviceDto);
         dtoBuilder.setDeviceFeature(featureDto);
         dtoBuilder.setOwner(userDto);
@@ -99,8 +99,8 @@ public class DeviceFeatureRunLogServiceHandlerTest {
 
     public DeviceFeatureRunLogDto createData()  {
         DeviceFeatureRunLogDtoBuilder dtoBuilder = new DeviceFeatureRunLogDtoBuilder();
-        dtoBuilder.setFunctionValue(new FunctionValueDto("deviceGroup", "setTemperature", "temperature", "25.5"));
-        dtoBuilder.setFunctionValue(new FunctionValueDto("deviceGroup", "setTemperature", "isopen", "true"));
+        dtoBuilder.setFunctionValue(new FunctionValueDto("temperature", "25.5"));
+        dtoBuilder.setFunctionValue(new FunctionValueDto("isopen", "true"));
 
         return dtoBuilder.instance();
     }

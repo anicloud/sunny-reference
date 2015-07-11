@@ -39,7 +39,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
         List<FeatureFunctionDto> featureFunctionDtoList = new ArrayList<>();
 
         // featureFunction
-        Set<FunctionArgumentDto> functionArgumentSet = new HashSet<>();
+        List<FunctionArgumentDto> functionArgumentSet = new ArrayList<>();
         FunctionArgumentDto functionArgumentDto = new FunctionArgumentDto("brightnessLux", DataType.FLOAT);
         functionArgumentSet.add(functionArgumentDto);
         FeatureFunctionDto featureFunctionDto = new FeatureFunctionDtoBuilder()
@@ -47,7 +47,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
                 .setFunctionGroup("Light")
                 .setFunctionName("powerOn")
                 .setFunctionType(FunctionType.SYNC)
-                .setFunctionArgument(functionArgumentSet)
+                .setInputFunctionArgument(functionArgumentSet)
                 .instance();
 
         featureFunctionDtoList.add(featureFunctionDto);
@@ -73,14 +73,14 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
         List<FeatureFunctionDto> featureFunctionDtoList1 = new ArrayList<>();
 
         // featureFunction
-        Set<FunctionArgumentDto> functionArgumentSet1 = new HashSet<>();
+        List<FunctionArgumentDto> functionArgumentSet1 = new ArrayList<>();
 
         FeatureFunctionDto featureFunctionDto1 = new FeatureFunctionDtoBuilder()
                 .setFunctionId(NumGenerate.generate())
                 .setFunctionGroup("Light")
                 .setFunctionName("powerOff")
                 .setFunctionType(FunctionType.SYNC)
-                .setFunctionArgument(functionArgumentSet1)
+                .setInputFunctionArgument(functionArgumentSet1)
                 .instance();
 
         featureFunctionDtoList1.add(featureFunctionDto1);
@@ -105,7 +105,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
         List<FeatureFunctionDto> featureFunctionDtoList2 = new ArrayList<>();
 
         // featureFunction
-        Set<FunctionArgumentDto> functionArgumentSet2 = new HashSet<>();
+        List<FunctionArgumentDto> functionArgumentSet2 = new ArrayList<>();
         FunctionArgumentDto functionArgumentDto2 = new FunctionArgumentDto("degreesC", DataType.FLOAT);
         functionArgumentSet2.add(functionArgumentDto2);
         FeatureFunctionDto featureFunctionDto2 = new FeatureFunctionDtoBuilder()
@@ -113,7 +113,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
                 .setFunctionGroup("Air")
                 .setFunctionName("powerOn")
                 .setFunctionType(FunctionType.SYNC)
-                .setFunctionArgument(functionArgumentSet2)
+                .setInputFunctionArgument(functionArgumentSet2)
                 .instance();
 
         featureFunctionDtoList2.add(featureFunctionDto2);
@@ -140,15 +140,13 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
         List<FeatureFunctionDto> featureFunctionDtoList3 = new ArrayList<>();
 
         // featureFunction
-        Set<FunctionArgumentDto> functionArgumentSet3 = new HashSet<>();
-        FunctionArgumentDto functionArgumentDto3 = new FunctionArgumentDto("degreesC", DataType.FLOAT);
-        functionArgumentSet2.add(functionArgumentDto3);
+        List<FunctionArgumentDto> functionArgumentSet3 = new ArrayList<>();
         FeatureFunctionDto featureFunctionDto3 = new FeatureFunctionDtoBuilder()
                 .setFunctionId(NumGenerate.generate())
                 .setFunctionGroup("Air")
                 .setFunctionName("powerOff")
                 .setFunctionType(FunctionType.SYNC)
-                .setFunctionArgument(functionArgumentSet3)
+                .setInputFunctionArgument(functionArgumentSet3)
                 .instance();
 
         featureFunctionDtoList3.add(featureFunctionDto3);
@@ -173,7 +171,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
         List<FeatureFunctionDto> featureFunctionDtoList4 = new ArrayList<>();
 
         // featureFunction
-        Set<FunctionArgumentDto> functionArgumentSet4 = new HashSet<>();
+        List<FunctionArgumentDto> functionArgumentSet4 = new ArrayList<>();
         FunctionArgumentDto functionArgumentDto4 = new FunctionArgumentDto("degreesC", DataType.FLOAT);
         functionArgumentSet4.add(functionArgumentDto4);
         FeatureFunctionDto featureFunctionDto4 = new FeatureFunctionDtoBuilder()
@@ -181,15 +179,15 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
                 .setFunctionGroup("Air")
                 .setFunctionName("getTemperature")
                 .setFunctionType(FunctionType.SYNC)
-                .setFunctionArgument(functionArgumentSet4)
+                .setOutputFunctionArgument(functionArgumentSet4)
                 .instance();
 
         featureFunctionDtoList4.add(featureFunctionDto4);
 
         List<Map<String, List<String>>> argFunctionArgMapList4 = new ArrayList<>();
         Map<String, List<String>> argFunctionArgMap4 = new HashMap<>();
-        argFunctionArgMap4.put("degreesC", Arrays.asList(featureFunctionDto4.featureFunctionId + ":" + functionArgumentDto4.name));
-        argFunctionArgMapList4.add(argFunctionArgMap4);
+        //argFunctionArgMap4.put("degreesC", Arrays.asList(featureFunctionDto4.featureFunctionId + ":" + functionArgumentDto4.name));
+        //argFunctionArgMapList4.add(argFunctionArgMap4);
 
         DeviceFeatureDtoBuilder dtoBuilder4 = new DeviceFeatureDtoBuilder();
         DeviceFeatureDto deviceFeatureDto4 = dtoBuilder4
@@ -208,7 +206,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
 
         List<FeatureFunctionDto> featureFunctionDtoList5 = new ArrayList<>();
         // featureFunction
-        Set<FunctionArgumentDto> functionArgumentSet5 = new HashSet<>();
+        List<FunctionArgumentDto> functionArgumentSet5 = new ArrayList<>();
         FunctionArgumentDto functionArgumentDto5 = new FunctionArgumentDto("rhp", DataType.FLOAT);
         functionArgumentSet5.add(functionArgumentDto5);
         FeatureFunctionDto featureFunctionDto5 = new FeatureFunctionDtoBuilder()
@@ -216,15 +214,15 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
                 .setFunctionGroup("Air")
                 .setFunctionName("getHumidity")
                 .setFunctionType(FunctionType.SYNC)
-                .setFunctionArgument(functionArgumentSet5)
+                .setOutputFunctionArgument(functionArgumentSet5)
                 .instance();
 
         featureFunctionDtoList5.add(featureFunctionDto5);
 
         List<Map<String, List<String>>> argFunctionArgMapList5 = new ArrayList<>();
         Map<String, List<String>> argFunctionArgMap5 = new HashMap<>();
-        argFunctionArgMap5.put("rhp", Arrays.asList(featureFunctionDto5.featureFunctionId + ":" + functionArgumentDto5.name));
-        argFunctionArgMapList5.add(argFunctionArgMap5);
+        //argFunctionArgMap5.put("rhp", Arrays.asList(featureFunctionDto5.featureFunctionId + ":" + functionArgumentDto5.name));
+        //argFunctionArgMapList5.add(argFunctionArgMap5);
 
         DeviceFeatureDtoBuilder dtoBuilder5 = new DeviceFeatureDtoBuilder();
         DeviceFeatureDto deviceFeatureDto5 = dtoBuilder5

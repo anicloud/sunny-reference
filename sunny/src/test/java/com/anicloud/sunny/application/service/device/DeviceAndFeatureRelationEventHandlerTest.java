@@ -38,10 +38,10 @@ public class DeviceAndFeatureRelationEventHandlerTest {
 
     }
 
-    @Ignore
+    @Test
     public void testFindByDeviceIdentificationCode() throws Exception {
-        String idCode = "6c584262e3281388810df535c76e62aa|23b8dd0b6b5620c9a4ccdcd593c052a9";
-        String identificationCode = "bcedaeca3084961e81de4b77194d6899|005a8802bf0ae58803c581956285b36f";
+        String idCode = "6b4a9f8a32b99651c2f2ae37640457bb|cc86893c7073c459eb64fdcafaaaad1c";
+        String identificationCode = "6b4a9f8a32b99651c2f2ae37640457bb|bc5445f8cdbdcccca02e51b1bc34b8b4";
         DeviceAndFeatureRelationDto relationDto = deviceAndFeatureRelationService.findByDeviceIdentificationCode(identificationCode);
         System.out.println(objectMapper.writeValueAsString(relationDto));
     }

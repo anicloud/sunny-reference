@@ -8,28 +8,29 @@ import com.ani.cel.service.manager.agent.user.service.UserServiceImpl;
 import com.anicloud.sunny.application.assemble.UserDtoAssembler;
 import com.anicloud.sunny.application.dto.user.UserDto;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Created by zhaoyu on 15-6-27.
  */
 public abstract class ApplicationInitService {
-    protected OAuth2AccessToken accessToken;
     protected UserService userService;
-
-    protected UserDto userDto;
 
     public ApplicationInitService() {
         userService = new UserServiceImpl(AnicelServiceConfig.getInstance());
     }
 
-    protected abstract void initUser(UserDto userDto);
-    protected abstract void initUserDevice();
-    protected abstract boolean isUserNotExists(String hashUserId);
+    protected abstract UserDto initUser(UserDto userDto);
+    protected abstract void initUserDeviceAndDeviceFeatureRelation(UserDto userDto, OAuth2AccessToken accessToken);
+    protected abstract UserDto isUserNotExists(String hashUserId);
 
     public UserDto initApplication(OAuth2AccessToken accessToken) {
-        this.accessToken = accessToken;
         SysUserDto sysUserDto = userService.getUserInfoByAccessToken(accessToken.getAccessToken());
-        if (isUserNotExists(sysUserDto.hashUserId)) {
-            this.initUser(UserDtoAssembler.toUser(sysUserDto, accessToken));
+        UserDto userDto = isUserNotExists(sysUserDto.hashUserId);
+        if (userDto == null) {
+            userDto = initUser(UserDtoAssembler.toUser(sysUserDto, accessToken));
+            initUserDeviceAndDeviceFeatureRelation(userDto, accessToken);
         }
         return userDto;
     }

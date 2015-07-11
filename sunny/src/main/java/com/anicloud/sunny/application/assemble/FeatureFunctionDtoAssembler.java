@@ -1,10 +1,11 @@
 package com.anicloud.sunny.application.assemble;
 
+import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 import com.anicloud.sunny.domain.model.device.FeatureFunction;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,12 +19,14 @@ public class FeatureFunctionDtoAssembler {
         if (featureFunctionDto == null) {
             return null;
         }
+
         FeatureFunction featureFunction = new FeatureFunction(
                 featureFunctionDto.featureFunctionId,
-                FunctionArgumentDtoAssembler.toFunctionArgumentSet(featureFunctionDto.functionArgumentDtoSet),
                 featureFunctionDto.functionGroup,
                 featureFunctionDto.functionName,
-                featureFunctionDto.functionType
+                featureFunctionDto.functionType,
+                FunctionArgumentDtoAssembler.toFunctionArgumentList(featureFunctionDto.inputArgList, ArgumentType.INPUT_ARGUMENT),
+                FunctionArgumentDtoAssembler.toFunctionArgumentList(featureFunctionDto.outputArgList, ArgumentType.OUTPUT_ARGUMENT)
         );
         return featureFunction;
     }
@@ -34,10 +37,11 @@ public class FeatureFunctionDtoAssembler {
         }
         FeatureFunctionDto featureFunctionDto = new FeatureFunctionDto(
                 featureFunction.featureFunctionId,
-                FunctionArgumentDtoAssembler.toDtoSet(featureFunction.functionArgumentSet),
                 featureFunction.functionGroup,
                 featureFunction.functionName,
-                featureFunction.functionType
+                featureFunction.functionType,
+                FunctionArgumentDtoAssembler.toDtoList(featureFunction.inputArgList),
+                FunctionArgumentDtoAssembler.toDtoList(featureFunction.outputArgList)
         );
         return featureFunctionDto;
     }

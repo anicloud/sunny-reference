@@ -4,8 +4,7 @@ import com.ani.cel.service.manager.agent.core.share.FunctionType;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
 
 import javax.persistence.*;
-import java.util.Objects;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by zhaoyu on 15-6-8.
@@ -27,18 +26,18 @@ public class FeatureFunctionDao extends AbstractEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "feature_function_id", referencedColumnName = "id")
-    public Set<FunctionArgumentDao> functionArgumentDaoSet;
+    public List<FunctionArgumentDao> argumentDaoList;
 
     public FeatureFunctionDao() {
     }
 
     public FeatureFunctionDao(String featureFunctionId,
-                              Set<FunctionArgumentDao> functionArgumentDaoSet,
+                              List<FunctionArgumentDao> argumentDaoList,
                               String functionGroup,
                               String functionName,
                               FunctionType functionType) {
         this.featureFunctionId = featureFunctionId;
-        this.functionArgumentDaoSet = functionArgumentDaoSet;
+        this.argumentDaoList = argumentDaoList;
         this.functionGroup = functionGroup;
         this.functionName = functionName;
         this.functionType = functionType;

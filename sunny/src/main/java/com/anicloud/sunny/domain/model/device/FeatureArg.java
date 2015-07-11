@@ -3,13 +3,16 @@ package com.anicloud.sunny.domain.model.device;
 import com.ani.cel.service.manager.agent.core.share.DataType;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureArgDao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by zhaoyu on 15-7-10.
  */
-public class FeatureArg extends FunctionArgument {
+public class FeatureArg implements Serializable {
+    public String name;
+    public DataType dataType;
     public String screenName;
 
     public FeatureArg() {
@@ -20,7 +23,8 @@ public class FeatureArg extends FunctionArgument {
     }
 
     public FeatureArg(DataType dataType, String name, String screenName) {
-        super(dataType, name);
+        this.dataType = dataType;
+        this.name = name;
         this.screenName = screenName;
     }
 

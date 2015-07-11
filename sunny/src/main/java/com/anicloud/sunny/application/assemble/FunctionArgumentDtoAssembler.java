@@ -2,8 +2,11 @@ package com.anicloud.sunny.application.assemble;
 
 import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
 import com.anicloud.sunny.domain.model.device.FunctionArgument;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,12 +16,13 @@ public class FunctionArgumentDtoAssembler {
 
     private FunctionArgumentDtoAssembler() {}
 
-    public static FunctionArgument toFunctionArgument(FunctionArgumentDto functionArgumentDto) {
+    public static FunctionArgument toFunctionArgument(FunctionArgumentDto functionArgumentDto, ArgumentType argumentType) {
         if (functionArgumentDto == null) {
             return null;
         }
 
         FunctionArgument argument = new FunctionArgument(
+                argumentType,
                 functionArgumentDto.dataType,
                 functionArgumentDto.name
         );
@@ -37,25 +41,26 @@ public class FunctionArgumentDtoAssembler {
         return argumentDto;
     }
 
-    public static Set<FunctionArgument> toFunctionArgumentSet(Set<FunctionArgumentDto> argumentDtoSet) {
-        if (argumentDtoSet == null) {
+    public static List<FunctionArgument> toFunctionArgumentList(List<FunctionArgumentDto> argumentDtoList,
+                                                                ArgumentType argumentType) {
+        if (argumentDtoList == null) {
             return null;
         }
-        Set<FunctionArgument> argumentSet = new HashSet<FunctionArgument>(argumentDtoSet.size());
-        for (FunctionArgumentDto argumentDto : argumentDtoSet) {
-            argumentSet.add(toFunctionArgument(argumentDto));
+        List<FunctionArgument> argumentList = new ArrayList<>();
+        for (FunctionArgumentDto argumentDto : argumentDtoList) {
+            argumentList.add(toFunctionArgument(argumentDto, argumentType));
         }
-        return argumentSet;
+        return argumentList;
     }
 
-    public static Set<FunctionArgumentDto> toDtoSet(Set<FunctionArgument> argumentSet) {
-        if (argumentSet == null) {
+    public static List<FunctionArgumentDto> toDtoList(List<FunctionArgument> argumentSetList) {
+        if (argumentSetList == null) {
             return null;
         }
-        Set<FunctionArgumentDto> functionArgumentDtoSet = new HashSet<FunctionArgumentDto>(argumentSet.size());
-        for (FunctionArgument functionArgument : argumentSet) {
-            functionArgumentDtoSet.add(toDto(functionArgument));
+        List<FunctionArgumentDto> functionArgumentDtoList = new ArrayList<>();
+        for (FunctionArgument functionArgument : argumentSetList) {
+            functionArgumentDtoList.add(toDto(functionArgument));
         }
-        return functionArgumentDtoSet;
+        return functionArgumentDtoList;
     }
 }

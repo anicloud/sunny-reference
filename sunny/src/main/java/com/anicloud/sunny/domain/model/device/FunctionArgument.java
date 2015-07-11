@@ -3,8 +3,11 @@ package com.anicloud.sunny.domain.model.device;
 import com.ani.cel.service.manager.agent.core.share.DataType;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FunctionArgumentDao;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,11 +18,12 @@ public class FunctionArgument extends AbstractDomain {
 
     public String name;
     public DataType dataType;
-
+    public ArgumentType argumentType;
     public FunctionArgument() {
     }
 
-    public FunctionArgument(DataType dataType, String name) {
+    public FunctionArgument(ArgumentType argumentType, DataType dataType, String name) {
+        this.argumentType = argumentType;
         this.dataType = dataType;
         this.name = name;
     }
@@ -29,6 +33,7 @@ public class FunctionArgument extends AbstractDomain {
             return null;
         }
         FunctionArgument functionArgument = new FunctionArgument(
+                argumentDao.argumentType,
                 argumentDao.dataType,
                 argumentDao.name
         );
@@ -40,34 +45,35 @@ public class FunctionArgument extends AbstractDomain {
             return null;
         }
         FunctionArgumentDao argumentDao = new FunctionArgumentDao(
+                argument.argumentType,
                 argument.dataType,
                 argument.name
         );
         return argumentDao;
     }
 
-    public static Set<FunctionArgument> toFunctionArgumentSet(Set<FunctionArgumentDao> functionArgumentDaoSet) {
-        if (functionArgumentDaoSet == null) {
+    public static List<FunctionArgument> toFunctionArgumentList(List<FunctionArgumentDao> functionArgumentDaoList) {
+        if (functionArgumentDaoList == null) {
             return null;
         }
 
-        Set<FunctionArgument> argumentSet = new HashSet<FunctionArgument>();
-        for (FunctionArgumentDao argumentDao : functionArgumentDaoSet) {
-            argumentSet.add(toFunctionArgument(argumentDao));
+        List<FunctionArgument> argumentList = new ArrayList<>();
+        for (FunctionArgumentDao argumentDao : functionArgumentDaoList) {
+            argumentList.add(toFunctionArgument(argumentDao));
         }
-        return argumentSet;
+        return argumentList;
     }
 
-    public static Set<FunctionArgumentDao> toDaoSet(Set<FunctionArgument> functionArgumentSet) {
-        if (functionArgumentSet == null) {
+    public static List<FunctionArgumentDao> toDaoList(List<FunctionArgument> functionArgumentList) {
+        if (functionArgumentList == null) {
             return null;
         }
 
-        Set<FunctionArgumentDao> argumentDaoSet = new HashSet<FunctionArgumentDao>(functionArgumentSet.size());
-        for (FunctionArgument functionArgument : functionArgumentSet) {
-            argumentDaoSet.add(toDao(functionArgument));
+        List<FunctionArgumentDao> argumentDaoList = new ArrayList<>();
+        for (FunctionArgument functionArgument : functionArgumentList) {
+            argumentDaoList.add(toDao(functionArgument));
         }
-        return argumentDaoSet;
+        return argumentDaoList;
     }
 
     @Override

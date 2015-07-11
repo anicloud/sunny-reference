@@ -4,7 +4,9 @@ import com.ani.cel.service.manager.agent.core.share.FunctionType;
 import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -41,18 +43,33 @@ public class FeatureFunctionDtoBuilder {
         return this;
     }
 
-    public FeatureFunctionDtoBuilder setFunctionArgument(FunctionArgumentDto argumentDto) {
-        if (this.featureFunctionDto.functionArgumentDtoSet == null) {
-            this.featureFunctionDto.functionArgumentDtoSet = new HashSet<>();
+    public FeatureFunctionDtoBuilder setInputFunctionArgument(FunctionArgumentDto argumentDto) {
+        if (this.featureFunctionDto.inputArgList == null) {
+            this.featureFunctionDto.inputArgList = new ArrayList<>();
         }
-        this.featureFunctionDto.functionArgumentDtoSet.add(argumentDto);
+        this.featureFunctionDto.inputArgList.add(argumentDto);
         return this;
     }
 
-    public FeatureFunctionDtoBuilder setFunctionArgument(Set<FunctionArgumentDto> dtoSet) {
-        this.featureFunctionDto.functionArgumentDtoSet = dtoSet;
+    public FeatureFunctionDtoBuilder setInputFunctionArgument(List<FunctionArgumentDto> dtoList) {
+        this.featureFunctionDto.inputArgList = dtoList;
         return this;
     }
+
+    public FeatureFunctionDtoBuilder setOutputFunctionArgument(FunctionArgumentDto argumentDto) {
+        if (this.featureFunctionDto.outputArgList == null) {
+            this.featureFunctionDto.outputArgList = new ArrayList<>();
+        }
+        this.featureFunctionDto.outputArgList.add(argumentDto);
+        return this;
+    }
+
+    public FeatureFunctionDtoBuilder setOutputFunctionArgument(List<FunctionArgumentDto> dtoList) {
+        this.featureFunctionDto.outputArgList = dtoList;
+        return this;
+    }
+
+
 
     public FeatureFunctionDto instance() {
         return this.featureFunctionDto;

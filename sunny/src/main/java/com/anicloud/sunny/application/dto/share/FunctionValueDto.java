@@ -10,18 +10,13 @@ import java.io.Serializable;
 public class FunctionValueDto implements Serializable {
     private static final long serialVersionUID = 4214473683870438852L;
 
-    public String functionGroup;
-    public String functionName;
     public String argName;
     public String value;
 
     public FunctionValueDto() {
     }
 
-    public FunctionValueDto(String functionGroup, String functionName,
-                            String argName, String value) {
-        this.functionGroup = functionGroup;
-        this.functionName = functionName;
+    public FunctionValueDto(String argName, String value) {
         this.argName = argName;
         this.value = value;
     }
@@ -29,9 +24,7 @@ public class FunctionValueDto implements Serializable {
     @Override
     public String toString() {
         return "FunctionValueDto{" +
-                "functionGroup='" + functionGroup + '\'' +
-                ", functionName='" + functionName + '\'' +
-                ", argName='" + argName + '\'' +
+                "argName='" + argName + '\'' +
                 ", value='" + value + '\'' +
                 '}';
     }

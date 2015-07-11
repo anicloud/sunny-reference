@@ -1,6 +1,7 @@
 package com.anicloud.sunny.application.service.device;
 
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
+import com.anicloud.sunny.application.dto.device.DeviceFeatureInfoDto;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 
 import java.util.List;
@@ -26,7 +27,8 @@ public interface DeviceFeatureService {
      * @return
      */
     public DeviceFeatureDto modifyDeviceFeature(DeviceFeatureDto deviceFeatureDto);
-    public void removeDeviceFeature(String deviceFeatureNum);
-    public DeviceFeatureDto getDeviceFeatureByNum(String deviceFeatureNum);
+    public void removeDeviceFeature(String deviceFeatureId);
+    public DeviceFeatureDto getDeviceFeatureById(String deviceFeatureId);
     public List<DeviceFeatureDto> getAllDeviceFeature();
+    public List<DeviceFeatureInfoDto> getAllDeviceFeatureInfo();
 }

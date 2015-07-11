@@ -2,6 +2,7 @@ package com.anicloud.sunny.application.service.device;
 
 import com.anicloud.sunny.application.assemble.DeviceFeatureDtoAssembler;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
+import com.anicloud.sunny.application.dto.device.DeviceFeatureInfoDto;
 import com.anicloud.sunny.application.utils.NumGenerate;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceFeaturePersistenceService;
@@ -51,14 +52,14 @@ public class DeviceFeatureEventHandler implements DeviceFeatureService {
     }
 
     @Override
-    public void removeDeviceFeature(String deviceFeatureNum) {
-        DeviceFeature.remove(deviceFeaturePersistenceService, deviceFeatureNum);
+    public void removeDeviceFeature(String deviceFeatureId) {
+        DeviceFeature.remove(deviceFeaturePersistenceService, deviceFeatureId);
     }
 
     @Override
-    public DeviceFeatureDto getDeviceFeatureByNum(String deviceFeatureNum) {
+    public DeviceFeatureDto getDeviceFeatureById(String deviceFeatureId) {
         DeviceFeature deviceFeature = DeviceFeature
-                .getDeviceFeatureByNum(deviceFeaturePersistenceService, deviceFeatureNum);
+                .getDeviceFeatureByNum(deviceFeaturePersistenceService, deviceFeatureId);
 
         return DeviceFeatureDtoAssembler.toDto(deviceFeature);
     }
@@ -67,5 +68,11 @@ public class DeviceFeatureEventHandler implements DeviceFeatureService {
     public List<DeviceFeatureDto> getAllDeviceFeature() {
         List<DeviceFeature> deviceFeatureList = DeviceFeature.getAll(deviceFeaturePersistenceService);
         return DeviceFeatureDtoAssembler.toDtoList(deviceFeatureList);
+    }
+
+    @Override
+    public List<DeviceFeatureInfoDto> getAllDeviceFeatureInfo() {
+        List<DeviceFeature> deviceFeatureList = DeviceFeature.getAll(deviceFeaturePersistenceService);
+        return DeviceFeatureDtoAssembler.toDeviceFeatureInfoDtoList(deviceFeatureList);
     }
 }

@@ -1,6 +1,7 @@
 package com.anicloud.sunny.application.assemble;
 
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
+import com.anicloud.sunny.application.dto.device.DeviceFeatureInfoDto;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.domain.model.device.FeatureArg;
 
@@ -68,5 +69,24 @@ public class DeviceFeatureDtoAssembler {
             deviceFeatureDtoList.add(toDto(deviceFeature));
         }
         return deviceFeatureDtoList;
+    }
+
+    public static DeviceFeatureInfoDto toDeviceFeatureInfoDto(DeviceFeature deviceFeature) {
+        if (deviceFeature == null) return null;
+        return new DeviceFeatureInfoDto(
+                deviceFeature.featureId,
+                deviceFeature.featureName,
+                deviceFeature.description,
+                FeatureArgAssembler.toDtoList(deviceFeature.featureArgList)
+        );
+    }
+
+    public static List<DeviceFeatureInfoDto> toDeviceFeatureInfoDtoList(List<DeviceFeature> deviceFeatureList) {
+        if (deviceFeatureList == null) return null;
+        List<DeviceFeatureInfoDto> infoDtoList = new ArrayList<>();
+        for (DeviceFeature deviceFeature : deviceFeatureList) {
+            infoDtoList.add(toDeviceFeatureInfoDto(deviceFeature));
+        }
+        return infoDtoList;
     }
 }

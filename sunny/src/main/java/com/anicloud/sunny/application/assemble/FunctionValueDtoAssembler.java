@@ -18,8 +18,6 @@ public class FunctionValueDtoAssembler {
         }
 
         FunctionValue functionValue = new FunctionValue(
-                functionValueDto.functionGroup,
-                functionValueDto.functionName,
                 functionValueDto.argName,
                 functionValueDto.value
         );
@@ -32,8 +30,6 @@ public class FunctionValueDtoAssembler {
         }
 
         FunctionValueDto valueDto = new FunctionValueDto(
-                functionValue.functionGroup,
-                functionValue.functionName,
                 functionValue.argName,
                 functionValue.value
         );
