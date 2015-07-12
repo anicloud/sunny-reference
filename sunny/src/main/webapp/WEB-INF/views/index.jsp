@@ -91,8 +91,8 @@
                   </ul>
 
                   <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                      <li class="active"><a href="#/">Dashboard</a></li>
+                    <ul class="nav navbar-nav" id="navbar-top">
+                      <li><a href="#/">Dashboard</a></li>
                       <li><a href="#strategy">Strategy</a></li>
                       <li><a href="#device">Device</a></li>
                     </ul>
@@ -105,10 +105,10 @@
         <div class="container-fluid" ng-view ng-controller="HomePageCtrl">
         </div>
 
-        <div>{{device}}</div>
-        <footer class="navbar-fixed-bottom">
-            <div id="foot"><p>copyright: Anicloud</p></div>
-        </footer>
+        <%--<div>{{device}}</div>--%>
+        <%--<footer class="navbar-fixed-bottom">--%>
+            <%--<div id="foot"><p>copyright: Anicloud</p></div>--%>
+        <%--</footer>--%>
 </body>
 </html>
 

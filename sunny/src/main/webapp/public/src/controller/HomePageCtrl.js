@@ -107,5 +107,32 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http) {
     };
 
 
+    $scope.strategyModal = {
+        "strategyId": "",
+        "strategyName": "",
+        "strategyState": "",
+        "strategyDescription": "",
+        "strategyStage": "",
+        "featureList": []
+    };
+
+
+    $scope.addStrategy = function() {
+        $scope.strategyModal.strategyId = $scope.strategies.length + 1;
+        $scope.strategies.push($scope.jsonClone($scope.strategyModal));
+    };
+
+    $scope.strategyModal.clearAll = function () {
+        $scope.strategyModal.strategyName = "";
+        $scope.strategyModal.strategyDescription = "";
+    };
+
+    $scope.deleteStrategy = function(index) {
+        if (isNaN(index) || index >= $scope.strategies.length || index < 0)
+            return;
+        $scope.strategies.splice(index, 1);
+    }
+
+
 }
 

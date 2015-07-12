@@ -3,13 +3,14 @@
         <div class="col-xs-12">
             <div class="row" id="device-wrapper">
                 <div><h4><i class="fa fa-heart"></i> 设备</h4></div>
-                <div class="device-body">
+                <div class="device-body device-body-homepage">
                     <a class="device-cel" ng-repeat="device in devices">
                         <div class="device-content">
-                            <i class="fa fa-comments fa-2x"></i>
-
-                            <div>{{device.name}}</div>
-                            <small>{{device.description}}</small>
+                            <div><i class="fa fa-comments fa-3x" id="device-icon"></i></div>
+                            <div id="device-description">
+                                {{device.name}}
+                                <div><small>{{device.description}}</small></div>
+                            </div>
                         </div>
                     </a>
                 </div>
@@ -24,7 +25,7 @@
         <h4><i class="fa fa-pencil"></i> Strategy</h4>
     </div>
     <!--</div>-->
-    <div ng-model="strategies">
+    <div ng-model="strategies" class="strategy-body">
         <div ng-repeat="strategy in strategies">
             <accordion close-others="isCollapsed">
                 <accordion-group is-open="status.open">
