@@ -6,7 +6,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http) {
+anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $cookies,StrategyService,DeviceService) {
     $scope.isstart = true;
     $scope.name = "";
     $scope.style = "error";
@@ -17,25 +17,24 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http) {
     $scope.features = [];
     $scope.triggers = [];
 
-
 //read data
-    $http.get("public/json/strategy.json")
-        .success(function (data, status, headers, config) {
-            $scope.strategies = data;
-        });
-    $http.get("public/json/device.json")
-        .success(function (data, status, headers, config) {
-            $scope.devices = data;
-        });
-    $http.get("public/json/feature.json")
-        .success(function (data, status, headers, config) {
-            $scope.features = data;
-        });
-    $http.get("public/json/trigger.json")
-        .success(function (data, status, headers, config) {
-            $scope.triggers = data;
-        });
+    StrategyService.getStrategies(function(data){
+        $scope.strategies = data;
+    });
 
+    DeviceService.getDevices(function(data){
+        $scope.devices = data;
+    });
+
+    $scope.getFeatures=function(deviceId){
+        DeviceService.getDeviceFeatures(function(data){
+            $scope.features = data;
+        },deviceId);
+    };
+
+    DeviceService.getFeatureTrigger(function(data){
+        $scope.triggers = data;
+    });
 
 //    For Dashboard page
     $scope.setLength = function (stage, len) {
@@ -48,27 +47,50 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http) {
 
 //    For Strategy page
 
+    $scope.strategyModal = {
+        "strategyId": "",
+        "strategyName": "",
+        "strategyState": "",
+        "strategyDescription": "",
+        "strategyStage": "",
+        "featureList": []
+    };
+
     $scope.featureModal = {
         "featureId": "",
         "deviceId": "",
         "trigger": {
             "triggerValue": "",
             "triggerType": ""
+        },
+        "function":{
+            "functionValue":"",
+            "functionArg":""
         }
     };
+
+    $scope.deviceModal = {
+        "deviceId": "",
+        "name":"",
+        "deviceType":"",
+        "deviceState":"",
+        "deviceGroup":""
+    }
+
 
     $scope.featureModal.clearAll = function () {
         $scope.featureModal.deviceId = "";
         $scope.featureModal.featureId = "";
         $scope.featureModal.trigger.triggerType = "";
         $scope.featureModal.trigger.triggerValue = "";
+        $scope.featureModal.functionValues = "";
     }; 
 
     $scope.addFeature = function (strategy) {
-        var featureList = $scope.featureModal.getDeviceFeatures();
-        var feature = null;
-        var device = $scope.getDeviceById();
-        var trigger = $scope.featureModal.trigger;
+        var feature = $scope.getFeature();
+        strategy.featureList.push(feature);
+        console.log(strategy);
+/*
         for (var i = 0; i < featureList.length; i++) {
             if (featureList[i].featureId == $scope.featureModal.featureId) {
                 feature = $scope.jsonClone(featureList[i]);
@@ -76,8 +98,23 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http) {
                 feature.triggerList.push($scope.jsonClone(trigger));
                 strategy.featureList.push(feature);
             }
-        }
+        }*/
     };
+
+    $scope.getFeature = function(){
+        for(var i=0;i<$scope.features.length;i++){
+            if($scope.featureModal.featureId == $scope.features[i].featureId){
+                var device = $scope.getDeviceById();
+                return new anicloud.sunny.model.FeatureInstance(
+                    $scope.features[i].featureId,
+                    $scope.features[i].featureName,
+                    device,
+                    [],
+                    {"triggerType":$scope.featureModal.trigger,"value":$scope.featureModal.trigger.triggerValue}
+                );
+            }
+        }
+    }
 
     $scope.deleteFeature = function (index, strategy) {
         var featureList = strategy.featureList;
@@ -85,14 +122,6 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http) {
             return;
         featureList.splice(index, 1);
     }
-
-    $scope.featureModal.getDeviceFeatures = function () {
-        for (var i = 0; i < $scope.features.length; i++) {
-            if ($scope.features[i].deviceId == $scope.featureModal.deviceId) {
-                return $scope.features[i].featureList;
-            }
-        }
-    };
 
     $scope.getDeviceById = function () {
         for (var i = 0; i < $scope.devices.length; i++) {
@@ -105,17 +134,6 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http) {
     $scope.jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
-
-
-    $scope.strategyModal = {
-        "strategyId": "",
-        "strategyName": "",
-        "strategyState": "",
-        "strategyDescription": "",
-        "strategyStage": "",
-        "featureList": []
-    };
-
 
     $scope.addStrategy = function() {
         $scope.strategyModal.strategyId = $scope.strategies.length + 1;

@@ -6,7 +6,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.StrategyCtrl = function ($scope, $http) {
+anicloud.sunny.controller.StrategyCtrl = function ($scope, $http,DeviceService) {
     $scope.isCollapsed = true;
     $scope.strategies = [];
     $scope.devices = [];
@@ -21,18 +21,8 @@ anicloud.sunny.controller.StrategyCtrl = function ($scope, $http) {
         }
     };
 
-    $http.get("public/json/strategy.json")
-        .success(function(data, status, headers, config) {
-            $scope.strategies = data;
-    });
-    $http.get("public/json/device.json")
-        .success(function(data, status, headers, config){
-            $scope.devices = data;
-        });
-    $http.get("public/json/feature.json")
-        .success(function(data, status, headers, config){
-            $scope.features = data;
-        });
+
+
     $http.get("public/json/trigger.json")
         .success(function(data, status, headers, config){
             $scope.triggers = data;
@@ -85,13 +75,13 @@ anicloud.sunny.controller.StrategyCtrl = function ($scope, $http) {
         alert('OK');
     };
 
-    $scope.featureModal.getDeviceFeatures = function() {
+    /*$scope.featureModal.getDeviceFeatures = function() {
         for (var i= 0; i<$scope.features.length; i++) {
             if ($scope.features[i].deviceId == $scope.featureModal.deviceId) {
                 return $scope.features[i].featureList;
             }
         }
-    };
+    };*/
 
 
     //$scope.num = 1;

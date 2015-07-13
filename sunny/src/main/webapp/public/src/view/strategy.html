@@ -37,24 +37,25 @@
                                     <form class="form-horizontal">
                                         <label>选择设备:</label>
                                         <select ng-model="featureModal.deviceId"
-                                                ng-options="device.id as device.name for device in devices">
+                                                ng-options="device.id as device.name for device in devices"
+                                                ng-change="getFeatures(featureModal.deviceId)">
                                         </select>
 
                                         <label>选择任务:</label>
                                         <select ng-model="featureModal.featureId"
-                                                ng-options="feature.featureId as feature.featureName for feature in featureModal.getDeviceFeatures()">
+                                                ng-options="feature.featureId as feature.featureName for feature in features">
                                         </select>
                                         <label>选择执行条件:</label>
                                         <select ng-model="featureModal.trigger.triggerType"
-                                                ng-options="trigger.triggerType as trigger.triggerType for trigger in triggers">
+                                                ng-options="trigger for trigger in triggers">
                                         </select>
 
                                         <div ng-switch on="featureModal.trigger.triggerType">
-                                            <div ng-switch-when="time">
+                                            <div ng-switch-when="TIMER">
                                                 <label>输入时间：</label>
                                                 <input type="text" ng-model="featureModal.trigger.triggerValue">
                                             </div>
-                                            <div ng-switch-when="location">
+                                            <div ng-switch-when="LOCATION">
                                                 <label>输入位置：</label>
                                                 <input type="text">
                                             </div>
