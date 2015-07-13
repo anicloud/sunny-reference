@@ -84,8 +84,8 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
-    public String home(@CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME) String currentUser) {
-        LOGGER.info("welcome to sunny index action {}.", currentUser);
+    public String home() {
+        LOGGER.info("welcome to sunny index action {}.");
         return "index";
     }
 }
