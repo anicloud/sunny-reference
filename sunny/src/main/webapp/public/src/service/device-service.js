@@ -20,10 +20,20 @@ anicloud.sunny.service.DeviceService = function($http,$cookies){
                 console.log('get devices failures');
             })
         },
-        getDeviceFeatures:function(callback,deviceId){
+        getDeviceFeatures:function(callback){
             $http({
                 method:'GET',
-                url: 'features',
+                url: 'features'
+            }).success(function(data){
+                callback(data);
+            }).error(function(data){
+                console.log('get feature failures');
+            })
+        },
+        getDeviceFeatureByID:function(callback,deviceId){
+            $http({
+                method:'GET',
+                url: 'feature',
                 params: {deviceId:deviceId}
             }).success(function(data){
                 callback(data);
@@ -40,17 +50,6 @@ anicloud.sunny.service.DeviceService = function($http,$cookies){
             }).error(function(data){
                 console.log('get feature failures');
             })
-        },
-        getFeatureArgs:function(callback){
-            $http({
-                method:'GET',
-                url: 'featrueArgs'
-            }).success(function(data){
-                callback(data);
-            }).error(function(data){
-                console.log('get feature failures');
-            })
         }
-
     }
 }
