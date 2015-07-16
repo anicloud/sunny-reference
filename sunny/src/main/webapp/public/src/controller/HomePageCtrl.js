@@ -6,7 +6,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $cookies,StrategyService,DeviceService) {
+anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $cookies,MyService,StrategyService,DeviceService) {
     $scope.isstart = true;
     $scope.name = "";
     $scope.style = "error";
@@ -17,6 +17,7 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $c
     $scope.features = [];
     $scope.triggers = [];
 
+
 //read data
     StrategyService.getStrategies(function(data){
         $scope.strategies = data;
@@ -26,11 +27,15 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $c
         $scope.devices = data;
     });
 
-    $scope.getFeatures=function(deviceId){
+   /* $scope.getDeviceFeatures=function(deviceId){
         DeviceService.getDeviceFeatures(function(data){
             $scope.features = data;
         },deviceId);
-    };
+    };*/
+
+    DeviceService.getDeviceFeatures(function(data){
+        $scope.features = data;
+    });
 
     DeviceService.getFeatureTrigger(function(data){
         $scope.triggers = data;

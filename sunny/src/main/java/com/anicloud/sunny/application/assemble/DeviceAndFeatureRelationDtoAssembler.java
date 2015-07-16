@@ -13,6 +13,7 @@ public class DeviceAndFeatureRelationDtoAssembler {
     private DeviceAndFeatureRelationDtoAssembler() {}
 
     public static DeviceAndFeatureRelation toRelation(DeviceAndFeatureRelationDto relationDto) {
+        if (relationDto == null) return null;
         DeviceAndFeatureRelation relation = new DeviceAndFeatureRelation(
                 DeviceDtoAssembler.toDevice(relationDto.deviceDto),
                 DeviceFeatureDtoAssembler.toDeviceFeatureList(relationDto.deviceFeatureDtoList)
@@ -21,6 +22,7 @@ public class DeviceAndFeatureRelationDtoAssembler {
     }
 
     public static DeviceAndFeatureRelationDto toDto(DeviceAndFeatureRelation relation) {
+        if (relation == null) return null;
         DeviceAndFeatureRelationDto relationDto = new DeviceAndFeatureRelationDto(
                 DeviceDtoAssembler.fromDevice(relation.device),
                 DeviceFeatureDtoAssembler.toDtoList(relation.deviceFeatureList)
@@ -29,6 +31,7 @@ public class DeviceAndFeatureRelationDtoAssembler {
     }
 
     public static List<DeviceAndFeatureRelation> toRelationList(List<DeviceAndFeatureRelationDto> relationDtoList) {
+        if (relationDtoList == null) return null;
         List<DeviceAndFeatureRelation> relationList = new ArrayList<>();
         for (DeviceAndFeatureRelationDto relationDto : relationDtoList) {
             relationList.add(toRelation(relationDto));
@@ -37,6 +40,7 @@ public class DeviceAndFeatureRelationDtoAssembler {
     }
 
     public static List<DeviceAndFeatureRelationDto> toDtoList(List<DeviceAndFeatureRelation> relationList) {
+        if (relationList == null) return null;
         List<DeviceAndFeatureRelationDto> relationDtoList = new ArrayList<>();
         for (DeviceAndFeatureRelation relation : relationList) {
             relationDtoList.add(toDto(relation));

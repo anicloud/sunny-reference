@@ -6,6 +6,7 @@ import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceAndFeat
 import com.anicloud.sunny.infrastructure.persistence.repository.device.DeviceFeatureRepository;
 import com.anicloud.sunny.infrastructure.persistence.repository.device.DeviceRepository;
 import com.anicloud.sunny.infrastructure.persistence.repository.device.DeviceAndFeatureRelationRepository;
+import org.apache.commons.collections.IteratorUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -45,6 +46,8 @@ public class DeviceAndFeatureRelationPersistenceEventHandler implements DeviceAn
 
     @Override
     public List<DeviceAndFeatureRelationDao> getAll() {
-        return relationOfDeviceAndFeatureRepository.findAllRelations();
+        Iterable<DeviceAndFeatureRelationDao> iterable = relationOfDeviceAndFeatureRepository.findAll();
+        List<DeviceAndFeatureRelationDao> deviceAndFeatureRelationDaoList = IteratorUtils.toList(iterable.iterator());
+        return deviceAndFeatureRelationDaoList;
     }
 }

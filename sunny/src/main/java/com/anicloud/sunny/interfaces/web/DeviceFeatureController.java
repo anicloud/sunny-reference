@@ -1,15 +1,28 @@
 package com.anicloud.sunny.interfaces.web;
 
+import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
+import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.device.FeatureArgDto;
+import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationService;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
+import com.anicloud.sunny.application.service.device.DeviceService;
+import com.anicloud.sunny.domain.model.device.DeviceFeature;
+import com.anicloud.sunny.interfaces.web.dto.DeviceAndFeatureRelationFromDto;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFeatureFormDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sun.rmi.runtime.Log;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +30,9 @@ import java.util.List;
  */
 @Controller
 public class DeviceFeatureController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeviceFeatureController.class);
+    @Resource
+    private DeviceService deviceService;
     @Resource
     private DeviceFeatureService deviceFeatureService;
     @Resource
@@ -24,7 +40,15 @@ public class DeviceFeatureController {
 
     @RequestMapping(value = "/features",method = RequestMethod.GET)
     @ResponseBody
-    public List<DeviceFeatureFormDto> getDeviceFeature(@RequestParam("deviceId")String deviceId){
+    public List<DeviceAndFeatureRelationFromDto> getDeviceFeatures(HttpServletRequest request){
+        List<DeviceAndFeatureRelationDto> deviceAndFeatures = new ArrayList<>();
+        deviceAndFeatures = deviceAndFeatureRelationService.findAll();
+        return DeviceAndFeatureRelationFromDto.convertToDeviceAndFeatureRelationFroms(deviceAndFeatures);
+    }
+
+    @RequestMapping(value = "/feature",method = RequestMethod.GET)
+    @ResponseBody
+    public List<DeviceFeatureFormDto> getDeviceFeatureById(@RequestParam("deviceId")String deviceId){
         DeviceAndFeatureRelationDto deviceAndFeatureRelationDto = deviceAndFeatureRelationService.findByDeviceIdentificationCode(deviceId);
         return  DeviceFeatureFormDto.convertToDeviceFeatureForms(deviceAndFeatureRelationDto.deviceFeatureDtoList);
     }

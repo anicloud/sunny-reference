@@ -10,6 +10,7 @@ import java.util.List;
  * Created by zhaoyu on 15-6-12.
  */
 public class StrategyDto implements Serializable {
+
     private static final long serialVersionUID = 614957459211270794L;
 
     public String strategyId;

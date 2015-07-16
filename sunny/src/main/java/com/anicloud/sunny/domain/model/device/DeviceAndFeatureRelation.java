@@ -35,7 +35,7 @@ public class DeviceAndFeatureRelation {
 
     public static List<DeviceAndFeatureRelation> findAll(DeviceAndFeatureRelationPersistenceService relationService) {
         List<DeviceAndFeatureRelationDao> daoList = relationService.getAll();
-        return null;
+        return toRelationList(daoList);
     }
 
     public static DeviceAndFeatureRelationDao toDao(DeviceAndFeatureRelation relation) {
