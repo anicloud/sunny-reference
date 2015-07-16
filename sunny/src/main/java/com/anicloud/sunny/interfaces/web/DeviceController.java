@@ -9,6 +9,7 @@ import com.anicloud.sunny.application.service.strategy.TriggerTypeService;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.TriggerType;
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
+import org.omg.CORBA.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,9 @@ public class DeviceController {
         deviceService.removeDevice(deviceDto);
     }
 
+    @RequestMapping(value="/device/{id}",method = RequestMethod.PUT)
+    @ResponseBody
+    public void modifyDevice(@PathVariable("id")String identificationCode,@RequestParam("deviceGroup")String deviceGroup){
 
-
-
+    }
 }

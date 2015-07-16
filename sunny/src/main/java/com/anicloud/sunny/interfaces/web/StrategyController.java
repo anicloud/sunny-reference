@@ -27,7 +27,7 @@ public class StrategyController {
     @Resource
     private StrategyService strategyService;
 
-        @RequestMapping(value = "/strategies",method = RequestMethod.GET)
+    @RequestMapping(value = "/strategies",method = RequestMethod.GET)
     @ResponseBody
     public List<StrategyFormDto> getStrategies(@RequestParam(value = "hashUserId")String hashUserId){
         List<StrategyDto> strategies = strategyService.getStrategyByUser(hashUserId);
@@ -44,14 +44,14 @@ public class StrategyController {
         DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto1 = new DeviceFeatureInstanceFormDto();
 
         deviceFeatureInstanceFormDto1.featureId = "1";
-        deviceFeatureInstanceFormDto1.featureName="µ÷½Ú¿Õµ÷ÎÂ¶È1";
+        deviceFeatureInstanceFormDto1.featureName="è°ƒèŠ‚ç©ºè°ƒæ¸©åº¦1";
 
         DeviceFormDto deviceFormDto = new DeviceFormDto();
         deviceFormDto.id = "12345";
-        deviceFormDto.name="¿Õµ÷";
+        deviceFormDto.name="ç©ºè°ƒ";
         deviceFormDto.deviceState = DeviceState.CONNECTED;
         deviceFormDto.deviceType = "";
-        deviceFormDto.deviceGroup ="¿ÍÌü";
+        deviceFormDto.deviceGroup ="å®¢åŽ…";
 
         deviceFeatureInstanceFormDto1.device = deviceFormDto;
 
