@@ -9,6 +9,7 @@ import com.anicloud.sunny.infrastructure.persistence.service.DeviceFeaturePersis
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,6 +72,7 @@ public class DeviceFeatureEventHandler implements DeviceFeatureService {
     }
 
     @Override
+    @Cacheable(value = "deviceFeatureListCache")
     public List<DeviceFeatureInfoDto> getAllDeviceFeatureInfo() {
         List<DeviceFeature> deviceFeatureList = DeviceFeature.getAll(deviceFeaturePersistenceService);
         return DeviceFeatureDtoAssembler.toDeviceFeatureInfoDtoList(deviceFeatureList);

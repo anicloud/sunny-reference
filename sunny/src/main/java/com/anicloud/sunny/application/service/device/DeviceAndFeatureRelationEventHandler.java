@@ -7,6 +7,7 @@ import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.domain.model.device.DeviceAndFeatureRelation;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceAndFeatureRelationPersistenceService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +50,7 @@ public class DeviceAndFeatureRelationEventHandler implements DeviceAndFeatureRel
     }
 
     @Override
+    @Cacheable(value = "deviceFeatureRelationListCache")
     public List<DeviceAndFeatureRelationDto> findAll() {
         List<DeviceAndFeatureRelation> relationList = DeviceAndFeatureRelation
                 .findAll(deviceAndFeatureRelationPersistenceService);

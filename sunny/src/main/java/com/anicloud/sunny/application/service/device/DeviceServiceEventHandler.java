@@ -10,6 +10,7 @@ import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicSta
 import com.anicloud.sunny.infrastructure.persistence.service.DevicePersistenceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,6 +66,7 @@ public class DeviceServiceEventHandler implements DeviceService {
     }
 
     @Override
+    @Cacheable(value = "userDeviceListCache")
     public List<DeviceDto> getDeviceByUser(UserDto userDto) {
         List<Device> deviceList = Device.getDeviceByUser(devicePersistenceService, UserDtoAssembler.toUser(userDto));
         return DeviceDtoAssembler.fromDeviceList(deviceList);

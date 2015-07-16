@@ -21,7 +21,10 @@
 	<context:component-scan base-package="com.anicloud.sunny.infrastructure.convert" />
 	<!-- 当Spring容器启动完成后执行下面的这个Bean 
     <bean class="cn.bjfu.fesdmp.frame.listener.InstantiationTracingBeanPostProcessor"/>-->
-    
+
+	<!-- cache xml -->
+    <import resource="cache.xml" />
+
      <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
      	<property name="useCodeAsDefaultMessage" value="true" />
     	<property name="basenames" value="classpath:messages/messages"/>
