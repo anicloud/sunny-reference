@@ -42,4 +42,9 @@ public class DeviceAndFeatureRelationPersistenceEventHandler implements DeviceAn
     public DeviceAndFeatureRelationDao getRelationByDeviceIdentificationCode(String identificationCode) {
         return relationOfDeviceAndFeatureRepository.findByDeviceIdentificationCode(identificationCode);
     }
+
+    @Override
+    public List<DeviceAndFeatureRelationDao> getAll() {
+        return relationOfDeviceAndFeatureRepository.findAllRelations();
+    }
 }

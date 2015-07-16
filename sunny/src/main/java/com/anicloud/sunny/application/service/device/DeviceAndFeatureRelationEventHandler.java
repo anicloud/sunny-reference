@@ -47,4 +47,11 @@ public class DeviceAndFeatureRelationEventHandler implements DeviceAndFeatureRel
                 deviceAndFeatureRelationPersistenceService, identificationCode);
         return DeviceAndFeatureRelationDtoAssembler.toDto(relation);
     }
+
+    @Override
+    public List<DeviceAndFeatureRelationDto> findAll() {
+        List<DeviceAndFeatureRelation> relationList = DeviceAndFeatureRelation
+                .findAll(deviceAndFeatureRelationPersistenceService);
+        return DeviceAndFeatureRelationDtoAssembler.toDtoList(relationList);
+    }
 }

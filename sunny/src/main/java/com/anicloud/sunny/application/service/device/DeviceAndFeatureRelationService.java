@@ -14,4 +14,5 @@ public interface DeviceAndFeatureRelationService {
     public DeviceAndFeatureRelationDto save(DeviceAndFeatureRelationDto deviceAndFeatureRelationDto);
     public void batchSave(List<DeviceAndFeatureRelationDto> relationDtoList);
     public DeviceAndFeatureRelationDto findByDeviceIdentificationCode(String identificationCode);
+    public List<DeviceAndFeatureRelationDto> findAll();
 }

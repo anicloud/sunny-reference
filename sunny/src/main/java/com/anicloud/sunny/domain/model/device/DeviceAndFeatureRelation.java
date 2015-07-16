@@ -3,6 +3,7 @@ package com.anicloud.sunny.domain.model.device;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceAndFeatureRelationDao;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceAndFeatureRelationPersistenceService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +33,11 @@ public class DeviceAndFeatureRelation {
         return toRelation(relationDao);
     }
 
+    public static List<DeviceAndFeatureRelation> findAll(DeviceAndFeatureRelationPersistenceService relationService) {
+        List<DeviceAndFeatureRelationDao> daoList = relationService.getAll();
+        return null;
+    }
+
     public static DeviceAndFeatureRelationDao toDao(DeviceAndFeatureRelation relation) {
         if (relation == null) return null;
         DeviceAndFeatureRelationDao relationDao = new DeviceAndFeatureRelationDao(
@@ -48,5 +54,14 @@ public class DeviceAndFeatureRelation {
                 DeviceFeature.toDeviceFeatureList(relationDao.deviceFeatureDaoList)
         );
         return featureRelation;
+    }
+
+    public static List<DeviceAndFeatureRelation> toRelationList(List<DeviceAndFeatureRelationDao> daoList) {
+        if (daoList == null) return null;
+        List<DeviceAndFeatureRelation> relationList = new ArrayList<>();
+        for (DeviceAndFeatureRelationDao deviceAndFeatureRelationDao : daoList) {
+            relationList.add(toRelation(deviceAndFeatureRelationDao));
+        }
+        return relationList;
     }
 }
