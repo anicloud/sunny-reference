@@ -27,7 +27,7 @@ public class StrategyController {
     @Resource
     private StrategyService strategyService;
 
-        @RequestMapping(value = "/strategies",method = RequestMethod.GET)
+    @RequestMapping(value = "/strategies",method = RequestMethod.GET)
     @ResponseBody
     public List<StrategyFormDto> getStrategies(@RequestParam(value = "hashUserId")String hashUserId){
         List<StrategyDto> strategies = strategyService.getStrategyByUser(hashUserId);
