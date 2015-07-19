@@ -12,7 +12,8 @@ public class FunctionInstanceDto {
     public List<ArgumentDto> inputList;
     public List<ArgumentDto> outputList;
 
-    public FunctionInstanceDto(String functionId, String name, String group, List<ArgumentDto> inputList, List<ArgumentDto> outputList) {
+    public FunctionInstanceDto(String functionId, String name, String group,
+                               List<ArgumentDto> inputList, List<ArgumentDto> outputList) {
         this.functionId = functionId;
         this.name = name;
         this.group = group;
