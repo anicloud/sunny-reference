@@ -1,4 +1,4 @@
-/**
+    /**
  * Created by zhaoyu on 15-06-10.
  */
 var anicloud = anicloud || {};
@@ -30,4 +30,5 @@ anicloud.sunny.config.service = {
         }
         $routeProvider.otherwise({redirectTo: '/error'});
     }
+
 }
