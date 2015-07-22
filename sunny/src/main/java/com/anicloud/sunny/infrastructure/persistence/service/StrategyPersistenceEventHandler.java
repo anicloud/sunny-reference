@@ -3,7 +3,6 @@ package com.anicloud.sunny.infrastructure.persistence.service;
 import com.anicloud.sunny.application.utils.NumGenerate;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceFeatureDao;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.DeviceFeatureInstanceDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.StrategyDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
@@ -52,14 +51,8 @@ public class StrategyPersistenceEventHandler implements StrategyPersistenceServi
     public StrategyDao modify(StrategyDao strategyDao) {
         StrategyDao orgStrategyDao = strategyRepository.findByStrategyNum(strategyDao.strategyId);
         orgStrategyDao.strategyName = strategyDao.strategyName;
-        orgStrategyDao.state = strategyDao.state;
         orgStrategyDao.description = strategyDao.description;
         return orgStrategyDao;
-    }
-
-    @Override
-    public void modifyStrategyState(String strategyId, StrategyState state) {
-        strategyRepository.updateStrategyStateByStrategyId(strategyId, state);
     }
 
     @Override
@@ -76,11 +69,6 @@ public class StrategyPersistenceEventHandler implements StrategyPersistenceServi
     @Override
     public List<StrategyDao> getStrategyListByUser(String hashUserId) {
         return strategyRepository.findByUserHashId(hashUserId);
-    }
-
-    @Override
-    public List<StrategyDao> getStrategyByUserAndState(String hashUserId, StrategyState strategyState) {
-        return strategyRepository.findByUserHashIdAndState(hashUserId, strategyState);
     }
 
     private List<DeviceFeatureInstanceDao> batchInsertInstance(List<DeviceFeatureInstanceDao> instanceDaoList) {

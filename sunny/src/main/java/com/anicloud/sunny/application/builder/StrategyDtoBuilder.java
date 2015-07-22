@@ -3,7 +3,6 @@ package com.anicloud.sunny.application.builder;
 import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +23,6 @@ public class StrategyDtoBuilder {
 
     public StrategyDtoBuilder setStrategyName(String strategyName) {
         this.strategyDto.strategyName = strategyName;
-        return this;
-    }
-
-    public StrategyDtoBuilder setStrategyState(StrategyState state) {
-        this.strategyDto.state = state;
         return this;
     }
 

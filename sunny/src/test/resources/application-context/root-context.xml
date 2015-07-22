@@ -15,15 +15,18 @@
     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
     http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.6.xsd ">
 
+	<import resource="classpath:/application-context/persistence/BeansConfig.xml" />
+	<import resource="classpath:/application-context/schedule/schedule-context.xml" />
+	<!-- cache xml -->
+	<import resource="classpath:/application-context/cache/cache.xml" />
+
 	<!-- Root Context: defines shared resources visible to all other web components-->
 	<context:component-scan base-package="com.anicloud.sunny.application.service" />
 	<context:component-scan base-package="com.anicloud.sunny.domain.model" />
 	<context:component-scan base-package="com.anicloud.sunny.infrastructure.convert" />
+	<context:component-scan base-package="com.anicloud.sunny.infrastructure.jms" />
 	<!-- 当Spring容器启动完成后执行下面的这个Bean 
     <bean class="cn.bjfu.fesdmp.frame.listener.InstantiationTracingBeanPostProcessor"/>-->
-
-	<!-- cache xml -->
-    <import resource="cache.xml" />
 
      <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
      	<property name="useCodeAsDefaultMessage" value="true" />

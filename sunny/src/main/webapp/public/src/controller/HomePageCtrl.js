@@ -6,7 +6,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $cookies,MyService,StrategyService,DeviceService) {
+anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $cookies,StrategyService,DeviceService) {
     $scope.isstart = true;
     $scope.name = "";
     $scope.style = "error";

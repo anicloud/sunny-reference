@@ -1,10 +1,25 @@
 package com.anicloud.sunny.application.assemble;
 
+import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
+import com.anicloud.sunny.domain.model.device.DeviceFeature;
+import com.anicloud.sunny.domain.model.device.FeatureFunction;
+import com.anicloud.sunny.domain.model.device.FunctionArgument;
+import com.anicloud.sunny.domain.model.share.FunctionValue;
+import com.anicloud.sunny.domain.model.strategy.DeviceFeatureInstance;
+import com.anicloud.sunny.domain.model.strategy.FeatureTrigger;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.TriggerType;
+import com.anicloud.sunny.schedule.domain.adapter.DtoAdapter;
+import com.anicloud.sunny.schedule.domain.strategy.*;
+import com.anicloud.sunny.schedule.dto.TriggerInstanceDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by zhaoyu on 15-6-17.
@@ -20,11 +35,12 @@ public class StrategyDtoAssembler {
         Strategy strategy = new Strategy(
                 strategyDto.strategyId,
                 strategyDto.strategyName,
-                strategyDto.state,
                 strategyDto.description,
                 UserDtoAssembler.toUser(strategyDto.owner),
                 DeviceFeatureInstanceDtoAssembler.toFeatureInstanceList(strategyDto.deviceFeatureInstanceList)
         );
+        // to instance
+        StrategyInstance instance = toStrategyInstance(strategy);
         return strategy;
     }
 
@@ -36,11 +52,13 @@ public class StrategyDtoAssembler {
         StrategyDto strategyDto = new StrategyDto(
                 strategy.strategyId,
                 strategy.strategyName,
-                strategy.state,
                 strategy.description,
                 UserDtoAssembler.fromUser(strategy.owner),
                 DeviceFeatureInstanceDtoAssembler.toDtoList(strategy.deviceFeatureInstanceList)
         );
+        if (strategy.strategyInstance != null) {
+            strategyDto.strategyInstanceDto = DtoAdapter.toStrategyInstanceDto(strategy.strategyInstance);
+        }
         return strategyDto;
     }
 
@@ -58,5 +76,113 @@ public class StrategyDtoAssembler {
             strategyDtoList.add(toDto(strategy));
         }
         return strategyDtoList;
+    }
+
+    public static StrategyInstance toStrategyInstance(Strategy strategy) {
+
+        List<FeatureInstance> featureInstanceList = new ArrayList<>();
+        for (DeviceFeatureInstance deviceFeatureInstance : strategy.deviceFeatureInstanceList) {
+            DeviceFeature deviceFeature = deviceFeatureInstance.deviceFeature;
+            List<FeatureFunction> featureFunctionList = deviceFeature.featureFunctionList;
+
+            List<FunctionInstance> functionInstanceList = new ArrayList<>();
+            for (FeatureFunction featureFunction : featureFunctionList) {
+                FunctionInstance functionInstance =
+                        toFunctionInstance(deviceFeature, deviceFeatureInstance.functionValueList, featureFunction);
+                functionInstanceList.add(functionInstance);
+            }
+
+            FeatureInstance featureInstance = new FeatureInstance(
+                    deviceFeatureInstance.featureInstanceNum,
+                    FeatureState.NONE,
+                    0,
+                    functionInstanceList,
+                    toTriggerInstanceList(deviceFeatureInstance.triggerList)
+            );
+            featureInstanceList.add(featureInstance);
+        }
+
+        StrategyInstance instance = new StrategyInstance(
+                strategy.strategyId,
+                StrategyState.NONE,
+                0,
+                featureInstanceList,
+                StrategyAction.START,
+                System.currentTimeMillis()
+        );
+        return instance;
+    }
+
+
+    public static FunctionInstance toFunctionInstance(DeviceFeature deviceFeature, List<FunctionValue> valueList, FeatureFunction featureFunction) {
+        List<Argument> inputList = new ArrayList<>();
+        for (FunctionArgument functionArgument : featureFunction.inputArgList) {
+            String value = getArgumentValue(deviceFeature, valueList, featureFunction.featureFunctionId, functionArgument.name);
+            Argument argument = new Argument(
+                    functionArgument.name,
+                    value
+            );
+            inputList.add(argument);
+        }
+
+        FunctionInstance FunctionInstance = new FunctionInstance(
+                featureFunction.featureFunctionId,
+                featureFunction.functionName,
+                featureFunction.functionGroup,
+                inputList,
+                null
+        );
+        return FunctionInstance;
+    }
+
+    public static TriggerInstance toTriggerInstance(FeatureTrigger featureTrigger) {
+        if (featureTrigger == null) return null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        TriggerInstance triggerInstance = null;
+        if (featureTrigger.triggerType == TriggerType.TIMER) {
+            try {
+                triggerInstance = objectMapper.readValue(featureTrigger.value, TriggerInstance.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return triggerInstance;
+    }
+
+    public static List<TriggerInstance> toTriggerInstanceList(List<FeatureTrigger> featureTriggerList) {
+        if (featureTriggerList == null) return null;
+        List<TriggerInstance> triggerInstanceList = new ArrayList<>();
+        for (FeatureTrigger featureTrigger : featureTriggerList) {
+            triggerInstanceList.add(toTriggerInstance(featureTrigger));
+        }
+        return triggerInstanceList;
+    }
+
+    public static String getArgumentValue(DeviceFeature deviceFeature, List<FunctionValue> valueList,  String functionId, String argName) {
+        String argKey = null;
+        String functionArg = functionId + argName;
+
+        List<Map<String, List<String>>> mapList = deviceFeature.featureArgFuncArgMapList;
+        for (Map<String, List<String>> map : mapList) {
+            Set<String> keySet = map.keySet();
+            for (String key : keySet) {
+                List<String> values = map.get(key);
+                for (String value : values) {
+                    if (value.equals(functionArg)) {
+                        argKey = key;
+                        break;
+                    }
+                }
+            }
+        }
+
+        String value = null;
+        for (FunctionValue functionValue : valueList) {
+            if (functionValue.argName.equals(argKey)) {
+                value = functionValue.value;
+                break;
+            }
+        }
+        return value;
     }
 }

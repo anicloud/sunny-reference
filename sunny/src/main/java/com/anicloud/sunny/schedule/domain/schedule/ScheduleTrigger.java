@@ -16,6 +16,9 @@ public class ScheduleTrigger {
     public Integer repeatInterval;
     public Integer repeatCount;
 
+    public ScheduleTrigger() {
+    }
+
     public ScheduleTrigger(String jobName, String jobGroup, String triggerName, String triggerGroup,
                            Date startTime, Integer repeatInterval, Integer repeatCount) {
         this.jobName = jobName;

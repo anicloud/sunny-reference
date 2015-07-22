@@ -15,6 +15,8 @@
     http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.5.xsd">
 
     <context:component-scan base-package="com.anicloud.sunny.infrastructure.persistence.service" />
+    <context:component-scan base-package="com.anicloud.sunny.schedule.persistence.service" />
+
     <!-- SQL Config -->
     <context:property-placeholder location="classpath:properties/jdbc.properties"/>
     <!-- 定义数据源Bean -->
@@ -63,6 +65,7 @@
         <property name="packagesToScan" >
             <list>
                 <value>com.anicloud.sunny.infrastructure.persistence.domain</value>
+                <value>com.anicloud.sunny.schedule.persistence.dao</value>
             </list>
         </property>
         <property name="jpaProperties">
@@ -95,6 +98,7 @@
     <jpa:repositories base-package="com.anicloud.sunny.infrastructure.persistence.repository" entity-manager-factory-ref="entityManagerFactory"
                       transaction-manager-ref="transactionManager" repository-impl-postfix="Impl" >
     </jpa:repositories>
+
     <!--指定实现JPA的适配器-->
     <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
@@ -121,8 +125,9 @@
      -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false" />
 
-    <!-- JSR303 Validator定义 -->
+    <!-- JSR303 Validator
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+    -->
     <!-- 将@Repository 注解的Dao 的异常翻译为Spring 的DataAccessException 异常，否则世界抛出hibernate 的Exception -->
     <bean id="persistenceExceptionTranslationPostProcessor"
           class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />

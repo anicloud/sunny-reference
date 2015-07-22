@@ -2,9 +2,6 @@ package com.anicloud.sunny.interfaces.web.dto;
 
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
-import com.anicloud.sunny.domain.model.strategy.Strategy;
-import com.anicloud.sunny.domain.model.user.User;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +12,6 @@ import java.util.List;
 public class StrategyFormDto {
     public String strategyId;
     public String strategyName;
-    public StrategyState strategyState;
     public String strategyDescription;
     public String strategyStage;
 
@@ -25,7 +21,6 @@ public class StrategyFormDto {
         StrategyFormDto strategyFormDto = new StrategyFormDto();
         strategyFormDto.strategyId = strategyDto.strategyId;
         strategyFormDto.strategyName = strategyDto.strategyName;
-        strategyFormDto.strategyState = strategyDto.state;
         strategyFormDto.strategyDescription = strategyDto.description;
         strategyFormDto.strategyStage = "";
         strategyFormDto.featureList = DeviceFeatureInstanceFormDto.convertToDeviceFeatureInstanceForms(strategyDto.deviceFeatureInstanceList);
@@ -46,7 +41,6 @@ public class StrategyFormDto {
 
         strategyDto.strategyId = strategyFormDto.strategyId;
         strategyDto.strategyName = strategyFormDto.strategyName;
-        strategyDto.state = strategyFormDto.strategyState;
         strategyDto.description = strategyFormDto.strategyDescription;
 
         strategyDto.owner = userDto;

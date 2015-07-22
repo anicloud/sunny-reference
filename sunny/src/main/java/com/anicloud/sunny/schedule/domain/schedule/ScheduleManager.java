@@ -1,9 +1,12 @@
 package com.anicloud.sunny.schedule.domain.schedule;
 
 import org.quartz.*;
-import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.*;
 
@@ -14,14 +17,25 @@ import static org.quartz.TriggerBuilder.newTrigger;
  * Created by huangbin on 7/17/15.
  */
 
-@Component(value = "scheduleManager")
+@Component
 public class ScheduleManager {
-    @Resource
-    private SchedulerFactoryBean schedulerFactoryBean;
+    private final static Logger LOGGER = LoggerFactory.getLogger(ScheduleManager.class);
 
-    private Scheduler scheduler = schedulerFactoryBean.getScheduler();
+    @Autowired
+    private org.springframework.scheduling.quartz.SchedulerFactoryBean schedulerFactoryBean;
+
+    private Scheduler scheduler;
 
     private List<ScheduleJob> jobList = new ArrayList<>();
+
+    public ScheduleManager() {
+    }
+
+    @PostConstruct
+    public void init() {
+        LOGGER.info("ScheduleManager PostConstruct");
+        schedulerFactoryBean.getScheduler();
+    }
 
     public void addJob(ScheduleJob job) {
         try {

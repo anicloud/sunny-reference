@@ -2,9 +2,10 @@ package com.anicloud.sunny.domain.model.strategy;
 
 import com.anicloud.sunny.domain.model.user.User;
 import com.anicloud.sunny.domain.share.AbstractDomain;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.StrategyDao;
 import com.anicloud.sunny.infrastructure.persistence.service.StrategyPersistenceService;
+import com.anicloud.sunny.schedule.domain.strategy.StrategyInstance;
+import com.anicloud.sunny.schedule.dto.StrategyInstanceDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,24 +18,36 @@ public class Strategy extends AbstractDomain {
 
     public String strategyId;
     public String strategyName;
-    public StrategyState state;
     public String description;
 
     public User owner;
     public List<DeviceFeatureInstance> deviceFeatureInstanceList;
 
+    public StrategyInstance strategyInstance;
+
     public Strategy() {
     }
 
-    public Strategy(String strategyId, String strategyName, StrategyState state,
+    public Strategy(String strategyId, String strategyName,
                     String description, User owner,
                     List<DeviceFeatureInstance> deviceFeatureInstanceList) {
         this.strategyId = strategyId;
         this.strategyName = strategyName;
-        this.state = state;
         this.description = description;
         this.owner = owner;
         this.deviceFeatureInstanceList = deviceFeatureInstanceList;
+    }
+
+    public Strategy(String strategyId, String strategyName,
+                    String description, User owner,
+                    List<DeviceFeatureInstance> deviceFeatureInstanceList,
+                    StrategyInstance strategyInstance) {
+        this.strategyId = strategyId;
+        this.strategyName = strategyName;
+        this.description = description;
+        this.owner = owner;
+        this.deviceFeatureInstanceList = deviceFeatureInstanceList;
+        this.strategyInstance = strategyInstance;
     }
 
     public static Strategy save(StrategyPersistenceService persistenceService, Strategy strategy) {
@@ -45,11 +58,6 @@ public class Strategy extends AbstractDomain {
     public static Strategy modify(StrategyPersistenceService persistenceService, Strategy strategy) {
         StrategyDao strategyDao = persistenceService.modify(toDao(strategy));
         return toStrategy(strategyDao);
-    }
-
-    public static void modifyStrategyState(StrategyPersistenceService persistenceService,
-                                           String strategyId, StrategyState state) {
-        persistenceService.modifyStrategyState(strategyId, state);
     }
 
     public static void remove(StrategyPersistenceService persistenceService, String strategyId) {
@@ -66,12 +74,6 @@ public class Strategy extends AbstractDomain {
         return toStrategyList(strategyDaoList);
     }
 
-    public static List<Strategy> getStrategyByUserAndState(
-            StrategyPersistenceService persistenceService, String hashUserId, StrategyState strategyState) {
-        List<StrategyDao> strategyDaoList = persistenceService.getStrategyByUserAndState(hashUserId, strategyState);
-        return toStrategyList(strategyDaoList);
-    }
-
     public static Strategy toStrategy(StrategyDao strategyDao) {
         if (strategyDao == null) {
             return null;
@@ -80,7 +82,6 @@ public class Strategy extends AbstractDomain {
         Strategy strategy = new Strategy(
                 strategyDao.strategyId,
                 strategyDao.strategyName,
-                strategyDao.state,
                 strategyDao.description,
                 User.toUser(strategyDao.owner),
                 DeviceFeatureInstance.toInstanceList(strategyDao.deviceFeatureInstanceDaoList)
@@ -96,7 +97,6 @@ public class Strategy extends AbstractDomain {
         StrategyDao strategyDao = new StrategyDao(
                 strategy.strategyId,
                 strategy.strategyName,
-                strategy.state,
                 strategy.description,
                 User.toDao(strategy.owner),
                 DeviceFeatureInstance.toDaoList(strategy.deviceFeatureInstanceList)
@@ -120,11 +120,14 @@ public class Strategy extends AbstractDomain {
         return strategyDaoList;
     }
 
+    public static StrategyInstanceDto strategyInstanceDto(Strategy strategy) {
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Strategy{" +
                 "description='" + description + '\'' +
-                ", state=" + state +
                 ", strategyName='" + strategyName + '\'' +
                 '}';
     }

@@ -15,7 +15,7 @@
     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd">
 
 	<cache:annotation-driven />
-	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+	<bean id="simpleCacheManager" class="org.springframework.cache.support.SimpleCacheManager">
 		<property name="caches">
 			<set>
 				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
@@ -28,5 +28,15 @@
 					  p:name="deviceFeatureRelationListCache" />
 			</set>
 		</property>
+	</bean>
+
+	<!-- dummy cacheManager  -->
+	<bean id="cacheManager" class="org.springframework.cache.support.CompositeCacheManager">
+		<property name="cacheManagers">
+			<list>
+				<ref bean="simpleCacheManager" />
+			</list>
+		</property>
+		<property name="fallbackToNoOpCache" value="true" />
 	</bean>
 </beans>

@@ -1,11 +1,9 @@
 package com.anicloud.sunny.interfaces.web;
 
 import com.ani.cel.service.manager.agent.core.share.DeviceState;
-import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.strategy.StrategyService;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFeatureInstanceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
@@ -35,7 +33,6 @@ public class StrategyController {
         StrategyFormDto strategyFormDto = new StrategyFormDto();
         strategyFormDto.strategyId  = "1";
         strategyFormDto.strategyName = "strategy1";
-        strategyFormDto.strategyState = StrategyState.RUNNING;
         strategyFormDto.strategyDescription = "";
         strategyFormDto.strategyStage = "2";
 
