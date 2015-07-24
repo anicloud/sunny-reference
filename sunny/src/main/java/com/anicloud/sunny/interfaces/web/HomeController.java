@@ -67,7 +67,6 @@ public class HomeController extends BaseController {
     public String redirect(HttpServletResponse response, @RequestParam String code) throws JsonProcessingException {
         LOGGER.info("code is {}", code);
 
-        AppClientDto clientDto = appService.findByClientName(Constants.SUNNY_APP_REGISTER_NAME);
         AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.build(Constants.appClientDto);
         OAuth2AccessToken oAuth2AccessToken = auth2ClientService.getOAuth2AccessToken(code, authorizationCodeParameter);
 
