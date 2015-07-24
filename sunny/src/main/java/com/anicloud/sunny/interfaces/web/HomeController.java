@@ -54,6 +54,7 @@ public class HomeController extends BaseController {
     public HomeController() {
         this.auth2ClientService = new OAuth2ClientServiceImpl(AnicelServiceConfig.getInstance());
         this.userService = new UserServiceImpl(AnicelServiceConfig.getInstance());
+        Constants.appClientDto = appService.findByClientName(Constants.SUNNY_APP_REGISTER_NAME);
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
@@ -67,7 +68,7 @@ public class HomeController extends BaseController {
         LOGGER.info("code is {}", code);
 
         AppClientDto clientDto = appService.findByClientName(Constants.SUNNY_APP_REGISTER_NAME);
-        AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.build(clientDto);
+        AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.build(Constants.appClientDto);
         OAuth2AccessToken oAuth2AccessToken = auth2ClientService.getOAuth2AccessToken(code, authorizationCodeParameter);
 
         UserDto userDto = initService.initApplication(oAuth2AccessToken);
