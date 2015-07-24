@@ -67,7 +67,24 @@
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="1024000000"></property>
 	</bean>
-	
+
+	<!-- websocket -->
+
+	<bean id="strategyInfoHandler" class="com.anicloud.sunny.interfaces.web.websocket.StrategyInfoHandler"></bean>
+
+	<websocket:handlers>
+		<websocket:mapping path="/socket/strategy" handler="strategyInfoHandler"/>
+		<websocket:handshake-interceptors>
+			<bean class="com.anicloud.sunny.interfaces.web.websocket.StrategyInfoHandshake"/>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+
+	<bean class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
+		<property name="maxTextMessageBufferSize" value="8192" />
+		<property name="maxBinaryMessageBufferSize" value="81921" />
+	</bean>
+
+
 	<!-- 定义异常处理页面  对应view 下面的outException.jsp-->
 	<!--<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">

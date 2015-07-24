@@ -36,6 +36,9 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- websocket.js -->
+    <script src="${pageContext.request.contextPath}/public/lib/websocket/sockjs-0.3.4.min.js"></script>
+
     <!-- angularjs -->
    <%-- <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-route.js"></script>
@@ -56,6 +59,7 @@
     <script src="${pageContext.request.contextPath}/public/src/service/system-service.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/service/strategy-service.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/service/device-service.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/service/websocket-service.js" type="text/javascript"></script>
 
     <!-- controllers -->
     <script src="${pageContext.request.contextPath}/public/src/controller/setting-ctrl.js" type="text/javascript"></script>

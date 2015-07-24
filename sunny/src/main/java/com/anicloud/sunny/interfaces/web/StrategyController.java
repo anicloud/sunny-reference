@@ -71,4 +71,11 @@ public class StrategyController {
         userDto.hashUserId = hashUserId;
         strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto,userDto));
     }
+
+    @RequestMapping(value="/strategy",method = RequestMethod.PUT)
+    @ResponseBody
+    public void updateState(){
+
+    }
+
 }

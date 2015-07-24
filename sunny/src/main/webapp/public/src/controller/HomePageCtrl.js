@@ -6,7 +6,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $cookies,MyService,StrategyService,DeviceService) {
+anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $cookies,WebSocketService,StrategyService,DeviceService) {
     $scope.isstart = true;
     $scope.name = "";
     $scope.style = "error";
@@ -41,6 +41,10 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $c
         $scope.triggers = data;
     });
 
+    if(WebSocketService.opened){
+        //test websocket send message
+        WebSocketService.sendMessage("test front send message to background");
+    }
 //    For Dashboard page
     $scope.setLength = function (stage, len) {
         return {width: (stage / len * 100) + '%'};
