@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.CookieGenerator;
 import org.springframework.web.util.WebUtils;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -51,10 +52,14 @@ public class HomeController extends BaseController {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    @PostConstruct
+    public void init() {
+        Constants.appClientDto = appService.findByClientName(Constants.SUNNY_APP_REGISTER_NAME);
+    }
+
     public HomeController() {
         this.auth2ClientService = new OAuth2ClientServiceImpl(AnicelServiceConfig.getInstance());
         this.userService = new UserServiceImpl(AnicelServiceConfig.getInstance());
-        Constants.appClientDto = appService.findByClientName(Constants.SUNNY_APP_REGISTER_NAME);
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
