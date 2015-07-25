@@ -1,6 +1,5 @@
 package com.anicloud.sunny.schedule.domain.strategy;
 
-import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.schedule.domain.schedule.*;
 
 import java.util.HashSet;
@@ -10,20 +9,22 @@ import java.util.Set;
 /**
  * Created by huangbin on 7/18/15.
  */
-public class StrategyInstance implements Schedulable, ScheduleTaskListener {
+public class StrategyInstance implements Schedulable, ScheduleStateListener {
     public String strategyId;
-    public StrategyState state;
-
+    public ScheduleState state;
     public Integer stage;
     public List<FeatureInstance> featureInstanceList;
 
     public StrategyAction action;
     public Long timeStamp;
 
+    public boolean isScheduled;
+    public ScheduleStateListener listener;
+
     public StrategyInstance() {
     }
 
-    public StrategyInstance(String strategyId, StrategyState state,
+    public StrategyInstance(String strategyId, ScheduleState state,
                             Integer stage, List<FeatureInstance> featureInstanceList,
                             StrategyAction action,
                             Long timeStamp) {
@@ -33,9 +34,10 @@ public class StrategyInstance implements Schedulable, ScheduleTaskListener {
         this.featureInstanceList = featureInstanceList;
         this.action = action;
         this.timeStamp = timeStamp;
+        this.isScheduled = false;
     }
 
-    public void  prepareSchedule(ScheduleManager scheduleManager) {
+    public void  prepareSchedule(ScheduleManager scheduleManager, ScheduleStateListener listener, String accessToken) {
         for (FeatureInstance featureInstance : featureInstanceList) {
             featureInstance.scheduleManager = scheduleManager;
 
@@ -59,20 +61,31 @@ public class StrategyInstance implements Schedulable, ScheduleTaskListener {
                     "",
                     ScheduleJobEntry.class,
                     scheduleTriggerList,
-                    featureInstance);
+                    featureInstance,
+                    featureInstance.isScheduleNow);
 
+            featureInstance.accessToken = accessToken;
             featureInstance.scheduleJob = scheduleJob;
-
             featureInstance.listener = this;
         }
+        this.listener = listener;
+        this.isScheduled = true;
     }
 
     @Override
     public boolean start() {
+        if (!this.isScheduled) {
+            return false;
+        }
         switch (state) {
             case NONE:
-                featureInstanceList.get(stage).start();
-                state = StrategyState.RUNNING;
+                if (stage < featureInstanceList.size()) {
+                    featureInstanceList.get(stage).start();
+                    state = ScheduleState.RUNNING;
+                } else {
+                    state = ScheduleState.DONE;
+                }
+                listener.onScheduleStateChanged(this, state);
                 return true;
             case RUNNING:
                 break;
@@ -88,13 +101,17 @@ public class StrategyInstance implements Schedulable, ScheduleTaskListener {
 
     @Override
     public boolean stop() {
+        if (!this.isScheduled) {
+            return false;
+        }
         switch (state) {
             case NONE:
                 break;
             case RUNNING:
             case SUSPENDED:
                 featureInstanceList.get(stage).stop();
-                state = StrategyState.DONE;
+                state = ScheduleState.DONE;
+                listener.onScheduleStateChanged(this, state);
                 return true;
             case DONE:
                 break;
@@ -106,10 +123,14 @@ public class StrategyInstance implements Schedulable, ScheduleTaskListener {
 
     @Override
     public boolean pause() {
+        if (!this.isScheduled) {
+            return false;
+        }
         switch (state) {
             case NONE:
                 featureInstanceList.get(stage).pause();
-                state = StrategyState.SUSPENDED;
+                state = ScheduleState.SUSPENDED;
+                listener.onScheduleStateChanged(this, state);
                 return true;
             case RUNNING:
                 break;
@@ -125,6 +146,9 @@ public class StrategyInstance implements Schedulable, ScheduleTaskListener {
 
     @Override
     public boolean resume() {
+        if (!this.isScheduled) {
+            return false;
+        }
         switch (state) {
             case NONE:
                 break;
@@ -132,7 +156,8 @@ public class StrategyInstance implements Schedulable, ScheduleTaskListener {
                 break;
             case SUSPENDED:
                 featureInstanceList.get(stage).resume();
-                state = StrategyState.RUNNING;
+                state = ScheduleState.RUNNING;
+                listener.onScheduleStateChanged(this, state);
                 return true;
             case DONE:
                 break;
@@ -142,14 +167,14 @@ public class StrategyInstance implements Schedulable, ScheduleTaskListener {
         return false;
     }
 
-    public void next() {
+    private void next() {
         switch (state) {
             case NONE:
                 break;
             case RUNNING:
 //                add the next job
                 stage += 1;
-                state = StrategyState.NONE;
+                state = ScheduleState.NONE;
                 start();
                 break;
             case SUSPENDED:
@@ -162,7 +187,9 @@ public class StrategyInstance implements Schedulable, ScheduleTaskListener {
     }
 
     @Override
-    public void onTaskDone() {
-        next();
+    public void onScheduleStateChanged(Object src, ScheduleState state) {
+        if (state == ScheduleState.DONE) {
+            next();
+        }
     }
 }

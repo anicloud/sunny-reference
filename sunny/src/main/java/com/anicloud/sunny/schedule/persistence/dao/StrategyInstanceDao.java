@@ -1,7 +1,6 @@
 package com.anicloud.sunny.schedule.persistence.dao;
 
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
-import com.anicloud.sunny.schedule.domain.strategy.StrategyState;
 
 import javax.persistence.*;
 import java.util.List;

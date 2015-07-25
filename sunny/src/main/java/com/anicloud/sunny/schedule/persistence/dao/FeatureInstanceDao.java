@@ -1,7 +1,5 @@
 package com.anicloud.sunny.schedule.persistence.dao;
 
-import com.anicloud.sunny.schedule.domain.strategy.FeatureState;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class FeatureInstanceDao extends AbstractEntity {
     public String featureId;
     @Column(name = "state", nullable = false)
     @Enumerated(EnumType.STRING)
-    public FeatureState state;
+    public ScheduleState state;
     @Column(name = "stage")
     public Integer stage;
 
@@ -29,7 +27,7 @@ public class FeatureInstanceDao extends AbstractEntity {
     public FeatureInstanceDao() {
     }
 
-    public FeatureInstanceDao(String featureId, FeatureState state, Integer stage,
+    public FeatureInstanceDao(String featureId, ScheduleState state, Integer stage,
                               List<FunctionInstanceDao> functionInstanceDaoList, List<TriggerInstanceDao> triggerInstanceDaoList) {
         this.featureId = featureId;
         this.state = state;

@@ -10,27 +10,35 @@ import java.util.List;
  */
 public class FeatureInstance implements ScheduleTask, Schedulable {
     public String featureId;
-    public FeatureState state;
+    public String deviceId;
+    public ScheduleState state;
     public Integer stage;
     public List<FunctionInstance> functionInstanceList;
     public List<TriggerInstance> triggerInstanceList;
+    public boolean isScheduleNow;
 //
+    public String accessToken;
     public ScheduleJob scheduleJob;
     public ScheduleManager scheduleManager;
-    public ScheduleTaskListener listener;
+    public ScheduleStateListener listener;
 
     public static Integer reenter = -1;
 
     public FeatureInstance() {
     }
 
-    public FeatureInstance(String featureId, FeatureState state, Integer stage,
-                           List<FunctionInstance> functionInstanceList, List<TriggerInstance> triggerInstanceList) {
+    public FeatureInstance(String featureId, String deviceId,
+                           ScheduleState state, Integer stage,
+                           List<FunctionInstance> functionInstanceList,
+                           List<TriggerInstance> triggerInstanceList,
+                           boolean isScheduleNow) {
         this.featureId = featureId;
+        this.deviceId = deviceId;
         this.state = state;
         this.stage = stage;
         this.functionInstanceList = functionInstanceList;
         this.triggerInstanceList = triggerInstanceList;
+        this.isScheduleNow = isScheduleNow;
     }
 
     @Override
@@ -44,16 +52,16 @@ public class FeatureInstance implements ScheduleTask, Schedulable {
         }
 
         for (int i= stage; stage < functionInstanceList.size(); i++) {
-            if (state == FeatureState.RUNNING) {
-                functionInstanceList.get(stage).execute();
+            if (state == ScheduleState.RUNNING) {
+                functionInstanceList.get(stage).execute(this.accessToken, this.deviceId);
             } else {
                 break;
             }
         }
 
         if (stage == functionInstanceList.size()) {
-            state = FeatureState.DONE;
-            listener.onTaskDone();
+            state = ScheduleState.DONE;
+            listener.onScheduleStateChanged(this, ScheduleState.DONE);
         }
 
         synchronized (reenter) {
@@ -66,7 +74,8 @@ public class FeatureInstance implements ScheduleTask, Schedulable {
         switch (state) {
             case NONE:
                 scheduleManager.addJob(scheduleJob);
-                state = FeatureState.RUNNING;
+                state = ScheduleState.RUNNING;
+                listener.onScheduleStateChanged(this, state);
                 return true;
             case RUNNING:
                 break;
@@ -88,7 +97,8 @@ public class FeatureInstance implements ScheduleTask, Schedulable {
             case RUNNING:
             case SUSPENDED:
                 scheduleManager.deleteJob(scheduleJob);
-                state = FeatureState.DONE;
+                state = ScheduleState.DONE;
+                listener.onScheduleStateChanged(this, state);
                 return true;
             case DONE:
                 break;
@@ -103,7 +113,8 @@ public class FeatureInstance implements ScheduleTask, Schedulable {
         switch (state) {
             case NONE:
                 scheduleManager.pauseJob(scheduleJob);
-                state = FeatureState.SUSPENDED;
+                state = ScheduleState.SUSPENDED;
+                listener.onScheduleStateChanged(this, state);
                 return true;
             case RUNNING:
                 break;
@@ -126,7 +137,8 @@ public class FeatureInstance implements ScheduleTask, Schedulable {
                 break;
             case SUSPENDED:
                 scheduleManager.resumeJob(scheduleJob);
-                state = FeatureState.RUNNING;
+                state = ScheduleState.RUNNING;
+                listener.onScheduleStateChanged(this, state);
                 return true;
             case DONE:
                 break;

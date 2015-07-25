@@ -1,6 +1,5 @@
 package com.anicloud.sunny.application.assemble;
 
-import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.domain.model.device.FeatureFunction;
@@ -12,7 +11,6 @@ import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.TriggerType;
 import com.anicloud.sunny.schedule.domain.adapter.DtoAdapter;
 import com.anicloud.sunny.schedule.domain.strategy.*;
-import com.anicloud.sunny.schedule.dto.TriggerInstanceDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -94,7 +92,7 @@ public class StrategyDtoAssembler {
 
             FeatureInstance featureInstance = new FeatureInstance(
                     deviceFeatureInstance.featureInstanceNum,
-                    FeatureState.NONE,
+                    ScheduleState.NONE,
                     0,
                     functionInstanceList,
                     toTriggerInstanceList(deviceFeatureInstance.triggerList)

@@ -1,9 +1,7 @@
 package com.anicloud.sunny.schedule.dto;
 
 
-import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
-import com.anicloud.sunny.schedule.domain.strategy.StrategyState;
 
 import java.util.List;
 
