@@ -1,7 +1,7 @@
 package com.anicloud.sunny.application.dto.strategy;
 
 import com.anicloud.sunny.application.dto.user.UserDto;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
+import com.anicloud.sunny.schedule.dto.StrategyInstanceDto;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,24 +15,35 @@ public class StrategyDto implements Serializable {
 
     public String strategyId;
     public String strategyName;
-    public StrategyState state;
     public String description;
 
     public UserDto owner;
     public List<DeviceFeatureInstanceDto> deviceFeatureInstanceList;
 
+    public StrategyInstanceDto strategyInstanceDto;
+
     public StrategyDto() {
     }
 
-    public StrategyDto(String strategyId, String strategyName,
-                       StrategyState state, String description,
+    public StrategyDto(String strategyId, String strategyName, String description,
                        UserDto owner, List<DeviceFeatureInstanceDto> deviceFeatureInstanceList) {
         this.strategyId = strategyId;
         this.strategyName = strategyName;
-        this.state = state;
         this.description = description;
         this.owner = owner;
         this.deviceFeatureInstanceList = deviceFeatureInstanceList;
+    }
+
+    public StrategyDto(String strategyId, String strategyName,
+                       String description, UserDto owner,
+                       List<DeviceFeatureInstanceDto> deviceFeatureInstanceList,
+                       StrategyInstanceDto strategyInstanceDto) {
+        this.strategyId = strategyId;
+        this.strategyName = strategyName;
+        this.description = description;
+        this.owner = owner;
+        this.deviceFeatureInstanceList = deviceFeatureInstanceList;
+        this.strategyInstanceDto = strategyInstanceDto;
     }
 
     @Override
@@ -40,7 +51,6 @@ public class StrategyDto implements Serializable {
         return "StrategyDto{" +
                 "strategyId='" + strategyId + '\'' +
                 ", strategyName='" + strategyName + '\'' +
-                ", state=" + state +
                 ", description='" + description + '\'' +
                 '}';
     }

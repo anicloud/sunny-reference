@@ -1,5 +1,6 @@
 package com.anicloud.sunny.schedule.domain.adapter;
 
+import com.anicloud.sunny.application.assemble.StrategyDtoAssembler;
 import com.anicloud.sunny.schedule.domain.strategy.*;
 import com.anicloud.sunny.schedule.dto.*;
 import com.sun.org.apache.xpath.internal.Arg;
@@ -91,7 +92,8 @@ public class DtoAdapter {
                 strategyInstance.state,
                 strategyInstance.stage,
                 toFeatureInstanceDtoList(strategyInstance.featureInstanceList),
-                strategyInstance.action);
+                strategyInstance.action,
+                strategyInstance.timeStamp);
         return strategyInstanceDto;
     }
 
@@ -174,7 +176,8 @@ public class DtoAdapter {
                 strategyInstanceDto.state,
                 strategyInstanceDto.stage,
                 fromFeatureInstanceDtoList(strategyInstanceDto.featureInstanceDtoList),
-                strategyInstanceDto.action);
+                strategyInstanceDto.action,
+                strategyInstanceDto.timeStamp);
         return strategyInstance;
     }
 

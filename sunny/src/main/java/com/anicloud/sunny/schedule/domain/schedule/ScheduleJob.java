@@ -15,6 +15,9 @@ public class ScheduleJob {
     public Set<ScheduleTrigger> triggers;
     public ScheduleTask task;
 
+    public ScheduleJob() {
+    }
+
     public ScheduleJob(String jobName, String jobGroup, ScheduleState jobState, String description,
                        Class jobClass, Set<ScheduleTrigger> triggers, ScheduleTask task) {
         this.jobName = jobName;

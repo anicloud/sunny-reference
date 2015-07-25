@@ -12,6 +12,9 @@ public class TriggerInstance {
     public Integer repeatInterval;
     public Integer repeatCount;
 
+    public TriggerInstance() {
+    }
+
     public TriggerInstance(Date startTime, Integer repeatInterval, Integer repeatCount) {
         this.startTime = startTime;
         this.repeatInterval = repeatInterval;

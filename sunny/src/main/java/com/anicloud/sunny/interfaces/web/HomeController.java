@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.CookieGenerator;
 import org.springframework.web.util.WebUtils;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -51,6 +52,11 @@ public class HomeController extends BaseController {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    @PostConstruct
+    public void init() {
+        Constants.appClientDto = appService.findByClientName(Constants.SUNNY_APP_REGISTER_NAME);
+    }
+
     public HomeController() {
         this.auth2ClientService = new OAuth2ClientServiceImpl(AnicelServiceConfig.getInstance());
         this.userService = new UserServiceImpl(AnicelServiceConfig.getInstance());
@@ -66,8 +72,7 @@ public class HomeController extends BaseController {
     public String redirect(HttpServletResponse response, @RequestParam String code) throws JsonProcessingException {
         LOGGER.info("code is {}", code);
 
-        AppClientDto clientDto = appService.findByClientName(Constants.SUNNY_APP_REGISTER_NAME);
-        AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.build(clientDto);
+        AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.build(Constants.appClientDto);
         OAuth2AccessToken oAuth2AccessToken = auth2ClientService.getOAuth2AccessToken(code, authorizationCodeParameter);
 
         UserDto userDto = initService.initApplication(oAuth2AccessToken);

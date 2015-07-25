@@ -14,7 +14,7 @@ public abstract class AbstractFunctionValue extends AbstractEntity {
 
     @Column(name = "arg_name", length = 50)
     public String argName;
-    @Column(name = "value", length = 255)
+    @Column(name = "value", length = 200)
     public String value;
 
     public AbstractFunctionValue() {

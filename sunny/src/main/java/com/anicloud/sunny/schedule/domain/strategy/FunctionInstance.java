@@ -16,6 +16,9 @@ public class FunctionInstance {
         return true;
     }
 
+    public FunctionInstance() {
+    }
+
     public FunctionInstance(String functionId, String name, String group, List<Argument> inputList, List<Argument> outputList) {
         this.functionId = functionId;
         this.name = name;

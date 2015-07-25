@@ -57,7 +57,7 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
      * @param hashUserId
      * @param message
      */
-    public void sendMessageToUser(String hashUserId, TextMessage message) {
+    public static void sendMessageToUser(String hashUserId, TextMessage message) {
         WebSocketSession session = sessionMaps.get(hashUserId);
         if (session.isOpen()) {
             try {

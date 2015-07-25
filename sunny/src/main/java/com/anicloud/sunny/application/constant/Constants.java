@@ -1,5 +1,6 @@
 package com.anicloud.sunny.application.constant;
 
+import com.anicloud.sunny.application.dto.app.AppClientDto;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 
 /**
@@ -16,4 +17,6 @@ public class Constants {
 
     public final static String SUNNY_DEVICE_DEFAULT_GROUP = "default";
     public final static DeviceLogicState DEVICE_DEFAULT_LOGIC_STATE = DeviceLogicState.CLOSED;
+
+    public static AppClientDto appClientDto = null;
 }

@@ -22,6 +22,9 @@
     <%--<link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/sb-min2.css" rel="stylesheet">--%>
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/sunny.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/timeline.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/simple-sidebar.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/css-bootstrap-select/bootstrap-select.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/public/lib/font-awesome-4.3.0/css/font-awesome.min.css">
 
 
@@ -35,6 +38,8 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap-select.min.js"></script>
 
     <!-- websocket.js -->
     <script src="${pageContext.request.contextPath}/public/lib/websocket/sockjs-0.3.4.min.js"></script>
@@ -63,9 +68,9 @@
 
     <!-- controllers -->
     <script src="${pageContext.request.contextPath}/public/src/controller/setting-ctrl.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/controller/HomePageCtrl.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/controller/StrategyCtrl.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/controller/DeviceCtrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/controller/home-page-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/controller/strategy-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/controller/device-ctrl.js" type="text/javascript"></script>
 
     <!-- dto -->
     <script src="${pageContext.request.contextPath}/public/src/dto/featureInstance-dto.js" type="text/javascript"></script>
@@ -92,12 +97,12 @@
                       </button>
                   </div>
 
-                  <ul class="nav navbar-sunny navbar-right">
-                      <li><a href="#"><span class="glyphicon glyphicon-plus"></span></a></li>
-                      <li><a href="#"><span class="glyphicon glyphicon-play"></span></a></li>
-                      <li><a href="#"><span class="glyphicon glyphicon-pause"></span></a></li>
-                      <li><a href="#"><span class="glyphicon glyphicon-remove"></span></a></li>
-                  </ul>
+                  <%--<ul class="nav navbar-sunny navbar-right">--%>
+                      <%--<li><a href="#"><span class="glyphicon glyphicon-plus"></span></a></li>--%>
+                      <%--<li><a href="#"><span class="glyphicon glyphicon-play"></span></a></li>--%>
+                      <%--<li><a href="#"><span class="glyphicon glyphicon-pause"></span></a></li>--%>
+                      <%--<li><a href="#"><span class="glyphicon glyphicon-remove"></span></a></li>--%>
+                  <%--</ul>--%>
 
                   <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav" id="navbar-top">
@@ -111,7 +116,7 @@
           </nav>
         </header>
 
-        <div class="container-fluid" ng-view ng-controller="HomePageCtrl">
+        <div class="container-fluid" ng-view>
         </div>
 
         <%--<div>{{device}}</div>--%>

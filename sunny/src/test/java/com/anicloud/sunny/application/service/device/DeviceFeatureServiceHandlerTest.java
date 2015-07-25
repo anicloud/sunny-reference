@@ -26,8 +26,7 @@ import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-        "classpath:spring/rect-persist.xml",
-        "classpath:spring/root-context.xml"
+        "classpath:application-context/root-context.xml"
 })
 public class DeviceFeatureServiceHandlerTest {
 
@@ -75,6 +74,7 @@ public class DeviceFeatureServiceHandlerTest {
     @Test
     public void testGetAllDeviceFeature() throws JsonProcessingException {
         List<DeviceFeatureDto> deviceFeatureDtoList = deviceFeatureService.getAllDeviceFeature();
+        System.out.println(objectMapper.writeValueAsString(deviceFeatureDtoList));
         Map<String, Set<String>> map = getFeatureFunctionMap(deviceFeatureDtoList);
         System.out.println(objectMapper.writeValueAsString(map));
     }

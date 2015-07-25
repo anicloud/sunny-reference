@@ -1,7 +1,6 @@
 package com.anicloud.sunny.infrastructure.persistence.domain.strategy;
 
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 
 import javax.persistence.*;
@@ -19,9 +18,6 @@ public class StrategyDao extends AbstractEntity {
     public String strategyId;
     @Column(name = "strategy_name", nullable = false, length = 150)
     public String strategyName;
-    @Column(name = "state", nullable = false)
-    @Enumerated(value = EnumType.STRING)
-    public StrategyState state;
     @Column(name = "description", length = 255)
     public String description;
 
@@ -37,11 +33,10 @@ public class StrategyDao extends AbstractEntity {
     }
 
     public StrategyDao(String strategyId, String strategyName,
-                       StrategyState state, String description, UserDao owner,
+                       String description, UserDao owner,
                        List<DeviceFeatureInstanceDao> deviceFeatureInstanceDaoList) {
         this.strategyId = strategyId;
         this.strategyName = strategyName;
-        this.state = state;
         this.description = description;
         this.owner = owner;
         this.deviceFeatureInstanceDaoList = deviceFeatureInstanceDaoList;
@@ -73,7 +68,6 @@ public class StrategyDao extends AbstractEntity {
         return "StrategyDao{" +
                 "strategyId='" + strategyId + '\'' +
                 ", strategyName='" + strategyName + '\'' +
-                ", state=" + state +
                 ", description='" + description + '\'' +
                 '}';
     }

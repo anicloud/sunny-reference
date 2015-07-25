@@ -1,8 +1,8 @@
 package com.anicloud.sunny.schedule.domain.strategy;
 
+import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.schedule.domain.schedule.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,15 +18,21 @@ public class StrategyInstance implements Schedulable, ScheduleTaskListener {
     public List<FeatureInstance> featureInstanceList;
 
     public StrategyAction action;
+    public Long timeStamp;
 
+    public StrategyInstance() {
+    }
 
-    public StrategyInstance(String strategyId, StrategyState state, Integer stage,
-                            List<FeatureInstance> featureInstanceList, StrategyAction action) {
+    public StrategyInstance(String strategyId, StrategyState state,
+                            Integer stage, List<FeatureInstance> featureInstanceList,
+                            StrategyAction action,
+                            Long timeStamp) {
         this.strategyId = strategyId;
         this.state = state;
         this.stage = stage;
         this.featureInstanceList = featureInstanceList;
         this.action = action;
+        this.timeStamp = timeStamp;
     }
 
     public void  prepareSchedule(ScheduleManager scheduleManager) {

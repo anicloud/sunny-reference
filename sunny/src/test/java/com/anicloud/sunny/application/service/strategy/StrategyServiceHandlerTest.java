@@ -8,7 +8,6 @@ import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.device.DeviceService;
 import com.anicloud.sunny.application.service.user.UserService;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.TriggerType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,9 +63,8 @@ public class StrategyServiceHandlerTest {
     @Ignore
     public void testModifyStrategy() throws Exception {
         String strategyNum = "29f008cdc2834560a36e1b9cd9bf5ad8";
-        StrategyDto strategyDto = strategyService.getStrategyById(strategyNum);
+        StrategyDto strategyDto = strategyService.getStrategyDtoById(strategyNum);
         strategyDto.strategyName = "strategy001";
-        strategyDto.state = StrategyState.SCHEDULING;
 
         strategyService.modifyStrategy(strategyDto);
     }
@@ -78,14 +76,9 @@ public class StrategyServiceHandlerTest {
     }
 
     @Ignore
-    public void testModifyStrategyState() throws Exception {
-        strategyService.modifyStrategyState("29f008cdc2834560a36e1b9cd9bf5ad8", StrategyState.RUNNING);
-    }
-
-    @Ignore
     public void testGetStrategyByNum() throws Exception {
         String strategyNum = "29f008cdc2834560a36e1b9cd9bf5ad8";
-        StrategyDto strategyDto = strategyService.getStrategyById(strategyNum);
+        StrategyDto strategyDto = strategyService.getStrategyDtoById(strategyNum);
         System.out.println(objectMapper.writeValueAsString(strategyDto));
     }
 
@@ -93,12 +86,6 @@ public class StrategyServiceHandlerTest {
     public void testGetStrategyByUser() throws Exception {
         List<StrategyDto> list = strategyService.getStrategyByUser(HASH_USER_ID);
         System.out.println(objectMapper.writeValueAsString(list));
-    }
-
-    @Ignore
-    public void testGetStrategyByUserAndState() throws Exception {
-        List<StrategyDto> strategyDtoList = strategyService.getStrategyByUserAndState(HASH_USER_ID, StrategyState.RUNNING);
-        System.out.println(objectMapper.writeValueAsString(strategyDtoList));
     }
 
     @After
@@ -133,7 +120,6 @@ public class StrategyServiceHandlerTest {
 
         StrategyDto strategyDto = new StrategyDto();
         strategyDto.strategyName = "strategy001";
-        strategyDto.state = StrategyState.SCHEDULING;
         strategyDto.description = " strategy instance";
         UserDto userDto = userService.getUserByHashUserId(HASH_USER_ID);
 

@@ -67,7 +67,7 @@ public class DeviceFeatureInstanceAssembleServiceHandlerTest {
     private DeviceFeatureInstanceAssembleDto createData() {
         DeviceFeatureInstanceAssembleDto assembleDto = new DeviceFeatureInstanceAssembleDto();
         String strategyNum = "b754a544b41d4a7b813d2002c07bc138";
-        StrategyDto strategyDto = strategyService.getStrategyById(strategyNum);
+        StrategyDto strategyDto = strategyService.getStrategyDtoById(strategyNum);
         assembleDto.featureInstanceDto = strategyDto.deviceFeatureInstanceList.get(0);
         assembleDto.assembleInstanceDto = strategyDto.deviceFeatureInstanceList.get(1);
         return assembleDto;

@@ -6,9 +6,11 @@ anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.service = anicloud.sunny.service || {};
 
 anicloud.sunny.service.WebSocketService=function(){
+    console.log("test");
     var sock  = new WebSocket("ws://localhost:8080/sunny/socket/strategy");
     var opened = false;
     var _this = this;
+
     // Open the connection
     sock.onopen = function() {
         console.log('open');

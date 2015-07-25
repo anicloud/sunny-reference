@@ -1,14 +1,13 @@
 package com.anicloud.sunny.interfaces.web;
 
 import com.ani.cel.service.manager.agent.core.share.DeviceState;
-import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.strategy.StrategyService;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.StrategyState;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFeatureInstanceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
+import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sirhuoshan on 2015/7/1.
@@ -35,7 +36,6 @@ public class StrategyController {
         StrategyFormDto strategyFormDto = new StrategyFormDto();
         strategyFormDto.strategyId  = "1";
         strategyFormDto.strategyName = "strategy1";
-        strategyFormDto.strategyState = StrategyState.RUNNING;
         strategyFormDto.strategyDescription = "";
         strategyFormDto.strategyStage = "2";
 
@@ -72,10 +72,19 @@ public class StrategyController {
         strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto,userDto));
     }
 
-    @RequestMapping(value="/strategy",method = RequestMethod.PUT)
+    @RequestMapping(value="/operateStrategy",method = RequestMethod.GET)
     @ResponseBody
-    public void updateState(){
-
+    public Map<String, String> operateStrategy(String strategyId, StrategyAction action){
+        Map<String, String> message = new HashMap<>();
+        try{
+            strategyService.operateStrategy(strategyId,action);
+            message.put("status", "success");
+            message.put("message", "operate strategy success");
+        }catch (Exception e){
+            message.put("status", "error");
+            message.put("message", "operate strategy failed");
+            e.printStackTrace();
+        }
+        return message;
     }
-
 }

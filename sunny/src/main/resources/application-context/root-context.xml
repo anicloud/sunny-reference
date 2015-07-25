@@ -19,9 +19,17 @@
 	<context:component-scan base-package="com.anicloud.sunny.application.service" />
 	<context:component-scan base-package="com.anicloud.sunny.domain.model" />
 	<context:component-scan base-package="com.anicloud.sunny.infrastructure.convert" />
+	<context:component-scan base-package="com.anicloud.sunny.infrastructure.jms" />
+
+	<import resource="classpath:/application-context/persistence/BeansConfig.xml" />
+	<import resource="classpath:/application-context/schedule/schedule-context.xml" />
+	<!-- cache xml -->
+	<import resource="classpath:/application-context/cache/cache.xml" />
+
+
 	<!-- 当Spring容器启动完成后执行下面的这个Bean 
     <bean class="cn.bjfu.fesdmp.frame.listener.InstantiationTracingBeanPostProcessor"/>-->
-    
+
      <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
      	<property name="useCodeAsDefaultMessage" value="true" />
     	<property name="basenames" value="classpath:messages/messages"/>

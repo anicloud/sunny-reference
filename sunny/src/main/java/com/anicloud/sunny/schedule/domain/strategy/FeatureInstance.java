@@ -21,6 +21,9 @@ public class FeatureInstance implements ScheduleTask, Schedulable {
 
     public static Integer reenter = -1;
 
+    public FeatureInstance() {
+    }
+
     public FeatureInstance(String featureId, FeatureState state, Integer stage,
                            List<FunctionInstance> functionInstanceList, List<TriggerInstance> triggerInstanceList) {
         this.featureId = featureId;
