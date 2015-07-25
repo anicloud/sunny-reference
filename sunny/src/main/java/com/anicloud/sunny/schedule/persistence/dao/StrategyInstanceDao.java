@@ -1,5 +1,6 @@
 package com.anicloud.sunny.schedule.persistence.dao;
 
+import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public class StrategyInstanceDao extends AbstractEntity {
     public String strategyId;
     @Column(name = "state", nullable = false)
     @Enumerated(EnumType.STRING)
-    public StrategyState state;
+    public ScheduleState state;
     public Integer stage;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -31,7 +32,7 @@ public class StrategyInstanceDao extends AbstractEntity {
     public StrategyInstanceDao() {
     }
 
-    public StrategyInstanceDao(String strategyId, StrategyState state, Integer stage,
+    public StrategyInstanceDao(String strategyId, ScheduleState state, Integer stage,
                                List<FeatureInstanceDao> featureInstanceDaoList,
                                StrategyAction action,
                                Long timeStamp) {

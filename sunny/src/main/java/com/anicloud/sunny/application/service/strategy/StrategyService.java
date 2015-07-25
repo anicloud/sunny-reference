@@ -1,6 +1,8 @@
 package com.anicloud.sunny.application.service.strategy;
 
+import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
+import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
 
@@ -35,4 +37,12 @@ public interface StrategyService {
     public StrategyDto getStrategyDtoById(String strategyId);
     public Strategy getStrategyById(String strategyId);
     public List<StrategyDto> getStrategyByUser(String hashUserId);
+
+    // method for device feature
+    /**
+     * deviceFeatureInstanceDto do not need trigger
+     * @param userDto
+     * @param deviceFeatureInstanceDto
+     */
+    public void runDeviceFeature(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto);
 }

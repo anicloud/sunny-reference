@@ -73,10 +73,13 @@ public class DaoAdapter {
         if (featureInstance == null) return null;
         FeatureInstanceDao featureInstanceDao = new FeatureInstanceDao(
                 featureInstance.featureId,
+                featureInstance.deviceId,
                 featureInstance.state,
                 featureInstance.stage,
                 toFunctionInstanceDaoList(featureInstance.functionInstanceList),
-                toTriggerInstanceDaoList(featureInstance.triggerInstanceList));
+                toTriggerInstanceDaoList(featureInstance.triggerInstanceList),
+                featureInstance.isScheduleNow
+        );
         return featureInstanceDao;
     }
 
@@ -166,10 +169,13 @@ public class DaoAdapter {
         if (featureInstanceDao == null) return null;
         FeatureInstance featureInstance = new FeatureInstance(
                 featureInstanceDao.featureId,
+                featureInstanceDao.deviceId,
                 featureInstanceDao.state,
                 featureInstanceDao.stage,
                 fromFunctionInstanceDaoList(featureInstanceDao.functionInstanceDaoList),
-                fromTriggerInstanceDaoList(featureInstanceDao.triggerInstanceDaoList));
+                fromTriggerInstanceDaoList(featureInstanceDao.triggerInstanceDaoList),
+                featureInstanceDao.isScheduleNow
+        );
         return featureInstance;
     }
 

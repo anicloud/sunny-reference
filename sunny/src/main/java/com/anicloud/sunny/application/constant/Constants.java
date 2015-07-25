@@ -17,6 +17,10 @@ public class Constants {
 
     public final static String SUNNY_DEVICE_DEFAULT_GROUP = "default";
     public final static DeviceLogicState DEVICE_DEFAULT_LOGIC_STATE = DeviceLogicState.CLOSED;
+    /**
+     *  the device feature run as a strategy, use the strategy name to identify
+     */
+    public final static String STRATEGY_AS_DEVICE_FEATURE_RUN_NAME = "is_device_feature_run";
 
     public static AppClientDto appClientDto = null;
 }

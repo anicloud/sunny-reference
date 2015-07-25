@@ -1,38 +1,26 @@
 package com.anicloud.sunny.application.service.strategy;
 
 import com.anicloud.sunny.application.assemble.StrategyDtoAssembler;
-import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
+import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
+import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.utils.NumGenerate;
-import com.anicloud.sunny.domain.model.device.DeviceFeature;
-import com.anicloud.sunny.domain.model.device.FeatureFunction;
-import com.anicloud.sunny.domain.model.device.FunctionArgument;
-import com.anicloud.sunny.domain.model.share.FunctionValue;
-import com.anicloud.sunny.domain.model.strategy.DeviceFeatureInstance;
-import com.anicloud.sunny.domain.model.strategy.FeatureTrigger;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.infrastructure.jms.StrategyStateQueueService;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.TriggerType;
 import com.anicloud.sunny.infrastructure.persistence.service.StrategyPersistenceService;
 import com.anicloud.sunny.schedule.domain.adapter.DaoAdapter;
 import com.anicloud.sunny.schedule.domain.strategy.*;
-import com.anicloud.sunny.schedule.dto.*;
 import com.anicloud.sunny.infrastructure.persistence.service.StrategyInstancePersistenceService;
 import com.anicloud.sunny.schedule.persistence.dao.StrategyInstanceDao;
 import com.anicloud.sunny.schedule.service.ScheduleService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by zhaoyu on 15-6-14.
@@ -128,5 +116,10 @@ public class StrategyServiceHandler implements StrategyService {
         return StrategyDtoAssembler.toDtoList(strategyList);
     }
 
-
- }
+    @Override
+    public void runDeviceFeature(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto) {
+        // generate the device feature run strategy, identify it by strategy name field
+        Strategy strategy = StrategyDtoAssembler.fromRunDeviceFeatureInstanceDto(userDto, deviceFeatureInstanceDto);
+        scheduleService.scheduleStrategy(strategy);
+    }
+}

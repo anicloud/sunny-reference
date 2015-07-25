@@ -153,10 +153,13 @@ public class DtoAdapter {
     public static FeatureInstance fromFeatureInstanceDto(FeatureInstanceDto featureInstanceDto) {
         FeatureInstance featureInstance = new FeatureInstance(
                 featureInstanceDto.featureId,
+                featureInstanceDto.deviceDto.identificationCode,
                 featureInstanceDto.state,
                 featureInstanceDto.stage,
                 fromFunctionInstanceDtoList(featureInstanceDto.functionInstanceDtoList),
-                fromTriggerInstanceDtoList(featureInstanceDto.triggerInstanceDtoList));
+                fromTriggerInstanceDtoList(featureInstanceDto.triggerInstanceDtoList),
+                Boolean.FALSE
+        );
         return featureInstance;
     }
 

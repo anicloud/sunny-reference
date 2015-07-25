@@ -1,6 +1,7 @@
 package com.anicloud.sunny.schedule.dto;
 
 import com.anicloud.sunny.application.dto.device.DeviceDto;
+import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
 
 import java.util.List;
 
