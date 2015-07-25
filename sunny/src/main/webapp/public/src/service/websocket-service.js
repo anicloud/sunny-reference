@@ -26,7 +26,15 @@ anicloud.sunny.service.WebSocketService=function(){
     sock.onmessage = function(e) {
         // Get the content
         var content = e.data;
-        console.log(content);
+        var strategyJson = JSON.parse(content);
+        var strategyInfo = new anicloud.sunny.model.StrategyInfo(
+            strategyJson.strategyId,
+            strategyJson.strategyName,
+            strategyJson.state,
+            strategyJson.stage,
+            strategyJson.action
+        );
+        console.log(strategyInfo);
     };
     return {
         sendMessage:function(message) {

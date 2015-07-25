@@ -74,6 +74,7 @@
 
     <!-- dto -->
     <script src="${pageContext.request.contextPath}/public/src/dto/featureInstance-dto.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/dto/strategyinfo-dto.js" type="text/javascript"></script>
 
     <!-- main -->
     <script src="${pageContext.request.contextPath}/public/src/sunny.js" type="text/javascript"></script>
