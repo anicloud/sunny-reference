@@ -1,7 +1,10 @@
 package com.anicloud.sunny.application.assemble;
 
-import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
+import com.anicloud.sunny.application.constant.Constants;
+import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
+import com.anicloud.sunny.application.dto.user.UserDto;
+import com.anicloud.sunny.application.utils.NumGenerate;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.domain.model.device.FeatureFunction;
 import com.anicloud.sunny.domain.model.device.FunctionArgument;
@@ -12,14 +15,10 @@ import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.TriggerType;
 import com.anicloud.sunny.schedule.domain.adapter.DtoAdapter;
 import com.anicloud.sunny.schedule.domain.strategy.*;
-import com.anicloud.sunny.schedule.dto.TriggerInstanceDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by zhaoyu on 15-6-17.
@@ -41,6 +40,7 @@ public class StrategyDtoAssembler {
         );
         // to instance
         StrategyInstance instance = toStrategyInstance(strategy);
+        strategy.strategyInstance = instance;
         return strategy;
     }
 
@@ -94,17 +94,19 @@ public class StrategyDtoAssembler {
 
             FeatureInstance featureInstance = new FeatureInstance(
                     deviceFeatureInstance.featureInstanceNum,
-                    FeatureState.NONE,
+                    deviceFeatureInstance.device.identificationCode,
+                    ScheduleState.NONE,
                     0,
                     functionInstanceList,
-                    toTriggerInstanceList(deviceFeatureInstance.triggerList)
+                    toTriggerInstanceList(deviceFeatureInstance.triggerList),
+                    Boolean.FALSE
             );
             featureInstanceList.add(featureInstance);
         }
 
         StrategyInstance instance = new StrategyInstance(
                 strategy.strategyId,
-                StrategyState.NONE,
+                ScheduleState.NONE,
                 0,
                 featureInstanceList,
                 StrategyAction.START,
@@ -184,5 +186,22 @@ public class StrategyDtoAssembler {
             }
         }
         return value;
+    }
+
+    public static Strategy fromRunDeviceFeatureInstanceDto(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto) {
+        DeviceFeatureInstance deviceFeatureInstance = DeviceFeatureInstanceDtoAssembler.
+                toFeatureInstance(deviceFeatureInstanceDto);
+
+        Strategy strategy = new Strategy(
+                NumGenerate.generate(),
+                Constants.STRATEGY_AS_DEVICE_FEATURE_RUN_NAME,
+                null,
+                UserDtoAssembler.toUser(userDto),
+                Arrays.asList(deviceFeatureInstance)
+        );
+        // to instance
+        StrategyInstance instance = toStrategyInstance(strategy);
+        strategy.strategyInstance = instance;
+        return strategy;
     }
 }

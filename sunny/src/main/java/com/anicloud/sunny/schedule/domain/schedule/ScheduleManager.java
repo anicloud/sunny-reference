@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.*;
 
 import static org.quartz.JobBuilder.newJob;
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 /**
@@ -39,17 +39,27 @@ public class ScheduleManager {
 
     public void addJob(ScheduleJob job) {
         try {
-            JobDetail jobDetail = newJob(job.jobClass)
-                    .withIdentity(job.jobName, job.jobGroup)
-                    .build();
-            scheduler.addJob(jobDetail, true);
-            for (ScheduleTrigger scheduleTrigger : job.triggers) {
-                SimpleTrigger simpleTrigger = (SimpleTrigger) newTrigger()
-                        .withIdentity(scheduleTrigger.triggerName, scheduleTrigger.triggerGroup)
-                        .forJob(jobDetail)
-                        .startAt(scheduleTrigger.startTime)
+            if (job.isScheduleNow) {
+                scheduler.triggerJob(JobKey.jobKey(job.jobName, job.jobGroup));
+            } else {
+                JobDetail jobDetail = newJob(job.jobClass)
+                        .withIdentity(job.jobName, job.jobGroup)
                         .build();
-                scheduler.scheduleJob(simpleTrigger);
+//            scheduler.addJob(jobDetail, true);
+                for (ScheduleTrigger scheduleTrigger : job.triggers) {
+                    SimpleTrigger simpleTrigger = (SimpleTrigger) newTrigger()
+                            .withIdentity(scheduleTrigger.triggerName, scheduleTrigger.triggerGroup)
+                            .forJob(jobDetail)
+                            .startAt(scheduleTrigger.startTime)
+                            .withSchedule(
+                                    simpleSchedule()
+                                            .withIntervalInSeconds(scheduleTrigger.repeatInterval)
+                                            .withRepeatCount(scheduleTrigger.repeatCount)
+                                            .withMisfireHandlingInstructionFireNow()
+                            )
+                            .build();
+                    scheduler.scheduleJob(simpleTrigger);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

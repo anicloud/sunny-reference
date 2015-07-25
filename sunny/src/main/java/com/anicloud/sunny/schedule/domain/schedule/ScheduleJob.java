@@ -1,5 +1,7 @@
 package com.anicloud.sunny.schedule.domain.schedule;
 
+import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
+
 import java.util.Set;
 
 /**
@@ -14,12 +16,13 @@ public class ScheduleJob {
 
     public Set<ScheduleTrigger> triggers;
     public ScheduleTask task;
+    public boolean isScheduleNow;
 
     public ScheduleJob() {
     }
 
     public ScheduleJob(String jobName, String jobGroup, ScheduleState jobState, String description,
-                       Class jobClass, Set<ScheduleTrigger> triggers, ScheduleTask task) {
+                       Class jobClass, Set<ScheduleTrigger> triggers, ScheduleTask task, boolean isScheduleNow) {
         this.jobName = jobName;
         this.jobGroup = jobGroup;
         this.jobState = jobState;
@@ -27,5 +30,6 @@ public class ScheduleJob {
         this.jobClass = jobClass;
         this.triggers = triggers;
         this.task = task;
+        this.isScheduleNow = isScheduleNow;
     }
 }

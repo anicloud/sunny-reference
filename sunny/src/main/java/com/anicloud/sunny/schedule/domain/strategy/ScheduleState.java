@@ -1,4 +1,4 @@
-package com.anicloud.sunny.schedule.domain.schedule;
+package com.anicloud.sunny.schedule.domain.strategy;
 
 /**
  * Created by huangbin on 7/18/15.

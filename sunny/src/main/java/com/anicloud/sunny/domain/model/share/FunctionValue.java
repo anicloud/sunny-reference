@@ -1,7 +1,5 @@
 package com.anicloud.sunny.domain.model.share;
 
-import com.anicloud.sunny.domain.model.device.FeatureFunction;
-import com.anicloud.sunny.infrastructure.persistence.domain.device.LogFunctionValueDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.FeatureInstanceFunctionValueDao;
 
 import java.io.Serializable;
@@ -23,43 +21,6 @@ public class FunctionValue implements Serializable {
     public FunctionValue(String argName, String value) {
         this.argName = argName;
         this.value = value;
-    }
-
-    public static FunctionValue toFunctionValue(LogFunctionValueDao logFunctionValueDao) {
-        if (logFunctionValueDao == null) {
-            return null;
-        }
-        return new FunctionValue(
-                logFunctionValueDao.argName,
-                logFunctionValueDao.value
-        );
-    }
-
-    public static LogFunctionValueDao toLogFunctionValueDao(FunctionValue functionValue) {
-        if (functionValue == null) {
-            return null;
-        }
-        return new LogFunctionValueDao(
-                functionValue.argName,
-                functionValue.value
-        );
-    }
-
-    public static List<FunctionValue> toLogFunctionValueList(List<LogFunctionValueDao> logFunctionValueDaoList) {
-        List<FunctionValue> functionValueList = new ArrayList<>();
-        for (LogFunctionValueDao logFunctionValueDao : logFunctionValueDaoList) {
-            functionValueList.add(toFunctionValue(logFunctionValueDao));
-        }
-        return functionValueList;
-    }
-
-    public static List<LogFunctionValueDao> toLogFunctionValueDaoList(List<FunctionValue> functionValueList) {
-        List<LogFunctionValueDao> logFunctionValueDaoList =
-                new ArrayList<>();
-        for (FunctionValue functionValue : functionValueList) {
-            logFunctionValueDaoList.add(toLogFunctionValueDao(functionValue));
-        }
-        return logFunctionValueDaoList;
     }
 
     public static FunctionValue toFunctionValue(FeatureInstanceFunctionValueDao valueDao) {

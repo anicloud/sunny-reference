@@ -1,6 +1,6 @@
 package com.anicloud.sunny.schedule.persistence.dao;
 
-import com.anicloud.sunny.schedule.domain.strategy.FeatureState;
+import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,12 +13,15 @@ import java.util.List;
 public class FeatureInstanceDao extends AbstractEntity {
     @Column(name = "featureId", nullable = false, unique = true, length = 100)
     public String featureId;
+    @Column(name = "deviceId", length = 100)
+    public String deviceId;
     @Column(name = "state", nullable = false)
     @Enumerated(EnumType.STRING)
-    public FeatureState state;
+    public ScheduleState state;
     @Column(name = "stage")
     public Integer stage;
-
+    @Column(name = "isScheduleNow")
+    public boolean isScheduleNow;
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "feature_id", referencedColumnName = "id")
     public List<FunctionInstanceDao> functionInstanceDaoList;
@@ -29,12 +32,16 @@ public class FeatureInstanceDao extends AbstractEntity {
     public FeatureInstanceDao() {
     }
 
-    public FeatureInstanceDao(String featureId, FeatureState state, Integer stage,
-                              List<FunctionInstanceDao> functionInstanceDaoList, List<TriggerInstanceDao> triggerInstanceDaoList) {
+    public FeatureInstanceDao(String featureId, String deviceId, ScheduleState state, Integer stage,
+                              List<FunctionInstanceDao> functionInstanceDaoList,
+                              List<TriggerInstanceDao> triggerInstanceDaoList,
+                              boolean isScheduleNow) {
         this.featureId = featureId;
+        this.deviceId = deviceId;
         this.state = state;
         this.stage = stage;
         this.functionInstanceDaoList = functionInstanceDaoList;
         this.triggerInstanceDaoList = triggerInstanceDaoList;
+        this.isScheduleNow = isScheduleNow;
     }
 }
