@@ -5,6 +5,7 @@ import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.strategy.StrategyService;
 import com.anicloud.sunny.application.service.user.UserService;
+import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFeatureInstanceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;

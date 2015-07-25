@@ -32,6 +32,21 @@ anicloud.sunny.service.StrategyService = function($http,$cookies){
         }).error(function(data){
             console.log('save strategies failures');
         })
+    },
+    operateStrategy:function(strategyId, action){
+        $http({
+            method:'GET',
+            url: 'operateStrategy',
+            params: {strategyId:strategyId,action:action}
+        }).success(function(data){
+            if(data.status == 'success'){
+                console.log('operate strategy success');
+            }else{
+                console.log('operate strategy failed');
+            }
+        }).error(function(data){
+            console.log('operate strategy failed');
+        })
     }
 }
 }
