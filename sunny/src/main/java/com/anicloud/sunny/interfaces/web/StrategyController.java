@@ -4,6 +4,7 @@ import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.strategy.StrategyService;
+import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFeatureInstanceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
@@ -27,6 +28,8 @@ import java.util.Map;
 public class StrategyController {
     @Resource
     private StrategyService strategyService;
+    @Resource
+    private UserService userService;
 
     @RequestMapping(value = "/strategies",method = RequestMethod.GET)
     @ResponseBody
@@ -66,10 +69,19 @@ public class StrategyController {
 
     @RequestMapping(value = "/strategy",method = RequestMethod.POST)
     @ResponseBody
-    public void saveStrategy(StrategyFormDto strategyFormDto,@RequestParam(value = "hashUserId")String hashUserId){
-        UserDto userDto = new UserDto();
-        userDto.hashUserId = hashUserId;
-        strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto,userDto));
+    public Map<String, String> saveStrategy(StrategyFormDto strategyFormDto,@RequestParam(value = "hashUserId")String hashUserId){
+        Map<String, String> message = new HashMap<>();
+        try{
+            UserDto userDto = userService.getUserByHashUserId(hashUserId);
+            StrategyDto strategyDto =  strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto, userDto));
+            message.put("status", "success");
+            message.put("message", strategyDto.strategyId);
+        }catch (Exception e){
+            message.put("status", "error");
+            message.put("message", "save strategy failed");
+            e.printStackTrace();
+        }
+        return message;
     }
 
     @RequestMapping(value="/operateStrategy",method = RequestMethod.GET)
