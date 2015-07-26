@@ -70,13 +70,14 @@ public class StrategyController {
 
     @RequestMapping(value = "/strategy",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> saveStrategy(StrategyFormDto strategyFormDto,@RequestParam(value = "hashUserId")String hashUserId){
-        Map<String, String> message = new HashMap<>();
+    public Map<String, Object> saveStrategy(StrategyFormDto strategyFormDto,@RequestParam(value = "hashUserId")String hashUserId){
+        Map<String, Object> message = new HashMap<>();
         try{
             UserDto userDto = userService.getUserByHashUserId(hashUserId);
             StrategyDto strategyDto =  strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto, userDto));
+            StrategyFormDto strategyForm = StrategyFormDto.convertToStrategyForm(strategyDto);
             message.put("status", "success");
-            message.put("message", strategyDto.strategyId);
+            message.put("strategy", strategyForm);
         }catch (Exception e){
             message.put("status", "error");
             message.put("message", "save strategy failed");
