@@ -1,0 +1,124 @@
+<form name="strategyForm" novalidate>
+    <div id="strategyPanel" class="panel panel-default">
+        <div class="panel-heading">
+            <input ng-model="strategyModal.strategyName" placeholder="input strategy name" focus
+                   required>
+            <!--<span class="pull-right" ng-click="deleteStrategy($index,strategy)">-->
+            <!--<i class="fa fa-close"></i>-->
+            <!--</span>-->
+            <ul class="navbar-sunny navbar-right">
+                <li>
+                    <a data-toggle="modal"
+                       data-target=".featureTemplate">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </li>
+                <!--<li><a><i class="fa fa-play"></i></a></li>-->
+                <!--<li><a><i class="fa fa-pause"></i></a></li>-->
+                <!--<li><a ng-click="deleteStrategy($index,strategy)"><i class="fa fa-close"></i></a></li>-->
+                <!--<li><a><i class="fa fa-ellipsis-v"></i></a></li>-->
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12 featureWrap">
+                    <div class="col-lg-3 featureList container-fluid"
+                         ng-repeat="feature in strategyModal.featureList">
+                        <div class="featureName col-xs-12">
+                            <strong>{{feature.featureName}}</strong>
+                            <i class="fa fa-times close" ng-click="deleteFeature($index, strategy)"></i>
+                            <!--<i class="fa fa-cog feature-setting"></i>-->
+                        </div>
+                        <div>
+                            <span class="device-name col-xs-6">{{feature.device.name}}</span>
+                            <span class="trigger col-xs-6">{{feature.triggerDtoList[0].triggerValue | date:'yy-MM-dd hh:mm:ss'}}</span>
+                        </div>
+                    </div>
+
+                    <!--<button data-toggle="modal"-->
+                    <!--data-target=".{{strategy.strategyId}}"><i class="fa fa-plus"></i>-->
+                    <!--</button>-->
+                    <div class="form-horizontal" ng-form="featureForm">
+                        <div class="modal fade featureTemplate" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-lg" ng-model="featureModal">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                                ng-click="featureModal.clearAll()">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">添加任务</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label>选择设备:</label>
+                                        <select name="deviceId"
+                                                ng-model="featureModal.deviceId"
+                                                ng-options="device.id as device.name for device in devices"
+                                                required>
+                                            <option value="">选择设备</option>
+                                        </select>
+
+                                        <label>选择任务:</label>
+                                        <select ng-model="featureModal.featureId"
+                                                ng-options="feature.featureId as feature.featureName for feature in featureModal.getDeviceFeatures()"
+                                                >
+                                            <option value="">选择任务</option>
+                                        </select>
+                                        <label>选择执行条件:</label>
+                                        <select ng-model="featureModal.trigger.triggerType"
+                                                ng-options="trigger as trigger for trigger in triggers">d
+                                        </select>
+
+                                        <div ng-switch on="featureModal.trigger.triggerType">
+                                            <div ng-switch-when="TIMER">
+                                                <label>输入时间：</label>
+                                                <timepicker ng-model="featureModal.trigger.triggerValue"
+                                                            hour-step="1"
+                                                            minute-step="1" show-meridian="true"></timepicker>
+
+                                            </div>
+                                            <div ng-switch-when="LOCATION">
+                                                <label>输入位置：</label>
+                                                <input type="text">
+                                            </div>
+                                        </div>
+                                        <!--<label>选择执行步骤:</label>-->
+                                        <!--<select class="form-control">-->
+                                        <!--<option ng-repeat="device in devices" ng-click="addDevice(device.name)">{{device.name}}</option>-->
+                                        <!--</select>-->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="alert alert-danger" ng-show="!featureModal.valid">
+                                            {{featureModal.error}}
+                                        </div>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                                                ng-click="featureModal.clearAll()">
+                                            Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary"
+                                                ng-click="addFeature(strategyModal)">
+                                            Save changes
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<button class="btn btn-default addStrategy" data-toggle="modal"-->
+        <!--data-target=".inputStrategyModal">-->
+        <!--<i class="fa fa-plus"></i>-->
+        <!--</button>-->
+        <!-- input strategy name-->
+        <!-- Small modal -->
+    </div>
+    <div class="alert alert-danger" ng-show="!strategyModal.valid">
+        {{strategyModal.error}}
+    </div>
+    <div>
+        <button class="btn btn-default" ng-click="addStrategy()">提交</button>
+        <button class="btn btn-default">取消</button>
+    </div>
+</form>

@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.config = anicloud.sunny.config || {};
 
-anicloud.sunny.config.route = {
+var routeMap = {
     '/': [
         'src/view/home.html',
         'HomePageCtrl'
@@ -18,6 +18,9 @@ anicloud.sunny.config.route = {
         'src/view/device.html',
         'DeviceCtrl'
     ],
+    '/device_detail': [
+        'src/view/device_detail.html'
+    ],
     '/strategy': [
         'src/view/strategy.html',
         'StrategyCtrl'
@@ -25,10 +28,21 @@ anicloud.sunny.config.route = {
     '/test': [
         'src/view/test.html'
     ],
-    '/device_detail': [
-        'src/view/device_detail.html',
-        'DeviceDetailCtrl'
+    '/edit_strategy': [
+        'src/view/edit_strategy.html',
+        'StrategyCtrl'
     ]
+}
 
-
+anicloud.sunny.config.$routeProvider = function ($routeProvider) {
+    for (var route in routeMap) {
+        $routeProvider.when(
+            route,
+            {
+                templateUrl: 'public/' + routeMap[route][0],
+                controller: routeMap[route][1]
+            }
+        );
+    }
+    $routeProvider.otherwise({redirectTo: '/error'});
 }

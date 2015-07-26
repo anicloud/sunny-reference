@@ -4,14 +4,13 @@
 var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.config = anicloud.sunny.config || {};
-anicloud.sunny.config.language = anicloud.sunny.config.language || {};
 
-anicloud.sunny.config.language.list = {
+var languageList = {
     en: "English",
     zh_CN: "简体中文",
     zh_TW: "正體中文"
 }
-anicloud.sunny.config.language.translations = {
+var languageTranslations = {
     'en': {},
     'zh_CN': {},
     'zh_TW': {}

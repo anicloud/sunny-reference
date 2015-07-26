@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, $http, DeviceService, StrategyService) {
+anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, DeviceService, StrategyService) {
     if (!$rootScope.strategies) {
         $rootScope.strategies = [];
         $rootScope.devices = [];

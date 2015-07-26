@@ -4,16 +4,18 @@
             <span>{{strategy.strategyName}}</span>
             <span>{{strategy.strategyState}}</span>
             <!--<span class="pull-right" ng-click="deleteStrategy($index,strategy)">-->
-                <!--<i class="fa fa-close"></i>-->
+            <!--<i class="fa fa-close"></i>-->
             <!--</span>-->
             <ul class="navbar-sunny navbar-right">
-                <li><a data-toggle="modal"
-                       data-target=".{{strategy.strategyId}}"><i class="fa fa-plus"></i></a></li>
+                <!--<li><a data-toggle="modal"-->
+                <!--data-target=".{{strategy.strategyId}}"><i class="fa fa-plus"></i></a></li>-->
                 <li><a><i class="fa fa-play"></i></a></li>
                 <li><a><i class="fa fa-pause"></i></a></li>
                 <li><a ng-click="deleteStrategy($index,strategy)"><i class="fa fa-close"></i></a></li>
-                <li><a><i class="fa fa-ellipsis-v"></i></a></li>
-                <li><a ng-click=""><i class="fa fa-check"></i></a></li>
+                <!--<li><a><i class="fa fa-ellipsis-v"></i></a></li>-->
+                <!--<li>-->
+                <!--<button ng-click=""><i class="fa fa-check"></i></button>-->
+                <!--</li>-->
             </ul>
         </div>
         <div class="panel-body">
@@ -22,9 +24,8 @@
                     <div class="col-lg-3 featureList container-fluid" ng-repeat="feature in strategy.featureList">
                         <div class="featureName col-xs-12">
                             <strong>{{feature.featureName}}</strong>
-
-                            <i class="fa fa-times close" ng-click="deleteFeature($index, strategy)"></i>
-                            <i class="fa fa-cog feature-setting"></i>
+                            <!--<i class="fa fa-times close" ng-click="deleteFeature($index, strategy)"></i>-->
+                            <!--<i class="fa fa-cog feature-setting"></i>-->
                         </div>
                         <div>
                             <span class="device-name col-xs-6">{{feature.device.name}}</span>
@@ -33,104 +34,108 @@
                     </div>
 
                     <!--<button data-toggle="modal"-->
-                            <!--data-target=".{{strategy.strategyId}}"><i class="fa fa-plus"></i>-->
+                    <!--data-target=".{{strategy.strategyId}}"><i class="fa fa-plus"></i>-->
                     <!--</button>-->
-                    <div class="modal fade {{strategy.strategyId}}" tabindex="-1" role="dialog"
-                         aria-labelledby="myLargeModalLabel">
-                        <div class="modal-dialog modal-lg" ng-model="featureModal">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                            ng-click="featureModal.clearAll()">
-                                        <span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">添加任务</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="form-horizontal">
-                                        <label>选择设备:</label>
-                                        <select ng-model="featureModal.deviceId"
-                                                ng-options="device.id as device.name for device in devices">
-                                        </select>
+                    <!--<div class="modal fade {{strategy.strategyId}}" tabindex="-1" role="dialog"-->
+                    <!--aria-labelledby="myLargeModalLabel">-->
+                    <!--<div class="modal-dialog modal-lg" ng-model="featureModal">-->
+                    <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"-->
+                    <!--ng-click="featureModal.clearAll()">-->
+                    <!--<span aria-hidden="true">&times;</span></button>-->
+                    <!--<h4 class="modal-title">添加任务</h4>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+                    <!--<form class="form-horizontal">-->
+                    <!--<label>选择设备:</label>-->
+                    <!--<select ng-model="featureModal.deviceId"-->
+                    <!--ng-options="device.id as device.name for device in devices">-->
+                    <!--</select>-->
 
-                                        <label>选择任务:</label>
-                                        <select ng-model="featureModal.featureId"
-                                                ng-options="feature.featureId as feature.featureName for feature in featureModal.getDeviceFeatures()">
-                                        </select>
-                                        <label>选择执行条件:</label>
-                                        <select ng-model="featureModal.trigger.triggerType"
-                                                ng-options="trigger as trigger for trigger in triggers">d
-                                        </select>
+                    <!--<label>选择任务:</label>-->
+                    <!--<select ng-model="featureModal.featureId"-->
+                    <!--ng-options="feature.featureId as feature.featureName for feature in featureModal.getDeviceFeatures()">-->
+                    <!--</select>-->
+                    <!--<label>选择执行条件:</label>-->
+                    <!--<select ng-model="featureModal.trigger.triggerType"-->
+                    <!--ng-options="trigger as trigger for trigger in triggers">d-->
+                    <!--</select>-->
 
-                                        <div ng-switch on="featureModal.trigger.triggerType">
-                                            <div ng-switch-when="TIMER">
-                                                <label>输入时间：</label>
-                                                <timepicker ng-model="featureModal.trigger.triggerValue"  hour-step="1" minute-step="1" show-meridian="true"></timepicker>
+                    <!--<div ng-switch on="featureModal.trigger.triggerType">-->
+                    <!--<div ng-switch-when="TIMER">-->
+                    <!--<label>输入时间：</label>-->
+                    <!--<timepicker ng-model="featureModal.trigger.triggerValue" hour-step="1"-->
+                    <!--minute-step="1" show-meridian="true"></timepicker>-->
 
-                                            </div>
-                                            <div ng-switch-when="LOCATION">
-                                                <label>输入位置：</label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <!--<label>选择执行步骤:</label>-->
-                                        <!--<select class="form-control">-->
-                                        <!--<option ng-repeat="device in devices" ng-click="addDevice(device.name)">{{device.name}}</option>-->
-                                        <!--</select>-->
+                    <!--</div>-->
+                    <!--<div ng-switch-when="LOCATION">-->
+                    <!--<label>输入位置：</label>-->
+                    <!--<input type="text">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;<label>选择执行步骤:</label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<select class="form-control">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<option ng-repeat="device in devices" ng-click="addDevice(device.name)">{{device.name}}</option>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
 
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal"
-                                            ng-click="featureModal.clearAll()">Close
-                                    </button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                            ng-click="addFeature(strategy); ">Save changes
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- /.modal-content -->
-                        </div>
-                    </div>
+                    <!--</form>-->
+                    <!--</div>-->
+                    <!--<div class="modal-footer">-->
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal"-->
+                    <!--ng-click="featureModal.clearAll()">Close-->
+                    <!--</button>-->
+                    <!--<button type="button" class="btn btn-primary" data-dismiss="modal"-->
+                    <!--ng-click="addFeature(strategy); ">Save changes-->
+                    <!--</button>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.modal-content &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
     </div>
-    <button class="btn btn-default addStrategy" data-toggle="modal"
-            data-target=".inputStrategyModal">
-        <i class="fa fa-plus"></i>
-    </button>
+    <!--<button class="btn btn-default addStrategy" data-toggle="modal"-->
+    <!--data-target=".inputStrategyModal">-->
+    <!--<i class="fa fa-plus"></i>-->
+    <!--</button>-->
     <!-- input strategy name-->
     <!-- Small modal -->
-    <div class="modal fade inputStrategyModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                            ng-click="strategyModal.clearAll()">
-                        <span aria-hidden="true"><i class="fa fa-close"></i></span></button>
-                    <h4 class="modal-title">Adding strategy name</h4>
-                </div>
+    <!--<div class="modal fade inputStrategyModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">-->
+    <!--<div class="modal-dialog modal-sm">-->
+    <!--<div class="modal-content">-->
+    <!--<div class="modal-header">-->
+    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"-->
+    <!--ng-click="strategyModal.clearAll()">-->
+    <!--<span aria-hidden="true"><i class="fa fa-close"></i></span></button>-->
+    <!--<h4 class="modal-title">Adding strategy name</h4>-->
+    <!--</div>-->
 
-                <div class="modal-body">
-                    <label>Adding Strategy Name</label>
-                    <input ng-model="strategyModal.strategyName">
-                    <label>Strategy Description</label>
-                    <textarea ng-model="strategyModal.strategyDescription"></textarea>
-                </div>
+    <!--<div class="modal-body">-->
+    <!--<label>Adding Strategy Name</label>-->
+    <!--<input ng-model="strategyModal.strategyName">-->
+    <!--<label>Strategy Description</label>-->
+    <!--<textarea ng-model="strategyModal.strategyDescription"></textarea>-->
+    <!--</div>-->
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"
-                            ng-click="strategyModal.clearAll()">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                            ng-click="addStrategy(); strategyModal.clearAll()">
-                        OK
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--<div class="modal-footer">-->
+    <!--<button type="button" class="btn btn-default" data-dismiss="modal"-->
+    <!--ng-click="strategyModal.clearAll()">-->
+    <!--Close-->
+    <!--</button>-->
+    <!--<a data-target="#edit_strategy" class="btn btn-primary" data-dismiss="modal"-->
+    <!--ng-click="addStrategy(); strategyModal.clearAll()">-->
+    <!--OK-->
+    <!--</a>-->
 
-
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 </div>
+
+
+<!--<a class="btn btn-default" data-toggle="modal" data-target=".inputStrategyModal">创建</a>-->
+

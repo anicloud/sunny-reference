@@ -6,7 +6,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, $http, StrategyService, DeviceService) {
+anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, StrategyService, DeviceService) {
     //    For Strategy page
     if (!$rootScope.strategies) {
         $rootScope.strategies = [];
@@ -22,8 +22,8 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, $http, St
             $rootScope.devices = data;
         });
 
-        DeviceService.getDeviceFeatures(function(data){
-            for (var i=0; i<data.length; i++) {
+        DeviceService.getDeviceFeatures(function (data) {
+            for (var i = 0; i < data.length; i++) {
                 var key = data[i].deviceFormDto.id;
                 var value = data[i].deviceFeatureFormDtoList;
                 $rootScope.features[key] = value;
@@ -46,7 +46,9 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, $http, St
         "function": {
             "functionValue": "",
             "functionArg": ""
-        }
+        },
+        "valid" : true,
+        "error" : ""
     };
 
 
@@ -59,12 +61,18 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, $http, St
     };
 
     $scope.featureModal.getDeviceFeatures = function () {
+        if ($scope.featureModal.deviceId == '') {
+            return null;
+        }
         return $rootScope.features[$scope.featureModal.deviceId];
     };
 
 
     $scope.featureModal.getDevice = function () {
-        for (var i=0; i<$rootScope.devices.length; i++)  {
+        if ($scope.featureModal.deviceId == '') {
+            return null;
+        }
+        for (var i = 0; i < $rootScope.devices.length; i++) {
             if ($rootScope.devices[i].id == $scope.featureModal.deviceId) {
                 return $rootScope.devices[i];
             }
@@ -73,7 +81,10 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, $http, St
     }
 
     $scope.featureModal.getFeature = function () {
-        for (var i=0; i<$rootScope.features[$scope.featureModal.deviceId].length; i++) {
+        if ($scope.featureModal.featureId == '') {
+            return null;
+        }
+        for (var i = 0; i < $rootScope.features[$scope.featureModal.deviceId].length; i++) {
             if ($rootScope.features[$scope.featureModal.deviceId][i].featureId == $scope.featureModal.featureId) {
                 return $rootScope.features[$scope.featureModal.deviceId][i];
             }
@@ -83,21 +94,41 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, $http, St
     }
 
     $scope.addFeature = function (strategy) {
+        $scope.featureModal.valid = true;
         var feature = $scope.featureModal.getFeature();
         var device = $scope.featureModal.getDevice();
         var trigger = $scope.featureModal.trigger;
-        console.log(trigger);
-        if (feature != null) {
-            var featureInstance = new anicloud.sunny.model.FeatureInstance(
-                feature.featureId,
-                feature.featureName,
-                device,
-                [],
-                [jsonClone(trigger)]
-            );
-            strategy.featureList.push(featureInstance);
-            console.log(strategy);
+        if (device == null) {
+            $scope.featureModal.valid = false;
+            $scope.featureModal.error = "设备不能为空";
+            return;
         }
+        if (feature == null) {
+            $scope.featureModal.valid = false;
+            $scope.featureModal.error = "任务不能为空";
+            return;
+        }
+        if (trigger.triggerType == '') {
+            $scope.featureModal.valid = false;
+            $scope.featureModal.error = "触发条件不能为空";
+            return;
+        }
+        if (trigger.triggerType == 'TIMER' && trigger.triggerValue == '') {
+            $scope.featureModal.valid = false;
+            $scope.featureModal.error = "选择时间";
+            return;
+        }
+
+        var featureInstance = new anicloud.sunny.model.FeatureInstance(
+            feature.featureId,
+            feature.featureName,
+            device,
+            [],
+            [jsonClone(trigger)]
+        );
+        strategy.featureList.push(featureInstance);
+        //console.log(strategy);
+
     };
 
     $scope.deleteFeature = function (index, strategy) {
@@ -114,16 +145,31 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, $http, St
         "strategyState": "",
         "strategyDescription": "",
         "strategyStage": "",
-        "featureList": []
+        "featureList": [],
+        "valid" : true,
+        "error" : ""
     };
 
     $scope.strategyModal.clearAll = function () {
         $scope.strategyModal.strategyName = "";
         $scope.strategyModal.strategyDescription = "";
+        $scope.strategyModal.strategyState = "";
     };
 
     $scope.addStrategy = function () {
+        $scope.strategyModal.valid = true;
+        if ($scope.strategyModal.strategyName.length == 0) {
+            $scope.strategyModal.valid = false;
+            $scope.strategyModal.error = "名称不能为空";
+            return;
+        }
+        if ($scope.strategyModal.featureList.length == 0) {
+            $scope.strategyModal.valid = false;
+            $scope.strategyModal.error = "任务不能为空";
+            return;
+        }
         $scope.strategyModal.strategyId = $rootScope.strategies.length + 1;//写死的长度
+        $scope.strategyModal.strategyState = "running";
         $rootScope.strategies.push(jsonClone($scope.strategyModal));
     };
 
@@ -132,7 +178,6 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, $http, St
             return;
         $rootScope.strategies.splice(index, 1);
     };
-
 
     //
     var jsonClone = function (obj) {
