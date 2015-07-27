@@ -14,38 +14,39 @@ if (window.console) {
     console.log(" Sunny Project is powered by Anicloud Smart Home Application, Platform Group(Beijing), Anicloud Limited");
 }
 
-anicloud.sunny.global.loadApp = function (controllers, services, configs, directives, appName) {
+anicloud.sunny.global.loadApp = function (config, controller, service, directive, appName) {
     var app = angular.module(appName, [
         'ngRoute',
         'ngCookies',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ui.router'
     ]);
 
-    //services
-    for (var serviceName in services) {
-        app.factory(serviceName, services[serviceName]);
+    //config
+    for (var key in config) {
+        app.config(config[key]);
     }
 
-    //controllers
-    for (var ctrlName in controllers) {
-        app.controller(ctrlName, controllers[ctrlName]);
+    //service
+    for (var key in service) {
+        app.factory(key, service[key]);
+    }
+
+    //controller
+    for (var key in controller) {
+        app.controller(key, controller[key]);
     }
 
     //directives
-    for (var directiveName in directives) {
-        app.directive(directiveName, directives[directiveName]);
-    }
-
-    //configs
-    for (var configName in configs) {
-        app.config([configName, configs[configName]]);
+    for (var key in directive) {
+        app.directive(key, directive[key]);
     }
 
 }
 
 anicloud.sunny.global.loadApp(
+    anicloud.sunny.config,
     anicloud.sunny.controller,
     anicloud.sunny.service,
-    anicloud.sunny.config,
     anicloud.sunny.directive,
     'sunny');

@@ -7,7 +7,7 @@ anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
 
-anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $http, $cookies,WebSocketService, StrategyService, DeviceService) {
+anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $cookies, StrategyService, DeviceService) {
     if (!$rootScope.strategies) {
         $rootScope.strategies = [];
         $rootScope.devices = [];

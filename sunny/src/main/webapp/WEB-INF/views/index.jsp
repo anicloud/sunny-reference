@@ -11,21 +11,24 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>
         <fmt:bundle basename="messages/messages">
-            <fmt:message key="system.index.title" />
+            <fmt:message key="system.index.title"/>
         </fmt:bundle>
     </title>
 
-    <link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/public/images/logo/ani_logo.png">
+    <link rel="shortcut icon" type="image/png"
+          href="${pageContext.request.contextPath}/public/images/logo/ani_logo.png">
+
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
-    <%--<link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/sb-min2.css" rel="stylesheet">--%>
-    <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/sunny.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/timeline.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/simple-sidebar.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/css-bootstrap-select/bootstrap-select.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/public/lib/font-awesome-4.3.0/css/font-awesome.min.css">
+    <link href="${pageContext.request.contextPath}/public/lib/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Sunny css -->
+    <link href="${pageContext.request.contextPath}/public/src/css/app.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/src/css/sunny.css" rel="stylesheet">
 
 
     <!--websocket-->
@@ -39,45 +42,39 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap-select.min.js"></script>
 
     <!-- websocket.js -->
     <script src="${pageContext.request.contextPath}/public/lib/websocket/sockjs-0.3.4.min.js"></script>
 
     <!-- angularjs -->
-   <%-- <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular.js"></script>
-    <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-route.js"></script>
-    <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-cookies.js"></script>--%>
-
     <script src="${pageContext.request.contextPath}/public/lib/angular/angular.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/angular/angular-route.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/angular/angular-cookies.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/angular/angular-translate.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/angularjs/javascript/ui-bootstrap-tpls-0.13.0.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angularjs/angular-ui-router.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angularjs/ui-bootstrap-tpls-0.13.0.js" type="text/javascript"></script>
 
     <!-- config -->
-    <script src="${pageContext.request.contextPath}/public/src/config/sunny-service-config.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/config/language-config.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/config/route-config.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/config/language-config.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/config/route-config.js" type="text/javascript"></script>
 
     <!-- services -->
-    <script src="${pageContext.request.contextPath}/public/src/service/system-service.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/service/strategy-service.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/service/device-service.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/service/websocket-service.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/service/strategy-service.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/service/device-service.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/service/websocket-service.js" type="text/javascript"></script>
 
     <!-- controllers -->
-    <script src="${pageContext.request.contextPath}/public/src/controller/setting-ctrl.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/controller/home-page-ctrl.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/controller/strategy-ctrl.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/controller/device-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/controller/setting-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/controller/home-page-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/controller/strategy-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/controller/device-ctrl.js" type="text/javascript"></script>
 
     <!-- dto -->
-    <script src="${pageContext.request.contextPath}/public/src/dto/featureInstance-dto.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/src/dto/strategyinfo-dto.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/dto/featureInstance-dto.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/dto/strategyinfo-dto.js" type="text/javascript"></script>
 
     <!-- main -->
-    <script src="${pageContext.request.contextPath}/public/src/sunny.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/sunny.js" type="text/javascript"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -86,44 +83,10 @@
     <![endif]-->
 </head>
 
-<body >
-        <!--header-->
-        <header>
-          <nav class="navbar navbar-default navbar-fixed-top">
-              <%--<div class="container-fluid">--%>
-                  <div class="navbar-header">
-                      <a class="navbar-brand" href="#/">Sunny</a>
-                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                      <span class="glyphicon glyphicon-menu-hamburger"></span>
-                      </button>
-                  </div>
+<body>
+<div data-ui-view="" data-autoscroll="false" class="wrapper">
+</div>
 
-                  <%--<ul class="nav navbar-sunny navbar-right">--%>
-                      <%--<li><a href="#"><span class="glyphicon glyphicon-plus"></span></a></li>--%>
-                      <%--<li><a href="#"><span class="glyphicon glyphicon-play"></span></a></li>--%>
-                      <%--<li><a href="#"><span class="glyphicon glyphicon-pause"></span></a></li>--%>
-                      <%--<li><a href="#"><span class="glyphicon glyphicon-remove"></span></a></li>--%>
-                  <%--</ul>--%>
-
-                  <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav" id="navbar-top">
-                      <li><a href="#/">Dashboard</a></li>
-                      <li><a href="#strategy">Strategy</a></li>
-                      <li><a href="#device">Device</a></li>
-                    </ul>
-                  </div>
-
-              <%--</div>--%>
-          </nav>
-        </header>
-
-        <div class="container-fluid" ng-view>
-        </div>
-
-        <%--<div>{{device}}</div>--%>
-        <%--<footer class="navbar-fixed-bottom">--%>
-            <%--<div id="foot"><p>copyright: Anicloud</p></div>--%>
-        <%--</footer>--%>
 </body>
 </html>
 

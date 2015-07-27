@@ -10,6 +10,7 @@ var languageList = {
     zh_CN: "简体中文",
     zh_TW: "正體中文"
 }
+
 var languageTranslations = {
     'en': {},
     'zh_CN': {},
