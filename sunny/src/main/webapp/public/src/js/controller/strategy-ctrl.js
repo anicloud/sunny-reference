@@ -8,7 +8,6 @@ anicloud.sunny.controller = anicloud.sunny.controller || {};
 
 anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog, StrategyService, DeviceService) {
     //    For Strategy page
-
     // feature Template
     $scope.featureTemplate = {
         "featureId": "",
@@ -17,10 +16,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
             "triggerValue": "",
             "triggerType": ""
         },
-        "function": {
-            "functionValue": "",
-            "functionArg": ""
-        },
+        "argumentList": [],
         "valid" : true,
         "error" : ""
     };
@@ -31,7 +27,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         $scope.featureTemplate.featureId = "";
         $scope.featureTemplate.trigger.triggerType = "";
         $scope.featureTemplate.trigger.triggerValue = "";
-        $scope.featureTemplate.functionValues = "";
+        $scope.featureTemplate.argumentList = [];
     };
 
     $scope.featureTemplate.getDeviceFeatures = function () {
@@ -80,6 +76,8 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         var feature = $scope.featureTemplate.getFeature();
         var device = $scope.featureTemplate.getDevice();
         var trigger = $scope.featureTemplate.trigger;
+        var argumentList = $scope.featureTemplate.argumentList;
+
         if (device == null) {
             $scope.featureTemplate.valid = false;
             $scope.featureTemplate.error = "设备不能为空";
@@ -105,19 +103,15 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
             feature.featureId,
             feature.featureName,
             device,
-            [],
-            [jsonClone(trigger)]
+            argumentList,
+            [trigger]
         );
-        strategy.featureList.push(featureInstance);
+        strategy.featureList.push(jsonClone(featureInstance));
         return true;
-
     };
 
     $scope.deleteFeature = function (index, strategy) {
-        var featureList = strategy.featureList;
-        if (isNaN(index) || index >= featureList.length || index < 0)
-            return;
-        featureList.splice(index, 1);
+        strategy.featureList.splice(index, 1);
     };
 
     // strategy Template
@@ -143,42 +137,91 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         if ($scope.strategyTemplate.strategyName.length == 0) {
             $scope.strategyTemplate.valid = false;
             $scope.strategyTemplate.error = "名称不能为空";
-            return;
+            return false;
         }
         if ($scope.strategyTemplate.featureList.length == 0) {
             $scope.strategyTemplate.valid = false;
             $scope.strategyTemplate.error = "任务不能为空";
-            return;
+            return false;
         }
-        $scope.strategyTemplate.strategyId = $rootScope.strategies.length + 1;//写死的长度
-        $scope.strategyTemplate.strategyState = "running";
-        $rootScope.strategies.push(jsonClone($scope.strategyTemplate));
+        var strategyInstance = new anicloud.sunny.model.StrategyInstance(
+            $scope.strategyTemplate.strategyId,
+            $scope.strategyTemplate.strategyName,
+            null,
+            null,
+            jsonClone($scope.strategyTemplate.featureList));
+
+        StrategyService.saveStrategies(strategyInstance, function(data) {
+            if (data.status == "success") {
+                console.log("start strategy:");
+                console.log(data.strategy);
+                $rootScope.strategies.push(jsonClone(data.strategy));
+            } else if(data.status == "error") {
+                console.error("add strategy error: ");
+                console.error(data.message);
+            }
+        });
+        return true;
     };
 
-    $scope.deleteStrategy = function (index) {
-        if (isNaN(index) || index >= $rootScope.strategies.length || index < 0)
-            return;
-        $rootScope.strategies.splice(index, 1);
+    $scope.deleteStrategy = function (index, strategy) {
+        StrategyService.deleteStrategy(strategy, function(data) {
+            if (data.status == "success") {
+                console.log("delete strategy:");
+                console.log(data.strategy);
+                $rootScope.strategies.splice(index, 1);
+            } else if(data.status == "error") {
+                console.error("add strategy error: ");
+                console.error(data.message);
+            }
+        });
+        return true;
     };
 
-    $scope.startStrategy = function (strategy) {
-        console.log("start strategy: ");
-        console.log(strategy);
+    $scope.resumeStrategy = function (index, strategy) {
+        StrategyService.operateStrategy(strategy.strategyId, "resume", function(data) {
+            if (data.status == "success") {
+                console.log("resume strategy:");
+                console.log(data.strategy);
+                $rootScope.strategies.splice(index, 1, data.strategy);
+            } else if(data.status == "error") {
+                console.error("resume strategy error: ");
+                console.error(data.message);
+            }
+        });
+        return true;
     };
 
-    $scope.stopStrategy = function (strategy) {
-        console.log("stop strategy: ");
-        console.log(strategy);
+    $scope.stopStrategy = function (index, strategy) {
+        StrategyService.operateStrategy(strategy.strategyId, "stop", function(data) {
+            if (data.status == "success") {
+                console.log("stop strategy:");
+                console.log(data.strategy);
+                $rootScope.strategies.splice(index, 1, data.strategy);
+            } else if(data.status == "error") {
+                console.error("resume strategy error: ");
+                console.error(data.message);
+            }
+        });
+        return true;
     };
 
-    $scope.pauseStrategy = function (strategy) {
-        console.log("pause strategy: ");
-        console.log(strategy);
+    $scope.pauseStrategy = function (index, strategy) {
+        StrategyService.operateStrategy(strategy.strategyId, "pause", function(data) {
+            if (data.status == "success") {
+                console.log("pause strategy:");
+                console.log(data.strategy);
+                $rootScope.strategies.splice(index, 1, data.strategy);
+            } else if(data.status == "error") {
+                console.error("pause strategy error: ");
+                console.error(data.message);
+            }
+        });
+        return true;
     };
     //
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
-
 
 }

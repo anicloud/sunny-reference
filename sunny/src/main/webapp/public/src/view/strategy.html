@@ -1,21 +1,21 @@
 <div ng-controller="StrategyCtrl">
-    <div class="panel panel-default" ng-repeat="strategy in strategies">
+    <div class="panel panel-default" ng-repeat="strategy in strategies" ng-init="index=$index">
         <div class="panel-heading">
             <span>{{strategy.strategyName}}</span>
             <span>{{strategy.strategyState}}</span>
             <ul class="operation list-unstyled">
                 <li>
-                    <a ng-click="deleteStrategy($index,strategy)">
+                    <a ng-click="deleteStrategy(index, strategy)">
                         <i class="fa fa-close"></i>
                     </a>
                 </li>
                 <li>
-                    <a ng-click="pauseStrategy(strategy)">
+                    <a ng-click="pauseStrategy(index, strategy)">
                         <i class="fa fa-pause"></i>
                     </a>
                 </li>
                 <li>
-                    <a ng-click="startStrategy(strategy)">
+                    <a ng-click="resumeStrategy(index, strategy)">
                         <i class="fa fa-play"></i>
                     </a>
                 </li>
@@ -30,7 +30,7 @@
                         </div>
                         <div class="panel-body">
                             <span class="col-xs-6">{{feature.device.name}}</span>
-                            <span class="col-xs-6">{{feature.triggerDtoList[0].triggerValue | date:'yy-MM-dd hh:mm:ss'}}</span>
+                            <span class="col-xs-6">{{feature.triggerDtoList[0].triggerValue | date:'yyyy-MM-dd hh:mm:ss'}}</span>
                         </div>
                     </div>
                 </div>
