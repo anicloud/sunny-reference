@@ -10,11 +10,9 @@ import com.anicloud.sunny.interfaces.web.dto.DeviceFeatureInstanceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -70,9 +68,12 @@ public class StrategyController {
 
     @RequestMapping(value = "/strategy",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> saveStrategy(@RequestParam(value = "hashUserId")String hashUserId,StrategyFormDto strategyFormDto){
+    public Map<String, Object> saveStrategy(@RequestParam(value = "hashUserId")String hashUserId,@RequestParam(value = "strategyInstance")String strategyInstance){
         Map<String, Object> message = new HashMap<>();
         try{
+            ObjectMapper mapper = new ObjectMapper();
+            strategyInstance = strategyInstance.replaceAll("triggerValue","value");
+            StrategyFormDto strategyFormDto = mapper.readValue(strategyInstance,StrategyFormDto.class);
             UserDto userDto = userService.getUserByHashUserId(hashUserId);
             StrategyDto strategyDto =  strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto, userDto));
             StrategyFormDto strategyForm = StrategyFormDto.convertToStrategyForm(strategyDto);
