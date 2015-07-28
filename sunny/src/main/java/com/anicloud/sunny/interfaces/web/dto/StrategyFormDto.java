@@ -2,6 +2,8 @@ package com.anicloud.sunny.interfaces.web.dto;
 
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
+import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
+import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,9 @@ public class StrategyFormDto {
     public String strategyId;
     public String strategyName;
     public String strategyDescription;
-    public String strategyStage;
+    public ScheduleState state;
+    public Integer stage;
+    public StrategyAction action;
 
     public List<DeviceFeatureInstanceFormDto> featureList;
 
@@ -22,7 +26,9 @@ public class StrategyFormDto {
         strategyFormDto.strategyId = strategyDto.strategyId;
         strategyFormDto.strategyName = strategyDto.strategyName;
         strategyFormDto.strategyDescription = strategyDto.description;
-        strategyFormDto.strategyStage = "";
+        strategyFormDto.state = strategyDto.strategyInstanceDto.state;
+        strategyFormDto.stage = strategyDto.strategyInstanceDto.stage;
+        strategyFormDto.action = strategyDto.strategyInstanceDto.action;
         strategyFormDto.featureList = DeviceFeatureInstanceFormDto.convertToDeviceFeatureInstanceForms(strategyDto.deviceFeatureInstanceList);
         return strategyFormDto;
     }

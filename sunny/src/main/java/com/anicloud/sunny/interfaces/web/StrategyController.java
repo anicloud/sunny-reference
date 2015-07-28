@@ -41,7 +41,7 @@ public class StrategyController {
         strategyFormDto.strategyId  = "1";
         strategyFormDto.strategyName = "strategy1";
         strategyFormDto.strategyDescription = "";
-        strategyFormDto.strategyStage = "2";
+        strategyFormDto.stage = 2;
 
         List<DeviceFeatureInstanceFormDto> featureList = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class StrategyController {
 
     @RequestMapping(value = "/strategy",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> saveStrategy(StrategyFormDto strategyFormDto,@RequestParam(value = "hashUserId")String hashUserId){
+    public Map<String, Object> saveStrategy(@RequestParam(value = "hashUserId")String hashUserId,StrategyFormDto strategyFormDto){
         Map<String, Object> message = new HashMap<>();
         try{
             UserDto userDto = userService.getUserByHashUserId(hashUserId);
