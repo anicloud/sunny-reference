@@ -65,7 +65,7 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
      */
     public static void sendMessageToUser(String hashUserId, StrategyInfo strategyInfo) {
         WebSocketSession session = sessionMaps.get(hashUserId);
-        if (session.isOpen()) {
+        if (session != null && session.isOpen()) {
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 String strategyInfoJson = mapper.writeValueAsString(strategyInfo);
