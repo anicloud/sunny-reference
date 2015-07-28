@@ -25,6 +25,10 @@
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/simple-sidebar.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/material-design-iconic-font.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/lib/angularjs/css/ngDialog.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/lib/angularjs/css/ngDialog-theme-default.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/lib/angularjs/css/ngDialog-theme-plain.css" rel="stylesheet">
 
     <!-- Sunny css -->
     <link href="${pageContext.request.contextPath}/public/src/css/app.css" rel="stylesheet">
@@ -51,8 +55,10 @@
     <script src="${pageContext.request.contextPath}/public/lib/angular/angular-route.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/angular/angular-cookies.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/angular/angular-translate.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/angularjs/angular-ui-router.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/angularjs/ui-bootstrap-tpls-0.13.0.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angularjs/js/angular-ui-router.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angularjs/js/ui-bootstrap-tpls-0.13.0.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angularjs/js/ngDialog.js" type="text/javascript"></script>
+
 
     <!-- config -->
     <script src="${pageContext.request.contextPath}/public/src/js/config/language-config.js" type="text/javascript"></script>
@@ -83,7 +89,7 @@
     <![endif]-->
 </head>
 
-<body>
+<body class="layout-fixed">
 <div data-ui-view="" data-autoscroll="false" class="wrapper">
 </div>
 

@@ -14,28 +14,32 @@ anicloud.sunny.config.route = ['$stateProvider', '$locationProvider', '$urlRoute
         $locationProvider.html5Mode(false);
 
         // defaults to dashboard
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/app/dashboard');
 
         // Application Routes
         var basepath = 'public/src/view/';
         $stateProvider
-            .state('home', {
-                url: '/home',
+            .state('app', {
+                url: '/app',
                 templateUrl: basepath + 'app.html',
             })
-            .state('home.device', {
+            .state('app.dashboard', {
+                url: '/dashboard',
+                templateUrl: basepath + 'home.html'
+            })
+            .state('app.device', {
                 url: '/device',
                 templateUrl: basepath + 'device.html'
             })
-            .state('home.strategy', {
+            .state('app.strategy', {
                 url: '/strategy',
                 templateUrl: basepath + 'strategy.html'
             })
-            .state('home.edit_strategy', {
+            .state('app.edit_strategy', {
                 url: '/edit_strategy',
                 templateUrl: basepath + 'edit_strategy.html'
             })
-            .state('home.error', {
+            .state('app.error', {
                 url: '/error',
                 templateUrl: basepath + 'error.html'
             });

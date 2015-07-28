@@ -1,73 +1,71 @@
-<div id="wrapper" ng-class="{toggled:deviceDetail.isToggled}">
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-        <div class="device-avatar">
-        </div>
-        <ul>
-            <li>
-                ID：{{deviceDetail.device.id}}
-            </li>
-            <li>
-                类型：{{deviceDetail.device.deviceType}}
-            </li>
-            <li>
-                名称：{{deviceDetail.device.name}}
-                <button ng-click="deviceDetail.nameEditable = true">编辑</button>
-                <div ng-show="deviceDetail.nameEditable">
-                    <input ng-model="deviceDetail.nameInput">
-                    <button ng-click="deviceDetail.editName()">确定</button>
-                    <button ng-click="deviceDetail.nameEditable = false">取消</button>
-                </div>
-            </li>
-            <li>
-                分组：{{deviceDetail.device.deviceGroup}}
-                <button ng-click="deviceDetail.groupEditable = true">编辑</button>
-                <div ng-show="deviceDetail.groupEditable">
-                    <select class="" ng-model="deviceDetail.groupChosen"
-                            ng-options="group as group for group in deviceDetail.getGroups()">
-                    </select>
+<aside ng-if="!deviceDetail.isToggled" class="offsidebar">
+    <h3 class="text-center text-thin">
+        <span>设备信息</span>
+    </h3>
+    <ul class="list-unstyled">
+        <li>
+            ID:  {{deviceDetail.device.id}}
+        </li>
+        <li>
+            类型：{{deviceDetail.device.deviceType}}
+        </li>
+        <li>
+            名称：{{deviceDetail.device.name}}
+            <button ng-click="deviceDetail.nameEditable = true">编辑</button>
+            <div ng-show="deviceDetail.nameEditable">
+                <input ng-model="deviceDetail.nameInput">
+                <button ng-click="deviceDetail.editName()">确定</button>
+                <button ng-click="deviceDetail.nameEditable = false">取消</button>
+            </div>
+        </li>
+        <li>
+            分组：{{deviceDetail.device.deviceGroup}}
+            <button ng-click="deviceDetail.groupEditable = true">编辑</button>
+            <div ng-show="deviceDetail.groupEditable">
+                <select class="" ng-model="deviceDetail.groupChosen"
+                        ng-options="group as group for group in deviceDetail.getGroups()">
+                </select>
 
-                    <div ng-show="deviceDetail.groupChosen=='添加新组'">
-                        <div>
-                            <input ng-model="deviceDetail.groupInput">
-                        </div>
-                    </div>
-                    <button ng-click="deviceDetail.editGroup()">确定</button>
-                    <button ng-click="deviceDetail.groupEditable = false">取消</button>
-                </div>
-            </li>
-            <li>
-                特性：
-                <div>
-                    Feature:
-                    <select ng-model="deviceDetail.featureChosen"
-                            ng-options="feature as feature.featureName for feature in deviceDetail.getFeatureList()"
-                            ng-click="deviceDetail.arguments = {}">
-                    </select>
-
-                    <div ng-show="deviceDetail.featureChosen != null">
-                        <div>
-                            任务参数：
-                            <div ng-repeat="arg in deviceDetail.getArgumentList()">
-                                {{arg.screenName}}:
-                                <input ng-model="deviceDetail.arguments[arg.name]" required>
-                            </div>
-                        </div>
-                        <div>
-                            控制面板：
-                            <button ng-click="deviceDetail.start()">
-                                start
-                            </button>
-                            <button ng-click="deviceDetail.pause()">
-                                pause
-                            </button>
-                            <button ng-click="deviceDetail.stop()">
-                                stop
-                            </button>
-                        </div>
+                <div ng-show="deviceDetail.groupChosen=='添加新组'">
+                    <div>
+                        <input ng-model="deviceDetail.groupInput">
                     </div>
                 </div>
-            </li>
-        </ul>
-    </div>
-</div>
+                <button ng-click="deviceDetail.editGroup()">确定</button>
+                <button ng-click="deviceDetail.groupEditable = false">取消</button>
+            </div>
+        </li>
+        <li>
+            特性：
+            <div>
+                Feature:
+                <select ng-model="deviceDetail.featureChosen"
+                        ng-options="feature as feature.featureName for feature in deviceDetail.getFeatureList()"
+                        ng-click="deviceDetail.arguments = {}">
+                </select>
+
+                <div ng-show="deviceDetail.featureChosen != null">
+                    <div>
+                        任务参数：
+                        <div ng-repeat="arg in deviceDetail.getArgumentList()">
+                            {{arg.screenName}}:
+                            <input ng-model="deviceDetail.arguments[arg.name]" required>
+                        </div>
+                    </div>
+                    <div>
+                        控制面板：
+                        <button ng-click="deviceDetail.start()">
+                            start
+                        </button>
+                        <button ng-click="deviceDetail.pause()">
+                            pause
+                        </button>
+                        <button ng-click="deviceDetail.stop()">
+                            stop
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</aside>

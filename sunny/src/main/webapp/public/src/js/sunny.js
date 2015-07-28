@@ -18,6 +18,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
     var app = angular.module(appName, [
         'ngRoute',
         'ngCookies',
+        'ngDialog',
         'ui.bootstrap',
         'ui.router'
     ]);

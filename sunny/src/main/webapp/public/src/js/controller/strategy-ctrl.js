@@ -6,7 +6,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, StrategyService, DeviceService) {
+anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog, StrategyService, DeviceService) {
     //    For Strategy page
     if (!$rootScope.strategies) {
         $rootScope.strategies = [];
@@ -93,6 +93,14 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, StrategyS
         return null;
     }
 
+    $scope.featureModal.open = function() {
+        ngDialog.open(
+            {
+                template: 'public/src/view/feature.html',
+                scope: $scope
+            });
+    }
+
     $scope.addFeature = function (strategy) {
         $scope.featureModal.valid = true;
         var feature = $scope.featureModal.getFeature();
@@ -101,22 +109,22 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, StrategyS
         if (device == null) {
             $scope.featureModal.valid = false;
             $scope.featureModal.error = "设备不能为空";
-            return;
+            return false;
         }
         if (feature == null) {
             $scope.featureModal.valid = false;
             $scope.featureModal.error = "任务不能为空";
-            return;
+            return false;
         }
         if (trigger.triggerType == '') {
             $scope.featureModal.valid = false;
             $scope.featureModal.error = "触发条件不能为空";
-            return;
+            return false;
         }
         if (trigger.triggerType == 'TIMER' && trigger.triggerValue == '') {
             $scope.featureModal.valid = false;
             $scope.featureModal.error = "选择时间";
-            return;
+            return false;
         }
 
         var featureInstance = new anicloud.sunny.model.FeatureInstance(
@@ -127,7 +135,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, StrategyS
             [jsonClone(trigger)]
         );
         strategy.featureList.push(featureInstance);
-        //console.log(strategy);
+        return true;
 
     };
 
@@ -179,6 +187,20 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, StrategyS
         $rootScope.strategies.splice(index, 1);
     };
 
+    $scope.startStrategy = function (strategy) {
+        console.log("start strategy: ");
+        console.log(strategy);
+    };
+
+    $scope.stopStrategy = function (strategy) {
+        console.log("stop strategy: ");
+        console.log(strategy);
+    };
+
+    $scope.pauseStrategy = function (strategy) {
+        console.log("pause strategy: ");
+        console.log(strategy);
+    };
     //
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));

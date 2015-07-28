@@ -4,9 +4,30 @@
         <!-- START sidebar nav-->
         <ul class="nav">
             <!-- Iterates over all sidebar items-->
-            <li>dashboard</li>
-            <li>device</li>
-            <li>strategy</li>
+            <li>
+                <a href="#/app/dashboard">
+                    <i class="fa fa-tachometer"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-tasks"></i>
+                    <span>Strategy</span>
+                </a>
+                <ul class="nav sidebar-subnav">
+                    <li><a href="#/app/edit_strategy"><span>创建策略</span></a></li>
+                    <li><a href="#/app/strategy"><span>正在执行</span></a></li>
+                    <li><a><span>已完成</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#/app/device">
+                    <i class="fa fa-tablet"></i>
+                    <span>Device</span>
+                </a>
+            </li>
+
         </ul>
         <!-- END sidebar nav-->
     </nav>
