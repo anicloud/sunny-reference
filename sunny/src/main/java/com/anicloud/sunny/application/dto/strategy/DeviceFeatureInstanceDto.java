@@ -2,7 +2,7 @@ package com.anicloud.sunny.application.dto.strategy;
 
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
-import com.anicloud.sunny.application.dto.share.FunctionValueDto;
+import com.anicloud.sunny.application.dto.share.FeatureArgValueDto;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,29 +16,29 @@ public class DeviceFeatureInstanceDto implements Serializable {
     public String featureInstanceNum;
     public DeviceDto deviceDto;
     public DeviceFeatureDto deviceFeatureDto;
-    public List<FunctionValueDto> functionValueDtoList;
+    public List<FeatureArgValueDto> featureArgValueDtoList;
     public List<FeatureTriggerDto> triggerDtoList;
 
     public DeviceFeatureInstanceDto() {
     }
 
     public DeviceFeatureInstanceDto(DeviceDto deviceDto, DeviceFeatureDto deviceFeatureDto,
-                                    List<FunctionValueDto> functionValueDtoList,
+                                    List<FeatureArgValueDto> featureArgValueDtoList,
                                     List<FeatureTriggerDto> triggerDtoList) {
         this.deviceDto = deviceDto;
         this.deviceFeatureDto = deviceFeatureDto;
-        this.functionValueDtoList = functionValueDtoList;
+        this.featureArgValueDtoList = featureArgValueDtoList;
         this.triggerDtoList = triggerDtoList;
     }
 
     public DeviceFeatureInstanceDto(String featureInstanceNum, DeviceDto deviceDto,
                                     DeviceFeatureDto deviceFeatureDto,
-                                    List<FunctionValueDto> functionValueDtoList,
+                                    List<FeatureArgValueDto> featureArgValueDtoList,
                                     List<FeatureTriggerDto> triggerDtoList) {
         this.featureInstanceNum = featureInstanceNum;
         this.deviceDto = deviceDto;
         this.deviceFeatureDto = deviceFeatureDto;
-        this.functionValueDtoList = functionValueDtoList;
+        this.featureArgValueDtoList = featureArgValueDtoList;
         this.triggerDtoList = triggerDtoList;
     }
 

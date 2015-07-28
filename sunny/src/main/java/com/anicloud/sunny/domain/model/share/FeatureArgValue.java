@@ -9,47 +9,47 @@ import java.util.List;
 /**
  * Created by zhaoyu on 15-6-15.
  */
-public class FunctionValue implements Serializable {
+public class FeatureArgValue implements Serializable {
     private static final long serialVersionUID = 2743471870088769938L;
 
     public String argName;
     public String value;
 
-    public FunctionValue() {
+    public FeatureArgValue() {
     }
 
-    public FunctionValue(String argName, String value) {
+    public FeatureArgValue(String argName, String value) {
         this.argName = argName;
         this.value = value;
     }
 
-    public static FunctionValue toFunctionValue(FeatureInstanceFunctionValueDao valueDao) {
-        return new FunctionValue(
+    public static FeatureArgValue toFunctionValue(FeatureInstanceFunctionValueDao valueDao) {
+        return new FeatureArgValue(
                 valueDao.argName,
                 valueDao.value
         );
     }
 
-    public static FeatureInstanceFunctionValueDao toFeatureInstanceFuncValue(FunctionValue functionValue) {
+    public static FeatureInstanceFunctionValueDao toFeatureInstanceFuncValue(FeatureArgValue featureArgValue) {
         return new FeatureInstanceFunctionValueDao(
-                functionValue.argName,
-                functionValue.value
+                featureArgValue.argName,
+                featureArgValue.value
         );
     }
 
-    public static List<FunctionValue> toFunctionValueList(List<FeatureInstanceFunctionValueDao> daoList) {
-        List<FunctionValue> functionValueList = new ArrayList<>();
+    public static List<FeatureArgValue> toFunctionValueList(List<FeatureInstanceFunctionValueDao> daoList) {
+        List<FeatureArgValue> featureArgValueList = new ArrayList<>();
         for (FeatureInstanceFunctionValueDao valueDao : daoList) {
-            functionValueList.add(toFunctionValue(valueDao));
+            featureArgValueList.add(toFunctionValue(valueDao));
         }
-        return functionValueList;
+        return featureArgValueList;
     }
 
-    public static List<FeatureInstanceFunctionValueDao> toFeatureInstanceFuncValueList(List<FunctionValue> valueList) {
+    public static List<FeatureInstanceFunctionValueDao> toFeatureInstanceFuncValueList(List<FeatureArgValue> valueList) {
         List<FeatureInstanceFunctionValueDao> instanceFunctionValueDaoList =
                 new ArrayList<>();
-        for (FunctionValue functionValue : valueList) {
-            instanceFunctionValueDaoList.add(toFeatureInstanceFuncValue(functionValue));
+        for (FeatureArgValue featureArgValue : valueList) {
+            instanceFunctionValueDaoList.add(toFeatureInstanceFuncValue(featureArgValue));
         }
         return instanceFunctionValueDaoList;
     }
@@ -59,7 +59,7 @@ public class FunctionValue implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FunctionValue that = (FunctionValue) o;
+        FeatureArgValue that = (FeatureArgValue) o;
 
         if (argName != null ? !argName.equals(that.argName) : that.argName != null) return false;
         return !(value != null ? !value.equals(that.value) : that.value != null);
@@ -75,7 +75,7 @@ public class FunctionValue implements Serializable {
 
     @Override
     public String toString() {
-        return "FunctionValue{" +
+        return "FeatureArgValue{" +
                 "argName='" + argName + '\'' +
                 ", value='" + value + '\'' +
                 '}';

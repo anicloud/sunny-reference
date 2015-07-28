@@ -8,7 +8,7 @@ import com.anicloud.sunny.application.utils.NumGenerate;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.domain.model.device.FeatureFunction;
 import com.anicloud.sunny.domain.model.device.FunctionArgument;
-import com.anicloud.sunny.domain.model.share.FunctionValue;
+import com.anicloud.sunny.domain.model.share.FeatureArgValue;
 import com.anicloud.sunny.domain.model.strategy.DeviceFeatureInstance;
 import com.anicloud.sunny.domain.model.strategy.FeatureTrigger;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
@@ -88,7 +88,7 @@ public class StrategyDtoAssembler {
             List<FunctionInstance> functionInstanceList = new ArrayList<>();
             for (FeatureFunction featureFunction : featureFunctionList) {
                 FunctionInstance functionInstance =
-                        toFunctionInstance(deviceFeature, deviceFeatureInstance.functionValueList, featureFunction);
+                        toFunctionInstance(deviceFeature, deviceFeatureInstance.featureArgValueList, featureFunction);
                 functionInstanceList.add(functionInstance);
             }
 
@@ -116,7 +116,7 @@ public class StrategyDtoAssembler {
     }
 
 
-    public static FunctionInstance toFunctionInstance(DeviceFeature deviceFeature, List<FunctionValue> valueList, FeatureFunction featureFunction) {
+    public static FunctionInstance toFunctionInstance(DeviceFeature deviceFeature, List<FeatureArgValue> valueList, FeatureFunction featureFunction) {
         List<Argument> inputList = new ArrayList<>();
         for (FunctionArgument functionArgument : featureFunction.inputArgList) {
             String value = getArgumentValue(deviceFeature, valueList, featureFunction.featureFunctionId, functionArgument.name);
@@ -160,7 +160,7 @@ public class StrategyDtoAssembler {
         return triggerInstanceList;
     }
 
-    public static String getArgumentValue(DeviceFeature deviceFeature, List<FunctionValue> valueList,  String functionId, String argName) {
+    public static String getArgumentValue(DeviceFeature deviceFeature, List<FeatureArgValue> valueList,  String functionId, String argName) {
         String argKey = null;
         String functionArg = functionId + argName;
 
@@ -179,9 +179,9 @@ public class StrategyDtoAssembler {
         }
 
         String value = null;
-        for (FunctionValue functionValue : valueList) {
-            if (functionValue.argName.equals(argKey)) {
-                value = functionValue.value;
+        for (FeatureArgValue featureArgValue : valueList) {
+            if (featureArgValue.argName.equals(argKey)) {
+                value = featureArgValue.value;
                 break;
             }
         }

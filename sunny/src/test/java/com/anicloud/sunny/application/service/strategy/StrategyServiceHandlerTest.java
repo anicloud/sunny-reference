@@ -1,6 +1,6 @@
 package com.anicloud.sunny.application.service.strategy;
 
-import com.anicloud.sunny.application.dto.share.FunctionValueDto;
+import com.anicloud.sunny.application.dto.share.FeatureArgValueDto;
 import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.FeatureTriggerDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
@@ -94,13 +94,13 @@ public class StrategyServiceHandlerTest {
     }
 
     private StrategyDto createData() throws JsonProcessingException {
-        List<FunctionValueDto> functionValueDtoList = new ArrayList<>();
-        functionValueDtoList.add(new FunctionValueDto("temperature", "25.5"));
-        functionValueDtoList.add(new FunctionValueDto("isopen", "true"));
+        List<FeatureArgValueDto> featureArgValueDtoList = new ArrayList<>();
+        featureArgValueDtoList.add(new FeatureArgValueDto("temperature", "25.5"));
+        featureArgValueDtoList.add(new FeatureArgValueDto("isopen", "true"));
 
-        List<FunctionValueDto> functionValueDtoList1 = new ArrayList<>();
-        functionValueDtoList1.add(new FunctionValueDto("temperature", "30"));
-        functionValueDtoList1.add(new FunctionValueDto("isopen", "false"));
+        List<FeatureArgValueDto> featureArgValueDtoList1 = new ArrayList<>();
+        featureArgValueDtoList1.add(new FeatureArgValueDto("temperature", "30"));
+        featureArgValueDtoList1.add(new FeatureArgValueDto("isopen", "false"));
 
 
         List<FeatureTriggerDto> triggerDtoList = new ArrayList<>();
@@ -109,13 +109,13 @@ public class StrategyServiceHandlerTest {
         DeviceFeatureInstanceDto instanceDto = new DeviceFeatureInstanceDto();
         instanceDto.deviceDto = deviceService.getDeviceByIdentificationCode("111222asdf|1212qdasdfasd");
         instanceDto.deviceFeatureDto = deviceFeatureService.getDeviceFeatureById("3aa1831f0325477e988973e50dd74a2d");
-        instanceDto.functionValueDtoList = functionValueDtoList;
+        instanceDto.featureArgValueDtoList = featureArgValueDtoList;
         instanceDto.triggerDtoList = triggerDtoList;
 
         DeviceFeatureInstanceDto instanceDto1 = new DeviceFeatureInstanceDto();
         instanceDto1.deviceDto = deviceService.getDeviceByIdentificationCode("111222asdf|1212qdasdfasd");
         instanceDto1.deviceFeatureDto = deviceFeatureService.getDeviceFeatureById("3aa1831f0325477e988973e50dd74a2d");
-        instanceDto1.functionValueDtoList = functionValueDtoList1;
+        instanceDto1.featureArgValueDtoList = featureArgValueDtoList1;
         instanceDto1.triggerDtoList = triggerDtoList;
 
         StrategyDto strategyDto = new StrategyDto();

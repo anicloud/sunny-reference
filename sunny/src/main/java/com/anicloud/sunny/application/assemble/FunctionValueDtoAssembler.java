@@ -1,7 +1,7 @@
 package com.anicloud.sunny.application.assemble;
 
-import com.anicloud.sunny.application.dto.share.FunctionValueDto;
-import com.anicloud.sunny.domain.model.share.FunctionValue;
+import com.anicloud.sunny.application.dto.share.FeatureArgValueDto;
+import com.anicloud.sunny.domain.model.share.FeatureArgValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,42 +12,42 @@ import java.util.List;
 public class FunctionValueDtoAssembler {
     private FunctionValueDtoAssembler() {}
 
-    public static FunctionValue toFunctionValue(FunctionValueDto functionValueDto) {
-        if (functionValueDto == null) {
+    public static FeatureArgValue toFunctionValue(FeatureArgValueDto featureArgValueDto) {
+        if (featureArgValueDto == null) {
             return null;
         }
 
-        FunctionValue functionValue = new FunctionValue(
-                functionValueDto.argName,
-                functionValueDto.value
+        FeatureArgValue featureArgValue = new FeatureArgValue(
+                featureArgValueDto.argName,
+                featureArgValueDto.value
         );
-        return functionValue;
+        return featureArgValue;
     }
 
-    public static FunctionValueDto toFunctionValueDto(FunctionValue functionValue) {
-        if (functionValue == null) {
+    public static FeatureArgValueDto toFunctionValueDto(FeatureArgValue featureArgValue) {
+        if (featureArgValue == null) {
             return null;
         }
 
-        FunctionValueDto valueDto = new FunctionValueDto(
-                functionValue.argName,
-                functionValue.value
+        FeatureArgValueDto valueDto = new FeatureArgValueDto(
+                featureArgValue.argName,
+                featureArgValue.value
         );
         return valueDto;
     }
 
-    public static List<FunctionValue> toFunctionValueList(List<FunctionValueDto> functionValueDtoList) {
-        List<FunctionValue> functionValueList = new ArrayList<>();
-        for (FunctionValueDto valueDto : functionValueDtoList) {
-            functionValueList.add(toFunctionValue(valueDto));
+    public static List<FeatureArgValue> toFunctionValueList(List<FeatureArgValueDto> featureArgValueDtoList) {
+        List<FeatureArgValue> featureArgValueList = new ArrayList<>();
+        for (FeatureArgValueDto valueDto : featureArgValueDtoList) {
+            featureArgValueList.add(toFunctionValue(valueDto));
         }
-        return functionValueList;
+        return featureArgValueList;
     }
 
-    public static List<FunctionValueDto> toFunctionValueDtoList(List<FunctionValue> valueList) {
-        List<FunctionValueDto> valueDtoList = new ArrayList<>();
-        for (FunctionValue functionValue : valueList) {
-            valueDtoList.add(toFunctionValueDto(functionValue));
+    public static List<FeatureArgValueDto> toFunctionValueDtoList(List<FeatureArgValue> valueList) {
+        List<FeatureArgValueDto> valueDtoList = new ArrayList<>();
+        for (FeatureArgValue featureArgValue : valueList) {
+            valueDtoList.add(toFunctionValueDto(featureArgValue));
         }
         return valueDtoList;
     }

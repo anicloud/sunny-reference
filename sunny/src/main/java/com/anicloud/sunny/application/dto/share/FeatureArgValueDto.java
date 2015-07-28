@@ -7,23 +7,23 @@ import java.io.Serializable;
 /**
  * Created by zhaoyu on 15-6-16.
  */
-public class FunctionValueDto implements Serializable {
+public class FeatureArgValueDto implements Serializable {
     private static final long serialVersionUID = 4214473683870438852L;
 
     public String argName;
     public String value;
 
-    public FunctionValueDto() {
+    public FeatureArgValueDto() {
     }
 
-    public FunctionValueDto(String argName, String value) {
+    public FeatureArgValueDto(String argName, String value) {
         this.argName = argName;
         this.value = value;
     }
 
     @Override
     public String toString() {
-        return "FunctionValueDto{" +
+        return "UserAuthorizedAppLogDao{" +
                 "argName='" + argName + '\'' +
                 ", value='" + value + '\'' +
                 '}';

@@ -1,11 +1,6 @@
 package com.anicloud.sunny.interfaces.web;
 
-import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
-import com.anicloud.sunny.application.dto.device.DeviceDto;
-import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
-import com.anicloud.sunny.application.dto.device.FeatureArgDto;
-import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationService;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.device.DeviceService;
@@ -17,10 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sun.rmi.runtime.Log;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;

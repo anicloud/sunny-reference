@@ -2,10 +2,9 @@ package com.anicloud.sunny.application.builder;
 
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
-import com.anicloud.sunny.application.dto.share.FunctionValueDto;
+import com.anicloud.sunny.application.dto.share.FeatureArgValueDto;
 import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.FeatureTriggerDto;
-import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +31,16 @@ public class DeviceFeatureInstanceDtoBuilder {
         return this;
     }
 
-    public DeviceFeatureInstanceDtoBuilder setFunctionValue(FunctionValueDto valueDto) {
-        if (this.featureInstanceDto.functionValueDtoList == null) {
-            this.featureInstanceDto.functionValueDtoList = new ArrayList<>();
+    public DeviceFeatureInstanceDtoBuilder setFunctionValue(FeatureArgValueDto valueDto) {
+        if (this.featureInstanceDto.featureArgValueDtoList == null) {
+            this.featureInstanceDto.featureArgValueDtoList = new ArrayList<>();
         }
-        this.featureInstanceDto.functionValueDtoList.add(valueDto);
+        this.featureInstanceDto.featureArgValueDtoList.add(valueDto);
         return this;
     }
 
-    public DeviceFeatureInstanceDtoBuilder setFunctionValue(List<FunctionValueDto> valueDtoList) {
-        this.featureInstanceDto.functionValueDtoList = valueDtoList;
+    public DeviceFeatureInstanceDtoBuilder setFunctionValue(List<FeatureArgValueDto> valueDtoList) {
+        this.featureInstanceDto.featureArgValueDtoList = valueDtoList;
         return this;
     }
 

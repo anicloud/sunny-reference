@@ -23,7 +23,7 @@ public class DeviceFeatureInstanceDtoAssembler {
                 instanceDto.featureInstanceNum,
                 DeviceDtoAssembler.toDevice(instanceDto.deviceDto),
                 DeviceFeatureDtoAssembler.toDeviceFeature(instanceDto.deviceFeatureDto),
-                FunctionValueDtoAssembler.toFunctionValueList(instanceDto.functionValueDtoList),
+                FunctionValueDtoAssembler.toFunctionValueList(instanceDto.featureArgValueDtoList),
                 FeatureTriggerDtoAssembler.toFeatureTriggerList(instanceDto.triggerDtoList)
         );
         return instance;
@@ -37,7 +37,7 @@ public class DeviceFeatureInstanceDtoAssembler {
                 featureInstance.featureInstanceNum,
                 DeviceDtoAssembler.fromDevice(featureInstance.device),
                 DeviceFeatureDtoAssembler.toDto(featureInstance.deviceFeature),
-                FunctionValueDtoAssembler.toFunctionValueDtoList(featureInstance.functionValueList),
+                FunctionValueDtoAssembler.toFunctionValueDtoList(featureInstance.featureArgValueList),
                 FeatureTriggerDtoAssembler.toDtoList(featureInstance.triggerList)
         );
         return instanceDto;

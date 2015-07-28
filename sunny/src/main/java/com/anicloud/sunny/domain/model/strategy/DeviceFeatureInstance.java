@@ -2,7 +2,7 @@ package com.anicloud.sunny.domain.model.strategy;
 
 import com.anicloud.sunny.domain.model.device.Device;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
-import com.anicloud.sunny.domain.model.share.FunctionValue;
+import com.anicloud.sunny.domain.model.share.FeatureArgValue;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.DeviceFeatureInstanceDao;
 
@@ -18,7 +18,7 @@ public class DeviceFeatureInstance extends AbstractDomain {
     public String featureInstanceNum;
     public Device device;
     public DeviceFeature deviceFeature;
-    public List<FunctionValue> functionValueList;
+    public List<FeatureArgValue> featureArgValueList;
     public List<FeatureTrigger> triggerList;
 
     public DeviceFeatureInstance() {
@@ -26,11 +26,11 @@ public class DeviceFeatureInstance extends AbstractDomain {
 
     public DeviceFeatureInstance(String featureInstanceNum, Device device,
                                  DeviceFeature deviceFeature,
-                                 List<FunctionValue> functionValueList, List<FeatureTrigger> triggerList) {
+                                 List<FeatureArgValue> featureArgValueList, List<FeatureTrigger> triggerList) {
         this.featureInstanceNum = featureInstanceNum;
         this.device = device;
         this.deviceFeature = deviceFeature;
-        this.functionValueList = functionValueList;
+        this.featureArgValueList = featureArgValueList;
         this.triggerList = triggerList;
     }
 
@@ -39,7 +39,7 @@ public class DeviceFeatureInstance extends AbstractDomain {
                 instanceDao.featureInstanceNum,
                 Device.toDevice(instanceDao.deviceDao),
                 DeviceFeature.toDeviceFeature(instanceDao.deviceFeatureDao),
-                FunctionValue.toFunctionValueList(instanceDao.instanceFunctionValueDaoList),
+                FeatureArgValue.toFunctionValueList(instanceDao.instanceFunctionValueDaoList),
                 FeatureTrigger.toFeatureTriggerList(instanceDao.triggerDaoList)
         );
         return featureInstance;
@@ -50,7 +50,7 @@ public class DeviceFeatureInstance extends AbstractDomain {
                 featureInstance.featureInstanceNum,
                 Device.toDao(featureInstance.device),
                 DeviceFeature.toDao(featureInstance.deviceFeature),
-                FunctionValue.toFeatureInstanceFuncValueList(featureInstance.functionValueList),
+                FeatureArgValue.toFeatureInstanceFuncValueList(featureInstance.featureArgValueList),
                 FeatureTrigger.toDaoList(featureInstance.triggerList)
         );
         return instanceDao;
