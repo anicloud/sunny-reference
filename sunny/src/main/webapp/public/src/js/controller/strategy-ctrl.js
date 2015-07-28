@@ -8,35 +8,9 @@ anicloud.sunny.controller = anicloud.sunny.controller || {};
 
 anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog, StrategyService, DeviceService) {
     //    For Strategy page
-    if (!$rootScope.strategies) {
-        $rootScope.strategies = [];
-        $rootScope.devices = [];
-        $rootScope.features = [];
-        $rootScope.triggers = [];
 
-        StrategyService.getStrategies(function (data) {
-            $rootScope.strategies = data;
-        });
-
-        DeviceService.getDevices(function (data) {
-            $rootScope.devices = data;
-        });
-
-        DeviceService.getDeviceFeatures(function (data) {
-            for (var i = 0; i < data.length; i++) {
-                var key = data[i].deviceFormDto.id;
-                var value = data[i].deviceFeatureFormDtoList;
-                $rootScope.features[key] = value;
-            }
-        });
-
-        DeviceService.getFeatureTrigger(function (data) {
-            $rootScope.triggers = data;
-        });
-    }
-
-    // feature modal
-    $scope.featureModal = {
+    // feature Template
+    $scope.featureTemplate = {
         "featureId": "",
         "deviceId": "",
         "trigger": {
@@ -52,48 +26,48 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
     };
 
 
-    $scope.featureModal.clearAll = function () {
-        $scope.featureModal.deviceId = "";
-        $scope.featureModal.featureId = "";
-        $scope.featureModal.trigger.triggerType = "";
-        $scope.featureModal.trigger.triggerValue = "";
-        $scope.featureModal.functionValues = "";
+    $scope.featureTemplate.clearAll = function () {
+        $scope.featureTemplate.deviceId = "";
+        $scope.featureTemplate.featureId = "";
+        $scope.featureTemplate.trigger.triggerType = "";
+        $scope.featureTemplate.trigger.triggerValue = "";
+        $scope.featureTemplate.functionValues = "";
     };
 
-    $scope.featureModal.getDeviceFeatures = function () {
-        if ($scope.featureModal.deviceId == '') {
+    $scope.featureTemplate.getDeviceFeatures = function () {
+        if ($scope.featureTemplate.deviceId == '') {
             return null;
         }
-        return $rootScope.features[$scope.featureModal.deviceId];
+        return $rootScope.features[$scope.featureTemplate.deviceId];
     };
 
 
-    $scope.featureModal.getDevice = function () {
-        if ($scope.featureModal.deviceId == '') {
+    $scope.featureTemplate.getDevice = function () {
+        if ($scope.featureTemplate.deviceId == '') {
             return null;
         }
         for (var i = 0; i < $rootScope.devices.length; i++) {
-            if ($rootScope.devices[i].id == $scope.featureModal.deviceId) {
+            if ($rootScope.devices[i].id == $scope.featureTemplate.deviceId) {
                 return $rootScope.devices[i];
             }
         }
         return null;
     }
 
-    $scope.featureModal.getFeature = function () {
-        if ($scope.featureModal.featureId == '') {
+    $scope.featureTemplate.getFeature = function () {
+        if ($scope.featureTemplate.featureId == '') {
             return null;
         }
-        for (var i = 0; i < $rootScope.features[$scope.featureModal.deviceId].length; i++) {
-            if ($rootScope.features[$scope.featureModal.deviceId][i].featureId == $scope.featureModal.featureId) {
-                return $rootScope.features[$scope.featureModal.deviceId][i];
+        for (var i = 0; i < $rootScope.features[$scope.featureTemplate.deviceId].length; i++) {
+            if ($rootScope.features[$scope.featureTemplate.deviceId][i].featureId == $scope.featureTemplate.featureId) {
+                return $rootScope.features[$scope.featureTemplate.deviceId][i];
             }
         }
         // Todo : add feature args
         return null;
     }
 
-    $scope.featureModal.open = function() {
+    $scope.featureTemplate.open = function() {
         ngDialog.open(
             {
                 template: 'public/src/view/feature.html',
@@ -102,28 +76,28 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
     }
 
     $scope.addFeature = function (strategy) {
-        $scope.featureModal.valid = true;
-        var feature = $scope.featureModal.getFeature();
-        var device = $scope.featureModal.getDevice();
-        var trigger = $scope.featureModal.trigger;
+        $scope.featureTemplate.valid = true;
+        var feature = $scope.featureTemplate.getFeature();
+        var device = $scope.featureTemplate.getDevice();
+        var trigger = $scope.featureTemplate.trigger;
         if (device == null) {
-            $scope.featureModal.valid = false;
-            $scope.featureModal.error = "设备不能为空";
+            $scope.featureTemplate.valid = false;
+            $scope.featureTemplate.error = "设备不能为空";
             return false;
         }
         if (feature == null) {
-            $scope.featureModal.valid = false;
-            $scope.featureModal.error = "任务不能为空";
+            $scope.featureTemplate.valid = false;
+            $scope.featureTemplate.error = "任务不能为空";
             return false;
         }
         if (trigger.triggerType == '') {
-            $scope.featureModal.valid = false;
-            $scope.featureModal.error = "触发条件不能为空";
+            $scope.featureTemplate.valid = false;
+            $scope.featureTemplate.error = "触发条件不能为空";
             return false;
         }
         if (trigger.triggerType == 'TIMER' && trigger.triggerValue == '') {
-            $scope.featureModal.valid = false;
-            $scope.featureModal.error = "选择时间";
+            $scope.featureTemplate.valid = false;
+            $scope.featureTemplate.error = "选择时间";
             return false;
         }
 
@@ -146,8 +120,8 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         featureList.splice(index, 1);
     };
 
-    // strategy modal
-    $scope.strategyModal = {
+    // strategy Template
+    $scope.strategyTemplate = {
         "strategyId": "",
         "strategyName": "",
         "strategyState": "",
@@ -158,27 +132,27 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         "error" : ""
     };
 
-    $scope.strategyModal.clearAll = function () {
-        $scope.strategyModal.strategyName = "";
-        $scope.strategyModal.strategyDescription = "";
-        $scope.strategyModal.strategyState = "";
+    $scope.strategyTemplate.clearAll = function () {
+        $scope.strategyTemplate.strategyName = "";
+        $scope.strategyTemplate.strategyDescription = "";
+        $scope.strategyTemplate.strategyState = "";
     };
 
     $scope.addStrategy = function () {
-        $scope.strategyModal.valid = true;
-        if ($scope.strategyModal.strategyName.length == 0) {
-            $scope.strategyModal.valid = false;
-            $scope.strategyModal.error = "名称不能为空";
+        $scope.strategyTemplate.valid = true;
+        if ($scope.strategyTemplate.strategyName.length == 0) {
+            $scope.strategyTemplate.valid = false;
+            $scope.strategyTemplate.error = "名称不能为空";
             return;
         }
-        if ($scope.strategyModal.featureList.length == 0) {
-            $scope.strategyModal.valid = false;
-            $scope.strategyModal.error = "任务不能为空";
+        if ($scope.strategyTemplate.featureList.length == 0) {
+            $scope.strategyTemplate.valid = false;
+            $scope.strategyTemplate.error = "任务不能为空";
             return;
         }
-        $scope.strategyModal.strategyId = $rootScope.strategies.length + 1;//写死的长度
-        $scope.strategyModal.strategyState = "running";
-        $rootScope.strategies.push(jsonClone($scope.strategyModal));
+        $scope.strategyTemplate.strategyId = $rootScope.strategies.length + 1;//写死的长度
+        $scope.strategyTemplate.strategyState = "running";
+        $rootScope.strategies.push(jsonClone($scope.strategyTemplate));
     };
 
     $scope.deleteStrategy = function (index) {

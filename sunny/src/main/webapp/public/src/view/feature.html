@@ -3,7 +3,7 @@
         <div>
             <label>选择设备:</label>
             <select name="deviceId"
-                    ng-model="featureModal.deviceId"
+                    ng-model="featureTempalte.deviceId"
                     ng-options="device.id as device.name for device in devices"
                     required>
                 <option value="">选择设备</option>
@@ -11,28 +11,28 @@
         </div>
         <div>
             <label>选择任务:</label>
-            <select ng-model="featureModal.featureId"
-                    ng-options="feature.featureId as feature.featureName for feature in featureModal.getDeviceFeatures()">
+            <select ng-model="featureTempalte.featureId"
+                    ng-options="feature.featureId as feature.featureName for feature in featureTempalte.getDeviceFeatures()">
                 <option value="">选择任务</option>
             </select>
         </div>
-        <div ng-if="featureModal.featureId != ''">
+        <div ng-if="featureTempalte.featureId != ''">
             <label>任务参数：</label>
-            <div ng-repeat="arg in featureModal.getFeature().argDtoList">
+            <div ng-repeat="arg in featureTempalte.getFeature().argDtoList">
                 {{arg.screenName}}:
-                <input ng-model="featureModal.arguments[arg.name]" required>
+                <input ng-model="featureTempalte.arguments[arg.name]" required>
             </div>
         </div>
         <div>
             <label>选择执行条件:</label>
-            <select ng-model="featureModal.trigger.triggerType"
+            <select ng-model="featureTempalte.trigger.triggerType"
                     ng-options="trigger as trigger for trigger in triggers">d
             </select>
         </div>
-        <div ng-switch on="featureModal.trigger.triggerType">
+        <div ng-switch on="featureTempalte.trigger.triggerType">
             <div ng-switch-when="TIMER">
                 <label>输入时间：</label>
-                <timepicker ng-model="featureModal.trigger.triggerValue"
+                <timepicker ng-model="featureTempalte.trigger.triggerValue"
                             hour-step="1"
                             minute-step="1" show-meridian="true"></timepicker>
 
@@ -44,11 +44,11 @@
         </div>
     </div>
     <div class="">
-        <div class="alert alert-danger" ng-show="!featureModal.valid">
-            {{featureModal.error}}
+        <div class="alert alert-danger" ng-show="!featureTempalte.valid">
+            {{featureTempalte.error}}
         </div>
         <div class="btn btn-primary"
-             ng-click="addFeature(strategyModal) && closeThisDialog('')">
+             ng-click="addFeature(strategyTempalte) && closeThisDialog('')">
             Save changes
         </div>
     </div>

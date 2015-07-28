@@ -2,11 +2,11 @@
     <form name="strategyForm" novalidate>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <input ng-model="strategyModal.strategyName" placeholder="input strategy name" focus
+                <input ng-model="strategyTemplate.strategyName" placeholder="input strategy name" focus
                        required>
                 <ul class="operation list-unstyled">
                     <li>
-                        <a ng-click="featureModal.open()">
+                        <a ng-click="featureTemplate.open()">
                         <i class="fa fa-plus"></i>
                     </a>
                     </li>
@@ -14,11 +14,11 @@
             </div>
             <div class="panel-body">
                 <div class="row col-lg-12">
-                    <div class="col-lg-3" ng-repeat="feature in strategyModal.featureList">
+                    <div class="col-lg-3" ng-repeat="feature in strategyTemplate.featureList">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <strong>{{feature.featureName}}</strong>
-                                <i class="fa fa-times close" ng-click="deleteFeature($index, strategyModal)"></i>
+                                <i class="fa fa-times close" ng-click="deleteFeature($index, strategyTemplate)"></i>
                             </div>
                             <div class="panel-body">
                                 <span class="col-xs-6">{{feature.device.name}}</span>
@@ -30,8 +30,8 @@
                 </div>
             </div>
         </div>
-        <div class="alert alert-danger" ng-show="!strategyModal.valid">
-            {{strategyModal.error}}
+        <div class="alert alert-danger" ng-show="!strategyTemplate.valid">
+            {{strategyTemplate.error}}
         </div>
         <div>
             <button class="btn btn-default" ng-click="addStrategy()">提交</button>
