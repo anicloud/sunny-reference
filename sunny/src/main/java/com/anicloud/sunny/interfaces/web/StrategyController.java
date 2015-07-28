@@ -86,6 +86,22 @@ public class StrategyController {
         return message;
     }
 
+    @RequestMapping(value="/strategy",method = RequestMethod.DELETE)
+    @ResponseBody
+    public Map<String, String> deleteStrategy(@RequestParam("strategyId")String strategyId){
+        Map<String, String> message = new HashMap<>();
+        try{
+            strategyService.removeStrategy(strategyId);
+            message.put("status", "success");
+            message.put("message", "delete strategy success");
+        }catch (Exception e){
+            message.put("status", "error");
+            message.put("message", "delete strategy failed");
+            e.printStackTrace();
+        }
+        return message;
+    }
+
     @RequestMapping(value="/operateStrategy",method = RequestMethod.GET)
     @ResponseBody
     public Map<String, String> operateStrategy(String strategyId, StrategyAction action){

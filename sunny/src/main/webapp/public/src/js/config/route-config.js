@@ -21,7 +21,7 @@ anicloud.sunny.config.route = ['$stateProvider', '$locationProvider', '$urlRoute
         $stateProvider
             .state('app', {
                 url: '/app',
-                templateUrl: basepath + 'app.html',
+                templateUrl: basepath + 'app.html'
             })
             .state('app.dashboard', {
                 url: '/dashboard',

@@ -11,14 +11,14 @@ anicloud.sunny.model.StrategyInstance = function() {};
 anicloud.sunny.model.StrategyInstance = function (
     strategyId,
     strategyName,
-    strategyState,
-    strategyStage,
+    state,
+    stage,
     featureList
 ) {
     var _this = this;
     _this.strategyId = strategyId;
     _this.strategyName = strategyName;
-    _this.strategyState = strategyState;
-    _this.strategyStage = strategyStage;
+    _this.state = state;
+    _this.stage = stage;
     _this.featureList = featureList;
 };

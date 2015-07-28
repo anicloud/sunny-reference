@@ -6,16 +6,13 @@ anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.service = anicloud.sunny.service || {};
 
 anicloud.sunny.service.WebSocketService=function(){
-    console.log("test");
     var sock  = new WebSocket("ws://localhost:8080/sunny/socket/strategy");
     var opened = false;
     var _this = this;
 
     // Open the connection
     sock.onopen = function() {
-        console.log('open');
         opened = true;
-        sock.send("test front send message to background");
     };
 
     // On connection close
@@ -27,14 +24,14 @@ anicloud.sunny.service.WebSocketService=function(){
         // Get the content
         var content = e.data;
         var strategyJson = JSON.parse(content);
-        var strategyInfo = new anicloud.sunny.model.StrategyInfo(
+        var strategyInstance = new anicloud.sunny.model.StrategyInstance(
             strategyJson.strategyId,
             strategyJson.strategyName,
-            strategyJson.state,
-            strategyJson.stage,
-            strategyJson.action
+            strategyJson.strategyInstance.state,
+            strategyJson.strategyInstance.stage,
+            strategyJson.deviceFeatureInstanceList
         );
-        console.log(strategyInfo);
+        console.log(strategyInstance);
     };
     return {
         sendMessage:function(message) {

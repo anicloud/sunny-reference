@@ -1,7 +1,9 @@
 package com.anicloud.sunny.interfaces.web.websocket;
 
+import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
+import com.anicloud.sunny.schedule.domain.strategy.StrategyInstance;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -32,13 +34,15 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
         sessionMaps.put(hashUserId, session);
         LOG.info("afterConnectionEstablished" + hashUserId);
 
-        StrategyInfo strategyInfo = new StrategyInfo();
-        strategyInfo.strategyId = "1";
-        strategyInfo.strategyName = "推送测试";
-        strategyInfo.action = StrategyAction.START;
-        strategyInfo.stage = 2;
-        strategyInfo.state = ScheduleState.RUNNING;
-        sendMessageToUser(hashUserId, strategyInfo);
+        Strategy strategy = new Strategy();
+        strategy.strategyId = "1";
+        strategy.strategyName = "推送测试";
+        StrategyInstance strategyInstance = new StrategyInstance();
+        strategyInstance.action = StrategyAction.START;
+        strategyInstance.stage = 2;
+        strategyInstance.state = ScheduleState.RUNNING;
+        strategy.strategyInstance = strategyInstance;
+        sendMessageToUser(hashUserId, strategy);
     }
 
     @Override
@@ -61,19 +65,27 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
     /**
      * send message to the only user
      * @param hashUserId
-     * @param strategyInfo
+     * @param strategy
      */
-    public static void sendMessageToUser(String hashUserId, StrategyInfo strategyInfo) {
+    public static void sendMessageToUser(String hashUserId, Strategy strategy) {
         WebSocketSession session = sessionMaps.get(hashUserId);
         if (session != null && session.isOpen()) {
             try {
                 ObjectMapper mapper = new ObjectMapper();
-                String strategyInfoJson = mapper.writeValueAsString(strategyInfo);
+                String strategyInfoJson = mapper.writeValueAsString(strategy);
                 TextMessage message = new TextMessage(strategyInfoJson);
                 session.sendMessage(message);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * remove session
+     * @param hashUserId
+     */
+    public static void removeSession(String hashUserId){
+        sessionMaps.remove(hashUserId);
     }
 }
