@@ -14,6 +14,7 @@ import com.anicloud.sunny.schedule.domain.strategy.*;
 import com.anicloud.sunny.infrastructure.persistence.service.StrategyInstancePersistenceService;
 import com.anicloud.sunny.schedule.persistence.dao.StrategyInstanceDao;
 import com.anicloud.sunny.schedule.service.ScheduleService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -44,10 +45,16 @@ public class StrategyServiceHandler implements StrategyService {
     @Override
     public StrategyDto saveStrategy(StrategyDto strategyDto) {
         // generate the strategy number
-        if (strategyDto.strategyId == null) {
+        if (StringUtils.isEmpty(strategyDto.strategyId)) {
             strategyDto.strategyId = NumGenerate.generate();
         }
 
+        if (strategyDto.deviceFeatureInstanceList != null) {
+            for (DeviceFeatureInstanceDto deviceFeatureInstanceDto : strategyDto.deviceFeatureInstanceList) {
+                String deviceFeatureId = deviceFeatureInstanceDto.deviceFeatureDto.featureId;
+                deviceFeatureInstanceDto.deviceFeatureDto = deviceFeatureService.getDeviceFeatureById(deviceFeatureId);
+            }
+        }
         Strategy strategy = StrategyDtoAssembler.toStrategy(strategyDto);
         //strategy = Strategy.save(strategyPersistenceService, strategy);
         // send to the schedule
