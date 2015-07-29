@@ -99,7 +99,7 @@ public class StrategyDtoAssembler {
                     0,
                     functionInstanceList,
                     toTriggerInstanceList(deviceFeatureInstance.triggerList),
-                    Boolean.FALSE
+                    deviceFeatureInstance.isScheduleNow
             );
             featureInstanceList.add(featureInstance);
         }

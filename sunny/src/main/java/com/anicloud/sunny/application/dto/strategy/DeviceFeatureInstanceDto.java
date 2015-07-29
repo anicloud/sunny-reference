@@ -19,6 +19,8 @@ public class DeviceFeatureInstanceDto implements Serializable {
     public List<FeatureArgValueDto> featureArgValueDtoList;
     public List<FeatureTriggerDto> triggerDtoList;
 
+    public boolean isScheduleNow;
+
     public DeviceFeatureInstanceDto() {
     }
 
@@ -34,12 +36,14 @@ public class DeviceFeatureInstanceDto implements Serializable {
     public DeviceFeatureInstanceDto(String featureInstanceNum, DeviceDto deviceDto,
                                     DeviceFeatureDto deviceFeatureDto,
                                     List<FeatureArgValueDto> featureArgValueDtoList,
-                                    List<FeatureTriggerDto> triggerDtoList) {
+                                    List<FeatureTriggerDto> triggerDtoList,
+                                    boolean isScheduleNow) {
         this.featureInstanceNum = featureInstanceNum;
         this.deviceDto = deviceDto;
         this.deviceFeatureDto = deviceFeatureDto;
         this.featureArgValueDtoList = featureArgValueDtoList;
         this.triggerDtoList = triggerDtoList;
+        this.isScheduleNow = isScheduleNow;
     }
 
     @Override

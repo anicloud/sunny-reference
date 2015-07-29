@@ -21,17 +21,22 @@ public class DeviceFeatureInstance extends AbstractDomain {
     public List<FeatureArgValue> featureArgValueList;
     public List<FeatureTrigger> triggerList;
 
+    public boolean isScheduleNow;
+
     public DeviceFeatureInstance() {
     }
 
     public DeviceFeatureInstance(String featureInstanceNum, Device device,
                                  DeviceFeature deviceFeature,
-                                 List<FeatureArgValue> featureArgValueList, List<FeatureTrigger> triggerList) {
+                                 List<FeatureArgValue> featureArgValueList,
+                                 List<FeatureTrigger> triggerList,
+                                 boolean isScheduleNow) {
         this.featureInstanceNum = featureInstanceNum;
         this.device = device;
         this.deviceFeature = deviceFeature;
         this.featureArgValueList = featureArgValueList;
         this.triggerList = triggerList;
+        this.isScheduleNow = isScheduleNow;
     }
 
     public static DeviceFeatureInstance toInstance(DeviceFeatureInstanceDao instanceDao) {
@@ -40,7 +45,8 @@ public class DeviceFeatureInstance extends AbstractDomain {
                 Device.toDevice(instanceDao.deviceDao),
                 DeviceFeature.toDeviceFeature(instanceDao.deviceFeatureDao),
                 FeatureArgValue.toFunctionValueList(instanceDao.instanceFunctionValueDaoList),
-                FeatureTrigger.toFeatureTriggerList(instanceDao.triggerDaoList)
+                FeatureTrigger.toFeatureTriggerList(instanceDao.triggerDaoList),
+                instanceDao.isScheduleNow
         );
         return featureInstance;
     }
@@ -51,7 +57,8 @@ public class DeviceFeatureInstance extends AbstractDomain {
                 Device.toDao(featureInstance.device),
                 DeviceFeature.toDao(featureInstance.deviceFeature),
                 FeatureArgValue.toFeatureInstanceFuncValueList(featureInstance.featureArgValueList),
-                FeatureTrigger.toDaoList(featureInstance.triggerList)
+                FeatureTrigger.toDaoList(featureInstance.triggerList),
+                featureInstance.isScheduleNow
         );
         return instanceDao;
     }
