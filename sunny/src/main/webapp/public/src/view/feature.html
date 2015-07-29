@@ -18,9 +18,9 @@
         </div>
         <div ng-if="featureTemplate.featureId != ''">
             <label>任务参数：</label>
-            <div ng-repeat="arg in featureTemplate.getFeature().argDtoList">
+            <div ng-repeat="arg in featureTemplate.getFeature().argDtoList" >
                 {{arg.screenName}}:
-                <input ng-model="featureTemplate.arguments[arg.name]" required>
+                <input ng-model="featureTemplate.argumentList[arg.name]" required>
             </div>
         </div>
         <div>

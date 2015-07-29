@@ -16,7 +16,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
             "triggerValue": "",
             "triggerType": ""
         },
-        "argumentList": [],
+        "argumentMap": [],
         "valid" : true,
         "error" : ""
     };
@@ -27,7 +27,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         $scope.featureTemplate.featureId = "";
         $scope.featureTemplate.trigger.triggerType = "";
         $scope.featureTemplate.trigger.triggerValue = "";
-        $scope.featureTemplate.argumentList = [];
+        $scope.featureTemplate.argumentMap = [];
     };
 
     $scope.featureTemplate.getDeviceFeatures = function () {
@@ -76,7 +76,8 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         var feature = $scope.featureTemplate.getFeature();
         var device = $scope.featureTemplate.getDevice();
         var trigger = $scope.featureTemplate.trigger;
-        var argumentList = $scope.featureTemplate.argumentList;
+        var argumentMap = $scope.featureTemplate.argumentList;
+        var argumentList = [];
 
         if (device == null) {
             $scope.featureTemplate.valid = false;
@@ -99,6 +100,10 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
             return false;
         }
 
+        for (var arg in argumentMap) {
+            argumentList.push( {arg: argumentMap[arg]} );
+        }
+
         var featureInstance = new anicloud.sunny.model.FeatureInstance(
             "",
             feature.featureName,
@@ -108,6 +113,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
             [trigger],
             true
         );
+        console.log(featureInstance);
         strategy.featureList.push(jsonClone(featureInstance));
         return true;
     };

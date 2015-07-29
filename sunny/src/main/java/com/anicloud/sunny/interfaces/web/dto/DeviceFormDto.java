@@ -44,8 +44,10 @@ public class DeviceFormDto {
 
     public static List<DeviceFormDto> convertToDeviceForms(List<DeviceDto> deviceDtos){
         List<DeviceFormDto> deviceFormDtos = new ArrayList<>();
-        for (DeviceDto deviceDto : deviceDtos){
-            deviceFormDtos.add(convertToDeviceForm(deviceDto));
+        if(deviceDtos != null) {
+            for (DeviceDto deviceDto : deviceDtos) {
+                deviceFormDtos.add(convertToDeviceForm(deviceDto));
+            }
         }
         return deviceFormDtos;
     }

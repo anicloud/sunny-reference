@@ -38,8 +38,10 @@ public class StrategyFormDto {
 
     public static List<StrategyFormDto> convertToStrategyForms(List<StrategyDto> strategyDtos){
         List<StrategyFormDto> strategyFormDtos = new ArrayList<>();
-        for(StrategyDto strategyDto : strategyDtos){
-            strategyFormDtos.add(convertToStrategyForm(strategyDto));
+        if(strategyDtos != null) {
+            for (StrategyDto strategyDto : strategyDtos) {
+                strategyFormDtos.add(convertToStrategyForm(strategyDto));
+            }
         }
         return strategyFormDtos;
     }

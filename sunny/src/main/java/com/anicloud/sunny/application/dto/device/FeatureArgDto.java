@@ -8,6 +8,10 @@ import com.ani.cel.service.manager.agent.core.share.DataType;
 public class FeatureArgDto extends ArgumentDto {
     public String screenName;
 
+    public FeatureArgDto(){
+        super();
+    }
+
     public FeatureArgDto(String screenName) {
         this.screenName = screenName;
     }
