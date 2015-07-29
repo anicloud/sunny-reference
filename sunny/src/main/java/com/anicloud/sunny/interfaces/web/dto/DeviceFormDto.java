@@ -32,12 +32,13 @@ public class DeviceFormDto {
 
     public static DeviceFormDto convertToDeviceForm(DeviceDto deviceDto){
         DeviceFormDto deviceFormDto = new DeviceFormDto();
-        deviceFormDto.id = deviceDto.identificationCode;
-        deviceFormDto.name = deviceDto.name;
-        deviceFormDto.deviceState = deviceDto.deviceState;
-        deviceFormDto.deviceType = deviceDto.deviceType;
-        deviceFormDto.deviceGroup = deviceDto.deviceGroup;
-
+        if(deviceDto != null) {
+            deviceFormDto.id = deviceDto.identificationCode;
+            deviceFormDto.name = deviceDto.name;
+            deviceFormDto.deviceState = deviceDto.deviceState;
+            deviceFormDto.deviceType = deviceDto.deviceType;
+            deviceFormDto.deviceGroup = deviceDto.deviceGroup;
+        }
         return deviceFormDto;
     }
 
@@ -51,12 +52,13 @@ public class DeviceFormDto {
 
     public static DeviceDto convertToDeviceDto(DeviceFormDto deviceFormDto){
         DeviceDto deviceDto = new DeviceDto();
-        deviceDto.identificationCode = deviceFormDto.id;
-        deviceDto.name = deviceFormDto.name;
-        deviceDto.deviceState = deviceFormDto.deviceState;
-        deviceDto.deviceType = deviceFormDto.deviceType;
-        deviceDto.deviceGroup = deviceFormDto.deviceGroup;
-
+        if(deviceFormDto != null) {
+            deviceDto.identificationCode = deviceFormDto.id;
+            deviceDto.name = deviceFormDto.name;
+            deviceDto.deviceState = deviceFormDto.deviceState;
+            deviceDto.deviceType = deviceFormDto.deviceType;
+            deviceDto.deviceGroup = deviceFormDto.deviceGroup;
+        }
         return deviceDto;
     }
 

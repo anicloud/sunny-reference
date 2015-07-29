@@ -7,7 +7,7 @@ anicloud.sunny.model = anicloud.sunny.model || {}
 
 anicloud.sunny.model.FeatureInstance = function(){}
 anicloud.sunny.model.FeatureInstance = function (
-    featureId,
+    featureInstanceId,
     featureName,
     device,
     deviceFeature,
@@ -16,7 +16,7 @@ anicloud.sunny.model.FeatureInstance = function (
     isScheduleNow
 ) {
     var _this = this;
-    _this.featureId=featureId;
+    _this.featureInstanceId=featureInstanceId;
     _this.featureName=featureName;
     _this.device=device;
     _this.deviceFeature=deviceFeature;

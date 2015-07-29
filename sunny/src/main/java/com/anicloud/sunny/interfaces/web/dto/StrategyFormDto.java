@@ -23,13 +23,15 @@ public class StrategyFormDto {
 
     public static StrategyFormDto convertToStrategyForm(StrategyDto strategyDto){
         StrategyFormDto strategyFormDto = new StrategyFormDto();
-        strategyFormDto.strategyId = strategyDto.strategyId;
-        strategyFormDto.strategyName = strategyDto.strategyName;
-        strategyFormDto.strategyDescription = strategyDto.description;
-        strategyFormDto.state = strategyDto.strategyInstanceDto.state;
-        strategyFormDto.stage = strategyDto.strategyInstanceDto.stage;
-        strategyFormDto.action = strategyDto.strategyInstanceDto.action;
-        strategyFormDto.featureList = DeviceFeatureInstanceFormDto.convertToDeviceFeatureInstanceForms(strategyDto.deviceFeatureInstanceList);
+        if(strategyDto != null) {
+            strategyFormDto.strategyId = strategyDto.strategyId;
+            strategyFormDto.strategyName = strategyDto.strategyName;
+            strategyFormDto.strategyDescription = strategyDto.description;
+            strategyFormDto.state = strategyDto.strategyInstanceDto.state;
+            strategyFormDto.stage = strategyDto.strategyInstanceDto.stage;
+            strategyFormDto.action = strategyDto.strategyInstanceDto.action;
+            strategyFormDto.featureList = DeviceFeatureInstanceFormDto.convertToDeviceFeatureInstanceForms(strategyDto.deviceFeatureInstanceList);
+        }
         return strategyFormDto;
     }
 
@@ -44,15 +46,13 @@ public class StrategyFormDto {
 
     public static StrategyDto convertToStrategyDto(StrategyFormDto strategyFormDto,UserDto userDto){
         StrategyDto strategyDto  = new StrategyDto();
-
-        strategyDto.strategyId = strategyFormDto.strategyId;
-        strategyDto.strategyName = strategyFormDto.strategyName;
-        strategyDto.description = strategyFormDto.strategyDescription;
-
-        strategyDto.owner = userDto;
-
-        strategyDto.deviceFeatureInstanceList = DeviceFeatureInstanceFormDto.convertToFeatureInstanceDtos(strategyFormDto.featureList);
-
+        if(strategyFormDto != null) {
+            strategyDto.strategyId = strategyFormDto.strategyId;
+            strategyDto.strategyName = strategyFormDto.strategyName;
+            strategyDto.description = strategyFormDto.strategyDescription;
+            strategyDto.owner = userDto;
+            strategyDto.deviceFeatureInstanceList = DeviceFeatureInstanceFormDto.convertToFeatureInstanceDtos(strategyFormDto.featureList);
+        }
 
         return  strategyDto;
     }

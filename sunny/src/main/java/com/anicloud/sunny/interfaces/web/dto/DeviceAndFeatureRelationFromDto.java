@@ -16,8 +16,10 @@ public class DeviceAndFeatureRelationFromDto {
 
     public static DeviceAndFeatureRelationFromDto convertToDeviceAndFeatureRelationFrom(DeviceAndFeatureRelationDto deviceAndFeatureRelationDto){
         DeviceAndFeatureRelationFromDto deviceAndFeatureRelationFromDto = new DeviceAndFeatureRelationFromDto();
-        deviceAndFeatureRelationFromDto.deviceFormDto = DeviceFormDto.convertToDeviceForm(deviceAndFeatureRelationDto.deviceDto);
-        deviceAndFeatureRelationFromDto.deviceFeatureFormDtoList = DeviceFeatureFormDto.convertToDeviceFeatureForms(deviceAndFeatureRelationDto.deviceFeatureDtoList);
+        if(deviceAndFeatureRelationDto != null) {
+            deviceAndFeatureRelationFromDto.deviceFormDto = DeviceFormDto.convertToDeviceForm(deviceAndFeatureRelationDto.deviceDto);
+            deviceAndFeatureRelationFromDto.deviceFeatureFormDtoList = DeviceFeatureFormDto.convertToDeviceFeatureForms(deviceAndFeatureRelationDto.deviceFeatureDtoList);
+        }
         return deviceAndFeatureRelationFromDto;
     }
 

@@ -19,11 +19,12 @@ public class DeviceFeatureFormDto {
 
     public static DeviceFeatureFormDto convertToDeviceFeatureForm(DeviceFeatureDto deviceFeatureDto){
         DeviceFeatureFormDto deviceFeatureFormDto = new DeviceFeatureFormDto();
-        deviceFeatureFormDto.featureId = deviceFeatureDto.featureId;
-        deviceFeatureFormDto.featureName = deviceFeatureDto.featureName;
-        deviceFeatureFormDto.description = deviceFeatureDto.description;
-        deviceFeatureFormDto.argDtoList = deviceFeatureDto.argDtoList;
-
+        if(deviceFeatureDto != null) {
+            deviceFeatureFormDto.featureId = deviceFeatureDto.featureId;
+            deviceFeatureFormDto.featureName = deviceFeatureDto.featureName;
+            deviceFeatureFormDto.description = deviceFeatureDto.description;
+            deviceFeatureFormDto.argDtoList = deviceFeatureDto.argDtoList;
+        }
         return deviceFeatureFormDto;
     }
 
@@ -37,11 +38,12 @@ public class DeviceFeatureFormDto {
 
     public static DeviceFeatureDto convertToDeviceFeatureDto(DeviceFeatureFormDto deviceFeatureFormDto){
         DeviceFeatureDto deviceFeatureDto = new DeviceFeatureDto();
-        deviceFeatureDto.featureId = deviceFeatureFormDto.featureId;
-        deviceFeatureDto.featureName = deviceFeatureFormDto.featureName;
-        deviceFeatureDto.description = deviceFeatureFormDto.description;
-        deviceFeatureDto.argDtoList = deviceFeatureFormDto.argDtoList;
-
+        if(deviceFeatureFormDto != null) {
+            deviceFeatureDto.featureId = deviceFeatureFormDto.featureId;
+            deviceFeatureDto.featureName = deviceFeatureFormDto.featureName;
+            deviceFeatureDto.description = deviceFeatureFormDto.description;
+            deviceFeatureDto.argDtoList = deviceFeatureFormDto.argDtoList;
+        }
         return deviceFeatureDto;
     }
 
