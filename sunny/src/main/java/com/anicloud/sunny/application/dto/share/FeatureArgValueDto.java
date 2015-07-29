@@ -23,7 +23,7 @@ public class FeatureArgValueDto implements Serializable {
 
     @Override
     public String toString() {
-        return "UserAuthorizedAppLogDao{" +
+        return "FeatureArgValueDto{" +
                 "argName='" + argName + '\'' +
                 ", value='" + value + '\'' +
                 '}';
