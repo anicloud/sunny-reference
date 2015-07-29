@@ -100,11 +100,13 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         }
 
         var featureInstance = new anicloud.sunny.model.FeatureInstance(
-            feature.featureId,
+            "",
             feature.featureName,
             device,
+            feature,
             argumentList,
-            [trigger]
+            [trigger],
+            true
         );
         strategy.featureList.push(jsonClone(featureInstance));
         return true;
@@ -151,6 +153,8 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
             null,
             jsonClone($scope.strategyTemplate.featureList));
 
+        console.log("add strategy:");
+        console.log(strategyInstance);
         StrategyService.saveStrategies(strategyInstance, function(data) {
             if (data.status == "success") {
                 console.log("start strategy:");
