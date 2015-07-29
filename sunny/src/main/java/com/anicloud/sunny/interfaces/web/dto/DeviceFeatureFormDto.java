@@ -45,7 +45,7 @@ public class DeviceFeatureFormDto {
         return deviceFeatureDto;
     }
 
-    public static List<DeviceFeatureDto> convertToDeviceFeatureDto(List<DeviceFeatureFormDto> deviceFeatureFormDtos){
+    public static List<DeviceFeatureDto> convertToDeviceFeatureDtos(List<DeviceFeatureFormDto> deviceFeatureFormDtos){
         List<DeviceFeatureDto>  deviceFeatureDtos = new ArrayList<>();
         for(DeviceFeatureFormDto deviceFeatureFormDto : deviceFeatureFormDtos){
             deviceFeatureDtos.add(convertToDeviceFeatureDto(deviceFeatureFormDto));
