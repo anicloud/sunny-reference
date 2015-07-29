@@ -165,13 +165,13 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
     };
 
     $scope.deleteStrategy = function (index, strategy) {
-        StrategyService.deleteStrategy(strategy, function(data) {
+        StrategyService.deleteStrategy(strategy.strategyId, function(data) {
             if (data.status == "success") {
                 console.log("delete strategy:");
-                console.log(data.strategy);
+                console.log(data.message);
                 $rootScope.strategies.splice(index, 1);
             } else if(data.status == "error") {
-                console.error("add strategy error: ");
+                console.error("delete strategy error: ");
                 console.error(data.message);
             }
         });
@@ -182,8 +182,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         StrategyService.operateStrategy(strategy.strategyId, "resume", function(data) {
             if (data.status == "success") {
                 console.log("resume strategy:");
-                console.log(data.strategy);
-                $rootScope.strategies.splice(index, 1, data.strategy);
+                console.log(strategy);
             } else if(data.status == "error") {
                 console.error("resume strategy error: ");
                 console.error(data.message);
@@ -196,8 +195,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         StrategyService.operateStrategy(strategy.strategyId, "stop", function(data) {
             if (data.status == "success") {
                 console.log("stop strategy:");
-                console.log(data.strategy);
-                $rootScope.strategies.splice(index, 1, data.strategy);
+                console.log(strategy);
             } else if(data.status == "error") {
                 console.error("resume strategy error: ");
                 console.error(data.message);
@@ -210,8 +208,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         StrategyService.operateStrategy(strategy.strategyId, "pause", function(data) {
             if (data.status == "success") {
                 console.log("pause strategy:");
-                console.log(data.strategy);
-                $rootScope.strategies.splice(index, 1, data.strategy);
+                console.log(strategy);
             } else if(data.status == "error") {
                 console.error("pause strategy error: ");
                 console.error(data.message);
