@@ -10,14 +10,14 @@ anicloud.sunny.model.FeatureInstance = function (
     featureId,
     featureName,
     device,
-    functionValueDtoList,
+    featureArgValueDtoList,
     triggerDtoList
 ) {
     var _this = this;
     _this.featureId=featureId;
     _this.featureName=featureName;
     _this.device=device;
-    _this.functionValueDtoList=functionValueDtoList;
+    _this.featureArgValueDtoList=featureArgValueDtoList;
     _this.triggerDtoList=triggerDtoList;
 }
 
