@@ -10,11 +10,9 @@ import com.anicloud.sunny.interfaces.web.dto.DeviceFeatureInstanceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -41,7 +39,7 @@ public class StrategyController {
         strategyFormDto.strategyId  = "1";
         strategyFormDto.strategyName = "strategy1";
         strategyFormDto.strategyDescription = "";
-        strategyFormDto.strategyStage = "2";
+        strategyFormDto.stage = 2;
 
         List<DeviceFeatureInstanceFormDto> featureList = new ArrayList<>();
 
@@ -70,9 +68,12 @@ public class StrategyController {
 
     @RequestMapping(value = "/strategy",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> saveStrategy(StrategyFormDto strategyFormDto,@RequestParam(value = "hashUserId")String hashUserId){
+    public Map<String, Object> saveStrategy(@RequestParam(value = "hashUserId")String hashUserId,@RequestParam(value = "strategyInstance")String strategyInstance){
         Map<String, Object> message = new HashMap<>();
         try{
+            ObjectMapper mapper = new ObjectMapper();
+            strategyInstance = strategyInstance.replaceAll("triggerValue","value");
+            StrategyFormDto strategyFormDto = mapper.readValue(strategyInstance,StrategyFormDto.class);
             UserDto userDto = userService.getUserByHashUserId(hashUserId);
             StrategyDto strategyDto =  strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto, userDto));
             StrategyFormDto strategyForm = StrategyFormDto.convertToStrategyForm(strategyDto);
@@ -81,6 +82,22 @@ public class StrategyController {
         }catch (Exception e){
             message.put("status", "error");
             message.put("message", "save strategy failed");
+            e.printStackTrace();
+        }
+        return message;
+    }
+
+    @RequestMapping(value="/strategy",method = RequestMethod.DELETE)
+    @ResponseBody
+    public Map<String, String> deleteStrategy(@RequestParam("strategyId")String strategyId){
+        Map<String, String> message = new HashMap<>();
+        try{
+            strategyService.removeStrategy(strategyId);
+            message.put("status", "success");
+            message.put("message", "delete strategy success");
+        }catch (Exception e){
+            message.put("status", "error");
+            message.put("message", "delete strategy failed");
             e.printStackTrace();
         }
         return message;

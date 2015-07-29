@@ -14,7 +14,7 @@ public class DeviceFeatureInstanceFormDto {
     public String featureId;
     public String featureName;
     public DeviceFormDto device;
-    public List<FeatureArgValueDto> featureArgValueDtoList;
+    public List<FeatureArgValueDto> functionValueDtoList;
     public List<FeatureTriggerDto> triggerDtoList;
 
     public static DeviceFeatureInstanceFormDto convertToDeviceFeatureInstanceForm(DeviceFeatureInstanceDto deviceFeatureInstanceDto){
@@ -24,7 +24,7 @@ public class DeviceFeatureInstanceFormDto {
         deviceFeatureInstanceFormDto.featureName = deviceFeatureInstanceDto.deviceFeatureDto.featureName;
         deviceFeatureInstanceFormDto.device = DeviceFormDto.convertToDeviceForm(deviceFeatureInstanceDto.deviceDto);
 
-        deviceFeatureInstanceFormDto.featureArgValueDtoList = deviceFeatureInstanceDto.featureArgValueDtoList;
+        deviceFeatureInstanceFormDto.functionValueDtoList = deviceFeatureInstanceDto.featureArgValueDtoList;
         deviceFeatureInstanceFormDto.triggerDtoList = deviceFeatureInstanceDto.triggerDtoList;
 
         return deviceFeatureInstanceFormDto;
@@ -43,8 +43,8 @@ public class DeviceFeatureInstanceFormDto {
         DeviceFeatureInstanceDto deviceFeatureInstanceDto = new DeviceFeatureInstanceDto();
         deviceFeatureInstanceDto.featureInstanceNum = deviceFeatureInstanceFormDto.featureId;
         deviceFeatureInstanceDto.deviceDto = DeviceFormDto.convertToDeviceDto(deviceFeatureInstanceFormDto.device);
-        deviceFeatureInstanceDto.featureArgValueDtoList = deviceFeatureInstanceFormDto.featureArgValueDtoList;
-        deviceFeatureInstanceDto.triggerDtoList = deviceFeatureInstanceDto.triggerDtoList;
+        deviceFeatureInstanceDto.featureArgValueDtoList = deviceFeatureInstanceFormDto.functionValueDtoList;
+        deviceFeatureInstanceDto.triggerDtoList = deviceFeatureInstanceFormDto.triggerDtoList;
         return deviceFeatureInstanceDto;
     }
 

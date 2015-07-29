@@ -5,48 +5,63 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.service = anicloud.sunny.service || {};
 
-anicloud.sunny.service.WebSocketService=function(){
-    console.log("test");
-    var sock  = new WebSocket("ws://localhost:8080/sunny/socket/strategy");
-    var opened = false;
+anicloud.sunny.service.WebSocketService = function () {
     var _this = this;
-
-    // Open the connection
-    sock.onopen = function() {
-        console.log('open');
-        opened = true;
-        sock.send("test front send message to background");
-    };
-
-    // On connection close
-    sock.onclose = function() {
-        console.log('close');
-    };
-
-    sock.onmessage = function(e) {
-        // Get the content
-        var content = e.data;
-        var strategyJson = JSON.parse(content);
-        var strategyInfo = new anicloud.sunny.model.StrategyInfo(
-            strategyJson.strategyId,
-            strategyJson.strategyName,
-            strategyJson.state,
-            strategyJson.stage,
-            strategyJson.action
-        );
-        console.log(strategyInfo);
-    };
+    var sock = null;
+    var isOpen = false;
     return {
-        sendMessage:function(message) {
-            // The object to send
-            /*var send = {
-                hashUserId: hashUserId,
-                message: message
-            };*/
+        openSocket: function (url, onOpen, onClose, onError, onMessage) {
+            if (sock && isOpen) {
+                sock.close();
+            }
 
-            // Send it now
-            //sock.send(JSON.stringify(message));
-            sock.send(message);
+            sock = new WebSocket(url);
+
+            sock.onopen = function () {
+                isOpen = true;
+                if (onOpen != null) {
+                    onOpen();
+                }
+            };
+
+            sock.onclose = function (event) {
+                if (onClose != null) {
+                    onClose(event.data);
+                }
+            };
+
+            sock.onerror = function (event) {
+                if (onError != null) {
+                    onError(event.data);
+                }
+            }
+
+            sock.onmessage = function (event) {
+                // Get the content
+                var content = event.data;
+                var strategyJson = JSON.parse(content);
+                var strategyInstance = new anicloud.sunny.model.StrategyInstance(
+                    strategyJson.strategyId,
+                    strategyJson.strategyName,
+                    strategyJson.strategyInstance.state,
+                    strategyJson.strategyInstance.stage,
+                    strategyJson.deviceFeatureInstanceList
+                );
+                if (onMessage != null) {
+                    onMessage(strategyInstance);
+                }
+                console.log(strategyInstance);
+            };
+        },
+        closeSocket: function () {
+            if (isOpen) {
+                sock.close();
+            }
+        },
+        sendMessage: function (message) {
+            if (isOpen) {
+                sock.send(message);
+            }
         }
     }
 }

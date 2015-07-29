@@ -8,92 +8,62 @@ anicloud.sunny.controller = anicloud.sunny.controller || {};
 
 anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog, StrategyService, DeviceService) {
     //    For Strategy page
-    if (!$rootScope.strategies) {
-        $rootScope.strategies = [];
-        $rootScope.devices = [];
-        $rootScope.features = [];
-        $rootScope.triggers = [];
-
-        StrategyService.getStrategies(function (data) {
-            $rootScope.strategies = data;
-        });
-
-        DeviceService.getDevices(function (data) {
-            $rootScope.devices = data;
-        });
-
-        DeviceService.getDeviceFeatures(function (data) {
-            for (var i = 0; i < data.length; i++) {
-                var key = data[i].deviceFormDto.id;
-                var value = data[i].deviceFeatureFormDtoList;
-                $rootScope.features[key] = value;
-            }
-        });
-
-        DeviceService.getFeatureTrigger(function (data) {
-            $rootScope.triggers = data;
-        });
-    }
-
-    // feature modal
-    $scope.featureModal = {
+    // feature Template
+    $scope.featureTemplate = {
         "featureId": "",
         "deviceId": "",
         "trigger": {
             "triggerValue": "",
             "triggerType": ""
         },
-        "function": {
-            "functionValue": "",
-            "functionArg": ""
-        },
+        "argumentList": [],
         "valid" : true,
         "error" : ""
     };
 
 
-    $scope.featureModal.clearAll = function () {
-        $scope.featureModal.deviceId = "";
-        $scope.featureModal.featureId = "";
-        $scope.featureModal.trigger.triggerType = "";
-        $scope.featureModal.trigger.triggerValue = "";
-        $scope.featureModal.functionValues = "";
+    $scope.featureTemplate.clearAll = function () {
+        $scope.featureTemplate.deviceId = "";
+        $scope.featureTemplate.featureId = "";
+        $scope.featureTemplate.trigger.triggerType = "";
+        $scope.featureTemplate.trigger.triggerValue = "";
+        $scope.featureTemplate.argumentList = [];
     };
 
-    $scope.featureModal.getDeviceFeatures = function () {
-        if ($scope.featureModal.deviceId == '') {
+    $scope.featureTemplate.getDeviceFeatures = function () {
+        if ($scope.featureTemplate.deviceId == '') {
             return null;
         }
-        return $rootScope.features[$scope.featureModal.deviceId];
+        return $rootScope.features[$scope.featureTemplate.deviceId];
     };
 
 
-    $scope.featureModal.getDevice = function () {
-        if ($scope.featureModal.deviceId == '') {
+    $scope.featureTemplate.getDevice = function () {
+        if ($scope.featureTemplate.deviceId == '') {
             return null;
         }
         for (var i = 0; i < $rootScope.devices.length; i++) {
-            if ($rootScope.devices[i].id == $scope.featureModal.deviceId) {
+            if ($rootScope.devices[i].id == $scope.featureTemplate.deviceId) {
                 return $rootScope.devices[i];
             }
         }
         return null;
     }
 
-    $scope.featureModal.getFeature = function () {
-        if ($scope.featureModal.featureId == '') {
+    $scope.featureTemplate.getFeature = function () {
+        if ($scope.featureTemplate.featureId == '') {
             return null;
         }
-        for (var i = 0; i < $rootScope.features[$scope.featureModal.deviceId].length; i++) {
-            if ($rootScope.features[$scope.featureModal.deviceId][i].featureId == $scope.featureModal.featureId) {
-                return $rootScope.features[$scope.featureModal.deviceId][i];
+        for (var i = 0; i < $rootScope.features[$scope.featureTemplate.deviceId].length; i++) {
+            if ($rootScope.features[$scope.featureTemplate.deviceId][i].featureId == $scope.featureTemplate.featureId) {
+                return $rootScope.features[$scope.featureTemplate.deviceId][i];
             }
         }
         // Todo : add feature args
         return null;
     }
 
-    $scope.featureModal.open = function() {
+    $scope.featureTemplate.open = function() {
         ngDialog.open(
             {
                 template: 'public/src/view/feature.html',
@@ -102,28 +72,30 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
     }
 
     $scope.addFeature = function (strategy) {
-        $scope.featureModal.valid = true;
-        var feature = $scope.featureModal.getFeature();
-        var device = $scope.featureModal.getDevice();
-        var trigger = $scope.featureModal.trigger;
+        $scope.featureTemplate.valid = true;
+        var feature = $scope.featureTemplate.getFeature();
+        var device = $scope.featureTemplate.getDevice();
+        var trigger = $scope.featureTemplate.trigger;
+        var argumentList = $scope.featureTemplate.argumentList;
+
         if (device == null) {
-            $scope.featureModal.valid = false;
-            $scope.featureModal.error = "设备不能为空";
+            $scope.featureTemplate.valid = false;
+            $scope.featureTemplate.error = "设备不能为空";
             return false;
         }
         if (feature == null) {
-            $scope.featureModal.valid = false;
-            $scope.featureModal.error = "任务不能为空";
+            $scope.featureTemplate.valid = false;
+            $scope.featureTemplate.error = "任务不能为空";
             return false;
         }
         if (trigger.triggerType == '') {
-            $scope.featureModal.valid = false;
-            $scope.featureModal.error = "触发条件不能为空";
+            $scope.featureTemplate.valid = false;
+            $scope.featureTemplate.error = "触发条件不能为空";
             return false;
         }
         if (trigger.triggerType == 'TIMER' && trigger.triggerValue == '') {
-            $scope.featureModal.valid = false;
-            $scope.featureModal.error = "选择时间";
+            $scope.featureTemplate.valid = false;
+            $scope.featureTemplate.error = "选择时间";
             return false;
         }
 
@@ -131,23 +103,19 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
             feature.featureId,
             feature.featureName,
             device,
-            [],
-            [jsonClone(trigger)]
+            argumentList,
+            [trigger]
         );
-        strategy.featureList.push(featureInstance);
+        strategy.featureList.push(jsonClone(featureInstance));
         return true;
-
     };
 
     $scope.deleteFeature = function (index, strategy) {
-        var featureList = strategy.featureList;
-        if (isNaN(index) || index >= featureList.length || index < 0)
-            return;
-        featureList.splice(index, 1);
+        strategy.featureList.splice(index, 1);
     };
 
-    // strategy modal
-    $scope.strategyModal = {
+    // strategy Template
+    $scope.strategyTemplate = {
         "strategyId": "",
         "strategyName": "",
         "strategyState": "",
@@ -158,53 +126,99 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         "error" : ""
     };
 
-    $scope.strategyModal.clearAll = function () {
-        $scope.strategyModal.strategyName = "";
-        $scope.strategyModal.strategyDescription = "";
-        $scope.strategyModal.strategyState = "";
+    $scope.strategyTemplate.clearAll = function () {
+        $scope.strategyTemplate.strategyName = "";
+        $scope.strategyTemplate.strategyDescription = "";
+        $scope.strategyTemplate.strategyState = "";
     };
 
     $scope.addStrategy = function () {
-        $scope.strategyModal.valid = true;
-        if ($scope.strategyModal.strategyName.length == 0) {
-            $scope.strategyModal.valid = false;
-            $scope.strategyModal.error = "名称不能为空";
-            return;
+        $scope.strategyTemplate.valid = true;
+        if ($scope.strategyTemplate.strategyName.length == 0) {
+            $scope.strategyTemplate.valid = false;
+            $scope.strategyTemplate.error = "名称不能为空";
+            return false;
         }
-        if ($scope.strategyModal.featureList.length == 0) {
-            $scope.strategyModal.valid = false;
-            $scope.strategyModal.error = "任务不能为空";
-            return;
+        if ($scope.strategyTemplate.featureList.length == 0) {
+            $scope.strategyTemplate.valid = false;
+            $scope.strategyTemplate.error = "任务不能为空";
+            return false;
         }
-        $scope.strategyModal.strategyId = $rootScope.strategies.length + 1;//写死的长度
-        $scope.strategyModal.strategyState = "running";
-        $rootScope.strategies.push(jsonClone($scope.strategyModal));
+        var strategyInstance = new anicloud.sunny.model.StrategyInstance(
+            $scope.strategyTemplate.strategyId,
+            $scope.strategyTemplate.strategyName,
+            null,
+            null,
+            jsonClone($scope.strategyTemplate.featureList));
+
+        StrategyService.saveStrategies(strategyInstance, function(data) {
+            if (data.status == "success") {
+                console.log("start strategy:");
+                console.log(data.strategy);
+                $rootScope.strategies.push(jsonClone(data.strategy));
+            } else if(data.status == "error") {
+                console.error("add strategy error: ");
+                console.error(data.message);
+            }
+        });
+        return true;
     };
 
-    $scope.deleteStrategy = function (index) {
-        if (isNaN(index) || index >= $rootScope.strategies.length || index < 0)
-            return;
-        $rootScope.strategies.splice(index, 1);
+    $scope.deleteStrategy = function (index, strategy) {
+        StrategyService.deleteStrategy(strategy.strategyId, function(data) {
+            if (data.status == "success") {
+                console.log("delete strategy:");
+                console.log(data.message);
+                $rootScope.strategies.splice(index, 1);
+            } else if(data.status == "error") {
+                console.error("delete strategy error: ");
+                console.error(data.message);
+            }
+        });
+        return true;
     };
 
-    $scope.startStrategy = function (strategy) {
-        console.log("start strategy: ");
-        console.log(strategy);
+    $scope.resumeStrategy = function (index, strategy) {
+        StrategyService.operateStrategy(strategy.strategyId, "resume", function(data) {
+            if (data.status == "success") {
+                console.log("resume strategy:");
+                console.log(strategy);
+            } else if(data.status == "error") {
+                console.error("resume strategy error: ");
+                console.error(data.message);
+            }
+        });
+        return true;
     };
 
-    $scope.stopStrategy = function (strategy) {
-        console.log("stop strategy: ");
-        console.log(strategy);
+    $scope.stopStrategy = function (index, strategy) {
+        StrategyService.operateStrategy(strategy.strategyId, "stop", function(data) {
+            if (data.status == "success") {
+                console.log("stop strategy:");
+                console.log(strategy);
+            } else if(data.status == "error") {
+                console.error("resume strategy error: ");
+                console.error(data.message);
+            }
+        });
+        return true;
     };
 
-    $scope.pauseStrategy = function (strategy) {
-        console.log("pause strategy: ");
-        console.log(strategy);
+    $scope.pauseStrategy = function (index, strategy) {
+        StrategyService.operateStrategy(strategy.strategyId, "pause", function(data) {
+            if (data.status == "success") {
+                console.log("pause strategy:");
+                console.log(strategy);
+            } else if(data.status == "error") {
+                console.error("pause strategy error: ");
+                console.error(data.message);
+            }
+        });
+        return true;
     };
     //
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
-
 
 }
