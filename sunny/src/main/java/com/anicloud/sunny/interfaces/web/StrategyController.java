@@ -45,7 +45,7 @@ public class StrategyController {
 
         DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto1 = new DeviceFeatureInstanceFormDto();
 
-        deviceFeatureInstanceFormDto1.featureId = "1";
+        deviceFeatureInstanceFormDto1.featureInstanceId = "1";
         deviceFeatureInstanceFormDto1.featureName="调节空调温度1";
 
         DeviceFormDto deviceFormDto = new DeviceFormDto();
