@@ -38,8 +38,10 @@ public class DeviceFeatureInstanceFormDto {
 
     public static List<DeviceFeatureInstanceFormDto> convertToDeviceFeatureInstanceForms(List<DeviceFeatureInstanceDto> deviceFeatureInstanceDtos){
         List<DeviceFeatureInstanceFormDto> deviceFeatureInstanceFormDtos = new ArrayList<>();
-        for(DeviceFeatureInstanceDto deviceFeatureInstanceDto : deviceFeatureInstanceDtos){
-            deviceFeatureInstanceFormDtos.add(convertToDeviceFeatureInstanceForm(deviceFeatureInstanceDto));
+        if(deviceFeatureInstanceDtos != null) {
+            for (DeviceFeatureInstanceDto deviceFeatureInstanceDto : deviceFeatureInstanceDtos) {
+                deviceFeatureInstanceFormDtos.add(convertToDeviceFeatureInstanceForm(deviceFeatureInstanceDto));
+            }
         }
         return deviceFeatureInstanceFormDtos;
     }
@@ -59,8 +61,10 @@ public class DeviceFeatureInstanceFormDto {
 
     public static List<DeviceFeatureInstanceDto> convertToFeatureInstanceDtos(List<DeviceFeatureInstanceFormDto> deviceFeatureInstanceFormDtos){
         List<DeviceFeatureInstanceDto> deviceFeatureInstanceDtos = new ArrayList<>();
-        for(DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto : deviceFeatureInstanceFormDtos){
-            deviceFeatureInstanceDtos.add(DeviceFeatureInstanceFormDto.convertToFeatureInstanceDto(deviceFeatureInstanceFormDto));
+        if(deviceFeatureInstanceFormDtos != null) {
+            for (DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto : deviceFeatureInstanceFormDtos) {
+                deviceFeatureInstanceDtos.add(DeviceFeatureInstanceFormDto.convertToFeatureInstanceDto(deviceFeatureInstanceFormDto));
+            }
         }
         return deviceFeatureInstanceDtos;
     }

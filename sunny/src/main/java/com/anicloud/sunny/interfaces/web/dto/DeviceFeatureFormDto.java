@@ -30,8 +30,10 @@ public class DeviceFeatureFormDto {
 
     public static List<DeviceFeatureFormDto> convertToDeviceFeatureForms(List<DeviceFeatureDto> deviceFeatureDtos){
         List<DeviceFeatureFormDto>  deviceFeatureFormDtos = new ArrayList<>();
-        for(DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos){
-            deviceFeatureFormDtos.add(convertToDeviceFeatureForm(deviceFeatureDto));
+        if(deviceFeatureDtos != null) {
+            for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
+                deviceFeatureFormDtos.add(convertToDeviceFeatureForm(deviceFeatureDto));
+            }
         }
         return deviceFeatureFormDtos;
     }
@@ -49,8 +51,10 @@ public class DeviceFeatureFormDto {
 
     public static List<DeviceFeatureDto> convertToDeviceFeatureDtos(List<DeviceFeatureFormDto> deviceFeatureFormDtos){
         List<DeviceFeatureDto>  deviceFeatureDtos = new ArrayList<>();
-        for(DeviceFeatureFormDto deviceFeatureFormDto : deviceFeatureFormDtos){
-            deviceFeatureDtos.add(convertToDeviceFeatureDto(deviceFeatureFormDto));
+        if(deviceFeatureFormDtos != null) {
+           for (DeviceFeatureFormDto deviceFeatureFormDto : deviceFeatureFormDtos) {
+               deviceFeatureDtos.add(convertToDeviceFeatureDto(deviceFeatureFormDto));
+           }
         }
         return deviceFeatureDtos;
     }
