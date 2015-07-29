@@ -15,7 +15,7 @@ import java.util.List;
 public class DeviceFeatureInstance extends AbstractDomain {
     private static final long serialVersionUID = -6115388508700437219L;
 
-    public String featureInstanceNum;
+    public String featureInstanceId;
     public Device device;
     public DeviceFeature deviceFeature;
     public List<FeatureArgValue> featureArgValueList;
@@ -26,12 +26,12 @@ public class DeviceFeatureInstance extends AbstractDomain {
     public DeviceFeatureInstance() {
     }
 
-    public DeviceFeatureInstance(String featureInstanceNum, Device device,
+    public DeviceFeatureInstance(String featureInstanceId, Device device,
                                  DeviceFeature deviceFeature,
                                  List<FeatureArgValue> featureArgValueList,
                                  List<FeatureTrigger> triggerList,
                                  boolean isScheduleNow) {
-        this.featureInstanceNum = featureInstanceNum;
+        this.featureInstanceId = featureInstanceId;
         this.device = device;
         this.deviceFeature = deviceFeature;
         this.featureArgValueList = featureArgValueList;
@@ -53,7 +53,7 @@ public class DeviceFeatureInstance extends AbstractDomain {
 
     public static DeviceFeatureInstanceDao toDao(DeviceFeatureInstance featureInstance) {
         DeviceFeatureInstanceDao instanceDao = new DeviceFeatureInstanceDao(
-                featureInstance.featureInstanceNum,
+                featureInstance.featureInstanceId,
                 Device.toDao(featureInstance.device),
                 DeviceFeature.toDao(featureInstance.deviceFeature),
                 FeatureArgValue.toFeatureInstanceFuncValueList(featureInstance.featureArgValueList),

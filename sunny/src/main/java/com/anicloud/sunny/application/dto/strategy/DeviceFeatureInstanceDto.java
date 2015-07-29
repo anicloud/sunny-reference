@@ -13,7 +13,7 @@ import java.util.List;
 public class DeviceFeatureInstanceDto implements Serializable {
     private static final long serialVersionUID = 6137814709577265953L;
 
-    public String featureInstanceNum;
+    public String featureInstanceId;
     public DeviceDto deviceDto;
     public DeviceFeatureDto deviceFeatureDto;
     public List<FeatureArgValueDto> featureArgValueDtoList;
@@ -33,12 +33,12 @@ public class DeviceFeatureInstanceDto implements Serializable {
         this.triggerDtoList = triggerDtoList;
     }
 
-    public DeviceFeatureInstanceDto(String featureInstanceNum, DeviceDto deviceDto,
+    public DeviceFeatureInstanceDto(String featureInstanceId, DeviceDto deviceDto,
                                     DeviceFeatureDto deviceFeatureDto,
                                     List<FeatureArgValueDto> featureArgValueDtoList,
                                     List<FeatureTriggerDto> triggerDtoList,
                                     boolean isScheduleNow) {
-        this.featureInstanceNum = featureInstanceNum;
+        this.featureInstanceId = featureInstanceId;
         this.deviceDto = deviceDto;
         this.deviceFeatureDto = deviceFeatureDto;
         this.featureArgValueDtoList = featureArgValueDtoList;
@@ -49,7 +49,7 @@ public class DeviceFeatureInstanceDto implements Serializable {
     @Override
     public String toString() {
         return "DeviceFeatureInstanceDto{" +
-                "featureInstanceNum='" + featureInstanceNum + '\'' +
+                "featureInstanceId='" + featureInstanceId + '\'' +
                 '}';
     }
 }

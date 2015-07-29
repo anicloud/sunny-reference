@@ -93,7 +93,7 @@ public class StrategyDtoAssembler {
             }
 
             FeatureInstance featureInstance = new FeatureInstance(
-                    deviceFeatureInstance.featureInstanceNum,
+                    deviceFeatureInstance.featureInstanceId,
                     deviceFeatureInstance.device.identificationCode,
                     ScheduleState.NONE,
                     0,

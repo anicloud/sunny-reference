@@ -20,7 +20,7 @@ public class DeviceFeatureInstanceDtoAssembler {
             return null;
         }
         DeviceFeatureInstance instance = new DeviceFeatureInstance(
-                instanceDto.featureInstanceNum,
+                instanceDto.featureInstanceId,
                 DeviceDtoAssembler.toDevice(instanceDto.deviceDto),
                 DeviceFeatureDtoAssembler.toDeviceFeature(instanceDto.deviceFeatureDto),
                 FunctionValueDtoAssembler.toFunctionValueList(instanceDto.featureArgValueDtoList),
@@ -35,7 +35,7 @@ public class DeviceFeatureInstanceDtoAssembler {
             return null;
         }
         DeviceFeatureInstanceDto instanceDto = new DeviceFeatureInstanceDto(
-                featureInstance.featureInstanceNum,
+                featureInstance.featureInstanceId,
                 DeviceDtoAssembler.fromDevice(featureInstance.device),
                 DeviceFeatureDtoAssembler.toDto(featureInstance.deviceFeature),
                 FunctionValueDtoAssembler.toFunctionValueDtoList(featureInstance.featureArgValueList),
