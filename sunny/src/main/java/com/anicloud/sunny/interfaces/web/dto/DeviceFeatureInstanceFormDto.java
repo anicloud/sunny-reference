@@ -15,7 +15,7 @@ public class DeviceFeatureInstanceFormDto {
     public String featureId;
     public String featureName;
     public DeviceFormDto device;
-    public DeviceFeatureFormDto deviceFeatureFormDto;
+    public DeviceFeatureFormDto deviceFeature;
     public List<FeatureArgValueDto> featureArgValueDtoList;
     public List<FeatureTriggerDto> triggerDtoList;
     public boolean isScheduleNow;
@@ -26,7 +26,7 @@ public class DeviceFeatureInstanceFormDto {
         deviceFeatureInstanceFormDto.featureId = deviceFeatureInstanceDto.deviceFeatureDto.featureId;
         deviceFeatureInstanceFormDto.featureName = deviceFeatureInstanceDto.deviceFeatureDto.featureName;
         deviceFeatureInstanceFormDto.device = DeviceFormDto.convertToDeviceForm(deviceFeatureInstanceDto.deviceDto);
-        deviceFeatureInstanceFormDto.deviceFeatureFormDto = DeviceFeatureFormDto.convertToDeviceFeatureForm(deviceFeatureInstanceDto.deviceFeatureDto);
+        deviceFeatureInstanceFormDto.deviceFeature = DeviceFeatureFormDto.convertToDeviceFeatureForm(deviceFeatureInstanceDto.deviceFeatureDto);
 
         deviceFeatureInstanceFormDto.featureArgValueDtoList = deviceFeatureInstanceDto.featureArgValueDtoList;
         deviceFeatureInstanceFormDto.triggerDtoList = deviceFeatureInstanceDto.triggerDtoList;
@@ -46,7 +46,7 @@ public class DeviceFeatureInstanceFormDto {
     public static DeviceFeatureInstanceDto convertToFeatureInstanceDto(DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto){
         DeviceFeatureInstanceDto deviceFeatureInstanceDto = new DeviceFeatureInstanceDto();
         deviceFeatureInstanceDto.deviceDto = DeviceFormDto.convertToDeviceDto(deviceFeatureInstanceFormDto.device);
-        deviceFeatureInstanceDto.deviceFeatureDto = DeviceFeatureFormDto.convertToDeviceFeatureDto(deviceFeatureInstanceFormDto.deviceFeatureFormDto);
+        deviceFeatureInstanceDto.deviceFeatureDto = DeviceFeatureFormDto.convertToDeviceFeatureDto(deviceFeatureInstanceFormDto.deviceFeature);
         deviceFeatureInstanceDto.featureArgValueDtoList = deviceFeatureInstanceFormDto.featureArgValueDtoList;
         deviceFeatureInstanceDto.triggerDtoList = deviceFeatureInstanceFormDto.triggerDtoList;
         deviceFeatureInstanceDto.isScheduleNow = deviceFeatureInstanceFormDto.isScheduleNow;

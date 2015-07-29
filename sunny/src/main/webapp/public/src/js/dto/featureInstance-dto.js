@@ -10,7 +10,8 @@ anicloud.sunny.model.FeatureInstance = function (
     featureId,
     featureName,
     device,
-    functionValueDtoList,
+    deviceFeature,
+    featureArgValueDtoList,
     triggerDtoList,
     isScheduleNow
 ) {
@@ -18,7 +19,8 @@ anicloud.sunny.model.FeatureInstance = function (
     _this.featureId=featureId;
     _this.featureName=featureName;
     _this.device=device;
-    _this.functionValueDtoList=functionValueDtoList;
+    _this.deviceFeature=deviceFeature;
+    _this.featureArgValueDtoList=featureArgValueDtoList;
     _this.triggerDtoList=triggerDtoList;
     _this.isScheduleNow=isScheduleNow;
 }
