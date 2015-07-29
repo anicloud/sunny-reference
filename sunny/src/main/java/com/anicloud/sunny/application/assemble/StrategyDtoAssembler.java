@@ -18,6 +18,7 @@ import com.anicloud.sunny.schedule.domain.strategy.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -140,6 +141,7 @@ public class StrategyDtoAssembler {
     public static TriggerInstance toTriggerInstance(FeatureTrigger featureTrigger) {
         if (featureTrigger == null) return null;
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setDateFormat(new SimpleDateFormat(Constants.TIME_TRIGGER_DATE_PATTERN));
         TriggerInstance triggerInstance = null;
         if (featureTrigger.triggerType == TriggerType.TIMER) {
             try {

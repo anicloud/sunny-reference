@@ -22,5 +22,10 @@ public class Constants {
      */
     public final static String STRATEGY_AS_DEVICE_FEATURE_RUN_NAME = "is_device_feature_run";
 
+    /**
+     * the pattern type of the type trigger
+     */
+    public final static String TIME_TRIGGER_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
     public static AppClientDto appClientDto = null;
 }
