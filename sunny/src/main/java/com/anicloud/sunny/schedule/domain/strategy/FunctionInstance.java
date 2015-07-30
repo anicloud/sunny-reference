@@ -8,13 +8,14 @@ import com.ani.cel.service.manager.agent.app.service.AppCommandServiceImpl;
 import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
 import com.anicloud.sunny.application.constant.Constants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by huangbin on 7/18/15.
  */
-public class FunctionInstance {
+public class FunctionInstance implements Serializable {
     public String functionId;
     public String name;
     public String group;

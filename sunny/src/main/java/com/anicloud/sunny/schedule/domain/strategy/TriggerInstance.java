@@ -2,12 +2,13 @@ package com.anicloud.sunny.schedule.domain.strategy;
 
 import com.anicloud.sunny.schedule.domain.schedule.ScheduleTrigger;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by huangbin on 7/19/15.
  */
-public class TriggerInstance {
+public class TriggerInstance implements Serializable {
     public Date startTime;
     public Integer repeatInterval;
     public Integer repeatCount;

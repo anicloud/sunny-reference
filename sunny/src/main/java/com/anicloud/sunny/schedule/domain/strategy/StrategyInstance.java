@@ -2,6 +2,7 @@ package com.anicloud.sunny.schedule.domain.strategy;
 
 import com.anicloud.sunny.schedule.domain.schedule.*;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,7 +10,9 @@ import java.util.Set;
 /**
  * Created by huangbin on 7/18/15.
  */
-public class StrategyInstance implements Schedulable, ScheduleStateListener {
+public class StrategyInstance implements Schedulable, ScheduleStateListener, Serializable {
+    private static final long serialVersionUID = 2408334140270041423L;
+
     public String strategyId;
     public ScheduleState state;
     public Integer stage;

@@ -1,5 +1,7 @@
 package com.anicloud.sunny.schedule.domain.strategy;
 
+import java.io.Serializable;
+
 /**
  * Created by huangbin on 7/18/15.
  */

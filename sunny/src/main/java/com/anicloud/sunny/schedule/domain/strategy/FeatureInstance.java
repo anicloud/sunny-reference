@@ -3,12 +3,13 @@ package com.anicloud.sunny.schedule.domain.strategy;
 
 import com.anicloud.sunny.schedule.domain.schedule.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by huangbin on 7/18/15.
  */
-public class FeatureInstance implements ScheduleTask, Schedulable {
+public class FeatureInstance implements ScheduleTask, Schedulable, Serializable {
     public String featureId;
     public String deviceId;
     public ScheduleState state;
