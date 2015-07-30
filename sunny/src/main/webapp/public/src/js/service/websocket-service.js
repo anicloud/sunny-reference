@@ -50,7 +50,6 @@ anicloud.sunny.service.WebSocketService = function () {
                 if (onMessage != null) {
                     onMessage(strategyInstance);
                 }
-                console.log(strategyInstance);
             };
         },
         closeSocket: function () {

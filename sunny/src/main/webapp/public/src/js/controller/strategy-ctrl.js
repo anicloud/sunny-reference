@@ -6,7 +6,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog, StrategyService, DeviceService) {
+anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog, StrategyService, DeviceService, ManagerService) {
     //    For Strategy page
     // feature Template
     $scope.featureTemplate = {
@@ -122,12 +122,12 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
             true
         );
         console.log(featureInstance);
-        strategy.featureList.push(jsonClone(featureInstance));
+        ManagerService.addFeature(featureInstance, strategy);
         return true;
     };
 
     $scope.deleteFeature = function (index, strategy) {
-        strategy.featureList.splice(index, 1);
+        ManagerService.deleteFeature(index, strategy);
     };
 
     // strategy Template
@@ -169,69 +169,27 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
 
         console.log("add strategy:");
         console.log(strategyInstance);
-        StrategyService.saveStrategies(strategyInstance, function(data) {
-            if (data.status == "success") {
-                console.log("start strategy:");
-                console.log(data.strategy);
-                $rootScope.strategies.push(jsonClone(data.strategy));
-            } else if(data.status == "error") {
-                console.error("add strategy error: ");
-                console.error(data.message);
-            }
-        });
+        ManagerService.addStrategy(strategyInstance, ManagerService.updateStrategy);
         return true;
     };
 
     $scope.deleteStrategy = function (index, strategy) {
-        StrategyService.deleteStrategy(strategy.strategyId, function(data) {
-            if (data.status == "success") {
-                console.log("delete strategy:");
-                console.log(data.message);
-                $rootScope.strategies.splice(index, 1);
-            } else if(data.status == "error") {
-                console.error("delete strategy error: ");
-                console.error(data.message);
-            }
-        });
+        ManagerService.deleteStrategy(index, strategy);
         return true;
     };
 
     $scope.resumeStrategy = function (index, strategy) {
-        StrategyService.operateStrategy(strategy.strategyId, "resume", function(data) {
-            if (data.status == "success") {
-                console.log("resume strategy:");
-                console.log(strategy);
-            } else if(data.status == "error") {
-                console.error("resume strategy error: ");
-                console.error(data.message);
-            }
-        });
+        ManagerService.resumeStrategy(strategy);
         return true;
     };
 
     $scope.stopStrategy = function (index, strategy) {
-        StrategyService.operateStrategy(strategy.strategyId, "stop", function(data) {
-            if (data.status == "success") {
-                console.log("stop strategy:");
-                console.log(strategy);
-            } else if(data.status == "error") {
-                console.error("resume strategy error: ");
-                console.error(data.message);
-            }
-        });
+        ManagerService.stopStrategy(strategy);
         return true;
     };
 
     $scope.pauseStrategy = function (index, strategy) {
-        StrategyService.operateStrategy(strategy.strategyId, "pause", function(data) {
-            if (data.status == "success") {
-                console.log("pause strategy:");
-                console.log(strategy);
-            } else if(data.status == "error") {
-                console.error("pause strategy error: ");
-                console.error(data.message);
-            }
-        });
+        ManagerService.pauseStrategy(strategy);
         return true;
     };
     //

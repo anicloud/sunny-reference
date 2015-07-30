@@ -45,13 +45,26 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         app.directive(key, directive[key]);
     }
 
-    app.run(function($rootScope, StrategyService, DeviceService, WebSocketService) {
+    app.run(function($rootScope, StrategyService, DeviceService, WebSocketService, ManagerService) {
         $rootScope.strategies = [];
         $rootScope.devices = [];
         $rootScope.features = [];
         $rootScope.triggers = [];
+        $rootScope.phonyStrategyMap = {}
+        $rootScope.busyDeviceMap = {}
+
         StrategyService.getStrategies(function (data) {
             $rootScope.strategies = data;
+            for (var strategy in data) {
+                if (strategy.strategyName == "_PHONY_STRATEGY_") {
+                    var key = strategy.featureList[0].device.id;
+                    $rootScope.phonyStrategyMap[key] = strategy;
+                }
+
+                if (strategy.state == "RUNNING" || strategy.state == "PAUSE") {
+                    $rootScope.busyDeviceMap[strategy.featureList[strategy.stage].device.id] = 1;
+                }
+            }
         });
 
         DeviceService.getDevices(function (data) {
@@ -70,23 +83,12 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
             $rootScope.triggers = data;
         });
 
-        var updateStrategy = function(strategy) {
-            console.log("update strategy");
-            console.log(strategy);
-            for (var i=0; i<$rootScope.strategies.length; i++) {
-                if ($rootScope.strategies[i].strategyId == strategy.strategyId) {
-                    $rootScope.strategies.splice(i, 1, JSON.parse(JSON.stringify(strategy)));
-                    break;
-                }
-            }
-        };
-
         WebSocketService.openSocket(
             "ws://localhost:8080/sunny/socket/strategy",
             null,
             null,
             null,
-            updateStrategy);
+            ManagerService.updateStrategy);
 
     });
 }

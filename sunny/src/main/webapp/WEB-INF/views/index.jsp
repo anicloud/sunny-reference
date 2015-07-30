@@ -68,6 +68,7 @@
     <script src="${pageContext.request.contextPath}/public/src/js/service/strategy-service.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/service/device-service.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/service/websocket-service.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/service/manager-service.js" type="text/javascript"></script>
 
     <!-- controllers -->
     <script src="${pageContext.request.contextPath}/public/src/js/controller/setting-ctrl.js" type="text/javascript"></script>

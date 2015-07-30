@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, DeviceService, StrategyService) {
+anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, DeviceService, StrategyService, ManagerService) {
     // main
     $scope.getGroups = function () {
         var json = {"default": 1};
@@ -86,22 +86,56 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, DeviceServi
 
     $scope.deviceDetail.featureChosen = null;
     $scope.deviceDetail.getArgumentList = function() {
+        $scope.deviceDetail.arguments = {};
         if ($scope.deviceDetail.featureChosen != null) {
             return $scope.deviceDetail.featureChosen.argDtoList;
         }
     }
 
     $scope.deviceDetail.arguments = {};
+
     $scope.deviceDetail.start = function () {
-        console.log($scope.deviceDetail.arguments);
+        var argumentMap = $scope.deviceDetail.arguments;
+        var argumentList = [];
+        for (var arg in argumentMap) {
+            var obj = {};
+            obj[arg] = argumentMap[arg];
+            argumentList.push( obj );
+        }
+        var featureInstance = new anicloud.sunny.model.FeatureInstance(
+            "",
+            featureChosen.featureName,
+            device,
+            featureChosen,
+            argumentList,
+            [],
+            true
+        );
+
+        var strategyInstance = new anicloud.sunny.model.StrategyInstance(
+            "",
+            "_PHONY_STRATEGY_",
+            null,
+            null,
+            [].push(jsonClone(featureInstance)));
+
+        ManagerService.addStrategy(strategyInstance, ManagerService.updateStrategy);
     }
     $scope.deviceDetail.pause = function () {
-        console.log($scope.deviceDetail.arguments);
+        var key = $rootScope.deviceDetail.device.id;
+        var strategy = $rootScope.phonyStrategyMap[key];
+        ManagerService.pause(strategy);
     }
     $scope.deviceDetail.stop = function () {
-        console.log($scope.deviceDetail.arguments);
+        var key = $rootScope.deviceDetail.device.id;
+        var strategy = $rootScope.phonyStrategyMap[key];
+        ManagerService.stop(strategy);
     }
-
+    $scope.deviceDetail.resume = function () {
+        var key =  $rootScope.deviceDetail.device.id;
+        var strategy = $rootScope.phonyStrategyMap[key];
+        ManagerService.resume(strategy);
+    }
 }
 
 
