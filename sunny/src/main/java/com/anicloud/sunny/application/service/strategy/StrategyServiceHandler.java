@@ -18,7 +18,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -63,19 +65,20 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public void saveStrategy(Strategy strategy) {
-        if (strategy.strategyInstance != null) {
-            StrategyInstanceDao dao = strategyInstancePersistenceService.
-                    getByStrategyId(strategy.strategyId);
-            if (dao == null) {
-                Strategy.save(strategyPersistenceService, strategy);
-                strategyInstancePersistenceService.save(DaoAdapter.toStrategyInstanceDao(strategy.strategyInstance));
-            } else {
-                strategyInstancePersistenceService.update(DaoAdapter.toStrategyInstanceDao(strategy.strategyInstance));
-            }
-            // send the state to jms
-            strategyStateQueueService.updateStrategyState(strategy);
+        Assert.notNull(strategy.strategyInstance);
+        Strategy strategyOrg = getSingleStrategy(strategy.strategyId);
+        StrategyInstanceDao dao = strategyInstancePersistenceService.
+                getByStrategyId(strategy.strategyId);
+        if (strategyOrg == null && dao == null) {
+            Strategy.save(strategyPersistenceService, strategy);
+            strategyInstancePersistenceService.save(DaoAdapter.toStrategyInstanceDao(strategy.strategyInstance));
+        } else {
+            strategyInstancePersistenceService.update(DaoAdapter.toStrategyInstanceDao(strategy.strategyInstance));
         }
+        // send the state to jms
+        strategyStateQueueService.updateStrategyState(strategy);
     }
 
     @Override
@@ -128,5 +131,9 @@ public class StrategyServiceHandler implements StrategyService {
         // generate the device feature run strategy, identify it by strategy name field
         Strategy strategy = StrategyDtoAssembler.fromRunDeviceFeatureInstanceDto(userDto, deviceFeatureInstanceDto);
         scheduleService.scheduleStrategy(strategy);
+    }
+
+    private Strategy getSingleStrategy(String strategyId) {
+        return Strategy.getStrategyById(strategyPersistenceService, strategyId);
     }
 }

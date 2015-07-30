@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "t_schedule_feature")
 public class FeatureInstanceDao extends AbstractEntity {
-    @Column(name = "featureId", nullable = false, unique = true, length = 100)
+    @Column(name = "featureId", nullable = false, length = 100)
     public String featureId;
     @Column(name = "deviceId", length = 100)
     public String deviceId;

@@ -22,7 +22,7 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
     public Long timeStamp;
 
     public boolean isScheduled;
-    public ScheduleStateListener listener;
+    transient public ScheduleStateListener listener;
 
     public StrategyInstance() {
     }

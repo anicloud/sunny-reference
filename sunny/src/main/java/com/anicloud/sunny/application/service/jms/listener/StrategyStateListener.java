@@ -23,8 +23,9 @@ public class StrategyStateListener implements MessageListener {
         ObjectMessage objectMessage = (ObjectMessage) message;
         try {
             Strategy strategy = (Strategy) objectMessage.getObject();
+            LOGGER.info("StrategyStateListener {}.", strategy.owner);
             String hashUserId = strategy.owner.hashUserId;
-            StrategyInfoHandler.sendMessageToUser(hashUserId,strategy);
+            //StrategyInfoHandler.sendMessageToUser(hashUserId,strategy);
         } catch (JMSException e) {
             e.printStackTrace();
         }

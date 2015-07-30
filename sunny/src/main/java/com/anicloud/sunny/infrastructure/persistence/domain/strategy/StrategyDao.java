@@ -10,7 +10,8 @@ import java.util.List;
  * Created by zhaoyu on 15-6-11.
  */
 @Entity
-@Table(name = "t_strategy")
+@Table(name = "t_strategy",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"owner_user_id", "strategy_name"}))
 public class StrategyDao extends AbstractEntity {
     private static final long serialVersionUID = 6150221948952546939L;
 

@@ -2,12 +2,13 @@ package com.anicloud.sunny.schedule.domain.schedule;
 
 import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Created by huangbin on 7/16/15.
  */
-public class ScheduleJob {
+public class ScheduleJob implements Serializable {
     public String jobName;
     public String jobGroup;
     public ScheduleState jobState;

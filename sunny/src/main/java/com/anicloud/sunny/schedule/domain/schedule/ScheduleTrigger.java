@@ -2,12 +2,13 @@ package com.anicloud.sunny.schedule.domain.schedule;
 
 import org.quartz.SimpleTrigger;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by huangbin on 7/17/15.
  */
-public class ScheduleTrigger {
+public class ScheduleTrigger implements Serializable {
     public String jobName;
     public String jobGroup;
     public String triggerName;

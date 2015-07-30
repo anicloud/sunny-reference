@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.Serializable;
 import java.util.*;
 
 import static org.quartz.JobBuilder.newJob;
@@ -18,7 +19,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
  */
 
 @Component
-public class ScheduleManager {
+public class ScheduleManager implements Serializable {
     private final static Logger LOGGER = LoggerFactory.getLogger(ScheduleManager.class);
 
     @Autowired

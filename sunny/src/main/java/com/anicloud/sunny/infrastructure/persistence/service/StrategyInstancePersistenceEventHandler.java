@@ -3,6 +3,9 @@ package com.anicloud.sunny.infrastructure.persistence.service;
 import com.anicloud.sunny.schedule.persistence.dao.StrategyInstanceDao;
 import com.anicloud.sunny.infrastructure.persistence.repository.schedule.StrategyInstanceRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -15,6 +18,7 @@ public class StrategyInstancePersistenceEventHandler implements StrategyInstance
     private StrategyInstanceRepository strategyInstanceRepository;
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public StrategyInstanceDao save(StrategyInstanceDao strategyInstanceDao) {
         return strategyInstanceRepository.save(strategyInstanceDao);
     }

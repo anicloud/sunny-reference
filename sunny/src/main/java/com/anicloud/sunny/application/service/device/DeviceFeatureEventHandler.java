@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -28,6 +29,7 @@ public class DeviceFeatureEventHandler implements DeviceFeatureService {
     private DeviceFeaturePersistenceService deviceFeaturePersistenceService;
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public DeviceFeatureDto saveDeviceFeature(DeviceFeatureDto deviceFeatureDto) {
         if (StringUtils.isEmpty(deviceFeatureDto.featureId)) {
             deviceFeatureDto.featureId = NumGenerate.generate();

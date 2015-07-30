@@ -19,9 +19,9 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     public boolean isScheduleNow;
 //
     public String accessToken;
-    public ScheduleJob scheduleJob;
-    public ScheduleManager scheduleManager;
-    public ScheduleStateListener listener;
+    transient public ScheduleJob scheduleJob;
+    transient public ScheduleManager scheduleManager;
+    transient public ScheduleStateListener listener;
 
     public static Integer reenter = -1;
 
