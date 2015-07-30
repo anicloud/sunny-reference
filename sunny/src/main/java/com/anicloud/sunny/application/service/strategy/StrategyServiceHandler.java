@@ -56,7 +56,7 @@ public class StrategyServiceHandler implements StrategyService {
             }
         }
         Strategy strategy = StrategyDtoAssembler.toStrategy(strategyDto);
-        saveStrategy(strategy);
+        // saveStrategy(strategy);
         // send to the schedule
         scheduleService.scheduleStrategy(strategy);
         return StrategyDtoAssembler.toDto(strategy);

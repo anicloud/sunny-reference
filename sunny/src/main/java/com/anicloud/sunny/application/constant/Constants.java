@@ -20,7 +20,7 @@ public class Constants {
     /**
      *  the device feature run as a strategy, use the strategy name to identify
      */
-    public final static String STRATEGY_AS_DEVICE_FEATURE_RUN_NAME = "is_device_feature_run";
+    public final static String STRATEGY_AS_DEVICE_FEATURE_RUN_NAME = "_PHONY_STRATEGY_";
 
     /**
      * the pattern type of the type trigger

@@ -34,18 +34,20 @@ public class ScheduleManager {
     @PostConstruct
     public void init() {
         LOGGER.info("ScheduleManager PostConstruct");
-        schedulerFactoryBean.getScheduler();
+        scheduler = schedulerFactoryBean.getScheduler();
     }
 
     public void addJob(ScheduleJob job) {
         try {
+            JobDetail jobDetail = newJob(job.jobClass)
+                    .withIdentity(job.jobName, job.jobGroup)
+                    .storeDurably(true)
+                    .build();
+            jobDetail.getJobDataMap().put("ScheduleJob", job);
+            scheduler.addJob(jobDetail, false);
             if (job.isScheduleNow) {
                 scheduler.triggerJob(JobKey.jobKey(job.jobName, job.jobGroup));
             } else {
-                JobDetail jobDetail = newJob(job.jobClass)
-                        .withIdentity(job.jobName, job.jobGroup)
-                        .build();
-//            scheduler.addJob(jobDetail, true);
                 for (ScheduleTrigger scheduleTrigger : job.triggers) {
                     SimpleTrigger simpleTrigger = (SimpleTrigger) newTrigger()
                             .withIdentity(scheduleTrigger.triggerName, scheduleTrigger.triggerGroup)
@@ -58,7 +60,7 @@ public class ScheduleManager {
                                             .withMisfireHandlingInstructionFireNow()
                             )
                             .build();
-                    scheduler.scheduleJob(simpleTrigger);
+                    scheduler.scheduleJob(jobDetail, simpleTrigger);
                 }
             }
         } catch (Exception e) {

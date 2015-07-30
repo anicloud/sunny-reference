@@ -55,6 +55,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
         for (int i= stage; stage < functionInstanceList.size(); i++) {
             if (state == ScheduleState.RUNNING) {
                 functionInstanceList.get(stage).execute(this.accessToken, this.deviceId);
+                stage++;
             } else {
                 break;
             }
