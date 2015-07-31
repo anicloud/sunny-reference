@@ -62,13 +62,6 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
     public void onScheduleStateChanged(Object src, ScheduleState state) {
         StrategyInstance strategyInstance = (StrategyInstance)src;
         Strategy strategy = strategyMap.get(strategyInstance.strategyId);
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            System.out.println(objectMapper.writeValueAsString(strategy));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
 
         strategyService.saveStrategy(strategy);
     }

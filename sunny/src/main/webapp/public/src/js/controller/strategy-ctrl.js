@@ -121,7 +121,6 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
             [trigger],
             true
         );
-        console.log(featureInstance);
         ManagerService.addFeature(featureInstance, strategy);
         return true;
     };
@@ -167,8 +166,6 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
             null,
             jsonClone($scope.strategyTemplate.featureList));
 
-        console.log("add strategy:");
-        console.log(strategyInstance);
         ManagerService.addStrategy(strategyInstance, ManagerService.updateStrategy);
         return true;
     };

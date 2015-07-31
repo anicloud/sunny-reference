@@ -41,7 +41,7 @@ public class FunctionInstance implements Serializable {
                 .setAniFunction(functionDto);
 
         AppCommandService appCommandService = new AppCommandServiceImpl(AnicelServiceConfig.getInstance());
-        AniCommandCallResultDto resultDto = appCommandService.runCommand(commandDtoBuilder, accessToken);
+         AniCommandCallResultDto resultDto = appCommandService.runCommand(commandDtoBuilder, accessToken);
 //        AniFunctionCallResultDto functionCallResultDto = resultDto.getResultDtoList().get(0);
 //
         if (outputList == null) {
