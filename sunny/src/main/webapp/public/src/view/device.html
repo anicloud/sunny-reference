@@ -8,7 +8,7 @@
     </div>
 
     <div class="row item-wrapper">
-        <div class="item col-xs-4 col-sm-3 col-md-2 col-lg-2"
+        <div class="item col-xs-6 col-sm-4 col-md-3 col-lg-2"
              ng-repeat="device in devices | filter: deviceFilterByGroup">
             <div class="panel" ng-click="deviceDetail.toggle(device)">
                 <div class="panel-heading">
@@ -17,7 +17,7 @@
                     <div>
                         <h5>{{device.name}}</h5>
                     </div>
-                    <div class="panel-footer">
+                    <div>
                         <small>{{device.deviceState}}</small>
                     </div>
                 </div>

@@ -71,9 +71,9 @@
     <script src="${pageContext.request.contextPath}/public/src/js/service/manager-service.js" type="text/javascript"></script>
 
     <!-- controllers -->
-    <script src="${pageContext.request.contextPath}/public/src/js/controller/setting-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/home-page-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/strategy-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/controller/strategy-edit-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/device-ctrl.js" type="text/javascript"></script>
 
     <!-- dto -->

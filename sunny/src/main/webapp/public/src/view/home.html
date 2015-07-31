@@ -1,28 +1,30 @@
-<div id="wrapper" class="toggled" ng-class="{toggled:isToggled}">
-    <div id="sidebar-wrapper">
-        <div class="device-avatar">
-        </div>
-        <ul ng-model="curDevice">
-            <li>{{curDevice.id}}</li>
-            <li>{{curDevice.name}}</li>
-            <li>{{curDevice.deviceType}}</li>
-            <li>{{curDevice.deviceGroup}}</li>
-        </ul>
-    </div>
-
-    <div id="homePage">
+<div id="homePage" ng-controller="HomePageCtrl">
+    <div ng-controller="DeviceCtrl">
+        <div ng-include="'public/src/view/device_detail.html'"></div>
         <div class="row">
             <div class="col-xs-12">
+                <div><h4><i class="fa fa-tablet"></i> 设备</h4></div>
                 <div class="row" id="device-wrapper">
-                    <div><h4><i class="fa fa-heart"></i> 设备</h4></div>
                     <div class="device-body device-body-homepage">
-                        <a class="device-cel" ng-repeat="device in devices" ng-click="toggleDeviceDetail(device)">
-                            <div class="device-content">
-                                <div><i class="fa fa-comments fa-3x" id="device-icon"></i></div>
-                                <div id="device-description">
-                                    {{device.name}}
+                        <a class="device-cel" ng-repeat="device in devices" ng-click="deviceDetail.toggle(device)">
+                            <!--<div class="device-content">-->
+                            <!--<div><i class="fa fa-comments fa-3x" id="device-icon"></i></div>-->
+                            <!--<div id="device-description">-->
+                            <!--{{device.name}}-->
+                            <!--<div>-->
+                            <!--<small>{{device.description}}</small>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <i class="fa fa-comments fa-3x"></i>
+
                                     <div>
-                                        <small>{{device.description}}</small>
+                                        <h5>{{device.name}}</h5>
+                                    </div>
+                                    <div>
+                                        <small>{{device.deviceState}}</small>
                                     </div>
                                 </div>
                             </div>
@@ -31,63 +33,14 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="strategy-title">
+        <h4><i class="fa fa-pencil"></i> Strategy</h4>
+    </div>
+    <div ng-include="'public/src/view/strategy.html'">
 
-
-        <!--<div class="strategy-body">-->
-        <!--<div class="row">-->
-        <div id="strategy-title">
-            <h4><i class="fa fa-pencil"></i> Strategy</h4>
-        </div>
-        <!--</div>-->
-        <div ng-model="strategies" class="strategy-body">
-            <div ng-repeat="strategy in strategies">
-                <accordion close-others="isCollapsed">
-                    <accordion-group is-open="status.open">
-                        <accordion-heading>
-                            <h4>{{strategy.strategyName}}</h4>
-                            <i class="pull-right glyphicon"
-                               ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success progress-bar-striped"
-                                     ng-style="setLength(strategy.strategyStage, strategy.featureList.length)">
-                                    <span class="sr-only">35% Complete (success)</span>
-                                </div>
-                                <!--<div class="progress-bar progress-bar-warning" ng-style="width: 65%">-->
-                                <!--<span class="sr-only">20% Complete (warning)</span>-->
-                                <!--</div>-->
-                                <!--<div class="progress-bar progress-bar-danger" style="width: 65%">-->
-                                <!--<span class="sr-only">10% Complete (danger)</span>-->
-                                <!--</div>-->
-                            </div>
-
-                        </accordion-heading>
-                        <ul class="timeline" ng-repeat="feature in strategy.featureList track by $index">
-                            <li ng-class="{'timeline-inverted': ($index%2) }">
-                                <div class="timeline-badge" ng-style="setBadgeColor($index, strategy.strategyStage)">
-                                    <i class="fa fa-check"></i>
-                                </div>
-                                <div class="timeline-panel">
-                                    <div class="timeline-heading">
-                                        <h2 class="timeline-title">{{feature.featureName}}</h2>
-                                    </div>
-                                    <div class="timeline-body">
-                                        <small class="timeline-title">设备：{{feature.device.name }}</small>
-
-                                        <small class="timeline-title pull-right">
-                                            {{feature.triggerList[0].triggerValue}}
-                                        </small>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </accordion-group>
-                </accordion>
-            </div>
-        </div>
     </div>
 </div>
-
 
 
 

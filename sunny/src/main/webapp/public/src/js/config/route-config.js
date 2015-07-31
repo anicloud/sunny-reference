@@ -33,11 +33,11 @@ anicloud.sunny.config.route = ['$stateProvider', '$locationProvider', '$urlRoute
             })
             .state('app.strategy', {
                 url: '/strategy',
-                templateUrl: basepath + 'strategy.html'
+                templateUrl: basepath + 'strategy_running.html'
             })
             .state('app.edit_strategy', {
                 url: '/edit_strategy',
-                templateUrl: basepath + 'edit_strategy.html'
+                templateUrl: basepath + 'strategy_edit.html'
             })
             .state('app.error', {
                 url: '/error',
