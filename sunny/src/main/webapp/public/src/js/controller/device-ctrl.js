@@ -22,7 +22,7 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
     $scope.selectedGroup = "default";
     $scope.setDeviceFilter = function(group) {
         $scope.selectedGroup = group;
-    }
+    };
 
     $scope.deviceFilterByGroup = function (device) {
         if ($scope.selectedGroup == "default")
@@ -31,10 +31,10 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
             return true;
         else
             return false;
-    }
+    };
 
     // device detail
-    $scope.deviceDetail = {}
+    $scope.deviceDetail = {};
     $scope.deviceDetail.isToggled = true;
     $scope.deviceDetail.device = null;
     $scope.deviceDetail.toggle = function (device) {
@@ -48,14 +48,14 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         }
         $scope.deviceDetail.device = device;
         $scope.deviceDetail.featureChosen = null;
-    }
-
+    };
+;
     $scope.deviceDetail.nameEditable = false;
     $scope.deviceDetail.nameInput = "";
     $scope.deviceDetail.editName = function() {
         $scope.deviceDetail.device.name = $scope.deviceDetail.nameInput;
         $scope.deviceDetail.nameEditable = false;
-    }
+    };
 
     $scope.deviceDetail.getGroups = function () {
         var groups = $scope.getGroups();
@@ -76,13 +76,13 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         $scope.deviceDetail.groupEditable = false;
         $scope.deviceDetail.groupChosen = "";
         $scope.deviceDetail.groupInput = "";
-    }
+    };
 
     $scope.deviceDetail.getFeatureList = function() {
         if ($scope.deviceDetail.device != null) {
             return $rootScope.features[$scope.deviceDetail.device.id];
         }
-    }
+    };
 
     $scope.deviceDetail.featureChosen = null;
     $scope.deviceDetail.getArgumentList = function() {
@@ -90,7 +90,7 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         if ($scope.deviceDetail.featureChosen != null) {
             return $scope.deviceDetail.featureChosen.argDtoList;
         }
-    }
+    };
 
     $scope.deviceDetail.arguments = {};
 
@@ -104,7 +104,6 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         }
         var featureInstance = new anicloud.sunny.model.FeatureInstance(
             "",
-            featureChosen.featureName,
             device,
             featureChosen,
             argumentList,
@@ -120,23 +119,23 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
             [].push(jsonClone(featureInstance)));
 
         ManagerService.addStrategy(strategyInstance, ManagerService.updateStrategy);
-    }
+    };
     $scope.deviceDetail.pause = function () {
         var key = $rootScope.deviceDetail.device.id;
         var strategy = $rootScope.phonyStrategyMap[key];
         ManagerService.pause(strategy);
-    }
+    };
     $scope.deviceDetail.stop = function () {
         var key = $rootScope.deviceDetail.device.id;
         var strategy = $rootScope.phonyStrategyMap[key];
         ManagerService.stop(strategy);
-    }
+    };
     $scope.deviceDetail.resume = function () {
         var key =  $rootScope.deviceDetail.device.id;
         var strategy = $rootScope.phonyStrategyMap[key];
         ManagerService.resume(strategy);
-    }
-}
+    };
+};
 
 
 

@@ -7,123 +7,14 @@ anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
 anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDialog, ManagerService) {
-    //    For Strategy page
-    // feature Template
-    $scope.featureTemplate = {
-        "featureId": "",
-        "deviceId": "",
-        "trigger": {
-            "triggerValue": "",
-            "triggerType": ""
-        },
-        "argumentMap": [],
-        "valid" : true,
-        "error" : ""
-    };
-
-
-    $scope.featureTemplate.clearAll = function () {
-        $scope.featureTemplate.deviceId = "";
-        $scope.featureTemplate.featureId = "";
-        $scope.featureTemplate.trigger.triggerType = "";
-        $scope.featureTemplate.trigger.triggerValue = "";
-        $scope.featureTemplate.argumentMap = [];
-    };
-
-    $scope.featureTemplate.getDeviceFeatures = function () {
-        if ($scope.featureTemplate.deviceId == '') {
-            return null;
-        }
-        return $rootScope.features[$scope.featureTemplate.deviceId];
-    };
-
-
-    $scope.featureTemplate.getDevice = function () {
-        if ($scope.featureTemplate.deviceId == '') {
-            return null;
-        }
-        for (var i = 0; i < $rootScope.devices.length; i++) {
-            if ($rootScope.devices[i].id == $scope.featureTemplate.deviceId) {
-                return $rootScope.devices[i];
-            }
-        }
-        return null;
-    }
-
-    $scope.featureTemplate.getFeature = function () {
-        if ($scope.featureTemplate.featureId == '') {
-            return null;
-        }
-        for (var i = 0; i < $rootScope.features[$scope.featureTemplate.deviceId].length; i++) {
-            if ($rootScope.features[$scope.featureTemplate.deviceId][i].featureId == $scope.featureTemplate.featureId) {
-                return $rootScope.features[$scope.featureTemplate.deviceId][i];
-            }
-        }
-        // Todo : add feature args
-        return null;
-    }
-
-    $scope.featureTemplate.open = function() {
+    $scope.openFeatureEditTemplate = function () {
         ngDialog.open(
             {
-                template: 'public/src/view/feature.html',
-                scope: $scope
+                template: 'public/src/view/feature-edit.html',
+                scope: $scope,
+                controller: 'FeatureEditCtrl'
             });
     }
-
-    $scope.addFeature = function (strategy) {
-        $scope.featureTemplate.valid = true;
-        var feature = $scope.featureTemplate.getFeature();
-        var device = $scope.featureTemplate.getDevice();
-        var trigger = $scope.featureTemplate.trigger;
-        var argumentMap = $scope.featureTemplate.argumentList;
-        var argumentList = [];
-
-        if (device == null) {
-            $scope.featureTemplate.valid = false;
-            $scope.featureTemplate.error = "设备不能为空";
-            return false;
-        }
-        if (feature == null) {
-            $scope.featureTemplate.valid = false;
-            $scope.featureTemplate.error = "任务不能为空";
-            return false;
-        }
-        if (trigger.triggerType == '') {
-            $scope.featureTemplate.valid = false;
-            $scope.featureTemplate.error = "触发条件不能为空";
-            return false;
-        }
-        if (trigger.triggerType == 'TIMER' && trigger.triggerValue == '') {
-            $scope.featureTemplate.valid = false;
-            $scope.featureTemplate.error = "选择时间";
-            return false;
-        }
-
-        for (var arg in argumentMap) {
-            var obj = {};
-            obj[arg] = argumentMap[arg];
-            argumentList.push( obj );
-        }
-
-        var value = {};
-        value.startTime = trigger.triggerValue;
-        value.repeatInterval = 0;
-        value.repeatCount = 0;
-        trigger.triggerValue = JSON.stringify(value);
-
-        var featureInstance = new anicloud.sunny.model.FeatureInstance(
-            "",
-            feature.featureName,
-            device,
-            feature,
-            argumentList,
-            [trigger],
-            true
-        );
-        ManagerService.addFeature(featureInstance, strategy);
-        return true;
-    };
 
     $scope.deleteFeature = function (index, strategy) {
         ManagerService.deleteFeature(index, strategy);
@@ -137,8 +28,8 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
         "strategyDescription": "",
         "strategyStage": "",
         "featureList": [],
-        "valid" : true,
-        "error" : ""
+        "valid": true,
+        "error": ""
     };
 
     $scope.strategyTemplate.clearAll = function () {

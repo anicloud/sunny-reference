@@ -23,7 +23,6 @@
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/timeline.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/simple-sidebar.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/material-design-iconic-font.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/angularjs/css/ngDialog.css" rel="stylesheet">
@@ -45,7 +44,6 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
 
     <!-- websocket.js -->
     <script src="${pageContext.request.contextPath}/public/lib/websocket/sockjs-0.3.4.min.js"></script>
@@ -58,6 +56,7 @@
     <script src="${pageContext.request.contextPath}/public/lib/angularjs/js/angular-ui-router.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/angularjs/js/ui-bootstrap-tpls-0.13.0.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/angularjs/js/ngDialog.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/angularjs/js/datetime-picker.js" type="text/javascript"></script>
 
 
     <!-- config -->
@@ -74,6 +73,7 @@
     <script src="${pageContext.request.contextPath}/public/src/js/controller/home-page-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/strategy-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/strategy-edit-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/controller/feature-edit-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/device-ctrl.js" type="text/javascript"></script>
 
     <!-- dto -->

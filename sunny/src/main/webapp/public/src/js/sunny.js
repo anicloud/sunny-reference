@@ -22,6 +22,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         'ngCookies',
         'ngDialog',
         'ui.bootstrap',
+        'ui.bootstrap.datetimepicker',
         'ui.router'
     ]);
 

@@ -8,7 +8,6 @@ anicloud.sunny.model = anicloud.sunny.model || {}
 anicloud.sunny.model.FeatureInstance = function(){}
 anicloud.sunny.model.FeatureInstance = function (
     featureInstanceId,
-    featureName,
     device,
     deviceFeature,
     featureArgValueDtoList,
@@ -17,7 +16,6 @@ anicloud.sunny.model.FeatureInstance = function (
 ) {
     var _this = this;
     _this.featureInstanceId=featureInstanceId;
-    _this.featureName=featureName;
     _this.device=device;
     _this.deviceFeature=deviceFeature;
     _this.featureArgValueDtoList=featureArgValueDtoList;
