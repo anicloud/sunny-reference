@@ -10,12 +10,20 @@ import com.anicloud.sunny.application.dto.app.AppClientDto;
 public class OAuth2ParameterBuilder {
     private OAuth2ParameterBuilder() {}
 
-    public static AuthorizationCodeParameter build(AppClientDto appClientDto) {
+    public static AuthorizationCodeParameter buildForAccessToken(AppClientDto appClientDto) {
         AuthorizationCodeParameter authorizationCodeParameter = new AuthorizationCodeParameter();
         authorizationCodeParameter.setClientId(appClientDto.clientId)
                 .setClientSecret(appClientDto.clientSecret)
                 .setGrantType(GrantType.AUTHORIZATION_CODE)
                 .setRedirectUri(appClientDto.webServerRedirectUri);
+        return authorizationCodeParameter;
+    }
+
+    public static AuthorizationCodeParameter buildForRefreshToken(AppClientDto appClientDto) {
+        AuthorizationCodeParameter authorizationCodeParameter = new AuthorizationCodeParameter();
+        authorizationCodeParameter.setClientId(appClientDto.clientId)
+                .setClientSecret(appClientDto.clientSecret)
+                .setGrantType(GrantType.REFRESH_TOKEN);
         return authorizationCodeParameter;
     }
 }

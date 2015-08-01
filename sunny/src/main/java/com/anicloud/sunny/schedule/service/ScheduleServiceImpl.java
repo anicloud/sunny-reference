@@ -36,7 +36,7 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
     public void scheduleStrategy(Strategy strategy) {
         StrategyInstance strategyInstance = strategy.strategyInstance;
         if (!strategyInstance.isScheduled) {
-            strategyInstance.prepareSchedule(scheduleManager, this, strategy.owner.accessToken);
+            strategyInstance.prepareSchedule(scheduleManager, this, strategy.owner.hashUserId);
             strategyMap.put(strategy.strategyId, strategy);
         }
         switch (strategyInstance.action) {

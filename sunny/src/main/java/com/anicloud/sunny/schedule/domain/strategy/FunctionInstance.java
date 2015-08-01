@@ -7,7 +7,11 @@ import com.ani.cel.service.manager.agent.app.service.AppCommandService;
 import com.ani.cel.service.manager.agent.app.service.AppCommandServiceImpl;
 import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
 import com.anicloud.sunny.application.constant.Constants;
+import com.anicloud.sunny.application.service.command.CommandRunServiceProxy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +19,8 @@ import java.util.List;
 /**
  * Created by huangbin on 7/18/15.
  */
+@Component
+@Scope(value = "prototype")
 public class FunctionInstance implements Serializable {
     public String functionId;
     public String name;
@@ -22,7 +28,10 @@ public class FunctionInstance implements Serializable {
     public List<Argument> inputList;
     public List<Argument> outputList;
 
-    public boolean execute(String accessToken, String deviceId) {
+    @Resource
+    private CommandRunServiceProxy commandRunServiceProxy;
+
+    public boolean execute(String hashUserId, String deviceId) {
         List<AniFunctionArgumentDto> inputDtoList = new ArrayList<>();
         for (Argument arg : inputList) {
             inputDtoList.add(new AniFunctionArgumentDto(arg.name, arg.value));
@@ -41,7 +50,7 @@ public class FunctionInstance implements Serializable {
                 .setAniFunction(functionDto);
 
         AppCommandService appCommandService = new AppCommandServiceImpl(AnicelServiceConfig.getInstance());
-         AniCommandCallResultDto resultDto = appCommandService.runCommand(commandDtoBuilder, accessToken);
+        AniCommandCallResultDto resultDto = commandRunServiceProxy.runCommand(commandDtoBuilder, hashUserId);
 //        AniFunctionCallResultDto functionCallResultDto = resultDto.getResultDtoList().get(0);
 //
         if (outputList == null) {

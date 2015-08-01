@@ -13,4 +13,5 @@ public interface UserService {
 
     public UserDto getUserByHashUserId(String hashUserId);
     public UserDto getUserByEmail(String email);
+    public UserDto refreshUserToken(String hashUserId);
 }

@@ -18,7 +18,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     public List<TriggerInstance> triggerInstanceList;
     public boolean isScheduleNow;
 //
-    public String accessToken;
+    public String hashUserId;
     transient public ScheduleJob scheduleJob;
     transient public ScheduleManager scheduleManager;
     transient public ScheduleStateListener listener;
@@ -54,7 +54,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
 
         for (int i= stage; stage < functionInstanceList.size(); i++) {
             if (state == ScheduleState.RUNNING) {
-                functionInstanceList.get(stage).execute(this.accessToken, this.deviceId);
+                functionInstanceList.get(stage).execute(this.hashUserId, this.deviceId);
                 stage++;
             } else {
                 break;
