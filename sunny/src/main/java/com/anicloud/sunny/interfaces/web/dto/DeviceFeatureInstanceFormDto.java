@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class DeviceFeatureInstanceFormDto {
     public String featureInstanceId;
-    public String featureName;
     public DeviceFormDto device;
     public DeviceFeatureFormDto deviceFeature;
     public List<FeatureArgValueDto> featureArgValueDtoList;
@@ -24,7 +23,6 @@ public class DeviceFeatureInstanceFormDto {
         DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto = new DeviceFeatureInstanceFormDto();
         if(deviceFeatureInstanceDto != null) {
             deviceFeatureInstanceFormDto.featureInstanceId = deviceFeatureInstanceDto.featureInstanceId;
-            deviceFeatureInstanceFormDto.featureName = deviceFeatureInstanceDto.deviceFeatureDto.featureName;
             deviceFeatureInstanceFormDto.device = DeviceFormDto.convertToDeviceForm(deviceFeatureInstanceDto.deviceDto);
             deviceFeatureInstanceFormDto.deviceFeature = DeviceFeatureFormDto.convertToDeviceFeatureForm(deviceFeatureInstanceDto.deviceFeatureDto);
 
