@@ -10,6 +10,7 @@ import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.dto.user.UserInfoDto;
 import com.anicloud.sunny.application.service.app.AppService;
+import com.anicloud.sunny.application.service.command.CommandRunServiceProxy;
 import com.anicloud.sunny.application.service.init.ApplicationInitService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;

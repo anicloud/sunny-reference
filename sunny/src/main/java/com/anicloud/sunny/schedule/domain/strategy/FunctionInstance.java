@@ -8,6 +8,7 @@ import com.ani.cel.service.manager.agent.app.service.AppCommandServiceImpl;
 import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.service.command.CommandRunServiceProxy;
+import com.anicloud.sunny.application.service.holder.SpringContextHolder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -19,17 +20,13 @@ import java.util.List;
 /**
  * Created by huangbin on 7/18/15.
  */
-@Component
-@Scope(value = "prototype")
+
 public class FunctionInstance implements Serializable {
     public String functionId;
     public String name;
     public String group;
     public List<Argument> inputList;
     public List<Argument> outputList;
-
-    @Resource
-    private CommandRunServiceProxy commandRunServiceProxy;
 
     public boolean execute(String hashUserId, String deviceId) {
         List<AniFunctionArgumentDto> inputDtoList = new ArrayList<>();
@@ -49,7 +46,7 @@ public class FunctionInstance implements Serializable {
                 .setDeviceIdentificationCode(deviceId)
                 .setAniFunction(functionDto);
 
-        AppCommandService appCommandService = new AppCommandServiceImpl(AnicelServiceConfig.getInstance());
+        CommandRunServiceProxy commandRunServiceProxy = (CommandRunServiceProxy)SpringContextHolder.getBean("commandRunServiceProxyImpl");
         AniCommandCallResultDto resultDto = commandRunServiceProxy.runCommand(commandDtoBuilder, hashUserId);
 //        AniFunctionCallResultDto functionCallResultDto = resultDto.getResultDtoList().get(0);
 //

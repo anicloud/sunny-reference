@@ -9,6 +9,8 @@ import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.domain.model.user.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +19,11 @@ import javax.annotation.Resource;
 /**
  * Created by zhaoyu on 15-8-1.
  */
-@Service
+@Service(value = "commandRunServiceProxyImpl")
 @Transactional
 public class CommandRunServiceProxyImpl implements CommandRunServiceProxy {
+    private final static Logger LOGGER = LoggerFactory.getLogger(CommandRunServiceProxyImpl.class);
+
     @Resource
     private UserService userService;
     private AppCommandService appCommandService;
@@ -35,6 +39,7 @@ public class CommandRunServiceProxyImpl implements CommandRunServiceProxy {
 
     @Override
     public AniCommandCallResultDto runCommand(AniCommandDto aniCommandDto, String hashUserId) {
+        LOGGER.info("run command, userId : {}.", hashUserId);
         // refresh token
         UserDto userDto = userService.refreshUserToken(hashUserId);
         return appCommandService.runCommand(aniCommandDto, userDto.accessToken);
