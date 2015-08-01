@@ -34,36 +34,7 @@ public class StrategyController {
     @ResponseBody
     public List<StrategyFormDto> getStrategies(@RequestParam(value = "hashUserId")String hashUserId){
         List<StrategyDto> strategies = strategyService.getStrategyByUser(hashUserId);
-
-        StrategyFormDto strategyFormDto = new StrategyFormDto();
-        strategyFormDto.strategyId  = "1";
-        strategyFormDto.strategyName = "strategy1";
-        strategyFormDto.strategyDescription = "";
-        strategyFormDto.stage = 2;
-
-        List<DeviceFeatureInstanceFormDto> featureList = new ArrayList<>();
-
-        DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto1 = new DeviceFeatureInstanceFormDto();
-
-        deviceFeatureInstanceFormDto1.featureInstanceId = "1";
-        deviceFeatureInstanceFormDto1.featureName="调节空调温度1";
-
-        DeviceFormDto deviceFormDto = new DeviceFormDto();
-        deviceFormDto.id = "12345";
-        deviceFormDto.name="空调";
-        deviceFormDto.deviceState = DeviceState.CONNECTED;
-        deviceFormDto.deviceType = "";
-        deviceFormDto.deviceGroup ="客厅";
-
-        deviceFeatureInstanceFormDto1.device = deviceFormDto;
-
-        featureList.add(deviceFeatureInstanceFormDto1);
-
-        strategyFormDto.featureList = featureList;
-        List<StrategyFormDto> list = new ArrayList<>();
-        list.add(strategyFormDto);
-        return list;
-        //return StrategyFormDto.convertToStrategyForms(strategies);
+        return StrategyFormDto.convertToStrategyForms(strategies);
     }
 
     @RequestMapping(value = "/strategy",method = RequestMethod.POST)

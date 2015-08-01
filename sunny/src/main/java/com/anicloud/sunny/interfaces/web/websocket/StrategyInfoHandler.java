@@ -33,16 +33,6 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
         String hashUserId = (String) session.getAttributes().get("hashUserId");
         sessionMaps.put(hashUserId, session);
         LOG.info("afterConnectionEstablished" + hashUserId);
-
-        Strategy strategy = new Strategy();
-        strategy.strategyId = "1";
-        strategy.strategyName = "推送测试";
-        StrategyInstance strategyInstance = new StrategyInstance();
-        strategyInstance.action = StrategyAction.START;
-        strategyInstance.stage = 2;
-        strategyInstance.state = ScheduleState.RUNNING;
-        strategy.strategyInstance = strategyInstance;
-        sendMessageToUser(hashUserId, strategy);
     }
 
     @Override
@@ -56,10 +46,6 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         super.handleTextMessage(session, message);
-
-        String hashUserId = (String) session.getAttributes().get("hashUserId");
-        LOG.info("current user hashUserId : {}", hashUserId);
-        String messageStr = "background recevie front message:"+message.getPayload();
     }
 
     /**
