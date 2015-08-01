@@ -49,7 +49,7 @@ public class StrategyController {
             strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto, userDto));
             message.put("status", "success");
         }catch (Exception e){
-            message.put("status", "error");
+            message.put("status", "serror");
             message.put("message", "save strategy failed");
             e.printStackTrace();
         }

@@ -23,7 +23,6 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
             StrategyService.saveStrategies(strategy, function (data) {
                 if (data.status == "success") {
                     console.log("add strategy ok:");
-                    console.log(data.strategy);
                     //updateStrategy(data.strategy);
                 } else if (data.status == "error") {
                     console.error("add strategy error: ");
