@@ -8,6 +8,8 @@ import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyInstance;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,8 @@ import java.util.Map;
  */
 @Service
 public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListener {
+    private final static Logger log = LoggerFactory.getLogger(ScheduleServiceImpl.class);
+
     @Resource
     private ScheduleManager scheduleManager;
 
@@ -62,7 +66,26 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
     public void onScheduleStateChanged(Object src, ScheduleState state) {
         StrategyInstance strategyInstance = (StrategyInstance)src;
         Strategy strategy = strategyMap.get(strategyInstance.strategyId);
+        log.info("-----------strategy state changed--------------");
+        log.info("[name]:" + strategy.strategyName);
+        log.info("[state]:");
+        switch (state) {
+            case RUNNING:
+                log.info("running");
+                break;
+            case DONE:
+                log.info("done");
+                break;
+            case SUSPENDED:
+                log.info("suspended");
+                break;
+            case NONE:
+                log.info("none");
+                break;
+            default:
+                log.info("unknow");
 
+        }
         strategyService.saveStrategy(strategy);
     }
 }
