@@ -18,7 +18,7 @@ public interface StrategyService {
      * @param strategyDto
      * @return
      */
-    public StrategyDto saveStrategy(StrategyDto strategyDto);
+    public void saveStrategy(StrategyDto strategyDto);
 
     /**
      * for schedule to save the running info of the strategy

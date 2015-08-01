@@ -45,7 +45,7 @@ public class StrategyServiceHandler implements StrategyService {
     private ScheduleService scheduleService;
 
     @Override
-    public StrategyDto saveStrategy(StrategyDto strategyDto) {
+    public void saveStrategy(StrategyDto strategyDto) {
         // generate the strategy number
         if (StringUtils.isEmpty(strategyDto.strategyId)) {
             strategyDto.strategyId = NumGenerate.generate();
@@ -61,7 +61,6 @@ public class StrategyServiceHandler implements StrategyService {
         // saveStrategy(strategy);
         // send to the schedule
         scheduleService.scheduleStrategy(strategy);
-        return StrategyDtoAssembler.toDto(strategy);
     }
 
     @Override
