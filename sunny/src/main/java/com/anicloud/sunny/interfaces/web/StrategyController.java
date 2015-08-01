@@ -46,10 +46,8 @@ public class StrategyController {
             strategyInstance = strategyInstance.replaceAll("triggerValue","value");
             StrategyFormDto strategyFormDto = mapper.readValue(strategyInstance,StrategyFormDto.class);
             UserDto userDto = userService.getUserByHashUserId(hashUserId);
-            StrategyDto strategyDto =  strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto, userDto));
-            StrategyFormDto strategyForm = StrategyFormDto.convertToStrategyForm(strategyDto);
+            strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto, userDto));
             message.put("status", "success");
-            message.put("strategy", strategyForm);
         }catch (Exception e){
             message.put("status", "error");
             message.put("message", "save strategy failed");
