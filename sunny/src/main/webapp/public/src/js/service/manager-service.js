@@ -45,10 +45,9 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
         },
 
         resumeStrategy : function (strategy) {
-            StrategyService.operateStrategy(strategy.strategyId, "resume", function (data) {
+            StrategyService.operateStrategy(strategy.strategyId, "RESUME", function (data) {
                 if (data.status == "success") {
                     console.log("resume strategy ok:");
-                    console.log(strategy);
                 } else if (data.status == "error") {
                     console.error("resume strategy error: ");
                     console.error(data.message);
@@ -57,10 +56,9 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
         },
 
         stopStrategy : function (strategy) {
-            StrategyService.operateStrategy(strategy.strategyId, "stop", function (data) {
+            StrategyService.operateStrategy(strategy.strategyId, "STOP", function (data) {
                 if (data.status == "success") {
                     console.log("stop strategy ok:");
-                    console.log(strategy);
                 } else if (data.status == "error") {
                     console.error("resume strategy error: ");
                     console.error(data.message);
@@ -69,10 +67,9 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
         },
 
         pauseStrategy : function (strategy) {
-            StrategyService.operateStrategy(strategy.strategyId, "pause", function (data) {
+            StrategyService.operateStrategy(strategy.strategyId, "PAUSE", function (data) {
                 if (data.status == "success") {
                     console.log("pause strategy ok:");
-                    console.log(strategy);
                 } else if (data.status == "error") {
                     console.error("pause strategy error: ");
                     console.error(data.message);

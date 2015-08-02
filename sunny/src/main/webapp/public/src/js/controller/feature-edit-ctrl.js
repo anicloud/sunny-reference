@@ -53,9 +53,11 @@ anicloud.sunny.controller.FeatureEditCtrl = function ($rootScope, $scope, Manage
         var argumentList = [];
         for (var arg in $scope.argumentMap) {
             var obj = {};
-            obj[arg] = $scope.argumentMap[arg];
+            obj.argName = arg;
+            obj.value = $scope.argumentMap[arg];
             argumentList.push(obj);
         }
+        console.log(argumentList);
 
         if ($scope.trigger.triggerType == "TIMER") {
             console.log($scope.triggerTimer);
