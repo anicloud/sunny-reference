@@ -45,9 +45,9 @@ public class ScheduleManager implements Serializable {
                     .storeDurably(true)
                     .build();
             jobDetail.getJobDataMap().put("ScheduleJob", job);
-            scheduler.addJob(jobDetail, false);
             if (job.isScheduleNow) {
-                scheduler.triggerJob(JobKey.jobKey(job.jobName, job.jobGroup));
+                scheduler.addJob(jobDetail, false);
+                scheduler.triggerJob(jobDetail.getKey());
             } else {
                 for (ScheduleTrigger scheduleTrigger : job.triggers) {
                     SimpleTrigger simpleTrigger = (SimpleTrigger) newTrigger()
@@ -61,7 +61,11 @@ public class ScheduleManager implements Serializable {
                                             .withMisfireHandlingInstructionFireNow()
                             )
                             .build();
-                    scheduler.scheduleJob(jobDetail, simpleTrigger);
+                    if (scheduler.checkExists(jobDetail.getKey())) {
+                        scheduler.scheduleJob(simpleTrigger);
+                    } else {
+                        scheduler.scheduleJob(jobDetail, simpleTrigger);
+                    }
                 }
             }
         } catch (Exception e) {

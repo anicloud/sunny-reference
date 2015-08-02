@@ -96,6 +96,7 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void removeStrategy(String strategyId) {
         Strategy.remove(strategyPersistenceService, strategyId);
         strategyInstancePersistenceService.remove(strategyId);

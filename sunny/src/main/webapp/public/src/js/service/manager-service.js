@@ -97,7 +97,7 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
                 }
             }
             if (isNew) {
-                console.log("add strategy:");
+                console.log("update strategy:");
                 console.log(strategy);
                 $rootScope.strategies.push(strategy);
             }

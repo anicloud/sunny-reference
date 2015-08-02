@@ -2,6 +2,8 @@ package com.anicloud.sunny.schedule.domain.strategy;
 
 
 import com.anicloud.sunny.schedule.domain.schedule.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
  * Created by huangbin on 7/18/15.
  */
 public class FeatureInstance implements ScheduleTask, Schedulable, Serializable {
+    private final static Logger log = LoggerFactory.getLogger(FeatureInstance.class);
     public String featureId;
     public String deviceId;
     public ScheduleState state;
@@ -23,7 +26,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     transient public ScheduleManager scheduleManager;
     transient public ScheduleStateListener listener;
 
-    public static Integer reenter = -1;
+    public Integer reenter = -1;
 
     public FeatureInstance() {
     }
@@ -47,6 +50,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
         synchronized (reenter) {
             reenter++;
             if (reenter > 0) {
+                log.info("=============================reenter happened=============================");
                 reenter--;
                 return;
             }

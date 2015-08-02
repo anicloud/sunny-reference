@@ -41,24 +41,25 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
     }
 
     public void  prepareSchedule(ScheduleManager scheduleManager, ScheduleStateListener listener, String hashUserId) {
-        for (FeatureInstance featureInstance : featureInstanceList) {
+        for (int i=0; i<featureInstanceList.size(); i++) {
+            FeatureInstance featureInstance = featureInstanceList.get(i);
             featureInstance.scheduleManager = scheduleManager;
 
             Set<ScheduleTrigger> scheduleTriggerList = new HashSet<>();
-            for (int i=0; i<featureInstance.triggerInstanceList.size(); i++) {
-                TriggerInstance triggerInstance = featureInstance.triggerInstanceList.get(i);
+            for (int j=0; j<featureInstance.triggerInstanceList.size(); j++) {
+                TriggerInstance triggerInstance = featureInstance.triggerInstanceList.get(j);
                 ScheduleTrigger scheduleTrigger = new ScheduleTrigger(
-                        featureInstance.featureId,
+                        strategyId + i,
                         strategyId,
-                        featureInstance.featureId+i,
-                        featureInstance.featureId,
+                        strategyId + i + j,
+                        strategyId + i,
                         triggerInstance.startTime,
                         triggerInstance.repeatInterval,
                         triggerInstance.repeatCount);
                 scheduleTriggerList.add(scheduleTrigger);
             }
             ScheduleJob scheduleJob = new ScheduleJob(
-                    featureInstance.featureId,
+                    strategyId + i,
                     strategyId,
                     ScheduleState.NONE,
                     "",
@@ -83,12 +84,13 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
         switch (state) {
             case NONE:
                 if (stage < featureInstanceList.size()) {
-                    featureInstanceList.get(stage).start();
                     state = ScheduleState.RUNNING;
+                    listener.onScheduleStateChanged(this, state);
+                    featureInstanceList.get(stage).start();
                 } else {
                     state = ScheduleState.DONE;
+                    listener.onScheduleStateChanged(this, state);
                 }
-                listener.onScheduleStateChanged(this, state);
                 return true;
             case RUNNING:
                 break;

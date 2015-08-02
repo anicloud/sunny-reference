@@ -66,26 +66,27 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
     public void onScheduleStateChanged(Object src, ScheduleState state) {
         StrategyInstance strategyInstance = (StrategyInstance)src;
         Strategy strategy = strategyMap.get(strategyInstance.strategyId);
-        log.info("-----------strategy state changed--------------");
-        log.info("[name]:" + strategy.strategyName);
-        log.info("[state]:");
+        log.info("-----------------strategy state changed-------------------");
+        log.info("[name]: " + strategy.strategyName);
+        log.info("[stage]: " + strategy.strategyInstance.stage);
+        String stateStr = "";
         switch (state) {
             case RUNNING:
-                log.info("running");
+                stateStr = "running";
                 break;
             case DONE:
-                log.info("done");
+                stateStr = "done";
                 break;
             case SUSPENDED:
-                log.info("suspended");
+                stateStr = "suspended";
                 break;
             case NONE:
-                log.info("none");
+                stateStr = "none";
                 break;
             default:
-                log.info("unknow");
-
+                stateStr = "unknow";
         }
+        log.info("[state]: " + stateStr);
         strategyService.saveStrategy(strategy);
     }
 }
