@@ -1,9 +1,11 @@
 package com.anicloud.sunny.schedule.domain.strategy;
 
+import java.io.Serializable;
+
 /**
  * Created by huangbin on 7/19/15.
  */
-public class Argument {
+public class Argument implements Serializable {
     public String name;
     public String value;
 
