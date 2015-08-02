@@ -1,5 +1,5 @@
 <div ng-controller="StrategyCtrl">
-    <div class="strategy-running">
+    <div class="strategy-running" ng-binding="strategies">
         <div ng-repeat="strategy in strategies" ng-init="index=$index; toggleStatus.push(false)">
             <div class="panel panel-default">
                 <div class="row">
@@ -30,7 +30,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a ng-click="deleteStrategy(index, strategy)">
+                                <a ng-click="stopStrategy(index, strategy)">
                                     <i class="fa fa-stop"></i>
                                 </a>
                             </li>

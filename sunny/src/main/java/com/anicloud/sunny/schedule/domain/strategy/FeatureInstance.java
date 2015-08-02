@@ -50,7 +50,6 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
         synchronized (reenter) {
             reenter++;
             if (reenter > 0) {
-                log.info("=============================reenter happened=============================");
                 reenter--;
                 return;
             }
@@ -118,12 +117,11 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     public boolean pause() {
         switch (state) {
             case NONE:
+            case RUNNING:
                 scheduleManager.pauseJob(scheduleJob);
                 state = ScheduleState.SUSPENDED;
                 listener.onScheduleStateChanged(this, state);
                 return true;
-            case RUNNING:
-                break;
             case SUSPENDED:
                 break;
             case DONE:

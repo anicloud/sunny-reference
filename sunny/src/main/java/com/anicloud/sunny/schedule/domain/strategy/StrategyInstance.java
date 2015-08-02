@@ -83,14 +83,7 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
         }
         switch (state) {
             case NONE:
-                if (stage < featureInstanceList.size()) {
-                    state = ScheduleState.RUNNING;
-                    listener.onScheduleStateChanged(this, state);
-                    featureInstanceList.get(stage).start();
-                } else {
-                    state = ScheduleState.DONE;
-                    listener.onScheduleStateChanged(this, state);
-                }
+                featureInstanceList.get(stage).start();
                 return true;
             case RUNNING:
                 break;
@@ -115,8 +108,6 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
             case RUNNING:
             case SUSPENDED:
                 featureInstanceList.get(stage).stop();
-                state = ScheduleState.DONE;
-                listener.onScheduleStateChanged(this, state);
                 return true;
             case DONE:
                 break;
@@ -133,12 +124,9 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
         }
         switch (state) {
             case NONE:
-                featureInstanceList.get(stage).pause();
-                state = ScheduleState.SUSPENDED;
-                listener.onScheduleStateChanged(this, state);
-                return true;
             case RUNNING:
-                break;
+                featureInstanceList.get(stage).pause();
+                return true;
             case SUSPENDED:
                 break;
             case DONE:
@@ -161,8 +149,6 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
                 break;
             case SUSPENDED:
                 featureInstanceList.get(stage).resume();
-                state = ScheduleState.RUNNING;
-                listener.onScheduleStateChanged(this, state);
                 return true;
             case DONE:
                 break;
@@ -172,29 +158,45 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
         return false;
     }
 
-    private void next() {
+    @Override
+    public void onScheduleStateChanged(Object src, ScheduleState state) {
         switch (state) {
             case NONE:
                 break;
-            case RUNNING:
-//                add the next job
-                stage += 1;
-                state = ScheduleState.NONE;
-                start();
-                break;
             case SUSPENDED:
+                this.state = ScheduleState.SUSPENDED;
+                listener.onScheduleStateChanged(this, this.state);
                 break;
             case DONE:
+                stage++;
+                if (stage < featureInstanceList.size()) {
+                    this.state = ScheduleState.NONE;
+                    start();
+                } else {
+                    this.state = ScheduleState.DONE;
+                    listener.onScheduleStateChanged(this, this.state);
+                }
                 break;
-            default:
+            case RUNNING:
+                this.state = ScheduleState.RUNNING;
+                listener.onScheduleStateChanged(this, this.state);
                 break;
         }
     }
 
     @Override
-    public void onScheduleStateChanged(Object src, ScheduleState state) {
-        if (state == ScheduleState.DONE) {
-            next();
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StrategyInstance)) return false;
+
+        StrategyInstance that = (StrategyInstance) o;
+
+        return strategyId.equals(that.strategyId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return strategyId.hashCode();
     }
 }
