@@ -34,7 +34,9 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         $scope.toggleStatus[index] = !$scope.toggleStatus[index];
     }
 
-    $scope.setProgressLength = function (stage, len) {
+    $scope.setProgressLength = function (strategy) {
+        var stage = strategy.stage;
+        var len = strategy.featureList.length;
         return {width: (stage / len * 100) + '%'};
     };
     $scope.setBadgeColor = function (fNum, stage) {
