@@ -1,5 +1,5 @@
 <!-- START Top Navbar-->
-<nav role="navigation" class="navbar topnavbar">
+<nav role="navigation" class="topnavbar">
     <!--START navbar header-->
    <div class="navbar-header">
       <a href="#/" class="navbar-brand">
@@ -17,11 +17,11 @@
       <ul class="nav navbar-nav">
          <li>
             <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
-            <a href="#" ng-click="app.layout.isCollapsed = !app.layout.isCollapsed" class="hidden-xs">
+            <a href="#" ng-click="setAsideCollapse()" class="hidden-xs">
                <em class="fa fa-navicon"></em>
             </a>
             <!-- Button to show/hide the sidebar on mobile. Visible on mobile only.-->
-            <a href="#" ng-click="app.layout.isCollapsed = !app.layout.isCollapsed" class="visible-xs sidebar-toggle">
+            <a href="#" ng-click="setAsideCollapse()" class="visible-xs sidebar-toggle">
                <em class="fa fa-navicon"></em>
             </a>
          </li>

@@ -37,27 +37,34 @@
 
         <div class="feature-name">
             <h5>设备功能</h5>
-            <select ng-model="deviceDetail.featureChosen" class="form-control"
-                    ng-options="feature as feature.featureName for feature in deviceDetail.getFeatureList()"
-                    ng-click="deviceDetail.arguments = {}">
-            </select>
 
-            <div ng-show="deviceDetail.featureChosen != null">
+            <div ng-show="!deviceDetail.isBusy()">
+                <select ng-model="deviceDetail.featureChosen" class="form-control"
+                        ng-options="feature as feature.featureName for feature in deviceDetail.getFeatureList()"
+                        ng-click="deviceDetail.arguments = {}">
+                </select>
 
-                <div ng-repeat="arg in deviceDetail.getArgumentList()">
-                    <div class="first-title">{{arg.screenName}}:</div>
-                    <input ng-model="deviceDetail.arguments[arg.name]" class="form-control" required>
+                <div ng-show="deviceDetail.featureChosen != null">
+                    <div ng-repeat="arg in deviceDetail.getArgumentList()">
+                        <div class="first-title">{{arg.screenName}}:</div>
+                        <input ng-model="deviceDetail.arguments[arg.name]" class="form-control" required>
+                    </div>
                 </div>
+                <button class="btn btn-default" ng-click="deviceDetail.start()">
+                    start
+                </button>
             </div>
-            <button class="btn btn-default" ng-click="deviceDetail.start()">
-                start
-            </button>
-            <button class="btn btn-default" ng-click="deviceDetail.pause()">
-                pause
-            </button>
-            <button class="btn btn-default" ng-click="deviceDetail.stop()">
-                stop
-            </button>
+            <div ng-show="deviceDetail.isBusy()">
+                <button class="btn btn-default" ng-click="deviceDetail.resume()">
+                    resume
+                </button>
+                <button class="btn btn-default" ng-click="deviceDetail.pause()">
+                    pause
+                </button>
+                <button class="btn btn-default" ng-click="deviceDetail.stop()">
+                    stop
+                </button>
+            </div>
         </div>
     </div>
     </div>

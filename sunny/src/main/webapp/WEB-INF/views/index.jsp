@@ -68,6 +68,7 @@
     <script src="${pageContext.request.contextPath}/public/src/js/service/device-service.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/service/websocket-service.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/service/manager-service.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/service/notify-service.js" type="text/javascript"></script>
 
     <!-- controllers -->
     <script src="${pageContext.request.contextPath}/public/src/js/controller/home-page-ctrl.js" type="text/javascript"></script>
@@ -75,6 +76,7 @@
     <script src="${pageContext.request.contextPath}/public/src/js/controller/strategy-edit-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/feature-edit-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/device-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/controller/main-ctrl.js" type="text/javascript"></script>
 
     <!-- dto -->
     <script src="${pageContext.request.contextPath}/public/src/js/dto/featureInstance-dto.js" type="text/javascript"></script>
@@ -90,8 +92,8 @@
     <![endif]-->
 </head>
 
-<body class="layout-fixed">
-<div data-ui-view="" data-autoscroll="false" class="wrapper">
+<body class="layout-fixed"  ng-class="{'aside-collapsed':isAsideCollapsed}" ng-controller="MainCtrl">
+<div data-ui-view="" data-autoscroll="false" class="wrapper" >
 </div>
 
 </body>

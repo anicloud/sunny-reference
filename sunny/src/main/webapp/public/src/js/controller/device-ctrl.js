@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerService) {
+anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerService, Notify) {
     // main
     $scope.getGroups = function () {
         var json = {"default": 1};
@@ -38,6 +38,12 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
     $scope.deviceDetail.isToggled = true;
     $scope.deviceDetail.device = null;
     $scope.deviceDetail.toggle = function (device) {
+        var notifyMsg = "Some messages here..";
+        var notifyOpts = {
+            status: 'info',
+            pos: 'bottom-center'
+        };
+        Notify.alert(notifyMsg, notifyOpts);
         if ($scope.deviceDetail.device == null) {
             $scope.deviceDetail.isToggled = !$scope.deviceDetail.isToggled;
         }
