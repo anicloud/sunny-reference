@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerService) {
+anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerService, Notify) {
     // main
     $scope.getGroups = function () {
         var json = {"default": 1};
