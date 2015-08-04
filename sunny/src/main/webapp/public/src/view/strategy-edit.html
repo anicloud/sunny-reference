@@ -26,8 +26,7 @@
 
                             <p>{{feature.deviceFeature.featureName}}</p>
 
-                            <p class="device-trigger">{{feature.triggerDtoList[0].triggerValue | date:'yy-MM-dd
-                                hh:mm:ss'}}</p>
+                            <p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date}}</p>
                         </div>
                     </div>
                 </div>

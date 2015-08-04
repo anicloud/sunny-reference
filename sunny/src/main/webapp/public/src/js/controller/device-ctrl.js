@@ -38,12 +38,6 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
     $scope.deviceDetail.isToggled = true;
     $scope.deviceDetail.device = null;
     $scope.deviceDetail.toggle = function (device) {
-        var notifyMsg = "Some messages here..";
-        var notifyOpts = {
-            status: 'info',
-            pos: 'bottom-center'
-        };
-        Notify.alert(notifyMsg, notifyOpts);
         if ($scope.deviceDetail.device == null) {
             $scope.deviceDetail.isToggled = !$scope.deviceDetail.isToggled;
         }

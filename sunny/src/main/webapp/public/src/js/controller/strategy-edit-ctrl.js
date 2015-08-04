@@ -60,6 +60,10 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
         ManagerService.addStrategy(strategyInstance);
         return true;
     };
+    $scope.triggerTimerToDate = function(value) {
+        var obj = JSON.parse(value);
+        return obj.startTime;
+    }
 
     //
     var jsonClone = function (obj) {

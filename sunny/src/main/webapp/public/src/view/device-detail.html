@@ -6,7 +6,7 @@
         <div class="device-name">
             <div class="first-title">
                 {{deviceDetail.device.name}}
-                <button class="btn btn-default" ng-click="deviceDetail.nameEditable = true">编辑</button>
+                <small><a ng-click="deviceDetail.nameEditable = true">编辑</a></small>
             </div>
             <div ng-show="deviceDetail.nameEditable">
                 <input ng-model="deviceDetail.nameInput" class="form-control">
@@ -16,9 +16,9 @@
         </div>
         <div class="devicegroup-name">
             <div class="first-title">
-                <i class="fa fa-folder-o"></i>
+                <!--<i class="fa fa-folder-o"></i>-->
                 {{deviceDetail.device.deviceGroup}}
-                <button class="btn btn-default" ng-click="deviceDetail.groupEditable = true">编辑</button>
+                <small><a ng-click="deviceDetail.groupEditable = true">编辑</a></small>
             </div>
             <div ng-show="deviceDetail.groupEditable">
                 <select class="form-control" ng-model="deviceDetail.groupChosen"
