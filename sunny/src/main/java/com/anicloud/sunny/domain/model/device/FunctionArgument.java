@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Created by zhaoyu on 15-6-12.
  */
-public class FunctionArgument extends AbstractDomain {
+public class FunctionArgument extends AbstractDomain implements Cloneable {
     private static final long serialVersionUID = -3960860210268032641L;
 
     public String name;
@@ -74,6 +74,17 @@ public class FunctionArgument extends AbstractDomain {
             argumentDaoList.add(toDao(functionArgument));
         }
         return argumentDaoList;
+    }
+
+    @Override
+    protected FunctionArgument clone() {
+        FunctionArgument functionArgument = null;
+        try {
+            functionArgument = (FunctionArgument) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return functionArgument;
     }
 
     @Override

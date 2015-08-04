@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by zhaoyu on 15-6-12.
  */
-public class FeatureFunction extends AbstractDomain {
+public class FeatureFunction extends AbstractDomain implements Cloneable {
     private static final long serialVersionUID = -3112990501367413230L;
 
     public String featureFunctionId;
@@ -120,6 +120,17 @@ public class FeatureFunction extends AbstractDomain {
         if (featureFunction.outputArgList != null)
             functionDaoList.addAll(FunctionArgument.toDaoList(featureFunction.outputArgList));
         return functionDaoList;
+    }
+
+    @Override
+    protected FeatureFunction clone() {
+        FeatureFunction featureFunction = null;
+        try {
+            featureFunction = (FeatureFunction) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return featureFunction;
     }
 
     @Override

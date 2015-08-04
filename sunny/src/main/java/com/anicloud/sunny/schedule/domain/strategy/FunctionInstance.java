@@ -47,7 +47,7 @@ public class FunctionInstance implements Serializable {
                 .setAniFunction(functionDto);
 
         CommandRunServiceProxy commandRunServiceProxy = (CommandRunServiceProxy)SpringContextHolder.getBean("commandRunServiceProxyImpl");
-        //AniCommandCallResultDto resultDto = commandRunServiceProxy.runCommand(commandDtoBuilder, hashUserId);
+        AniCommandCallResultDto resultDto = commandRunServiceProxy.runCommand(commandDtoBuilder, hashUserId);
 //        AniFunctionCallResultDto functionCallResultDto = resultDto.getResultDtoList().get(0);
 //
         if (outputList == null) {

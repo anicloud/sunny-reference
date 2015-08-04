@@ -65,7 +65,9 @@ public class StrategyServiceHandler implements StrategyService {
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void saveStrategy(Strategy strategy) {
+    public void saveStrategy(Strategy strategySrc) {
+        Strategy strategy = strategySrc.clone();
+
         Assert.notNull(strategy.strategyInstance);
         Strategy strategyOrg = getSingleStrategy(strategy.strategyId);
         StrategyInstanceDao dao = strategyInstancePersistenceService.

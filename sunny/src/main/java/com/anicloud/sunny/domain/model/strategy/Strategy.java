@@ -8,12 +8,13 @@ import com.anicloud.sunny.schedule.domain.strategy.StrategyInstance;
 import com.anicloud.sunny.schedule.dto.StrategyInstanceDto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by zhaoyu on 15-6-12.
  */
-public class Strategy extends AbstractDomain {
+public class Strategy extends AbstractDomain implements Cloneable {
     private static final long serialVersionUID = -1540568663807896074L;
 
     public String strategyId;
@@ -105,6 +106,7 @@ public class Strategy extends AbstractDomain {
     }
 
     public static List<Strategy> toStrategyList(List<StrategyDao> daoList) {
+        if (daoList == null) return null;
         List<Strategy> strategyList = new ArrayList<>();
         for (StrategyDao strategyDao : daoList) {
             strategyList.add(toStrategy(strategyDao));
@@ -113,6 +115,7 @@ public class Strategy extends AbstractDomain {
     }
 
     public static List<StrategyDao> toDaoList(List<Strategy> strategyList) {
+        if (strategyList == null) return null;
         List<StrategyDao> strategyDaoList = new ArrayList<>();
         for (Strategy strategy : strategyList) {
             strategyDaoList.add(toDao(strategy));
@@ -122,6 +125,18 @@ public class Strategy extends AbstractDomain {
 
     public static StrategyInstanceDto strategyInstanceDto(Strategy strategy) {
         return null;
+    }
+
+    @Override
+    public Strategy clone()  {
+        Strategy strategy = null;
+        try {
+            strategy = (Strategy) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("This class does not implement Cloneable.");
+        }
+        Collections.copy(strategy.deviceFeatureInstanceList, this.deviceFeatureInstanceList);
+        return strategy;
     }
 
     @Override
