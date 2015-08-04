@@ -61,6 +61,19 @@
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
 			  p:paramName="locale"/>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/"/>
+			<mvc:exclude-mapping path="/public/**"/>
+			<bean class="com.anicloud.sunny.interfaces.web.inteceptor.SecurityInterceptor">
+				<property name="excludeUrls">
+					<list>
+						<value>/redirect</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 	<!-- CommonsMultipartResolver 默认没有文件上传解析器 -->
