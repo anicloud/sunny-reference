@@ -60,7 +60,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
         DeviceFeatureDtoBuilder dtoBuilder = new DeviceFeatureDtoBuilder();
         DeviceFeatureDto deviceFeatureDto = dtoBuilder
                 .setFeatureId(NumGenerate.generate())
-                .setFeatureName("#Bathroom-Light--powerOn")
+                .setFeatureName("Power On")
                 .setDescription("light power on feature.")
                 .setFeatureArg(argDtoList)
                 .setFeatureFunction(featureFunctionDtoList)
@@ -90,7 +90,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
         DeviceFeatureDtoBuilder dtoBuilder1 = new DeviceFeatureDtoBuilder();
         DeviceFeatureDto deviceFeatureDto1 = dtoBuilder1
                 .setFeatureId(NumGenerate.generate())
-                .setFeatureName("#Bathroom-Light--powerOff")
+                .setFeatureName("Power Off")
                 .setDescription("light power off feature.")
                 .setFeatureArg(argDtoList1)
                 .setFeatureFunction(featureFunctionDtoList1)
@@ -156,7 +156,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
         DeviceFeatureDtoBuilder dtoBuilder3 = new DeviceFeatureDtoBuilder();
         DeviceFeatureDto deviceFeatureDto3 = dtoBuilder3
                 .setFeatureId(NumGenerate.generate())
-                .setFeatureName("#Air-Sensor--powerOff")
+                .setFeatureName("Sensor--powerOff")
                 .setDescription("Air Sensor power off feature.")
                 .setFeatureArg(argDtoList3)
                 .setFeatureFunction(featureFunctionDtoList3)
@@ -192,7 +192,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
         DeviceFeatureDtoBuilder dtoBuilder4 = new DeviceFeatureDtoBuilder();
         DeviceFeatureDto deviceFeatureDto4 = dtoBuilder4
                 .setFeatureId(NumGenerate.generate())
-                .setFeatureName("#Air-Sensor--getTemperature")
+                .setFeatureName("Sensor--getTemperature")
                 .setDescription("Air Sensor get Temperature feature.")
                 .setFeatureArg(argDtoList4)
                 .setFeatureFunction(featureFunctionDtoList4)
@@ -227,7 +227,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
         DeviceFeatureDtoBuilder dtoBuilder5 = new DeviceFeatureDtoBuilder();
         DeviceFeatureDto deviceFeatureDto5 = dtoBuilder5
                 .setFeatureId(NumGenerate.generate())
-                .setFeatureName("#Air-Sensor--getHumidity")
+                .setFeatureName("Sensor--getHumidity")
                 .setDescription("Air Sensor get Humidity feature.")
                 .setFeatureArg(argDtoList5)
                 .setFeatureFunction(featureFunctionDtoList5)

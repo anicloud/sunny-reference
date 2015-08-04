@@ -9,6 +9,7 @@ import com.anicloud.sunny.domain.model.device.DeviceAndFeatureRelation;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceAndFeatureRelationPersistenceService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -36,6 +37,7 @@ public class DeviceAndFeatureRelationEventHandler implements DeviceAndFeatureRel
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void batchSave(List<DeviceAndFeatureRelationDto> relationDtoList) {
         for (DeviceAndFeatureRelationDto relationDto : relationDtoList) {
             save(relationDto);
