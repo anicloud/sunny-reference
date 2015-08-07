@@ -34,6 +34,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     console.error("add strategy error: ");
                     console.error(data.message);
                 }
+                console.log(strategy);
             });
         },
 
@@ -53,6 +54,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     console.error("delete strategy error: ");
                     console.error(data.message);
                 }
+                console.log(strategy);
             });
         },
 
@@ -70,6 +72,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     console.error("resume strategy error: ");
                     console.error(data.message);
                 }
+                console.log(strategy);
             });
         },
 
@@ -87,6 +90,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     console.error("resume strategy error: ");
                     console.error(data.message);
                 }
+                console.log(strategy);
             });
         },
 
@@ -104,6 +108,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     console.error("pause strategy error: ");
                     console.error(data.message);
                 }
+                console.log(strategy);
             });
         },
 
