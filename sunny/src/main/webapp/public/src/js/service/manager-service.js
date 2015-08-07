@@ -38,8 +38,8 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
         },
 
         deleteStrategy: function (index, strategy) {
-            $rootScope.strategies.splice(index, 1);
-            StrategyService.deleteStrategy(strategy.strategyId, function (data) {
+            var deletedStrategy = $rootScope.strategies.splice(index, 1);
+            StrategyService.deleteStrategy(deletedStrategy.strategyId, function (data) {
                 if (data.status == "success") {
                     var notifyMsg = "计划已删除";
                     var notifyOpts = {
