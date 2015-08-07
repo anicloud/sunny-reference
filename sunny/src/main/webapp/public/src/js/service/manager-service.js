@@ -25,7 +25,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     var notifyMsg = "计划已添加";
                     var notifyOpts = {
                         status: 'info',
-                        pos: 'top-center'
+                        pos: 'bottom-center'
                     };
                     Notify.alert(notifyMsg, notifyOpts);
                     console.log("add strategy ok:");
@@ -34,27 +34,26 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     console.error("add strategy error: ");
                     console.error(data.message);
                 }
-                console.log(strategy);
             });
         },
 
         deleteStrategy: function (index, strategy) {
-            var deletedStrategy = $rootScope.strategies.splice(index, 1);
+            var deletedStrategy = $rootScope.strategies.splice(index, 1)[0];
+            console.log("pre delete:");
+            console.log(deletedStrategy);
             StrategyService.deleteStrategy(deletedStrategy.strategyId, function (data) {
                 if (data.status == "success") {
                     var notifyMsg = "计划已删除";
                     var notifyOpts = {
                         status: 'info',
-                        pos: 'top-center'
+                        pos: 'bottom-center'
                     };
                     Notify.alert(notifyMsg, notifyOpts);
                     console.log("delete strategy ok:");
-                    console.log(data.message);
                 } else if (data.status == "error") {
                     console.error("delete strategy error: ");
                     console.error(data.message);
                 }
-                console.log(strategy);
             });
         },
 
@@ -72,11 +71,12 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     console.error("resume strategy error: ");
                     console.error(data.message);
                 }
-                console.log(strategy);
             });
         },
 
         stopStrategy: function (strategy) {
+            console.log("pre delete:");
+            console.log(strategy);
             StrategyService.operateStrategy(strategy.strategyId, "STOP", function (data) {
                 if (data.status == "success") {
                     var notifyMsg = "计划已停止";
@@ -90,7 +90,6 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     console.error("resume strategy error: ");
                     console.error(data.message);
                 }
-                console.log(strategy);
             });
         },
 
@@ -108,7 +107,6 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     console.error("pause strategy error: ");
                     console.error(data.message);
                 }
-                console.log(strategy);
             });
         },
 
@@ -139,13 +137,13 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     if (deviceId in  $rootScope.phonyStrategyMap) {
                         delete $rootScope.phonyStrategyMap[deviceId];
                     }
+                    var notifyMsg = "设备任务完成";
+                    var notifyOpts = {
+                        status: 'info',
+                        pos: 'bottom-center'
+                    };
+                    Notify.alert(notifyMsg, notifyOpts);
                 }
-                var notifyMsg = "设备任务完成";
-                var notifyOpts = {
-                    status: 'info',
-                    pos: 'bottom-center'
-                };
-                Notify.alert(notifyMsg, notifyOpts);
                 console.log("update phony strategy:");
                 console.log(strategy);
             }
