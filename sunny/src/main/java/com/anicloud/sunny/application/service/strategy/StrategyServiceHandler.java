@@ -84,6 +84,8 @@ public class StrategyServiceHandler implements StrategyService {
 
     @Override
     public void operateStrategy(String strategyId, StrategyAction action) {
+        Assert.notNull(strategyId);
+        Assert.notNull(action);
         Strategy strategy = getStrategyById(strategyId);
         strategy.strategyInstance.action = action;
         strategy.strategyInstance.timeStamp = System.currentTimeMillis();
