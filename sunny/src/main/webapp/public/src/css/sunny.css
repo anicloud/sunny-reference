@@ -38,7 +38,7 @@ body {
 }
 
 .item-wrapper > .item > .panel:hover {
-    background-color: #ffc0a8;
+    border: 1px solid #ffbe3b;
 }
 
 .layout-fixed .offsidebar {
@@ -364,6 +364,12 @@ body {
 .feature-dialog small {
     color: #999999;
 }
+
+
+/*icon*/
+
+
+
 
 @media(max-width: 1140px) {
     .layout-fixed .wrapper > section {

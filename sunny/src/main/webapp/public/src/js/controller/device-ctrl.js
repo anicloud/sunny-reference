@@ -92,10 +92,9 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         }
     };
 
-    $scope.deviceDetail.arguments = {};
-
+    $scope.argumentMap = {};
     $scope.deviceDetail.start = function () {
-        var argumentMap = $scope.deviceDetail.arguments;
+        var argumentMap = $scope.argumentMap;
         var argumentList = [];
         for (var arg in argumentMap) {
             var obj = {};

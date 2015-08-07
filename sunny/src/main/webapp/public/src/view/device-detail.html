@@ -38,16 +38,16 @@
         <div class="feature-name">
             <h5>设备功能</h5>
 
-            <div ng-show="!deviceDetail.isBusy()">
+            <div ng-if="!deviceDetail.isBusy()">
                 <select ng-model="deviceDetail.featureChosen" class="form-control"
                         ng-options="feature as feature.featureName for feature in deviceDetail.getFeatureList()"
                         ng-click="deviceDetail.arguments = {}">
                 </select>
 
-                <div ng-show="deviceDetail.featureChosen != null">
-                    <div ng-repeat="arg in deviceDetail.getArgumentList()">
+                <div ng-if="deviceDetail.featureChosen != null">
+                    <div ng-repeat="arg in deviceDetail.getArgumentList()" ng-init="argumentMap[arg.name]=''">
                         <div class="first-title">{{arg.screenName}}:</div>
-                        <input ng-model="deviceDetail.arguments[arg.name]" class="form-control" required>
+                        <input type="text"ng-model="argumentMap[arg.name]" class="form-control" required>
                     </div>
                 </div>
                 <button class="btn btn-default" ng-click="deviceDetail.start()">

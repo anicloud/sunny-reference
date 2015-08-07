@@ -12,12 +12,11 @@
              ng-repeat="device in devices | filter: deviceFilterByGroup">
             <div class="panel" ng-click="deviceDetail.toggle(device)">
                 <div class="panel-heading">
-                    <i class="fa fa-comments fa-3x"></i>
-
-                    <div>
-                        <h5>{{device.name}}</h5>
+                    <div class="device-icon">
+                    <img src="public/images/icon/light.png">
                     </div>
-                    <div>
+                    <div style="margin-left: 40px;">
+                        <strong>{{device.name}}</strong>
                         <small>{{device.deviceState}}</small>
                     </div>
                 </div>
