@@ -9,6 +9,7 @@ anicloud.sunny.controller = anicloud.sunny.controller || {};
 anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog, ManagerService) {
 
     $scope.deleteStrategy = function (index, strategy) {
+        ManagerService.stopStrategy(strategy);
         ManagerService.deleteStrategy(index, strategy);
         return true;
     };
@@ -42,5 +43,33 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
     $scope.setBadgeColor = function (fNum, stage) {
         return {'background-color': fNum < stage ? '#33aa33' : 'default'};
     };
+    $scope.showState = function(strategy) {
+        if(strategy.state == "NONE") {
 
+        }else if(strategy.state == "RUNNING") {
+            var stage = parseInt(strategy.stage);
+            var info = strategy.featureList[stage].deviceFeature.featureName;
+            return "正在执行:" + info;
+        }else if(strategy.state == "SUSPENDED") {
+            return "暂停";
+        }else if(strategy.state == "DONE") {
+            return "已完成";
+        }
+    }
+
+    $scope.strategyFilterDone = function (strategy) {
+        if (strategy.state == "DONE") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $scope.strategyFilterRunning = function (strategy) {
+        if (strategy.state == "RUNNING") {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

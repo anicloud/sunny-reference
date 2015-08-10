@@ -74,7 +74,8 @@ public class StrategyController {
 
     @RequestMapping(value="/operateStrategy",method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, String> operateStrategy(String strategyId, StrategyAction action){
+    public Map<String, String> operateStrategy(@RequestParam(value = "strategyId") String strategyId,
+                                               @RequestParam(value = "action") StrategyAction action){
         Map<String, String> message = new HashMap<>();
         try{
             strategyService.operateStrategy(strategyId,action);

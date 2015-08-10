@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerService) {
+anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerService, Notify) {
     // main
     $scope.getGroups = function () {
         var json = {"default": 1};
@@ -92,20 +92,20 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         }
     };
 
-    $scope.deviceDetail.arguments = {};
-
+    $scope.argumentMap = {};
     $scope.deviceDetail.start = function () {
-        var argumentMap = $scope.deviceDetail.arguments;
+        var argumentMap = $scope.argumentMap;
         var argumentList = [];
         for (var arg in argumentMap) {
             var obj = {};
-            obj[arg] = argumentMap[arg];
-            argumentList.push( obj );
+            obj.argName = arg;
+            obj.value = argumentMap[arg];
+            argumentList.push(obj);
         }
         var featureInstance = new anicloud.sunny.model.FeatureInstance(
             "",
-            device,
-            featureChosen,
+            $scope.deviceDetail.device,
+            $scope.deviceDetail.featureChosen,
             argumentList,
             [],
             true
@@ -116,9 +116,9 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
             "_PHONY_STRATEGY_",
             null,
             null,
-            [].push(jsonClone(featureInstance)));
+            [featureInstance]);
 
-        ManagerService.addStrategy(strategyInstance, ManagerService.updateStrategy);
+        ManagerService.addStrategy(jsonClone(strategyInstance));
     };
     $scope.deviceDetail.pause = function () {
         var key = $rootScope.deviceDetail.device.id;
@@ -134,6 +134,10 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         var key =  $rootScope.deviceDetail.device.id;
         var strategy = $rootScope.phonyStrategyMap[key];
         ManagerService.resume(strategy);
+    };
+
+    var jsonClone = function (obj) {
+        return JSON.parse(JSON.stringify(obj));
     };
 };
 

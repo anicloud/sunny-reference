@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by zhaoyu on 15-6-12.
  */
-public class FeatureTrigger extends AbstractDomain {
+public class FeatureTrigger extends AbstractDomain implements Cloneable {
     private static final long serialVersionUID = -1004335788561234425L;
 
     public TriggerType triggerType;
@@ -55,6 +55,17 @@ public class FeatureTrigger extends AbstractDomain {
             daoList.add(toDao(featureTrigger));
         }
         return daoList;
+    }
+
+    @Override
+    protected FeatureTrigger clone() {
+        FeatureTrigger featureTrigger = null;
+        try {
+            featureTrigger = (FeatureTrigger) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return featureTrigger;
     }
 
     @Override

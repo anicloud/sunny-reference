@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by zhaoyu on 15-7-10.
  */
-public class FeatureArg implements Serializable {
+public class FeatureArg implements Serializable, Cloneable {
     public String name;
     public DataType dataType;
     public String screenName;
@@ -62,6 +62,17 @@ public class FeatureArg implements Serializable {
             featureArgList.add(toFeatureArg(featureArgDao));
         }
         return featureArgList;
+    }
+
+    @Override
+    protected FeatureArg clone() {
+        FeatureArg featureArg = null;
+        try {
+            featureArg = (FeatureArg) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return featureArg;
     }
 
     @Override

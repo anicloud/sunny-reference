@@ -95,8 +95,10 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         deviceAndFeatureRelationService.batchSave(relationDtoList);
         LOGGER.info("initUserDeviceAndDeviceFeatureRelation success.");
         try {
+            String deviceMasterStr = objectMapper.writeValueAsString(deviceMasterInfoDtoList);
             String device = objectMapper.writeValueAsString(deviceDtoList);
             String deviceFeatureRelation = objectMapper.writeValueAsString(featureOfEachDeviceList);
+            LOGGER.info("deviceMasterInfoDtoList {}.", deviceMasterStr);
             LOGGER.info("deviceDtoList {}.", device);
             LOGGER.info("deviceFeatureRelation {}.", deviceFeatureRelation);
         } catch (JsonProcessingException e) {
@@ -138,7 +140,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         } else {
             deviceNameCount.put(deviceName, 1);
         }
-        deviceName = "#" +deviceName + deviceNameCount.get(deviceName);
+        // deviceName = "#" +deviceName + deviceNameCount.get(deviceName);
         DeviceDto deviceDto = dtoBuilder
                 .setDeviceName(deviceName)
                 .setDeviceGroup(Constants.SUNNY_DEVICE_DEFAULT_GROUP)

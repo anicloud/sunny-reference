@@ -158,4 +158,15 @@ public class Device extends AbstractDomain {
         }
         return deviceDaoList;
     }
+
+    @Override
+    protected Device clone() {
+        Device device = null;
+        try {
+            device = (Device) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("This class does not implement Cloneable.");
+        }
+        return device;
+    }
 }

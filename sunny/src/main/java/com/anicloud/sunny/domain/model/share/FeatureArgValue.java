@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by zhaoyu on 15-6-15.
  */
-public class FeatureArgValue implements Serializable {
+public class FeatureArgValue implements Serializable, Cloneable {
     private static final long serialVersionUID = 2743471870088769938L;
 
     public String argName;
@@ -71,6 +71,17 @@ public class FeatureArgValue implements Serializable {
         int result = argName != null ? argName.hashCode() : 0;
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    protected FeatureArgValue clone() {
+        FeatureArgValue featureArgValue = null;
+        try {
+            featureArgValue = (FeatureArgValue) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return featureArgValue;
     }
 
     @Override

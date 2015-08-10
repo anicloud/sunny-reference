@@ -1,79 +1,83 @@
-<div>
-    <div class="">
-        <div>
-            <label>选择设备:</label>
-            <select name="deviceId"
-                    ng-model="device"
-                    ng-options="device as device.name for device in devices"
-                    required>
-                <option value="">选择设备</option>
-            </select>
-        </div>
-        <div>
-            <label>选择任务:</label>
-            <select ng-model="feature"
-                    ng-options="feature as feature.featureName for feature in getDeviceFeatures()">
-                <option value="">选择任务</option>
-            </select>
-        </div>
-        <div ng-if="feature != {} && feature.argDtoList.length > 0">
-            <label>任务参数：</label>
+<div class="feature-dialog">
+    <!--<div class="">-->
+    <div>
+        <label>选择设备:</label>
+        <select class="form-control"
+                name="deviceId"
+                ng-model="device"
+                ng-options="device as device.name for device in devices"
+                required>
+            <option value="">选择设备</option>
+        </select>
+    </div>
+    <div>
+        <label>选择任务:</label>
+        <select class="form-control"
+                ng-model="feature"
+                ng-options="feature as feature.featureName for feature in getDeviceFeatures()">
+            <option value="">选择任务</option>
+        </select>
+    </div>
+    <div ng-if="feature != {} && feature.argDtoList.length > 0">
+        <label>任务参数：</label>
 
-            <div ng-repeat="arg in feature.argDtoList">
-                {{arg.screenName}}:
-                <input ng-model="argumentMap[arg.name]" required>
-            </div>
+        <div ng-repeat="arg in feature.argDtoList">
+            <label><small>{{arg.screenName}}:</small></label>
+            <input class="form-control" ng-model="argumentMap[arg.name]" required>
         </div>
+    </div>
+    <div>
+        <label>选择执行条件:</label>
+        <select class="form-control"
+                ng-model="trigger.triggerType"
+                ng-options="trigger as trigger for trigger in triggers">
+            <option value="">选择执行条件</option>
+        </select>
+    </div>
+    <div ng-show="trigger.triggerType == 'TIMER'">
         <div>
-            <label>选择执行条件:</label>
-            <select ng-model="trigger.triggerType"
-                    ng-options="trigger as trigger for trigger in triggers">
-                <option value="">选择触发器</option>
-            </select>
-        </div>
-        <div ng-show="trigger.triggerType == 'TIMER'">
-            <div>
-                <label>
-                    开始时间：
-                </label>
-                <div class="input-group">
-                    <input type="text"
-                           class="form-control"
-                           datetime-picker
-                           is-open="isCalenderOpen"
-                           ng-model="triggerTimer.startTime"/>
+            <label>
+                <small>开始时间：</small>
+            </label>
+
+            <div class="input-group">
+                <input type="text"
+                       class="form-control"
+                       datetime-picker
+                       is-open="isCalenderOpen"
+                       ng-model="triggerTimer.startTime"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="openCalendar($event)">
                             <i class="fa fa-calendar"></i>
                         </button>
                     </span>
-                </div>
             </div>
-            <!--<div>-->
-                <!--<label>-->
-                    <!--重复间隔：-->
-                <!--</label>-->
-                <!--<input type="number" ng-model="triggerTimer.repeatInterval" placeholder="0"/>-->
-            <!--</div>-->
-            <!--<div>-->
-                <!--<label>-->
-                    <!--重复次数：-->
-                <!--</label>-->
-                <!--<input type="number" ng-model="triggerTimer.repeatCount" placeholder="0"/>-->
-            <!--</div>-->
         </div>
-        <div ng-show="trigger.triggerType == 'LOCATION'">
-            <label>输入位置：</label>
-            <input type="text">
-        </div>
+        <!--<div>-->
+        <!--<label>-->
+        <!--重复间隔：-->
+        <!--</label>-->
+        <!--<input type="number" ng-model="triggerTimer.repeatInterval" placeholder="0"/>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<label>-->
+        <!--重复次数：-->
+        <!--</label>-->
+        <!--<input type="number" ng-model="triggerTimer.repeatCount" placeholder="0"/>-->
+        <!--</div>-->
     </div>
-    <div class="">
-        <div class="alert alert-danger" ng-show="!valid">
-            {{error}}
-        </div>
-        <div class="btn btn-primary"
-             ng-click="addFeature(strategyTemplate) && closeThisDialog('')">
-            Save changes
-        </div>
+    <div ng-show="trigger.triggerType == 'LOCATION'">
+        <label>输入位置：</label>
+        <input type="text" class="form-control">
     </div>
+    <!--</div>-->
+    <!--<div class="">-->
+    <div class="alert alert-danger" ng-show="!valid">
+        {{error}}
+    </div>
+    <div class="btn btn-default"
+         ng-click="addFeature(strategyTemplate) && closeThisDialog('')">
+        添加
+    </div>
+    <!--</div>-->
 </div>

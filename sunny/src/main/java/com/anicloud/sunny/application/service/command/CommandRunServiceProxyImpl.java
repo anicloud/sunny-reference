@@ -8,7 +8,6 @@ import com.ani.cel.service.manager.agent.app.service.AppCommandServiceImpl;
 import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.user.UserService;
-import com.anicloud.sunny.domain.model.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

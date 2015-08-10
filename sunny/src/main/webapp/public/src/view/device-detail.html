@@ -6,7 +6,7 @@
         <div class="device-name">
             <div class="first-title">
                 {{deviceDetail.device.name}}
-                <button class="btn btn-default" ng-click="deviceDetail.nameEditable = true">编辑</button>
+                <small><a ng-click="deviceDetail.nameEditable = true">编辑</a></small>
             </div>
             <div ng-show="deviceDetail.nameEditable">
                 <input ng-model="deviceDetail.nameInput" class="form-control">
@@ -16,9 +16,9 @@
         </div>
         <div class="devicegroup-name">
             <div class="first-title">
-                <i class="fa fa-folder-o"></i>
+                <!--<i class="fa fa-folder-o"></i>-->
                 {{deviceDetail.device.deviceGroup}}
-                <button class="btn btn-default" ng-click="deviceDetail.groupEditable = true">编辑</button>
+                <small><a ng-click="deviceDetail.groupEditable = true">编辑</a></small>
             </div>
             <div ng-show="deviceDetail.groupEditable">
                 <select class="form-control" ng-model="deviceDetail.groupChosen"
@@ -37,27 +37,34 @@
 
         <div class="feature-name">
             <h5>设备功能</h5>
-            <select ng-model="deviceDetail.featureChosen" class="form-control"
-                    ng-options="feature as feature.featureName for feature in deviceDetail.getFeatureList()"
-                    ng-click="deviceDetail.arguments = {}">
-            </select>
 
-            <div ng-show="deviceDetail.featureChosen != null">
+            <div ng-if="!deviceDetail.isBusy()">
+                <select ng-model="deviceDetail.featureChosen" class="form-control"
+                        ng-options="feature as feature.featureName for feature in deviceDetail.getFeatureList()"
+                        ng-click="deviceDetail.arguments = {}">
+                </select>
 
-                <div ng-repeat="arg in deviceDetail.getArgumentList()">
-                    <div class="first-title">{{arg.screenName}}:</div>
-                    <input ng-model="deviceDetail.arguments[arg.name]" class="form-control" required>
+                <div ng-if="deviceDetail.featureChosen != null">
+                    <div ng-repeat="arg in deviceDetail.getArgumentList()" ng-init="argumentMap[arg.name]=''">
+                        <div class="first-title">{{arg.screenName}}:</div>
+                        <input type="text"ng-model="argumentMap[arg.name]" class="form-control" required>
+                    </div>
                 </div>
+                <button class="btn btn-default" ng-click="deviceDetail.start()">
+                    start
+                </button>
             </div>
-            <button class="btn btn-default" ng-click="deviceDetail.start()">
-                start
-            </button>
-            <button class="btn btn-default" ng-click="deviceDetail.pause()">
-                pause
-            </button>
-            <button class="btn btn-default" ng-click="deviceDetail.stop()">
-                stop
-            </button>
+            <div ng-show="deviceDetail.isBusy()">
+                <button class="btn btn-default" ng-click="deviceDetail.resume()">
+                    resume
+                </button>
+                <button class="btn btn-default" ng-click="deviceDetail.pause()">
+                    pause
+                </button>
+                <button class="btn btn-default" ng-click="deviceDetail.stop()">
+                    stop
+                </button>
+            </div>
         </div>
     </div>
     </div>

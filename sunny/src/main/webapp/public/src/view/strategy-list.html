@@ -1,82 +1,80 @@
-<div ng-controller="StrategyCtrl">
-    <div class="strategy-running">
-        <div ng-repeat="strategy in strategies" ng-init="index=$index; toggleStatus.push(false)">
-            <div class="panel panel-default">
-                <div class="row">
-                    <div class="col-lg-2 strategy-info">
-                        <div class="strategy-name">{{strategy.strategyName}}</div>
-                        <div>
-                            <small>当前执行:{{strategy.featureList[strategy.stage].featureName}}</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-4 strategy-progress">
-                        <div class="m0 progress progress-xs">
-                            <div class="progress-bar progress-bar-success progress-bar-striped" ng-style="setProgressLength(strategy)">-->
-                                <span class="sr-only">35% Complete (success)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 strategy-control">
-                        <ul>
-                            <li>
-                                <a ng-click="resumeStrategy(index, strategy)">
-                                    <i class="fa fa-play"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a ng-click="pauseStrategy(index, strategy)">
-                                    <i class="fa fa-pause"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a ng-click="deleteStrategy(index, strategy)">
-                                    <i class="fa fa-stop"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a ng-click="deleteStrategy(index, strategy)">
-                                    <i class="fa fa-close"></i>
-                                </a>
-                            </li>
-                        </ul>
 
-                    </div>
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 strategy-toggle">
-                        <a ng-click="toggleOpen(index)">
-                            <i class="fa fa-chevron-right"
-                               ng-class="{'fa-chevron-down': toggleStatus[index], 'fa-chevron-right': !toggleStatus[index]}"></i>
-                        </a>
-                    </div>
-                </div>
+    <div class="panel panel-default row">
+        <!--<div class="panel-heading">-->
+        <div class="col-lg-2 col-md-2 strategy-info">
+            <div class="strategy-name"><strong>{{strategy.strategyName}}</strong></div>
+            <div>
+                <small ng-bind="showState(strategy)"></small>
             </div>
-            <div class="panel-collapse" ng-show="toggleStatus[index]">
-                <div class="panel-body">
-                    <!-- ngRepeat: feature in strategy.featureList track by $index -->
-                    <ul class="timeline"
-                        ng-repeat="feature in strategy.featureList" ng-init="findex=$index">
-                        <li ng-class="{'timeline-inverted': (findex%2) }">
-                            <div class="timeline-badge"
-                                 ng-style="setBadgeColor(findex, strategy.stage)">
-                                <i class="fa fa-check"></i>
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h2 class="timeline-title ng-binding">{{feature.deviceFeature.featureName}}</h2>
-                                </div>
-                                <div class="timeline-body">
-                                    <small class="timeline-title ng-binding">设备：{{feature.device.name}}</small>
+        </div>
 
-                                    <small class="timeline-title pull-right ng-binding">
-
-                                    </small>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- end ngRepeat: feature in strategy.featureList track by $index -->
+        <!--<div class="col-lg-2 col-md-1"></div>-->
+        <div class="col-lg-4 col-md-4 strategy-progress">
+            <div class="m0 progress progress-xs">
+                <div class="progress-bar progress-bar-success progress-bar-striped"
+                     ng-style="setProgressLength(strategy)">-->
+                    <span class="sr-only">35% Complete (success)</span>
                 </div>
             </div>
         </div>
+        <div class="col-lg-5 col-md-5 strategy-control">
+            <ul>
+                <li>
+                    <a ng-click="resumeStrategy(index, strategy)">
+                        <i class="fa fa-play"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="pauseStrategy(index, strategy)">
+                        <i class="fa fa-pause"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="stopStrategy(index, strategy)">
+                        <i class="fa fa-stop"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="deleteStrategy(index, strategy)">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-lg-1 col-md-1 strategy-toggle">
+            <a ng-click="toggleOpen(index)">
+                <i class="fa fa-chevron-right"
+                   ng-class="{'fa-chevron-down': toggleStatus[index], 'fa-chevron-right': !toggleStatus[index]}"></i>
+            </a>
+        </div>
+        <!--</div>-->
     </div>
-</div>
+    <div class="panel-collapse" ng-show="toggleStatus[index]">
+        <div class="panel-body">
+            <!-- ngRepeat: feature in strategy.featureList track by $index -->
+            <ul class="timeline"
+                ng-repeat="feature in strategy.featureList" ng-init="findex=$index">
+                <li ng-class="{'timeline-inverted': (findex%2) }">
+                    <div class="timeline-badge"
+                         ng-style="setBadgeColor(findex, strategy.stage)">
+                        <i class="fa fa-check"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h2 class="timeline-title ng-binding">{{feature.deviceFeature.featureName}}</h2>
+                        </div>
+                        <div class="timeline-body">
+                            <small class="timeline-title ng-binding">设备：{{feature.device.name}}</small>
+
+                            <small class="timeline-title pull-right ng-binding">
+
+                            </small>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <!-- end ngRepeat: feature in strategy.featureList track by $index -->
+        </div>
+    </div>
+

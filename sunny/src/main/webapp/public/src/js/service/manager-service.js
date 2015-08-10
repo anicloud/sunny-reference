@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.service = anicloud.sunny.service || {};
 
-anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
+anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, Notify) {
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
@@ -19,9 +19,15 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
             strategy.featureList.splice(index, 1);
         },
 
-        addStrategy : function (strategy, updateStrategy) {
+        addStrategy: function (strategy) {
             StrategyService.saveStrategies(strategy, function (data) {
                 if (data.status == "success") {
+                    var notifyMsg = "计划已添加";
+                    var notifyOpts = {
+                        status: 'info',
+                        pos: 'bottom-center'
+                    };
+                    Notify.alert(notifyMsg, notifyOpts);
                     console.log("add strategy ok:");
                     //updateStrategy(data.strategy);
                 } else if (data.status == "error") {
@@ -31,12 +37,19 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
             });
         },
 
-        deleteStrategy : function (index, strategy) {
-            StrategyService.deleteStrategy(strategy.strategyId, function (data) {
+        deleteStrategy: function (index, strategy) {
+            var deletedStrategy = $rootScope.strategies.splice(index, 1)[0];
+            console.log("pre delete:");
+            console.log(deletedStrategy);
+            StrategyService.deleteStrategy(deletedStrategy.strategyId, function (data) {
                 if (data.status == "success") {
+                    var notifyMsg = "计划已删除";
+                    var notifyOpts = {
+                        status: 'info',
+                        pos: 'bottom-center'
+                    };
+                    Notify.alert(notifyMsg, notifyOpts);
                     console.log("delete strategy ok:");
-                    console.log(data.message);
-                    $rootScope.strategies.splice(index, 1);
                 } else if (data.status == "error") {
                     console.error("delete strategy error: ");
                     console.error(data.message);
@@ -44,9 +57,15 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
             });
         },
 
-        resumeStrategy : function (strategy) {
+        resumeStrategy: function (strategy) {
             StrategyService.operateStrategy(strategy.strategyId, "RESUME", function (data) {
                 if (data.status == "success") {
+                    var notifyMsg = "计划已恢复";
+                    var notifyOpts = {
+                        status: 'info',
+                        pos: 'bottom-center'
+                    };
+                    Notify.alert(notifyMsg, notifyOpts);
                     console.log("resume strategy ok:");
                 } else if (data.status == "error") {
                     console.error("resume strategy error: ");
@@ -55,9 +74,17 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
             });
         },
 
-        stopStrategy : function (strategy) {
+        stopStrategy: function (strategy) {
+            console.log("pre delete:");
+            console.log(strategy);
             StrategyService.operateStrategy(strategy.strategyId, "STOP", function (data) {
                 if (data.status == "success") {
+                    var notifyMsg = "计划已停止";
+                    var notifyOpts = {
+                        status: 'info',
+                        pos: 'bottom-center'
+                    };
+                    Notify.alert(notifyMsg, notifyOpts);
                     console.log("stop strategy ok:");
                 } else if (data.status == "error") {
                     console.error("resume strategy error: ");
@@ -66,9 +93,15 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
             });
         },
 
-        pauseStrategy : function (strategy) {
+        pauseStrategy: function (strategy) {
             StrategyService.operateStrategy(strategy.strategyId, "PAUSE", function (data) {
                 if (data.status == "success") {
+                    var notifyMsg = "计划已暂停";
+                    var notifyOpts = {
+                        status: 'info',
+                        pos: 'bottom-center'
+                    };
+                    Notify.alert(notifyMsg, notifyOpts);
                     console.log("pause strategy ok:");
                 } else if (data.status == "error") {
                     console.error("pause strategy error: ");
@@ -77,13 +110,8 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
             });
         },
 
-        updateStrategy : function (strategy) {
-            if (strategy.strategyName == "_PHONY_STRATEGY_") {
-                $rootScope.phonyStrategyMap[strategy.featureList[0].device.id] = strategy;
-                console.log("update phony strategy:");
-                console.log(strategy);
-            }
-
+        updateStrategy: function (strategy) {
+            // handle normal strategy
             var isNew = true;
             for (var i = 0; i < $rootScope.strategies.length; i++) {
                 if ($rootScope.strategies[i].strategyId == strategy.strategyId) {
@@ -99,23 +127,25 @@ anicloud.sunny.service.ManagerService = function($rootScope, StrategyService){
                 $rootScope.strategies.push(strategy);
             }
 
-            var stage = parseInt(strategy.stage);
-            if (strategy.state == "RUNNING" || strategy.state == "SUSPENDED") {
-                if (stage > 0 &&
-                    strategy.featureList != null &&
-                    strategy.featureList[stage - 1].device.id in $rootScope.busyDeviceMap ) {  // delete previous device since it is not busy now
-                    delete $rootScope.busyDeviceMap[strategy.featureList[stage - 1].device.id];
+
+            // handle phony strategy
+            if (strategy.strategyName == "_PHONY_STRATEGY_") {
+                var deviceId = strategy.featureList[0].device.id;
+                if (strategy.state == "RUNNING" || strategy.state == "SUSPENDED") {
+                    $rootScope.phonyStrategyMap[deviceId] = strategy;
+                } else if (strategy.state == "DONE") {
+                    if (deviceId in  $rootScope.phonyStrategyMap) {
+                        delete $rootScope.phonyStrategyMap[deviceId];
+                    }
+                    var notifyMsg = "设备任务完成";
+                    var notifyOpts = {
+                        status: 'info',
+                        pos: 'bottom-center'
+                    };
+                    Notify.alert(notifyMsg, notifyOpts);
                 }
-                // add current device to busy map
-                if (strategy.featureList != null) {
-                    $rootScope.busyDeviceMap[strategy.featureList[stage].device.id] = 1;
-                }
-            } else if (strategy.state == "DONE") {
-                if (stage > 0 &&
-                    strategy.featureList != null &&
-                    strategy.featureList[stage - 1].device.id in $rootScope.busyDeviceMap) {  // delete previous device since it is not busy now
-                    delete $rootScope.busyDeviceMap[strategy.featureList[stage - 1].device.id];
-                }
+                console.log("update phony strategy:");
+                console.log(strategy);
             }
         }
     };

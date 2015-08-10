@@ -1,35 +1,36 @@
-<div id="homePage" ng-controller="HomePageCtrl">
+<div class="homepage row" ng-controller="HomePageCtrl">
     <div ng-controller="DeviceCtrl">
         <div ng-include="'public/src/view/device-detail.html'"></div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div><h4><i class="fa fa-tablet"></i> 设备</h4></div>
-                <div class="row" id="device-wrapper">
-                    <div class="device-body device-body-homepage">
-                        <a class="device-cel" ng-repeat="device in devices" ng-click="deviceDetail.toggle(device)">
-                            <div class="panel">
-                                <!--<div class="panel-heading">-->
-                                    <i class="fa fa-comments fa-3x"></i>
+        <h4>
+            <i class="fa fa-tablet"></i>
+            设备
+        </h4>
 
-                                    <div>
-                                        <h5>{{device.name}}</h5>
-                                    </div>
-                                    <div>
-                                        <small>{{device.deviceState}}</small>
-                                    </div>
-                                </div>
-                            <!--</div>-->
-                        </a>
-                    </div>
-                </div>
+        <div id="device-wrapper">
+            <div class="device-body device-body-homepage">
+                <a class="device-cel" ng-repeat="device in devices" ng-click="deviceDetail.toggle(device)">
+                    <!--<div class="panel">-->
+                    <!--<div class="panel-heading">-->
+                    <i class="fa fa-comments fa-3x"></i>
+
+                    <p>{{device.name}}<br>
+                        <small>{{device.deviceState}}</small>
+                    </p>
+                </a>
             </div>
         </div>
     </div>
-    <div id="strategy-title">
+    <div>
         <h4><i class="fa fa-pencil"></i> Strategy</h4>
     </div>
-    <div ng-include="'public/src/view/strategy-list.html'">
-
+    <div ng-controller="StrategyCtrl">
+        <div class="strategy-running" ng-model="strategies">
+            <div ng-repeat="strategy in strategies | filter: strategyFilterRunning"
+                 ng-init="index=$index; toggleStatus.push(false)">
+                <div ng-include="'public/src/view/strategy-list.html'">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
