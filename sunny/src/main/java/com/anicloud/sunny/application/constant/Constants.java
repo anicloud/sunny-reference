@@ -15,6 +15,8 @@ public class Constants {
     public final static int SUNNY_COOKIE_MAX_AGE = 7 * 24 * 3600;
     public final static String SUNNY_COOKIE_PATH = "sunny";
 
+    public final static String SUNNY_SESSION_NAME = "sunny_session";
+
     public final static String SUNNY_DEVICE_DEFAULT_GROUP = "default";
     public final static DeviceLogicState DEVICE_DEFAULT_LOGIC_STATE = DeviceLogicState.CLOSED;
     /**

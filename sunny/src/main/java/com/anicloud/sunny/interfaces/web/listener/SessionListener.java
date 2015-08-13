@@ -1,27 +1,50 @@
 package com.anicloud.sunny.interfaces.web.listener;
 
+import com.anicloud.sunny.application.constant.Constants;
+import com.anicloud.sunny.interfaces.web.dto.UserSessionInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import javax.servlet.http.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sirhuoshan on 2015/8/10.
  */
-public class SessionListener implements HttpSessionListener {
+public class SessionListener implements HttpSessionListener,HttpSessionAttributeListener{
     private static final Logger LOG = LoggerFactory.getLogger(SessionListener.class);
 
+    public static Map<String, HttpSession> userSessionMaps = new HashMap<String, HttpSession>();
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-        LOG.info(httpSessionEvent.getSession().getId());
+        LOG.info(httpSessionEvent.getSession().getId() + "created");
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
+        LOG.info(httpSessionEvent.getSession().getId() + "destroyed");
+        UserSessionInfo userSessionInfoOld = (UserSessionInfo)httpSessionEvent.getSession().getAttribute(Constants.SUNNY_SESSION_NAME);
+        String hashUserId = userSessionInfoOld.hashUserId;
+        userSessionMaps.remove(hashUserId);
+    }
+
+    @Override
+    public void attributeAdded(HttpSessionBindingEvent httpSessionBindingEvent) {
+        HttpSession session = httpSessionBindingEvent.getSession();
+        UserSessionInfo userSessionInfo = (UserSessionInfo)session.getAttribute(Constants.SUNNY_SESSION_NAME);
+        userSessionMaps.put(userSessionInfo.hashUserId,session);
+        LOG.info(userSessionInfo.hashUserId);
+    }
+
+    @Override
+    public void attributeRemoved(HttpSessionBindingEvent httpSessionBindingEvent) {
+
+    }
+
+    @Override
+    public void attributeReplaced(HttpSessionBindingEvent httpSessionBindingEvent) {
 
     }
 }
