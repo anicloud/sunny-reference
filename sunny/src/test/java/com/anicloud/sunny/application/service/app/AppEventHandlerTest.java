@@ -22,8 +22,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-        "classpath:spring/rect-persist.xml",
-        "classpath:spring/root-context.xml"
+        "classpath:application-context/root-context.xml"
 })
 public class AppEventHandlerTest {
 
@@ -64,7 +63,7 @@ public class AppEventHandlerTest {
         System.out.println(objectMapper.writeValueAsString(clientDto));
     }
 
-    @Ignore
+    @Test
     public void testSave() throws Exception {
         clientDto = this.appService.save(clientDto);
         System.out.println(objectMapper.writeValueAsString(clientDto));

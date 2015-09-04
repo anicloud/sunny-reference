@@ -31,6 +31,7 @@ public class AppEventHandler implements AppService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AppClientDto findByClientName(String clientName) {
         AppClient client = AppClient.getAppClientByClientName(clientPersistenceService, clientName);
         return AppClientDtoAssembler.toDto(client);
