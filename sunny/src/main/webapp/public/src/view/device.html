@@ -1,23 +1,25 @@
 <div ng-controller="DeviceCtrl">
     <div ng-include="'public/src/view/device-detail.html'"></div>
-    <div class="row group-wrapper">
-        <div class="group btn btn-info " ng-repeat="group in getGroups()"
-             ng-click="setDeviceFilter(group)">
-            {{group}}
+    <div class="">
+        <div class="row group-wrapper">
+            <div class="group btn btn-info " ng-repeat="group in getGroups()"
+                 ng-click="setDeviceFilter(group)">
+                {{group}}
+            </div>
         </div>
-    </div>
 
-    <div class="row item-wrapper">
-        <div class="item col-xs-6 col-sm-4 col-md-3 col-lg-2"
-             ng-repeat="device in devices | filter: deviceFilterByGroup">
-            <div class="panel" ng-click="deviceDetail.toggle(device)">
-                <div class="panel-heading">
-                    <div class="device-icon">
-                    <img src="public/images/icon/light.png">
-                    </div>
-                    <div style="margin-left: 40px;">
-                        <strong>{{device.name}}</strong>
-                        <small>{{device.deviceState}}</small>
+        <div class="row item-wrapper" ng-click="deviceDetail.hide($event)">
+            <div class="item col-xs-6 col-sm-4 col-md-3 col-lg-2"
+                 ng-repeat="device in devices | filter: deviceFilterByGroup">
+                <div class="panel" ng-click="deviceDetail.toggle(device, $event)">
+                    <div class="panel-heading row">
+                        <div class="col-xs-4 panel-device-icon">
+                            <img src="public/images/icon/light.png">
+                        </div>
+                        <div>
+                            <strong>{{device.name}}</strong><br>
+                            <small>{{device.deviceState}}</small>
+                        </div>
                     </div>
                 </div>
             </div>
