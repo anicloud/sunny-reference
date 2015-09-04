@@ -37,7 +37,7 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
     $scope.deviceDetail = {};
     $scope.deviceDetail.isToggled = true;
     $scope.deviceDetail.device = null;
-    $scope.deviceDetail.toggle = function (device) {
+    $scope.deviceDetail.toggle = function (device, event) {
         if ($scope.deviceDetail.device == null) {
             $scope.deviceDetail.isToggled = !$scope.deviceDetail.isToggled;
         }
@@ -48,8 +48,14 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         }
         $scope.deviceDetail.device = device;
         $scope.deviceDetail.featureChosen = null;
+        event.stopPropagation();
     };
-;
+    $scope.deviceDetail.hide = function(event) {
+        if (!$scope.deviceDetail.isToggled) {
+            $scope.deviceDetail.isToggled = true;
+            event.stopPropagation();
+        }
+    }
     $scope.deviceDetail.nameEditable = false;
     $scope.deviceDetail.nameInput = "";
     $scope.deviceDetail.editName = function() {

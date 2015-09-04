@@ -933,7 +933,8 @@ _:-ms-lang(x),
 }
 .topnavbar .navbar-header .brand-logo {
   display: block;
-  padding: 10px 15px;
+  /*padding: 10px 15px;*/
+
 }
 .topnavbar .navbar-header .brand-logo-collapsed {
   display: none;
@@ -1119,13 +1120,13 @@ _:-ms-lang(x),
 }
 @media only screen and (min-width: 768px) {
   .aside-collapsed .topnavbar .navbar-header .brand-logo {
-    display: none;
+    /*display: none;*/
   }
   .aside-collapsed .topnavbar .navbar-header .brand-logo-collapsed {
     display: block;
   }
   .aside-collapsed .topnavbar .navbar-header {
-    width: 70px;
+    width: 100px;
   }
   .aside-collapsed .topnavbar .navbar-form {
     left: 70px;

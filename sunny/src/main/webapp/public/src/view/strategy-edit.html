@@ -7,24 +7,26 @@
                        required>
                 <!--<ul class="operation list-unstyled">-->
                 <div class="operation">
-                    <a ng-click="openFeatureEditTemplate()">
-                        <i class="fa fa-plus"></i>
-                    </a>
+                        <i class="fa fa-plus" ng-click="openFeatureEditTemplate()"></i>
                 </div>
                 <!--</ul>-->
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="feature-cel col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="feature in strategyTemplate.featureList">
+                    <div class="feature-cel col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                         ng-repeat="feature in strategyTemplate.featureList">
                         <div class="col-xs-4 device-description">
-                            <i class="fa fa-star fa-3x"></i>
+                            <div class="feature-num">{{$index+1}}</div>
+                            <div class="panel-heading">
+                                <img src="public/images/icon/light.png">
+                            </div>
 
-                            <p><strong>{{feature.device.name}}</strong></p>
+                            <p>{{feature.device.name}}</p>
                         </div>
                         <div class="col-xs-8 device-feature">
                             <i class="fa fa-times close" ng-click="deleteFeature($index, strategyTemplate)"></i>
 
-                            <p>{{feature.deviceFeature.featureName}}</p>
+                            <p><strong>{{feature.deviceFeature.featureName}}</strong></p>
 
                             <p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date}}</p>
                         </div>

@@ -1,7 +1,7 @@
 <aside ng-if="!deviceDetail.isToggled" class="offsidebar">
     <div class="devicename-panel">
         <div class="device-icon">
-            <i class="fa fa-tablet fa-3x"></i>
+            <img src="public/images/icon/light.png">
         </div>
         <div class="device-name">
             <div class="first-title">
@@ -39,11 +39,12 @@
             <h5>设备功能</h5>
 
             <div ng-if="!deviceDetail.isBusy()">
-                <select ng-model="deviceDetail.featureChosen" class="form-control"
+                <ul>
+                <li ng-model="deviceDetail.featureChosen" class="form-control"
                         ng-options="feature as feature.featureName for feature in deviceDetail.getFeatureList()"
                         ng-click="deviceDetail.arguments = {}">
-                </select>
-
+                </li>
+                </ul>
                 <div ng-if="deviceDetail.featureChosen != null">
                     <div ng-repeat="arg in deviceDetail.getArgumentList()" ng-init="argumentMap[arg.name]=''">
                         <div class="first-title">{{arg.screenName}}:</div>
