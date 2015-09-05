@@ -37,7 +37,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
         String url = requestUri.substring(contextPath.length());
         if(excludeUrls.contains(url)){
             return true;
-        }else{
+        } else{
             if(userSessionInfo==null){
                 httpServletResponse.sendRedirect(contextPath+"/");
             }else{

@@ -64,8 +64,10 @@ public class HomeController extends BaseController {
         LOGGER.info("welcome to sunny login action. cookie user : {}", currentUser);
         if (currentUser != null) {
             UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
-            userService.refreshUserToken(userInfoDto.hashUserId);
-            return userSession(request,userInfoDto);
+            UserDto userDto = userService.refreshUserToken(userInfoDto.hashUserId);
+            // update user info
+            writeUserInfoToCookie(userDto, response);
+            return userSession(request,new UserInfoDto(userDto));
         }
         return "login";
     }
@@ -83,7 +85,7 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
-    public String home() throws IOException {
+    public String home() {
         LOGGER.info("welcome to sunny index action {}.");
         return "index";
     }
