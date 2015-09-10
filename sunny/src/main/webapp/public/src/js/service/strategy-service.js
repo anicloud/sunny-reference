@@ -8,10 +8,9 @@ anicloud.sunny.service = anicloud.sunny.service || {};
 anicloud.sunny.service.StrategyService = function($http,$cookies){
     return{
         getStrategies:function(callback){
-            console.log($cookies['sunny_user']);
-            console.log(JSON.parse($cookies['sunny_user']));
-            var user = JSON.parse($cookies['sunny_user']);
-            if (user != 'undefined') {
+            //var user = $cookies['sunny_user'];
+            var user = $.cookie('sunny_user');
+            if (user != undefined) {
                 var usercookie = JSON.parse(user);
                 var hashUserId = usercookie.hashUserId;
                 $http({
@@ -22,24 +21,27 @@ anicloud.sunny.service.StrategyService = function($http,$cookies){
                     callback(data);
                 }).error(function(data){
                     console.log('get strategies failures');
-                })
+                });
             } else {
                 console.log("cookie user not exist.");
             }
 
         },
         saveStrategies:function(strategyInstance,callback){
-        var usercookie = JSON.parse(JSON.parse( $cookies['sunny_user']));
-        var hashUserId = usercookie.hashUserId;
-        $http({
-            method:'POST',
-            url: 'strategy',
-            params: {hashUserId:hashUserId,strategyInstance:strategyInstance}
-        }).success(function(data){
-            callback(data);
-        }).error(function(data){
-            console.log('save strategies failures');
-        })
+            var user = $.cookie('sunny_user');
+            if (user != undefined) {
+                var usercookie = JSON.parse(user);
+                var hashUserId = usercookie.hashUserId;
+                $http({
+                    method:'POST',
+                    url: 'strategy',
+                    params: {hashUserId:hashUserId,strategyInstance:strategyInstance}
+                }).success(function(data){
+                    callback(data);
+                }).error(function(data){
+                    console.log('save strategies failures');
+                });
+            }
     },
     deleteStrategy:function(strategyId,callback){
         $http({

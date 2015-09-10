@@ -8,17 +8,21 @@ anicloud.sunny.service = anicloud.sunny.service || {};
 anicloud.sunny.service.DeviceService = function($http,$cookies){
     return{
         getDevices:function(callback){
-            var usercookie = JSON.parse(JSON.parse( $cookies['sunny_user']));
-            var hashUserId = usercookie.hashUserId;
-            $http({
-                method:'GET',
-                url: 'devices',
-                params: {hashUserId:hashUserId}
-            }).success(function(data){
-                callback(data);
-            }).error(function(data){
-                console.log('get devices failures');
-            })
+            var user = $.cookie('sunny_user');
+            if (user != undefined) {
+                var usercookie = JSON.parse(user);
+                var hashUserId = usercookie.hashUserId;
+                $http({
+                    method:'GET',
+                    url: 'devices',
+                    params: {hashUserId:hashUserId}
+                }).success(function(data){
+                    callback(data);
+                }).error(function(data){
+                    console.log('get devices failures');
+                })
+            }
+
         },
         getDeviceFeatures:function(callback){
             $http({
