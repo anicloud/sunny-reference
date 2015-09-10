@@ -102,7 +102,7 @@ public class HomeController extends BaseController {
         UserInfoDto userInfoDto = new UserInfoDto(userDto);
         String currentUser = objectMapper.writeValueAsString(userInfoDto);
         CookieGenerator cookieGenerator = new CookieGenerator();
-        cookieGenerator.setCookiePath(Constants.SUNNY_COOKIE_PATH);
+        //cookieGenerator.setCookiePath(Constants.SUNNY_COOKIE_PATH);
         cookieGenerator.setCookieName(Constants.SUNNY_COOKIE_USER_NAME);
         cookieGenerator.setCookieMaxAge(Constants.SUNNY_COOKIE_MAX_AGE);
         cookieGenerator.addCookie(response, currentUser);
