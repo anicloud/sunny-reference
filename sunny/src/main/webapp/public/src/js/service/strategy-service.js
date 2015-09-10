@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.service = anicloud.sunny.service || {};
 
-anicloud.sunny.service.StrategyService = function($http,$cookies){
+anicloud.sunny.service.StrategyService = function($http, $cookies){
     return{
         getStrategies:function(callback){
             console.log($cookies['sunny_user']);

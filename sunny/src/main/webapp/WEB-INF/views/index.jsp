@@ -33,9 +33,8 @@
     <link href="${pageContext.request.contextPath}/public/src/css/app.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/src/css/sunny.css" rel="stylesheet">
 
-
     <!--websocket-->
-    <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/websocket/sockjs-0.3.4.min.js"></script>
 
     <!-- jquery -->
     <script src="${pageContext.request.contextPath}/public/lib/jquery/javascript/jquery.js" type="text/javascript"></script>
@@ -44,9 +43,6 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- websocket.js -->
-    <script src="${pageContext.request.contextPath}/public/lib/websocket/sockjs-0.3.4.min.js"></script>
 
     <!-- angularjs -->
     <script src="${pageContext.request.contextPath}/public/lib/angular/angular.js" type="text/javascript"></script>
@@ -87,15 +83,14 @@
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/js/html5shiv.min.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/js/respond.min.js" type="text/javascript"></script>
     <![endif]-->
 </head>
 
 <body class="layout-fixed"  ng-class="{'aside-collapsed':isAsideCollapsed}" ng-controller="MainCtrl">
-<div data-ui-view="" data-autoscroll="false" class="wrapper" >
-</div>
-
+    <div data-ui-view="" data-autoscroll="false" class="wrapper" >
+    </div>
 </body>
 </html>
 
