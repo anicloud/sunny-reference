@@ -8,17 +8,25 @@ anicloud.sunny.service = anicloud.sunny.service || {};
 anicloud.sunny.service.StrategyService = function($http,$cookies){
     return{
         getStrategies:function(callback){
-            var usercookie = JSON.parse(JSON.parse( $cookies['sunny_user']));
-            var hashUserId = usercookie.hashUserId;
-            $http({
-                method:'GET',
-                url: 'strategies',
-                params: {hashUserId:hashUserId}
-            }).success(function(data){
-                callback(data);
-            }).error(function(data){
-                console.log('get strategies failures');
-            })
+            console.log($cookies['sunny_user']);
+            console.log(JSON.parse($cookies['sunny_user']));
+            var user = JSON.parse($cookies['sunny_user']);
+            if (user != 'undefined') {
+                var usercookie = JSON.parse(user);
+                var hashUserId = usercookie.hashUserId;
+                $http({
+                    method:'GET',
+                    url: 'strategies',
+                    params: {hashUserId:hashUserId}
+                }).success(function(data){
+                    callback(data);
+                }).error(function(data){
+                    console.log('get strategies failures');
+                })
+            } else {
+                console.log("cookie user not exist.");
+            }
+
         },
         saveStrategies:function(strategyInstance,callback){
         var usercookie = JSON.parse(JSON.parse( $cookies['sunny_user']));
