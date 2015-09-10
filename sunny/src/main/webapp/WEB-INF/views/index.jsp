@@ -41,6 +41,7 @@
     <script src="${pageContext.request.contextPath}/public/lib/jquery/javascript/jquery.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/jquery/javascript/jquery.md5.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/lib/jquery/javascript/md5.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/jquery/javascript/jquery.cookie.js" type="text/javascript"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -77,6 +78,7 @@
     <script src="${pageContext.request.contextPath}/public/src/js/controller/feature-edit-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/device-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/main-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/controller/slider.js" type="text/javascript"></script>
 
     <!-- dto -->
     <script src="${pageContext.request.contextPath}/public/src/js/dto/featureInstance-dto.js" type="text/javascript"></script>
