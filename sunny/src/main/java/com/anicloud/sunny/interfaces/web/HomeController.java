@@ -60,8 +60,12 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public String login(HttpServletResponse response,HttpServletRequest request, @CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME, required = false) String currentUser) throws IOException {
+    public String login(HttpServletResponse response,HttpServletRequest request,
+                        @CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME, required = false) String currentUser,
+                        @RequestParam(value = "model", defaultValue = "dashboard") String model) throws IOException {
         LOGGER.info("welcome to sunny login action. cookie user : {}", currentUser);
+        HttpSession session = request.getSession();
+        session.setAttribute(Constants.MODEL_NAME, model);
         if (currentUser != null) {
             UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
             UserDto userDto = userService.refreshUserToken(userInfoDto.hashUserId);
@@ -111,6 +115,8 @@ public class HomeController extends BaseController {
 
     private String userSession(HttpServletRequest request,UserInfoDto userInfoDto){
         HttpSession session = request.getSession();
+        String model = (String) session.getAttribute(Constants.MODEL_NAME);
+
         UserSessionInfo userSessionInfo = new UserSessionInfo();
         userSessionInfo.hashUserId = userInfoDto.hashUserId;
         userSessionInfo.ipAddr = getIpAddr(request);
@@ -121,11 +127,11 @@ public class HomeController extends BaseController {
                 return "multiLogin";
             }else{
                 session.setAttribute(Constants.SUNNY_SESSION_NAME, userSessionInfo);
-                return "redirect:home";
+                return "redirect:home#/app/" + model;
             }
         }else{
             session.setAttribute(Constants.SUNNY_SESSION_NAME, userSessionInfo);
-            return "redirect:home";
+            return "redirect:home#/app/" + model;
         }
     }
 

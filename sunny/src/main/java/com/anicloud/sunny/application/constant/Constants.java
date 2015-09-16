@@ -32,4 +32,8 @@ public class Constants {
     public final static Long TOKEN_REFRESH_TIME_INTERVAL_IN_SECONDS = 1 * 60 * 60L;
 
     public static AppClientDto appClientDto = null;
+    /**
+     * the different enter of sunny
+     */
+    public static String MODEL_NAME = "modelName";
 }
