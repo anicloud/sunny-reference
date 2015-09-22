@@ -9,10 +9,10 @@
 
             <div id="device-wrapper">
                 <div class="device-body device-body-homepage">
-                    <div class="device-cel" ng-repeat="device in devices" ng-click="deviceDetail.toggle(device, $event)">
+                    <div class="device-cel" ng-repeat="device in devices" ng-click="deviceDetail.show(device)">
                         <!--<div class="panel">-->
                         <div class="panel-heading">
-                            <img src="public/images/icon/light.png">
+                            <i class="icon icon-appliances-lamp device-icon"></i>
                         </div>
                         <p><strong>{{device.name}}</strong><br>
                             <small>{{device.deviceState}}</small>
@@ -20,6 +20,7 @@
                     </div>
                 </div>
             </div>
+            <div class="coverlayer" ng-click="deviceDetail.hide($event)" ng-show="deviceDetail.visible"></div>
 
             <div>
                 <h4><i class="fa fa-pencil"></i> Strategy</h4>

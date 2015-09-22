@@ -23,6 +23,7 @@
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/timeline.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/simple-sidebar.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-switch.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/material-design-iconic-font.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/angularjs/css/ngDialog.css" rel="stylesheet">
@@ -44,6 +45,7 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap-switch.js"></script>
 
     <!-- angularjs -->
     <script src="${pageContext.request.contextPath}/public/lib/angular/angular.js" type="text/javascript"></script>

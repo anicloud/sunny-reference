@@ -319,7 +319,7 @@ body {
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: 116;
+  z-index: 120;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -980,10 +980,12 @@ _:-ms-lang(x),
 @media only screen and (max-width: 767px) {
   .sidebar-toggle {
     position: absolute !important;
-    top: 5px;
+    top: 0px;
     right: 0;
     color: white !important;
     z-index: 3001;
+    line-height: 55px !important;
+    padding: 0 15px 0 0 !important;
   }
 }
 .nav-wrapper {

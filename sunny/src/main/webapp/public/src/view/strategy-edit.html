@@ -17,11 +17,12 @@
                          ng-repeat="feature in strategyTemplate.featureList">
                         <div class="col-xs-4 device-description">
                             <div class="feature-num">{{$index+1}}</div>
-                            <div class="panel-heading">
-                                <img src="public/images/icon/light.png">
+                            <div class="device-panel">
+                                <i class="icon icon-appliances-lamp device-icon"></i>
+                                <p>{{feature.device.name}}</p>
                             </div>
 
-                            <p>{{feature.device.name}}</p>
+
                         </div>
                         <div class="col-xs-8 device-feature">
                             <i class="fa fa-times close" ng-click="deleteFeature($index, strategyTemplate)"></i>

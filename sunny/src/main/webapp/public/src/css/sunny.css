@@ -1,3 +1,104 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: "appliances";
+    src:url("../../fonts/appliances.eot");
+    src:url("../../fonts/appliances.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/appliances.woff") format("woff"),
+    url("../../fonts/appliances.ttf") format("truetype"),
+    url("../../fonts/appliances.svg#appliances") format("svg");
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+[data-icon]:before {
+    font-family: "appliances" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+    font-family: "appliances" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-appliances-audio:before {
+    content: "a";
+}
+.icon-appliances-monitor:before {
+    content: "b";
+}
+.icon-appliances-oven:before {
+    content: "c";
+}
+.icon-appliances-clock:before {
+    content: "d";
+}
+.icon-appliances-double-boiler:before {
+    content: "e";
+}
+.icon-appliances-phone:before {
+    content: "f";
+}
+.icon-appliances-refrigerator:before {
+    content: "g";
+}
+.icon-appliances-earphones:before {
+    content: "h";
+}
+.icon-appliances-extract:before {
+    content: "i";
+}
+.icon-appliances-sewing-machine:before {
+    content: "j";
+}
+.icon-appliances-vacuum-cleaner:before {
+    content: "k";
+}
+.icon-appliances-grinder:before {
+    content: "l";
+}
+.icon-appliances-washing-machine:before {
+    content: "m";
+}
+.icon-appliances-fan:before {
+    content: "n";
+}
+.icon-appliances-hair-dryer:before {
+    content: "o";
+}
+.icon-appliances-iron:before {
+    content: "p";
+}
+.icon-appliances-kettle:before {
+    content: "q";
+}
+.icon-appliances-lamp:before {
+    content: "r";
+}
+.icon-appliances-microwave:before {
+    content: "s";
+}
+.icon-appliances-mixer:before {
+    content: "t";
+}
+
 body {
     background-color: #f5f7fa;
     font-family: "Helvetica Neue", "hiragino sans gb w3", "Microsoft Yahei", "Arial", sans-serif;
@@ -13,6 +114,10 @@ body {
 
 .topnavbar .navbar-header .brand-logo {
     padding: 0;
+}
+
+.nav-wrapper>ul>li>a {
+    padding: 0 0 0 15px;
 }
 /*dashboard*/
 .homepage {
@@ -114,6 +219,7 @@ body {
     text-overflow: ellipsis;
     -o-text-overflow:ellipsis;
     overflow: hidden;
+    margin-bottom: 0;
 }
 
 .device-description {
@@ -177,7 +283,7 @@ body {
     border-bottom: 1px #eaeaea solid;
     position: relative;
 }
-.form-control {
+.panel-input .form-control {
     width: auto;
 }
 
@@ -273,10 +379,11 @@ body {
 
 /*device detail*/
 .devicename-panel {
-    padding: 20px;
+    padding: 15px;
     background-color: #f3f3f6;
     height:100%;
     /*text-align: center;*/
+    overflow-y: hidden;
 }
 
 .device-icon,
@@ -284,6 +391,7 @@ body {
 .device-name,
 .devicegroup-name {
     margin-bottom: 10px;
+    /*text-align: center;*/
 }
 .devicename-panel select,
 .devicename-panel input {
@@ -292,6 +400,43 @@ body {
 
 .first-title {
     margin-bottom: 10px;
+}
+
+.icon-background {
+    width: 70px;
+    height: 70px;
+    background-color: #fff;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 80px;
+    font-size: 40px;
+    position: relative;
+    left: 80px;
+    top: 10px;
+    margin-bottom: 30px;
+    color: #ffb36f;
+}
+
+.feature-background {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.feature-title {
+    padding-bottom: 8px;
+    border-bottom: 1px #c7c7c7 dotted;
+    margin-bottom: 8px;
+}
+.feature-title a {
+    color: #FFB36F;
 }
 
 .strategy-progress {
@@ -312,6 +457,8 @@ body {
     /*margin: -10px 0;*/
     margin: 17px 0;
 }
+
+
 
 /*home device*/
 #device-wrapper {
@@ -437,3 +584,25 @@ body {
 .nav>li>a:focus, .nav>li>a:hover {
     background-color: inherit;
 }
+
+
+.coverlayer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    animation: ngdialog-fadein 0.5s;
+}
+
+.device-icon {
+    font-size: 30px;
+}
+
+.device-panel {
+    padding: 10px 0px;
+}
+
+

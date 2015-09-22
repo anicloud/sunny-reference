@@ -8,13 +8,13 @@
             </div>
         </div>
 
-        <div class="row item-wrapper" ng-click="deviceDetail.hide($event)">
+        <div class="row item-wrapper">
             <div class="item col-xs-6 col-sm-4 col-md-3 col-lg-2"
                  ng-repeat="device in devices | filter: deviceFilterByGroup">
-                <div class="panel" ng-click="deviceDetail.toggle(device, $event)">
+                <div class="panel" ng-click="deviceDetail.show(device)">
                     <div class="panel-heading row">
                         <div class="col-xs-4 panel-device-icon">
-                            <img src="public/images/icon/light.png">
+                            <i class="icon icon-appliances-lamp device-icon"></i>
                         </div>
                         <div>
                             <strong>{{device.name}}</strong><br>
@@ -24,5 +24,7 @@
                 </div>
             </div>
         </div>
+
+        <div class="coverlayer" ng-click="deviceDetail.hide($event)" ng-show="deviceDetail.visible"></div>
     </div>
 </div>
