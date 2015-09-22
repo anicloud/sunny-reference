@@ -35,27 +35,19 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
 
     // device detail
     $scope.deviceDetail = {};
-    $scope.deviceDetail.isToggled = true;
+    $scope.deviceDetail.visible = false;
     $scope.deviceDetail.device = null;
-    $scope.deviceDetail.toggle = function (device, event) {
-        if ($scope.deviceDetail.device == null) {
-            $scope.deviceDetail.isToggled = !$scope.deviceDetail.isToggled;
-        }
-        else if ($scope.deviceDetail.device.id == device.id) {
-            $scope.deviceDetail.isToggled = !$scope.deviceDetail.isToggled;
-        }else {
-            $scope.deviceDetail.isToggled = false;
-        }
+    $scope.deviceDetail.show = function (device) {
+        $scope.deviceDetail.visible = true;
         $scope.deviceDetail.device = device;
         $scope.deviceDetail.featureChosen = null;
-        event.stopPropagation();
-    };
-    $scope.deviceDetail.hide = function(event) {
-        if (!$scope.deviceDetail.isToggled) {
-            $scope.deviceDetail.isToggled = true;
-            event.stopPropagation();
-        }
     }
+
+    $scope.deviceDetail.hide = function(event) {
+        $scope.deviceDetail.visible = false;
+        event.stopPropagation();
+    }
+
     $scope.deviceDetail.nameEditable = false;
     $scope.deviceDetail.nameInput = "";
     $scope.deviceDetail.editName = function() {
@@ -145,6 +137,8 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
+
+
 };
 
 
