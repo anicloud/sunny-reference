@@ -28,18 +28,18 @@ public class SecurityInterceptor implements HandlerInterceptor{
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        HttpSession session = httpServletRequest.getSession();
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+        HttpSession session = request.getSession();
         UserSessionInfo userSessionInfo = (UserSessionInfo)session.getAttribute(Constants.SUNNY_SESSION_NAME);
 
-        String requestUri = httpServletRequest.getRequestURI();
-        String contextPath = httpServletRequest.getContextPath();
+        String requestUri = request.getRequestURI();
+        String contextPath = request.getContextPath();
         String url = requestUri.substring(contextPath.length());
         if(excludeUrls.contains(url)){
             return true;
         } else{
-            if(userSessionInfo==null){
-                httpServletResponse.sendRedirect(contextPath+"/");
+            if(userSessionInfo == null){
+                response.sendRedirect(contextPath + "/");
             }else{
                 return true;
             }
