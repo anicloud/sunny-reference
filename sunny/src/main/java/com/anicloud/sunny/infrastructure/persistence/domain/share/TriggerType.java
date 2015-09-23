@@ -5,5 +5,5 @@ package com.anicloud.sunny.infrastructure.persistence.domain.share;
  */
 public enum  TriggerType {
     TIMER,
-    LOCATION
+//    LOCATION
 }

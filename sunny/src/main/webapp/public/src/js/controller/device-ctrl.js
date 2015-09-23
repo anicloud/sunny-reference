@@ -40,13 +40,13 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
     $scope.deviceDetail.show = function (device) {
         $scope.deviceDetail.visible = true;
         $scope.deviceDetail.device = device;
-        $scope.deviceDetail.featureChosen = null;
-    }
+        $scope.deviceDetail.featureCqhosen = null;
+    };
 
     $scope.deviceDetail.hide = function(event) {
         $scope.deviceDetail.visible = false;
         event.stopPropagation();
-    }
+    };
 
     $scope.deviceDetail.nameEditable = false;
     $scope.deviceDetail.nameInput = "";
@@ -82,28 +82,27 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         }
     };
 
-    $scope.deviceDetail.featureChosen = null;
-    $scope.deviceDetail.getArgumentList = function() {
+    $scope.deviceDetail.getArgumentList = function(feature) {
         $scope.deviceDetail.arguments = {};
-        if ($scope.deviceDetail.featureChosen != null) {
-            return $scope.deviceDetail.featureChosen.argDtoList;
-        }
+        return feature.argDtoList;
     };
 
-    $scope.argumentMap = {};
-    $scope.deviceDetail.start = function () {
-        var argumentMap = $scope.argumentMap;
+    $scope.deviceDetail.arguments = {};
+    $scope.deviceDetail.start = function (feature) {
+        var argumentMap = $scope.deviceDetail.arguments[feature.featureId];
         var argumentList = [];
+
         for (var arg in argumentMap) {
             var obj = {};
             obj.argName = arg;
             obj.value = argumentMap[arg];
             argumentList.push(obj);
         }
+
         var featureInstance = new anicloud.sunny.model.FeatureInstance(
             "",
             $scope.deviceDetail.device,
-            $scope.deviceDetail.featureChosen,
+            feature,
             argumentList,
             [],
             true
@@ -116,6 +115,7 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
             null,
             [featureInstance]);
 
+        console.log(strategyInstance);
         ManagerService.addStrategy(jsonClone(strategyInstance));
     };
     $scope.deviceDetail.pause = function () {
