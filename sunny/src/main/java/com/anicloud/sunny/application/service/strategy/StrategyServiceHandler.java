@@ -83,6 +83,7 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public void operateStrategy(String strategyId, StrategyAction action) {
         Assert.notNull(strategyId);
         Assert.notNull(action);
@@ -93,6 +94,7 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public StrategyDto modifyStrategy(StrategyDto strategyDto) {
         Strategy strategy = StrategyDtoAssembler.toStrategy(strategyDto);
         strategy = Strategy.modify(strategyPersistenceService, strategy);
@@ -113,6 +115,7 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public Strategy getStrategyById(String strategyId) {
         Strategy strategy = Strategy.getStrategyById(strategyPersistenceService, strategyId);
         StrategyInstanceDao instanceDao = strategyInstancePersistenceService.getByStrategyId(strategyId);
@@ -131,6 +134,7 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public void runDeviceFeature(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto) {
         // generate the device feature run strategy, identify it by strategy name field
         Strategy strategy = StrategyDtoAssembler.fromRunDeviceFeatureInstanceDto(userDto, deviceFeatureInstanceDto);
