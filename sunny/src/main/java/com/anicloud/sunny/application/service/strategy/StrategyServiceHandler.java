@@ -17,6 +17,9 @@ import com.anicloud.sunny.schedule.service.ScheduleService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,6 +68,7 @@ public class StrategyServiceHandler implements StrategyService {
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
+    @CachePut(value = "userStrategyListCache", key = "#strategySrc.owner.hashUserId")
     public void saveStrategy(Strategy strategySrc) {
         Strategy strategy = strategySrc.clone();
 
@@ -95,6 +99,7 @@ public class StrategyServiceHandler implements StrategyService {
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
+    @CachePut(value = "userStrategyListCache", key = "#strategyDto.owner.hashUserId")
     public StrategyDto modifyStrategy(StrategyDto strategyDto) {
         Strategy strategy = StrategyDtoAssembler.toStrategy(strategyDto);
         strategy = Strategy.modify(strategyPersistenceService, strategy);
@@ -103,7 +108,8 @@ public class StrategyServiceHandler implements StrategyService {
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void removeStrategy(String strategyId) {
+    @CacheEvict(value = "userStrategyListCache", key = "#hashUserId")
+    public void removeStrategy(String hashUserId, String strategyId) {
         Strategy.remove(strategyPersistenceService, strategyId);
         strategyInstancePersistenceService.remove(strategyId);
     }
@@ -124,6 +130,7 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
+    @Cacheable(value = "userStrategyListCache", key = "#hashUserId")
     public List<StrategyDto> getStrategyByUser(String hashUserId) {
         List<Strategy> strategyList = Strategy.getStrategyListByUser(strategyPersistenceService, hashUserId);
         for (Strategy strategy : strategyList) {

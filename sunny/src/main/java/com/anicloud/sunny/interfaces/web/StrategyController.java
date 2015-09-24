@@ -58,10 +58,10 @@ public class StrategyController {
 
     @RequestMapping(value="/strategy",method = RequestMethod.DELETE)
     @ResponseBody
-    public Map<String, String> deleteStrategy(@RequestParam("strategyId")String strategyId){
+    public Map<String, String> deleteStrategy(@RequestParam("hashUserId") String hashUserId, @RequestParam("strategyId")String strategyId){
         Map<String, String> message = new HashMap<>();
         try{
-            strategyService.removeStrategy(strategyId);
+            strategyService.removeStrategy(hashUserId, strategyId);
             message.put("status", "success");
             message.put("message", "delete strategy success");
         }catch (Exception e){

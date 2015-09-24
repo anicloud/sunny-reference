@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by sirhuoshan on 2015/8/10.
  */
-public class SessionListener implements HttpSessionListener,HttpSessionAttributeListener{
+public class SessionListener implements HttpSessionListener, HttpSessionAttributeListener {
     private static final Logger LOG = LoggerFactory.getLogger(SessionListener.class);
 
     public static Map<String, HttpSession> userSessionMaps = new HashMap<String, HttpSession>();

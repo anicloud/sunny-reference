@@ -17,7 +17,7 @@ import java.util.List;
  * Created by sirhuoshan on 2015/8/1.
  */
 public class SecurityInterceptor implements HandlerInterceptor{
-    private List<String> excludeUrls;// 不需要拦截的url
+    private List<String> excludeUrls;// no need handle url
 
     public List<String> getExcludeUrls() {
         return excludeUrls;

@@ -32,7 +32,7 @@ public interface StrategyService {
      * @return
      */
     public StrategyDto modifyStrategy(StrategyDto strategyDto);
-    public void removeStrategy(String strategyId);
+    public void removeStrategy(String hashUserId, String strategyId);
 
     public StrategyDto getStrategyDtoById(String strategyId);
     public Strategy getStrategyById(String strategyId);
