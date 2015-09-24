@@ -26,6 +26,8 @@
 					  p:name="userDeviceListCache" />
 				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
 					  p:name="deviceFeatureRelationListCache" />
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+					  p:name="userStrategyListCache" />
 			</set>
 		</property>
 	</bean>
