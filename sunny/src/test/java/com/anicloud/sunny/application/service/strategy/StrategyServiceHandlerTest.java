@@ -72,7 +72,8 @@ public class StrategyServiceHandlerTest {
     @Ignore
     public void testRemoveStrategy() throws Exception {
         String strategyNum = "f85f6336b5d34fb9b029a2ac1f0ea5bb";
-        strategyService.removeStrategy(strategyNum);
+        String hashUserId = "";
+        strategyService.removeStrategy(hashUserId, strategyNum);
     }
 
     @Ignore
