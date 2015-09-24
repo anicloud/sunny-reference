@@ -44,20 +44,25 @@ anicloud.sunny.service.StrategyService = function($http, $cookies){
             }
     },
     deleteStrategy:function(strategyId,callback){
-        $http({
-            method:'DELETE',
-            url: 'strategy',
-            params: {strategyId:strategyId}
-        }).success(function(data){
-            if(data.status == 'success'){
-                callback(data);
-                console.log('delete strategy success');
-            }else{
+        var user = $.cookie('sunny_user');
+        if (user != null) {
+            var usercookie = JSON.parse(user);
+            var hashUserId = usercookie.hashUserId;
+            $http({
+                method:'DELETE',
+                url: 'strategy',
+                params: {hashUserId:hashUserId, strategyId:strategyId}
+            }).success(function(data){
+                if(data.status == 'success'){
+                    callback(data);
+                    console.log('delete strategy success');
+                }else{
+                    console.log('delete strategy failed');
+                }
+            }).error(function(data){
                 console.log('delete strategy failed');
-            }
-        }).error(function(data){
-            console.log('delete strategy failed');
-        })
+            });
+        }
     },
     operateStrategy:function(strategyId, action, callback){
         $http({
