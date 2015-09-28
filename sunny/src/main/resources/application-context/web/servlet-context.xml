@@ -72,6 +72,7 @@
 						<value>/redirect</value>
 						<value>/login</value>
 						<value>/logout</value>
+						<value>/loginPage</value>
 						<value>/init/anicloud/anicloud</value>
 					</list>
 				</property>
