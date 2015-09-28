@@ -44,14 +44,19 @@
     <![endif]-->
 </head>
 <body>
-    <div class="row">
-        <div class="col-sm-12">
-            <h1>Welcome to Anicloud Sunny Smart Home Application!</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Welcome to Anicloud Sunny Smart Home Application!</h1>
+            </div>
         </div>
-    </div>
-    <div class="">
-        <div class="col-sm-12">
-            <a href=" http://dev.anicloud.cn:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" class="btn btn-primary">Use Anicloud Account to Login</a>
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="<c:url value='loginPage' />" class="btn btn-primary">已经授权,直接登录</a>
+            </div>
+            <div class="col-sm-6">
+                <a href="http://dev.anicloud.cn:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" class="btn btn-success">未授权,用Anicloud 账号登录</a>
+            </div>
         </div>
     </div>
 </body>
