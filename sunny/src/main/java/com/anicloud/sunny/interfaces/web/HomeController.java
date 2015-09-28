@@ -59,6 +59,11 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    public String index() {
+        return "login";
+    }
+
+    @RequestMapping(value = {"/loginPage"}, method = RequestMethod.GET)
     public String login(HttpServletResponse response,HttpServletRequest request,
                         @CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME, required = false) String currentUser,
                         @RequestParam(value = "model", defaultValue = "dashboard") String model) throws IOException {
