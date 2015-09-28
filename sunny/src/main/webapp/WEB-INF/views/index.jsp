@@ -63,6 +63,7 @@
     <script src="${pageContext.request.contextPath}/public/src/js/config/route-config.js" type="text/javascript"></script>
 
     <!-- services -->
+    <script src="${pageContext.request.contextPath}/public/src/js/service/user-service.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/service/strategy-service.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/service/device-service.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/service/websocket-service.js" type="text/javascript"></script>
@@ -76,6 +77,7 @@
     <script src="${pageContext.request.contextPath}/public/src/js/controller/feature-edit-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/device-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/main-ctrl.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/controller/user-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/slider.js" type="text/javascript"></script>
 
     <!-- dto -->
