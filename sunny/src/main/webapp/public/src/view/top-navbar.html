@@ -12,7 +12,7 @@
    </div>
     <!--END navbar header-->
    <!-- START Nav wrapper-->
-   <div class="nav-wrapper">
+   <div class="nav-wrapper" ng-controller="UserCtrl">
       <!-- START Left navbar-->
       <ul class="nav navbar-nav">
          <li>
@@ -23,6 +23,13 @@
             <!-- Button to show/hide the sidebar on mobile. Visible on mobile only.-->
             <a href="#" ng-click="setAsideCollapse()" class="visible-xs sidebar-toggle">
                <em class="fa fa-navicon"></em>
+            </a>
+         </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+         <li>
+            <a href="#" ng-click="logout()">
+               <em class="icon-notebook">安全退出</em>
             </a>
          </li>
       </ul>
@@ -45,7 +52,7 @@
       <!--</ul>-->
       <!-- END Right Navbar-->
    </div>
-   <!-- END Nav wrapper-->
+      <!-- END Nav wrapper-->
    <!-- START Search form-->
    <!--<form role="search"  class="navbar-form">-->
       <!--<div class="form-group has-feedback">-->
