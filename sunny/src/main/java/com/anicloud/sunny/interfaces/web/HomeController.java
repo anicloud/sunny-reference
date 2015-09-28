@@ -20,10 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.CookieGenerator;
 
 import javax.annotation.PostConstruct;
@@ -32,6 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by zhaoyu on 15-5-27.
@@ -70,22 +69,23 @@ public class HomeController extends BaseController {
             UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
             UserDto userDto = userService.refreshUserToken(userInfoDto.hashUserId);
             // update user info
-            writeUserInfoToCookie(userDto, response);
-            return userSession(request,new UserInfoDto(userDto));
+            userInfoDto = new UserInfoDto(userDto);
+            writeUserInfoToCookie(userInfoDto, response);
+            return userSession(request, response, userInfoDto);
         }
         return "login";
     }
 
     @RequestMapping(value = "/redirect")
-    public String redirect(HttpServletResponse response,HttpServletRequest request, @RequestParam String code) throws JsonProcessingException {
+    public String redirect(HttpServletRequest request, HttpServletResponse response, @RequestParam String code) {
         LOGGER.info("code is {}", code);
 
         AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForAccessToken(Constants.appClientDto);
         OAuth2AccessToken oAuth2AccessToken = auth2ClientService.getOAuth2AccessToken(code, authorizationCodeParameter);
 
         UserDto userDto = initService.initApplication(oAuth2AccessToken);
-        writeUserInfoToCookie(userDto, response);
-        return userSession(request,new UserInfoDto(userDto));
+        UserInfoDto userInfoDto = new UserInfoDto(userDto);
+        return userSession(request, response, userInfoDto);
     }
 
     @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
@@ -95,16 +95,25 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = {"/logout"},method = RequestMethod.GET)
-    public String logout(HttpServletRequest request,@RequestParam("hashUserId")String hashUserId){
+    @ResponseBody
+    public Map<String, String> logout(HttpServletRequest request,@RequestParam("hashUserId")String hashUserId) {
+        Map<String, String> message = new HashMap<>();
         HttpSession session = request.getSession();
         session.removeAttribute(Constants.SUNNY_SESSION_NAME);
         SessionListener.userSessionMaps.remove(hashUserId);
-        return "login";
+
+        message.put("status", "success");
+        message.put("message", "remove websocket session success.");
+        return message;
     }
 
-    private void writeUserInfoToCookie(UserDto userDto, HttpServletResponse response) throws JsonProcessingException {
-        UserInfoDto userInfoDto = new UserInfoDto(userDto);
-        String currentUser = objectMapper.writeValueAsString(userInfoDto);
+    private void writeUserInfoToCookie(UserInfoDto userInfoDto, HttpServletResponse response) {
+        String currentUser = null;
+        try {
+            currentUser = objectMapper.writeValueAsString(userInfoDto);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         CookieGenerator cookieGenerator = new CookieGenerator();
         //cookieGenerator.setCookiePath(Constants.SUNNY_COOKIE_PATH);
         cookieGenerator.setCookieName(Constants.SUNNY_COOKIE_USER_NAME);
@@ -113,7 +122,7 @@ public class HomeController extends BaseController {
         //cookieGenerator.removeCookie(response);
     }
 
-    private String userSession(HttpServletRequest request,UserInfoDto userInfoDto){
+    private String userSession(HttpServletRequest request,HttpServletResponse response, UserInfoDto userInfoDto) {
         HttpSession session = request.getSession();
         String model = (String) session.getAttribute(Constants.MODEL_NAME);
 
@@ -130,6 +139,7 @@ public class HomeController extends BaseController {
                 return "redirect:home#/app/" + model;
             }
         }else{
+            writeUserInfoToCookie(userInfoDto, response);
             session.setAttribute(Constants.SUNNY_SESSION_NAME, userSessionInfo);
             return "redirect:home#/app/" + model;
         }
