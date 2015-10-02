@@ -38,4 +38,28 @@ public class UserInfoDto implements Serializable {
                 ", screenName='" + screenName + '\'' +
                 '}';
     }
+
+    public String getHashUserId() {
+        return hashUserId;
+    }
+
+    public void setHashUserId(String hashUserId) {
+        this.hashUserId = hashUserId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getScreenName() {
+        return screenName;
+    }
+
+    public void setScreenName(String screenName) {
+        this.screenName = screenName;
+    }
 }
