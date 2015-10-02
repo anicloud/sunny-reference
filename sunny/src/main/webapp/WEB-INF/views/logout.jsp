@@ -21,21 +21,13 @@
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
 
-    <!--websocket-->
-    <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
-
-    <!-- jquery -->
-    <script src="${pageContext.request.contextPath}/public/lib/jquery/javascript/jquery.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/jquery/javascript/jquery.md5.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/public/lib/jquery/javascript/md5.js" type="text/javascript"></script>
-
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="${pageContext.request.contextPath}/public/lib/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- angularjs -->
     <%-- <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular.js"></script>
-     <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-route.js"></script>
-     <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-cookies.js"></script>--%>
+    <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-route.js"></script>
+    <script src="http://cdn.bootcss.com/angular.js/1.3.16/angular-cookies.js"></script>--%>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -44,22 +36,24 @@
     <![endif]-->
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h1>Welcome to Anicloud Sunny Smart Home Application!</h1>
+<div class="container">
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-sm-offset-2 col-sm-8">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img width="100px" height="100px" src="${pageContext.request.contextPath}/public/images/logo/strategy.png" />
+                    <hr/>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <a href="<c:url value='loginPage' />" class="btn btn-primary">已经授权,直接登录</a>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>您已成功退出&nbsp;
+                        <a href='<c:url value="/"/> ' type="button" class="btn btn-primary">重新登录</a></h2>
+                </div>
             </div>
-            <div class="col-sm-6">
-                <a href="http://dev.anicloud.cn:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" class="btn btn-success">未授权,用Anicloud 账号登录</a>
-            </div>
+
         </div>
     </div>
+</div>
 </body>
 </html>
-
-
