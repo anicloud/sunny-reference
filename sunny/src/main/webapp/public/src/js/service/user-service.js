@@ -14,7 +14,7 @@ anicloud.sunny.service.UserService = function($http, $cookies) {
                 var usercookie = JSON.parse(user);
                 var hashUserId = usercookie.hashUserId;
                 $http({
-                    method:'GET',
+                    method:'POST',
                     url: 'logout',
                     params: {hashUserId:hashUserId}
                 }).success(function(data){
