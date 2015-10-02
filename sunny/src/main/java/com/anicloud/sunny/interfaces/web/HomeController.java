@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.CookieGenerator;
 
@@ -59,12 +60,7 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public String index() {
-        return "login";
-    }
-
-    @RequestMapping(value = {"/loginPage"}, method = RequestMethod.GET)
-    public String login(HttpServletResponse response,HttpServletRequest request,
+    public String index(HttpServletRequest request, HttpServletResponse response,
                         @CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME, required = false) String currentUser,
                         @RequestParam(value = "model", defaultValue = "dashboard") String model) throws IOException {
         LOGGER.info("welcome to sunny login action. cookie user : {}", currentUser);
@@ -72,13 +68,17 @@ public class HomeController extends BaseController {
         session.setAttribute(Constants.MODEL_NAME, model);
         if (currentUser != null) {
             UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
-            UserDto userDto = userService.refreshUserToken(userInfoDto.hashUserId);
-            // update user info
-            userInfoDto = new UserInfoDto(userDto);
-            writeUserInfoToCookie(userInfoDto, response);
             return userSession(request, response, userInfoDto);
+        } else {
+            System.out.println("redirect:loginPage");
+            return "redirect:loginPage";
         }
-        return "login";
+    }
+
+    @RequestMapping(value = {"/loginPage"}, method = RequestMethod.GET)
+    public String loginPage() throws IOException {
+        System.out.println("loginPage");
+        return "loginPage";
     }
 
     @RequestMapping(value = "/redirect")
@@ -93,23 +93,60 @@ public class HomeController extends BaseController {
         return userSession(request, response, userInfoDto);
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(HttpServletRequest request, HttpServletResponse response,
+                        Model model, @RequestParam(value = "email") String email) {
+        UserDto userDto = userService.getUserByEmail(email);
+        if (userDto != null) {
+            return userSession(request, response, new UserInfoDto(userDto));
+        } else {
+            model.addAttribute("errorMsg", "User's " + email + " was not authorized before!");
+            return "loginPage";
+        }
+    }
+
     @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
-    public String home() {
+    public String home(HttpServletRequest request, Model model) {
         LOGGER.info("welcome to sunny index action {}.");
+        UserSessionInfo userSessionInfo = getCurrentSessionUserInfo(request);
+        if (userSessionInfo != null) {
+            try {
+                UserDto userDto = userService.refreshUserToken(userSessionInfo.hashUserId);
+            } catch (Exception e) {
+                LOGGER.info("refresh user token error!!");
+                model.addAttribute("errorMsg", "User's refresh token was expired! Please authorize again!");
+                return "loginPage";
+            }
+        }
         return "index";
     }
 
-    @RequestMapping(value = {"/logout"},method = RequestMethod.GET)
+    @RequestMapping(value = {"/logout"},method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> logout(HttpServletRequest request,@RequestParam("hashUserId")String hashUserId) {
         Map<String, String> message = new HashMap<>();
-        HttpSession session = request.getSession();
-        session.removeAttribute(Constants.SUNNY_SESSION_NAME);
-        SessionListener.userSessionMaps.remove(hashUserId);
 
-        message.put("status", "success");
-        message.put("message", "remove websocket session success.");
+        if (removeUserFromSession(request, hashUserId)) {
+            message.put("status", "success");
+            message.put("message", "remove web socket session success.");
+        } else {
+            message.put("status", "error");
+            message.put("message", "user not in the session list.");
+        }
         return message;
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logoutPage() {
+        return "logout";
+    }
+
+    @RequestMapping(value = "switchUser", method = RequestMethod.GET)
+    public String switchUser(HttpServletRequest request, Model model, @RequestParam("hashUserId") String hashUserId) {
+        removeUserFromSession(request, hashUserId);
+        UserDto userDto = userService.getUserByHashUserId(hashUserId);
+        model.addAttribute("previousUser", new UserInfoDto(userDto));
+        return "loginPage";
     }
 
     private void writeUserInfoToCookie(UserInfoDto userInfoDto, HttpServletResponse response) {
@@ -135,19 +172,11 @@ public class HomeController extends BaseController {
         userSessionInfo.hashUserId = userInfoDto.hashUserId;
         userSessionInfo.ipAddr = getIpAddr(request);
         HttpSession sessionOld = SessionListener.userSessionMaps.get(userSessionInfo.hashUserId);
-        if(sessionOld != null){
-            UserSessionInfo userSessionInfoOld = (UserSessionInfo)sessionOld.getAttribute(Constants.SUNNY_SESSION_NAME);
-            if(!userSessionInfoOld.ipAddr.equals(userSessionInfo.ipAddr)){
-                return "multiLogin";
-            }else{
-                session.setAttribute(Constants.SUNNY_SESSION_NAME, userSessionInfo);
-                return "redirect:home#/app/" + model;
-            }
-        }else{
+        if(sessionOld == null) {
             writeUserInfoToCookie(userInfoDto, response);
             session.setAttribute(Constants.SUNNY_SESSION_NAME, userSessionInfo);
-            return "redirect:home#/app/" + model;
         }
+        return "redirect:home#/app/" + model;
     }
 
     private String getIpAddr(HttpServletRequest request) {
