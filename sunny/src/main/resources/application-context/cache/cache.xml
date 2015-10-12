@@ -26,13 +26,11 @@
 					  p:name="userDeviceListCache" />
 				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
 					  p:name="deviceFeatureRelationListCache" />
-				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
-					  p:name="userStrategyListCache" />
 			</set>
 		</property>
 	</bean>
 
-	<!-- dummy cacheManager  -->
+	<!-- dummy cacheManager
 	<bean id="cacheManager" class="org.springframework.cache.support.CompositeCacheManager">
 		<property name="cacheManagers">
 			<list>
@@ -40,5 +38,5 @@
 			</list>
 		</property>
 		<property name="fallbackToNoOpCache" value="true" />
-	</bean>
+	</bean>-->
 </beans>
