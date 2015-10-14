@@ -61,7 +61,7 @@ public class StrategyController {
         return message;
     }
 
-    @RequestMapping(value="/strategy",method = RequestMethod.DELETE)
+    @RequestMapping(value="/strategy",method = RequestMethod.GET)
     @ResponseBody
     public Map<String, String> deleteStrategy(@RequestParam("hashUserId") String hashUserId, @RequestParam("strategyId")String strategyId){
         Map<String, String> message = new HashMap<>();
