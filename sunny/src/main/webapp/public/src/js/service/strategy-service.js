@@ -49,7 +49,7 @@ anicloud.sunny.service.StrategyService = function($http, $cookies){
             var usercookie = JSON.parse(user);
             var hashUserId = usercookie.hashUserId;
             $http({
-                method:'DELETE',
+                method:'GET',
                 url: 'strategy',
                 params: {hashUserId:hashUserId, strategyId:strategyId}
             }).success(function(data){
