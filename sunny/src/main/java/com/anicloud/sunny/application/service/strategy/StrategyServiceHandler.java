@@ -15,7 +15,6 @@ import com.anicloud.sunny.infrastructure.persistence.service.StrategyInstancePer
 import com.anicloud.sunny.schedule.persistence.dao.StrategyInstanceDao;
 import com.anicloud.sunny.schedule.service.ScheduleService;
 import org.apache.commons.lang3.StringUtils;
-import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
@@ -73,7 +72,7 @@ public class StrategyServiceHandler implements StrategyService {
         Strategy strategy = strategySrc.clone();
 
         Assert.notNull(strategy.strategyInstance);
-        Strategy strategyOrg = Strategy.getStrategyById(strategyPersistenceService, strategy.strategyId);
+        Strategy strategyOrg = getSingleStrategy(strategy.strategyId);
         StrategyInstanceDao dao = strategyInstancePersistenceService.
                 getByStrategyId(strategy.strategyId);
         if (strategyOrg == null && dao == null) {
@@ -91,7 +90,7 @@ public class StrategyServiceHandler implements StrategyService {
     public void operateStrategy(String strategyId, StrategyAction action) {
         Assert.notNull(strategyId);
         Assert.notNull(action);
-        Strategy strategy = Strategy.getStrategyById(strategyPersistenceService, strategyId);
+        Strategy strategy = getStrategyById(strategyId);
         strategy.strategyInstance.action = action;
         strategy.strategyInstance.timeStamp = System.currentTimeMillis();
         scheduleService.scheduleStrategy(strategy);
@@ -106,7 +105,6 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE)
     public void removeStrategy(String hashUserId, String strategyId) {
         Strategy.remove(strategyPersistenceService, strategyId);
         strategyInstancePersistenceService.remove(strategyId);
@@ -114,7 +112,7 @@ public class StrategyServiceHandler implements StrategyService {
 
     @Override
     public StrategyDto getStrategyDtoById(String strategyId) {
-        Strategy strategy = Strategy.getStrategyById(strategyPersistenceService, strategyId);
+        Strategy strategy = getStrategyById(strategyId);
         return StrategyDtoAssembler.toDto(strategy);
     }
 
