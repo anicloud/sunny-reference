@@ -1,13 +1,18 @@
 <div ng-controller="StrategyEditCtrl" class="row">
+    <div class="group-wrapper">
+        <span>新建任务</span>
+    </div>
     <div class="strategy-template">
         <div class="list-group-item col-lg-12">
             <div class="panel-input">
-                <input class="form-control" ng-model="strategyTemplate.strategyName" placeholder="strategy name"
+                <input class="form-control" ng-model="strategyTemplate.strategyName" placeholder="输入策略名称"
                        focus
                        required>
                 <!--<ul class="operation list-unstyled">-->
                 <div class="operation">
-                        <i class="fa fa-plus" ng-click="openFeatureEditTemplate()"></i>
+                    <i class="fa fa-calendar"></i>
+                    <i class="fa fa-retweet"></i>
+                    <i class="fa fa-plus" ng-click="openFeatureEditTemplate()"></i>
                 </div>
                 <!--</ul>-->
             </div>
@@ -29,7 +34,9 @@
 
                             <p><strong>{{feature.deviceFeature.featureName}}</strong></p>
 
-                            <p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date}}</p>
+                            <p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date:'hh:mm a'}}</p>
+                            <!--<p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date}}</p>-->
+                            <!--<p class="device-trigger">{{triggerTimerToDate(triggerTimer.startTime)}}</p>-->
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@
         <div class="col-lg-4 col-md-4 strategy-progress">
             <div class="m0 progress progress-xs">
                 <div class="progress-bar progress-bar-success progress-bar-striped"
-                     ng-style="setProgressLength(strategy)">-->
+                     ng-style="setProgressLength(strategy)">
                     <span class="sr-only">35% Complete (success)</span>
                 </div>
             </div>
@@ -26,12 +26,13 @@
                 </li>
                 <li>
                     <a ng-click="pauseStrategy(index, strategy)">
-                        <i class="fa fa-pause"></i>
+                        <i class="fa fa-pause" ng-class="{'icon-disabled':strategy.state == 'DONE'}"></i>
                     </a>
                 </li>
+                <!--<li ng-disabled="strategy.state == 'DONE'">-->
                 <li>
                     <a ng-click="stopStrategy(index, strategy)">
-                        <i class="fa fa-stop"></i>
+                        <i class="fa fa-stop" ng-class="{'icon-disabled':strategy.state == 'DONE'}"></i>
                     </a>
                 </li>
                 <li>
@@ -68,7 +69,9 @@
                             <small class="timeline-title ng-binding">设备：{{feature.device.name}}</small>
 
                             <small class="timeline-title pull-right ng-binding">
-
+                                {{changeToObj(feature.triggerDtoList[0].value)}}
+                                <!--{{changeToObj(feature.triggerDtoList[0].value).startTime | date:'hh:mm a'}}-->
+                                <!--{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date:'hh:mm a'}}-->
                             </small>
                         </div>
                     </div>

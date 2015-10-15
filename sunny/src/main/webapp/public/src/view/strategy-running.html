@@ -1,6 +1,6 @@
 <div ng-controller="StrategyCtrl" class="row">
     <div class="group-wrapper">
-        <span>Strategy</span>
+        <span>正在执行</span>
     </div>
     <div class="strategy-running" ng-model="strategies">
         <div ng-repeat="strategy in strategies | filter: strategyFilterRunning" ng-init="index=$index; toggleStatus.push(false)">

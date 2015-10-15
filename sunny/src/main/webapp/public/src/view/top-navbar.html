@@ -1,76 +1,126 @@
 <!-- START Top Navbar-->
-<nav role="navigation" class="topnavbar">
-    <!--START navbar header-->
-   <div class="navbar-header">
-      <a href="#/" class="navbar-brand">
-         <div class="brand-logo">
-            Sunny
-         </div>
-         <div class="brand-logo-collapsed">
-         </div>
-      </a>
-   </div>
-    <!--END navbar header-->
-   <!-- START Nav wrapper-->
-   <div class="nav-wrapper" ng-controller="UserCtrl">
-      <!-- START Left navbar-->
-      <ul class="nav navbar-nav">
-         <li>
-            <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
-            <a href="#" ng-click="setAsideCollapse()" class="hidden-xs">
-               <em class="fa fa-navicon" style="padding: 0; line-height: 55px"></em>
+<!--<nav role="navigation" class="topnavbar">-->
+<nav role="navigation" class="navbar navbar-default">
+    <div class="container-fluid">
+        <!--START navbar header-->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#/" class="navbar-brand">
+                <!--<span class="brand-logo">-->
+                    <img src="public/images/logo/sunny_logo.png">
+                <!--</span>-->
+                <!--<span class="brand-logo-collapsed">-->
+                <!--</span>-->
             </a>
-            <!-- Button to show/hide the sidebar on mobile. Visible on mobile only.-->
-            <a href="#" ng-click="setAsideCollapse()" class="visible-xs sidebar-toggle">
-               <em class="fa fa-navicon"></em>
-            </a>
-         </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-         <li>
-            <a href="#">
-               <em class="icon-notebook">{{currentUser.screenName}}</em>
-            </a>
-         </li>
-         <li>
-            <a href="#" ng-click="switchUser()">
-               <em class="icon-notebook">切换用户</em>
-            </a>
-         </li>
-         <li>
-            <a href="#" ng-click="logout()">
-               <em class="icon-notebook">安全退出</em>
-            </a>
-         </li>
-      </ul>
-      <!-- END Left navbar-->
-      <!-- START Right Navbar-->
-      <!--<ul class="nav navbar-nav navbar-right">-->
-         <!--&lt;!&ndash; Search icon&ndash;&gt;-->
-         <!--<li>-->
+        </div>
+<!--<nav class="navbar navbar-default">-->
+    <!--<div class="container-fluid">-->
+        <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
+        <!--<div class="navbar-header">-->
+            <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
+                <!--<span class="sr-only">Toggle navigation</span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+            <!--</button>-->
+            <!--<a class="navbar-brand" href="#">Brand</a>-->
+        <!--</div>-->
+        <!--END navbar header-->
+        <!-- START Nav wrapper-->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="UserCtrl">
+            <!-- START Left navbar-->
+            <ul class="nav navbar-nav">
+                <!--<li>-->
+                <!--&lt;!&ndash; Button used to collapse the left sidebar. Only visible on tablet and desktops&ndash;&gt;-->
+                <!--<a href="#" ng-click="setAsideCollapse()" class="hidden-xs">-->
+                <!--<em class="fa fa-navicon" style="padding: 0; line-height: 55px"></em>-->
+                <!--</a>-->
+                <!--&lt;!&ndash; Button to show/hide the sidebar on mobile. Visible on mobile only.&ndash;&gt;-->
+                <!--<a href="#" ng-click="setAsideCollapse()" class="visible-xs sidebar-toggle">-->
+                <!--<em class="fa fa-navicon"></em>-->
+                <!--</a>-->
+                <!--</li>-->
+                <li>
+                    <a href="#/app/dashboard">
+                        <!--<i class="fa fa-tachometer"></i>-->
+                        <span>主页</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <!--<i class="fa fa-pencil"></i>-->
+                        <span>策略</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/app/strategy_edit"><span>创建策略</span></a></li>
+                        <li><a href="#/app/strategy"><span>正在执行</span></a></li>
+                        <li><a href="#/app/strategy_done"><span>已完成</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#/app/device">
+                        <!--<i class="fa fa-tablet"></i>-->
+                        <span>设备</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-user"></i>
+                        {{currentUser.screenName}}<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#" ng-click="switchUser()">切换用户
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="logout()">安全退出
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- END Left navbar-->
+            <!-- START Right Navbar-->
+            <!--<ul class="nav navbar-nav navbar-right">-->
+            <!--&lt;!&ndash; Search icon&ndash;&gt;-->
+            <!--<li>-->
             <!--<a search-open="">-->
-               <!--<em class="icon-magnifier"></em>-->
+            <!--<em class="icon-magnifier"></em>-->
             <!--</a>-->
-         <!--</li>-->
-         <!--&lt;!&ndash; START Offsidebar button&ndash;&gt;-->
-         <!--<li>-->
+            <!--</li>-->
+            <!--&lt;!&ndash; START Offsidebar button&ndash;&gt;-->
+            <!--<li>-->
             <!--<a href="#" ng-click="">-->
-               <!--<em class="icon-notebook"></em>-->
+            <!--<em class="icon-notebook"></em>-->
             <!--</a>-->
-         <!--</li>-->
-         <!--&lt;!&ndash; END Offsidebar menu&ndash;&gt;-->
-      <!--</ul>-->
-      <!-- END Right Navbar-->
-   </div>
-      <!-- END Nav wrapper-->
-   <!-- START Search form-->
-   <!--<form role="search"  class="navbar-form">-->
-      <!--<div class="form-group has-feedback">-->
-         <!--<input type="text" placeholder="" class="form-control" />-->
-         <!--<div search-dismiss="search-dismiss" class="fa fa-times form-control-feedback"></div>-->
-      <!--</div>-->
-      <!--<button type="submit" class="hidden btn btn-default">Submit</button>-->
-   <!--</form>-->
-   <!-- END Search form-->
+            <!--</li>-->
+            <!--&lt;!&ndash; END Offsidebar menu&ndash;&gt;-->
+            <!--</ul>-->
+            <!-- END Right Navbar-->
+        </div>
+        <!-- END Nav wrapper-->
+        <!-- START Search form-->
+        <!--<form role="search"  class="navbar-form">-->
+        <!--<div class="form-group has-feedback">-->
+        <!--<input type="text" placeholder="" class="form-control" />-->
+        <!--<div search-dismiss="search-dismiss" class="fa fa-times form-control-feedback"></div>-->
+        <!--</div>-->
+        <!--<button type="submit" class="hidden btn btn-default">Submit</button>-->
+        <!--</form>-->
+        <!-- END Search form-->
+    </div>
 </nav>
 <!-- END Top Navbar-->

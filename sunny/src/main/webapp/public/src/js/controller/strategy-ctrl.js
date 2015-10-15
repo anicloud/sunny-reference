@@ -33,7 +33,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
 
     $scope.toggleOpen = function(index) {
         $scope.toggleStatus[index] = !$scope.toggleStatus[index];
-    }
+    };
 
     $scope.setProgressLength = function (strategy) {
         var stage = strategy.stage;
@@ -41,7 +41,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         return {width: (stage / len * 100) + '%'};
     };
     $scope.setBadgeColor = function (fNum, stage) {
-        return {'background-color': fNum < stage ? '#33aa33' : 'default'};
+        return {'background-color': fNum < stage ? '#eba963' : 'default'};
     };
     $scope.showState = function(strategy) {
         if(strategy.state == "NONE") {
@@ -55,21 +55,29 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
         }else if(strategy.state == "DONE") {
             return "已完成";
         }
-    }
+    };
 
     $scope.strategyFilterDone = function (strategy) {
-        if (strategy.state == "DONE") {
+        if (strategy.state == "DONE" && strategy.strategyName != "_PHONY_STRATEGY_") {
             return true;
         } else {
             return false;
         }
-    }
+    };
 
     $scope.strategyFilterRunning = function (strategy) {
-        if (strategy.state == "RUNNING") {
+        if (strategy.state == "RUNNING" && strategy.strategyName != "_PHONY_STRATEGY_") {
             return true;
         } else {
             return false;
         }
+    };
+    $scope.changeToObj = function (str) {
+        return JSON.parse(str);
     }
-}
+
+    $scope.triggerTimerToDate = function(value) {
+        var obj = JSON.parse(value);
+        return obj.startTime;
+    }
+};
