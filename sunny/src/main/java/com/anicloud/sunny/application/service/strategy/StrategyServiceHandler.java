@@ -68,7 +68,6 @@ public class StrategyServiceHandler implements StrategyService {
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    @CachePut(value = "userStrategyListCache", key = "#strategySrc.owner.hashUserId")
     public void saveStrategy(Strategy strategySrc) {
         Strategy strategy = strategySrc.clone();
 
@@ -99,7 +98,6 @@ public class StrategyServiceHandler implements StrategyService {
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    @CachePut(value = "userStrategyListCache", key = "#strategyDto.owner.hashUserId")
     public StrategyDto modifyStrategy(StrategyDto strategyDto) {
         Strategy strategy = StrategyDtoAssembler.toStrategy(strategyDto);
         strategy = Strategy.modify(strategyPersistenceService, strategy);
@@ -107,8 +105,6 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE)
-    @CacheEvict(value = "userStrategyListCache", key = "#hashUserId")
     public void removeStrategy(String hashUserId, String strategyId) {
         Strategy.remove(strategyPersistenceService, strategyId);
         strategyInstancePersistenceService.remove(strategyId);
@@ -130,7 +126,6 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
-    @Cacheable(value = "userStrategyListCache", key = "#hashUserId")
     public List<StrategyDto> getStrategyByUser(String hashUserId) {
         List<Strategy> strategyList = Strategy.getStrategyListByUser(strategyPersistenceService, hashUserId);
         for (Strategy strategy : strategyList) {

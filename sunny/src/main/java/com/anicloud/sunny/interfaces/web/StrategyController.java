@@ -11,6 +11,8 @@ import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,8 @@ import java.util.Map;
  */
 @Controller
 public class StrategyController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(StrategyController.class);
+
     @Resource
     private StrategyService strategyService;
     @Resource
@@ -33,6 +37,7 @@ public class StrategyController {
     @RequestMapping(value = "/strategies",method = RequestMethod.GET)
     @ResponseBody
     public List<StrategyFormDto> getStrategies(@RequestParam(value = "hashUserId")String hashUserId){
+        LOGGER.info("get strategy list, user id : {}.", hashUserId);
         List<StrategyDto> strategies = strategyService.getStrategyByUser(hashUserId);
         return StrategyFormDto.convertToStrategyForms(strategies);
     }
@@ -56,7 +61,7 @@ public class StrategyController {
         return message;
     }
 
-    @RequestMapping(value="/strategy",method = RequestMethod.DELETE)
+    @RequestMapping(value="/strategy",method = RequestMethod.GET)
     @ResponseBody
     public Map<String, String> deleteStrategy(@RequestParam("hashUserId") String hashUserId, @RequestParam("strategyId")String strategyId){
         Map<String, String> message = new HashMap<>();

@@ -14,7 +14,7 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd">
 
-	<cache:annotation-driven />
+	<cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
 	<bean id="simpleCacheManager" class="org.springframework.cache.support.SimpleCacheManager">
 		<property name="caches">
 			<set>
@@ -26,13 +26,11 @@
 					  p:name="userDeviceListCache" />
 				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
 					  p:name="deviceFeatureRelationListCache" />
-				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
-					  p:name="userStrategyListCache" />
 			</set>
 		</property>
 	</bean>
 
-	<!-- dummy cacheManager  -->
+	<!-- dummy cacheManager -->
 	<bean id="cacheManager" class="org.springframework.cache.support.CompositeCacheManager">
 		<property name="cacheManagers">
 			<list>
