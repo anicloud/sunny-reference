@@ -20,13 +20,17 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
     };
 
     $scope.stopStrategy = function (index, strategy) {
-        ManagerService.stopStrategy(strategy);
-        return true;
+        if(strategy.state == 'RUNNING') {
+            ManagerService.stopStrategy(strategy);
+            return true;
+        }
     };
 
     $scope.pauseStrategy = function (index, strategy) {
-        ManagerService.pauseStrategy(strategy);
-        return true;
+        if(strategy.state == 'RUNNING') {
+            ManagerService.pauseStrategy(strategy);
+            return true;
+        }
     };
 
     $scope.toggleStatus = [];
@@ -66,7 +70,7 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
     };
 
     $scope.strategyFilterRunning = function (strategy) {
-        if (strategy.state == "RUNNING" && strategy.strategyName != "_PHONY_STRATEGY_") {
+        if ((strategy.state == "RUNNING" || strategy.state == "SUSPENDED") && strategy.strategyName != "_PHONY_STRATEGY_") {
             return true;
         } else {
             return false;
@@ -79,5 +83,10 @@ anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog,
     $scope.triggerTimerToDate = function(value) {
         var obj = JSON.parse(value);
         return obj.startTime;
+    }
+
+    $scope.setOpStyle = function(strategy) {
+        if(strategy.state == 'DONE')
+            return {color: '#eaeaea', cursor:'not-allowed' };
     }
 };

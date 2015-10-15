@@ -25,14 +25,21 @@
                     </a>
                 </li>
                 <li>
-                    <a ng-click="pauseStrategy(index, strategy)">
-                        <i class="fa fa-pause" ng-class="{'icon-disabled':strategy.state == 'DONE'}"></i>
+                    <a ng-if="strategy.state == 'DONE'">
+                        <i class="fa fa-pause" ng-style="setOpStyle(strategy)"></i>
                     </a>
+                    <a ng-if="strategy.state == 'RUNNING' || strategy.state == 'SUSPENDED'" ng-click="pauseStrategy(index, strategy)">
+                        <i class="fa fa-pause"></i>
+                    </a>
+
                 </li>
                 <!--<li ng-disabled="strategy.state == 'DONE'">-->
                 <li>
-                    <a ng-click="stopStrategy(index, strategy)">
-                        <i class="fa fa-stop" ng-class="{'icon-disabled':strategy.state == 'DONE'}"></i>
+                    <a ng-if="strategy.state == 'DONE'">
+                        <i class="fa fa-stop" ng-style="setOpStyle(strategy)"></i>
+                    </a>
+                    <a ng-if="strategy.state == 'RUNNING' || strategy.state == 'SUSPENDED'" ng-click="stopStrategy(index, strategy)">
+                        <i class="fa fa-stop"></i>
                     </a>
                 </li>
                 <li>
@@ -69,6 +76,7 @@
                             <small class="timeline-title ng-binding">设备：{{feature.device.name}}</small>
 
                             <small class="timeline-title pull-right ng-binding">
+                                {{feature.triggerDtoList[0].value}}
                                 {{changeToObj(feature.triggerDtoList[0].value)}}
                                 <!--{{changeToObj(feature.triggerDtoList[0].value).startTime | date:'hh:mm a'}}-->
                                 <!--{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date:'hh:mm a'}}-->
