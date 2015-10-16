@@ -39,16 +39,9 @@ anicloud.sunny.service.WebSocketService = function () {
             sock.onmessage = function (event) {
                 // Get the content
                 var content = event.data;
-                var strategyJson = JSON.parse(content);
-                var strategyInstance = new anicloud.sunny.model.StrategyInstance(
-                    strategyJson.strategyId,
-                    strategyJson.strategyName,
-                    strategyJson.strategyInstance.state,
-                    strategyJson.strategyInstance.stage,
-                    strategyJson.deviceFeatureInstanceList
-                );
+                var strategy = JSON.parse(content);
                 if (onMessage != null) {
-                    onMessage(strategyInstance);
+                    onMessage(strategy);
                 }
             };
         },
