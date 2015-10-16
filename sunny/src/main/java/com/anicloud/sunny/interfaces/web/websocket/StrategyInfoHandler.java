@@ -1,5 +1,6 @@
 package com.anicloud.sunny.interfaces.web.websocket;
 
+import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.interfaces.web.session.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,9 +48,9 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
     /**
      * send message to the only user
      * @param hashUserId
-     * @param strategy
+     * @param strategyDto
      */
-    public static void sendMessageToUser(String hashUserId, Strategy strategy) {
+    public static void sendMessageToUser(String hashUserId, StrategyDto strategyDto) {
         //WebSocketSession session = sessionMaps.get(hashUserId);
         Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(hashUserId);
         Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();
@@ -58,7 +59,7 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
             if (session != null && session.isOpen()) {
                 try {
                     ObjectMapper mapper = new ObjectMapper();
-                    String strategyInfoJson = mapper.writeValueAsString(strategy);
+                    String strategyInfoJson = mapper.writeValueAsString(strategyDto);
                     TextMessage message = new TextMessage(strategyInfoJson);
                     session.sendMessage(message);
                 } catch (IOException e) {
