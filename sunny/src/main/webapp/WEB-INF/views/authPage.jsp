@@ -69,21 +69,9 @@
                 </c:if>
             </div>
         </div>
-
         <div class="row">
             <div class="col-sm-12">
-                <form id="loginForm" class="form-inline" action='<c:url value="login"/>' method="post">
-                    <div class="form-group">
-                        <div class="col-sm-5">
-                            <input type="email" name="email" value='<c:out value="${previousUser.email}"/>' class="form-control" id="email" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-1">
-                            <button type="button" onclick="submitForm();" class="btn btn-primary">已经授权,直接登录</button>
-                        </div>
-                    </div>
-                </form>
+                <a href="http://dev.anicloud.cn:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" class="btn btn-success">未授权,用Anicloud 账号登录</a>
             </div>
         </div>
     </div>
