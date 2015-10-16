@@ -105,6 +105,25 @@ body {
 }
 .navbar {
     border: none;!important;
+    background-image: linear-gradient(to bottom, #ffb36f 0%, #eba963 100%) !important;
+    border-radius: 0 !important;
+}
+
+.navbar-brand img {
+    width: 44px;
+    position: absolute;
+    top: 3px;
+    left: 8px;
+
+}
+
+.navbar-collapse {
+    padding-left: 70px !important;
+}
+
+.navbar-default
+.navbar-nav>li>a {
+    color: #fff4e6;
 }
 
 .topnavbar .navbar-header .navbar-brand {
@@ -162,10 +181,10 @@ body {
 /* strategy page*/
 .operation {
     padding: 5px;
-    padding-right:10px;
+    padding-right:5px;
     line-height: 100%;
     position: absolute;
-    top: 20px;
+    top: 7px;
     right: 15px;
 }
 .operation li {
@@ -180,6 +199,26 @@ body {
 .operation a {
     min-height: 50px;
     color: #83868a;
+}
+
+.operation>.fa-plus {
+    padding: 5px 6px 4px 6px;
+    background-color: #ffbe3b;
+    border-radius: 20px;
+    color: white;
+}
+
+.operation i{
+    margin: 8px;
+    color: #baafad
+}
+
+.operation i:hover {
+    color:#e19f25;
+}
+.operation>.fa-plus:hover{
+    background-color: #e19f25;
+    color:#ffffff;
 }
 
 .strategy-template {
@@ -380,7 +419,7 @@ body {
 /*device detail*/
 .devicename-panel {
     padding: 15px;
-    background-color: #f3f3f6;
+    background-color: #f5f7fa;
     height:100%;
     /*text-align: center;*/
     overflow-y: hidden;
@@ -555,7 +594,7 @@ body {
 
 @media(max-width: 1140px) {
     .layout-fixed .wrapper > section {
-        margin-top: 55px; !important;
+        margin-top: 50px; !important;
     }
     .layout-fixed .wrapper .topnavbar-wrapper {
         position: fixed;
@@ -592,7 +631,7 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0);
     z-index: 10;
     animation: ngdialog-fadein 0.5s;
 }
@@ -603,6 +642,29 @@ body {
 
 .device-panel {
     padding: 10px 0px;
+}
+
+.group-wrapper>.btn-info{
+    background-image: linear-gradient(to bottom, #ffb36f 0%, #eba963 100%);!important;
+    background-color: #eba963;
+    border-color: #eba963;
+}
+
+.strategy-control i {
+    color: #9c9c9c;
+}
+
+.icon-disabled {
+    color: #dddddd !important;
+    border: 1px solid #000000
+}
+
+.strategy-toggle i {
+    color: #eba963;
+}
+
+.progress-bar-success {
+    background-color: #eba963;
 }
 
 

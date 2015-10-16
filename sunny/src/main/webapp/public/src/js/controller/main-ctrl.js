@@ -7,7 +7,7 @@ anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
 anicloud.sunny.controller.MainCtrl = function ($rootScope, $scope) {
-    $scope.isAsideCollapsed = false;
+    $scope.isAsideCollapsed = true;
     $scope.setAsideCollapse = function () {
         $scope.isAsideCollapsed = !$scope.isAsideCollapsed;
     }

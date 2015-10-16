@@ -579,7 +579,7 @@ body {
 }
 @media only screen and (min-width: 768px) {
   .layout-fixed .wrapper > section {
-    margin-top: 55px;
+    margin-top: 50px;
   }
 }
 /* IE10+ hack: safari fix breaks ie so we need to target ie only to restore */
@@ -737,14 +737,14 @@ _:-ms-lang(x),
   margin-top: 0;
 }
 .layout-h .wrapper > .offsidebar {
-  margin-top: 55px;
+  margin-top: 50px;
 }
 .layout-h .wrapper > footer {
   margin: 0;
 }
 .layout-h.layout-fixed .wrapper > section,
 .layout-h.layout-fixed .wrapper > .offsidebar {
-  margin-top: 55px;
+  margin-top: 50px;
 }
 .aside-float .wrapper {
   box-shadow: 0 0 0 #000;
@@ -1340,7 +1340,7 @@ _:-ms-lang(x),
   bottom: 0;
   right: 0;
   width: 260px;
-  margin-top: 55px;
+  margin-top: 50px;
   border-left: 1px solid #cccccc;
   background-color: #ffffff;
   color: #515253;
@@ -1382,7 +1382,7 @@ _:-ms-lang(x),
 }
 @media only screen and (min-width: 768px) {
   .offsidebar {
-    margin-top: 55px;
+    margin-top: 50px;
   }
 }
 .offsidebar-open .offsidebar {

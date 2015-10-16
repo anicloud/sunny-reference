@@ -88,4 +88,20 @@ anicloud.sunny.controller.FeatureEditCtrl = function ($rootScope, $scope, Manage
         return JSON.parse(JSON.stringify(obj));
     };
 
+        $scope.mytime = new Date();
+
+        $scope.hstep = 1;
+        $scope.mstep = 10;
+
+        $scope.options = {
+            hstep: [1, 2, 3],
+            mstep: [1, 5, 10, 15, 25, 30]
+        };
+
+        $scope.ismeridian = true;
+        $scope.toggleMode = function() {
+            $scope.ismeridian = ! $scope.ismeridian;
+        };
+
+
 }
