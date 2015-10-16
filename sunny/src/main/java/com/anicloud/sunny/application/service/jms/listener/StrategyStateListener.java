@@ -1,5 +1,7 @@
 package com.anicloud.sunny.application.service.jms.listener;
 
+import com.anicloud.sunny.application.assemble.StrategyDtoAssembler;
+import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.interfaces.web.websocket.StrategyInfoHandler;
 import org.slf4j.Logger;
@@ -25,7 +27,8 @@ public class StrategyStateListener implements MessageListener {
             Strategy strategy = (Strategy) objectMessage.getObject();
             LOGGER.info("StrategyStateListener {}.", strategy.owner);
             String hashUserId = strategy.owner.hashUserId;
-            StrategyInfoHandler.sendMessageToUser(hashUserId,strategy);
+            StrategyDto strategyDto = StrategyDtoAssembler.toDto(strategy);
+            StrategyInfoHandler.sendMessageToUser(hashUserId, strategyDto);
         } catch (JMSException e) {
             e.printStackTrace();
         }
