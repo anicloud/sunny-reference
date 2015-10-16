@@ -2,6 +2,7 @@ package com.anicloud.sunny.interfaces.web.websocket;
 
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
+import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
 import com.anicloud.sunny.interfaces.web.session.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -59,7 +60,8 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
             if (session != null && session.isOpen()) {
                 try {
                     ObjectMapper mapper = new ObjectMapper();
-                    String strategyInfoJson = mapper.writeValueAsString(strategyDto);
+                    StrategyFormDto strategyFormDto = StrategyFormDto.convertToStrategyForm(strategyDto);
+                    String strategyInfoJson = mapper.writeValueAsString(strategyFormDto);
                     TextMessage message = new TextMessage(strategyInfoJson);
                     session.sendMessage(message);
                 } catch (IOException e) {
