@@ -40,6 +40,9 @@ import java.util.Map;
 @Controller
 public class HomeController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+
+    private static final String authUrl = "http://dev.anicloud.cn:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
+
     @Resource
     private ApplicationInitService initService;
     @Resource
@@ -101,7 +104,7 @@ public class HomeController extends BaseController {
             return userSession(request, response, new UserInfoDto(userDto));
         } else {
             model.addAttribute("errorMsg", "User's " + email + " was not authorized before!");
-            return "loginPage";
+            return "authPage";
         }
     }
 
