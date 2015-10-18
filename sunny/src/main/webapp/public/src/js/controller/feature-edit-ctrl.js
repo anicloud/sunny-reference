@@ -91,7 +91,7 @@ anicloud.sunny.controller.FeatureEditCtrl = function ($rootScope, $scope, Manage
         $scope.mytime = new Date();
 
         $scope.hstep = 1;
-        $scope.mstep = 10;
+        $scope.mstep = 1;
 
         $scope.options = {
             hstep: [1, 2, 3],

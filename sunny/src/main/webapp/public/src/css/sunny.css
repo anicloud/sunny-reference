@@ -654,6 +654,10 @@ body {
     color: #9c9c9c;
 }
 
+.strategy-control i:hover {
+    color: #eba963;
+}
+
 .icon-disabled {
     color: #dddddd !important;
     border: 1px solid #000000

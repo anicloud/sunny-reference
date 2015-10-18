@@ -73,10 +73,12 @@
                             <h2 class="timeline-title ng-binding">{{feature.deviceFeature.featureName}}</h2>
                         </div>
                         <div class="timeline-body">
-                            <small class="timeline-title ng-binding">设备：{{feature.device.name}}</small>
+                            <strong><small class="timeline-title ng-binding">设备：{{feature.device.name}}</small></strong>
 
                             <small class="timeline-title pull-right ng-binding">
+                                <!--{{feature.triggerDtoList[0].value}}-->
                                 {{changeToObj(feature.triggerDtoList[0].value).startTime | date:'hh:mm a'}}
+                                <!--{{changeToObj(feature.triggerDtoList[0].value).startTime | date:'hh:mm a'}}-->
                                 <!--{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date:'hh:mm a'}}-->
                             </small>
                         </div>
