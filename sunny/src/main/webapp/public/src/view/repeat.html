@@ -1,0 +1,125 @@
+<div class="repeat-dialog">
+    <div class="repeatarea">
+        <label class="repeatlabel">重复设置</label>
+
+
+        <form class="repeatlist">
+
+            <div class="btn-group weekfreq">
+                <label class="btn btn-primary" ng-model="repweek.sun" btn-checkbox>日</label>
+                <label class="btn btn-primary" ng-model="repweek.mon" btn-checkbox>一</label>
+                <label class="btn btn-primary" ng-model="repweek.tue" btn-checkbox>二</label>
+                <label class="btn btn-primary" ng-model="repweek.wed" btn-checkbox>三</label>
+                <label class="btn btn-primary" ng-model="repweek.thu" btn-checkbox>四</label>
+                <label class="btn btn-primary" ng-model="repweek.fri" btn-checkbox>五</label>
+                <label class="btn btn-primary" ng-model="repweek.sat" btn-checkbox>六</label>
+            </div>
+            <!--<div type="radio">-->
+            <!--<input type="text" value="{{dt | date:'fullDate' }}" placeholder="选择中止日期"-->
+            <!--popover-template="dynamicPopover.templateUrl"-->
+            <!--popover-trigger="focus" class="form-control">-->
+
+
+            <!--<script type="text/ng-template" id="myPopoverTemplate.html">-->
+            <!--<datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm"-->
+            <!--custom-class="getDayClass(date, mode)"></datepicker>-->
+            <!--</script>-->
+            <!--</div>-->
+
+            <!--<label>每 <input style="width: 40px"> 星期</label>-->
+            <!--<div>-->
+            <!--<label>每月-->
+            <!--<select name="on">-->
+            <!--<option>1</option>-->
+            <!--<option>2</option>-->
+            <!--<option>3</option>-->
+            <!--<option>4</option>-->
+            <!--<option>5</option>-->
+            <!--<option>6</option>-->
+            <!--<option>7</option>-->
+            <!--<option>8</option>-->
+            <!--<option>9</option>-->
+            <!--<option>10</option>-->
+            <!--<option>11</option>-->
+            <!--<option>12</option>-->
+            <!--<option>13</option>-->
+            <!--<option>14</option>-->
+            <!--<option>15</option>-->
+            <!--<option>16</option>-->
+            <!--<option>17</option>-->
+            <!--<option>18</option>-->
+            <!--<option>19</option>-->
+            <!--<option>20</option>-->
+            <!--<option>21</option>-->
+            <!--<option>22</option>-->
+            <!--<option>23</option>-->
+            <!--<option>24</option>-->
+            <!--<option>25</option>-->
+            <!--<option>26</option>-->
+            <!--<option>27</option>-->
+            <!--<option>28</option>-->
+            <!--<option>29</option>-->
+            <!--<option>30</option>-->
+            <!--<option>31</option>-->
+            <!--</select>-->
+            <!--日-->
+            <!--</label>-->
+            <!--</div>-->
+
+            <!--<label>每 <input style="width: 40px"> 月</label>-->
+
+
+            <!--<label>-->
+            <!--每 <input style="width: 40px"> 年-->
+            <!--</label>-->
+        </form>
+
+    </div>
+    <div>
+        <label class="endlabel">结束任务</label>
+
+        <form class="endlist">
+
+            <ul>
+                <li>
+                    <input name="task" type="radio" ng-model="end.type" value="forever">
+                    永不
+                </li>
+                <li>
+                    <input name="task" type="radio" ng-model="end.type" value="count">
+                    <label>
+                        <input style="width: 40px" class="form-control" ng-model="count">
+                    </label>
+                    次之后
+                </li>
+                <li>
+                    <input name="task" type="radio" ng-model="end.type" value="date">
+                    截止日期:
+                    <label>
+                        <input type="date" class="form-control" datepicker-popup is-open="opened" datepicker-options="dateOptions" initDate="date"
+                               date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="display: inline-block" ng-model="date"/>
+                        <!--<input type="date" value="{{dt}}" placeholder="">-->
+
+                        <!--<datepicker ng-model="dt" min-date="minDate" show-weeks="false" class="well well-sm"-->
+                        <!--custom-class="getDayClass(date, mode)"></datepicker>-->
+                        <!--<script type="text/ng-template" id="myPopoverTemplate.html">-->
+
+                        <!--</script>-->
+                    </label>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div class="repeatcontroll">
+        <div class="btn btn-default btn-long"
+             ng-click="save()">
+             <!--ng-click="addFeature(strategyTemplate) && closeThisDialog('')">-->
+            保存
+        </div>
+        <!--<div class="btn btn-default"-->
+             <!--ng-click="closeThisDialog('')">-->
+            <!--取消-->
+        <!--</div>-->
+    </div>
+
+</div>

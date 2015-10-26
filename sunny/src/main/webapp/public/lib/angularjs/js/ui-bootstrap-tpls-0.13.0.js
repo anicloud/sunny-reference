@@ -2644,7 +2644,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
  * houses global options for them.
  */
 .provider( '$tooltip', function () {
-  // The default options tooltip and popover.
+  // The default options tooltip and ui.bootstrap.demo.
   var defaultOptions = {
     placement: 'top',
     animation: true,
