@@ -71,7 +71,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <a href="http://dev.anicloud.cn:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" class="btn btn-success">未授权,用Anicloud 账号登录</a>
+                <a href="http://192.168.1.101:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" class="btn btn-success">未授权,用Anicloud 账号登录</a>
             </div>
         </div>
     </div>
