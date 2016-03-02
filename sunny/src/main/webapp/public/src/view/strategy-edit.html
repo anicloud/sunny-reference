@@ -10,8 +10,7 @@
                        required>
                 <!--<ul class="operation list-unstyled">-->
                 <div class="operation">
-                    <i class="fa fa-calendar"></i>
-                    <i class="fa fa-retweet"></i>
+                    <i class="fa fa-retweet" ng-click="openRepeatTemplate()"></i>
                     <i class="fa fa-plus" ng-click="openFeatureEditTemplate()"></i>
                 </div>
                 <!--</ul>-->
@@ -24,6 +23,7 @@
                             <div class="feature-num">{{$index+1}}</div>
                             <div class="device-panel">
                                 <i class="icon icon-appliances-lamp device-icon"></i>
+
                                 <p>{{feature.device.name}}</p>
                             </div>
 
@@ -34,7 +34,8 @@
 
                             <p><strong>{{feature.deviceFeature.featureName}}</strong></p>
 
-                            <p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date:'hh:mm a'}}</p>
+                            <p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) |
+                                date:'hh:mm a'}}</p>
                             <!--<p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date}}</p>-->
                             <!--<p class="device-trigger">{{triggerTimerToDate(triggerTimer.startTime)}}</p>-->
                         </div>
@@ -47,8 +48,8 @@
             {{strategyTemplate.error}}
         </div>
         <div class="btn-submit">
-            <button class="btn btn-default" ng-click="addStrategy() && closeThisDialog()">提交</button>
-            <button class="btn btn-default">取消</button>
+            <button class="btn btn-default btn-long" ng-click="addStrategy() && closeThisDialog()">提交</button>
+            <!--<button class="btn btn-default">取消</button>-->
         </div>
     </div>
 </div>

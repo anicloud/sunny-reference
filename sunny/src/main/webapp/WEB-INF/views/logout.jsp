@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${locale}" />
+<fmt:setLocale value="${locale}"/>
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -12,11 +12,12 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>
         <fmt:bundle basename="messages/messages">
-            <fmt:message key="system.index.title" />
+            <fmt:message key="system.index.title"/>
         </fmt:bundle>
     </title>
 
-    <link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/public/images/logo/ani_logo.png">
+    <link rel="shortcut icon" type="image/png"
+          href="${pageContext.request.contextPath}/public/images/logo/ani_logo.png">
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
@@ -37,23 +38,14 @@
 </head>
 <body>
 <div class="container">
-    <div class="row" style="margin-top: 20px;">
-        <div class="col-sm-offset-2 col-sm-8">
-            <div class="row">
-                <div class="col-sm-12">
-                    <img width="100px" height="100px" src="${pageContext.request.contextPath}/public/images/logo/strategy.png" />
-                    <hr/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <h2><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>您已成功退出&nbsp;
-                        <a href='<c:url value="/"/> ' type="button" class="btn btn-primary">重新登录</a></h2>
-                </div>
-            </div>
-
+    <div style="text-align: center; margin: 120px;">
+            <h1 style="font-size: 48px; font-family: Helvetica Neue, hiragino sans gb w3, Microsoft Yahei, Arial, sans-serif; margin-bottom: 20px; color: #42464a">退出成功</h1>
+            <a href='<c:url value="/"/> ' type="button" class="btn btn-primary" style="background-image: linear-gradient(to bottom, #ffb36f 0%, #eba963 100%);
+    background-color: #eba963;
+    border-color: #eba963;">重新登录</a>
         </div>
-    </div>
+
+
 </div>
 </body>
 </html>

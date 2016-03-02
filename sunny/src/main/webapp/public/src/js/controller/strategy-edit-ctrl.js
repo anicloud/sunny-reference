@@ -6,6 +6,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
+
 anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDialog, ManagerService) {
     $scope.openFeatureEditTemplate = function () {
         ngDialog.open(
@@ -13,6 +14,15 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
                 template: 'public/src/view/feature-edit.html',
                 scope: $scope,
                 controller: 'FeatureEditCtrl'
+            });
+    }
+
+    $scope.openRepeatTemplate = function () {
+        ngDialog.open(
+            {
+                template: 'public/src/view/repeat.html',
+                scope: $scope,
+                controller: 'RepeatCtrl'
             });
     }
 
@@ -29,7 +39,14 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
         "strategyStage": "",
         "featureList": [],
         "valid": true,
-        "error": ""
+        "error": "",
+        "repeatConfig": {
+            "week": [],
+            "end":{
+                "type":"count",
+                "value":"1"
+            }
+        }
     };
 
     $scope.strategyTemplate.clearAll = function () {
@@ -69,5 +86,12 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
+
+    $scope.dynamicPopover = {
+        content: 'Hello, World!',
+        templateUrl: 'myPopoverTemplate.html',
+        title: 'Title'
+    };
+
 
 }

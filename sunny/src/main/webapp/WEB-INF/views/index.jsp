@@ -79,6 +79,7 @@
     <script src="${pageContext.request.contextPath}/public/src/js/controller/main-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/user-ctrl.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/public/src/js/controller/slider.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/public/src/js/controller/repeat-control.js" type="text/javascript"></script>
 
     <!-- dto -->
     <script src="${pageContext.request.contextPath}/public/src/js/dto/featureInstance-dto.js" type="text/javascript"></script>

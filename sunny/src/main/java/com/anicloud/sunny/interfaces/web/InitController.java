@@ -15,7 +15,7 @@ import java.util.Map;
  * the interface is used to init the device feature of sunny.
  */
 @Controller
-public class initController extends BaseController {
+public class InitController extends BaseController {
 
     @Value("${sunny.config.username}")
     private String username;

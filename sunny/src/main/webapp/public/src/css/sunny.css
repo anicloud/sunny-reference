@@ -654,6 +654,10 @@ body {
     color: #9c9c9c;
 }
 
+.strategy-control i:hover {
+    color: #eba963;
+}
+
 .icon-disabled {
     color: #dddddd !important;
     border: 1px solid #000000
@@ -667,4 +671,83 @@ body {
     background-color: #eba963;
 }
 
+.popover {
+    max-width: 365px;
+}
+
+.weekfreq label {
+    color: #5c5d5f;
+    text-shadow: none;
+}
+
+.weekfreq>.btn-primary {
+    background-color: #eaeaea;
+    background-repeat: no-repeat;
+    background-image: none;
+    border:1px #c9cacd solid;
+}
+
+.weekfreq>.btn-primary.active {
+    background-color: #eba963;
+    border: 1px #eba963 solid;
+}
+
+.weekfreq>.btn-primary:active {
+    background-color: #eba963;
+    border: 1px #eba963 solid;
+}
+
+
+.weekfreq .btn:hover {
+    color: #eba963;
+    background-color: #e6e6e6;
+
+}
+.repeatarea{
+    margin-bottom: 20px;
+    margin-top:15px;
+}
+
+.repeatlabel{
+    position: absolute;
+    left: 15px;
+    top: 33px;
+}
+.repeatlist{
+    padding-left: 100px;
+    margin-bottom: 20px
+}
+.endlabel {
+    position: absolute;
+    left: 15px;
+    top: 85px;
+}
+
+.endlist>ul {
+    list-style:none;
+    padding-left: 100px;
+}
+
+.endlist>ul>li {
+    padding: 4px;
+    margin-bottom: 1px;
+}
+
+.endlist>ul>li:first-child {
+    margin-bottom: 10px;
+}
+
+
+.btn-long {
+    display: block;!important;
+    background-image: linear-gradient(to bottom, #ffb36f 0%, #eba963 100%);!important;
+    /*margin-top: 6px;*/
+    /*margin-bottom: 6px;*/
+}
+
+.alert-danger {
+    background-image: linear-gradient(to bottom, #ffb36f 0%, #eba963 100%);
+    border-color: #eba963;
+    color: #ffffff;
+}
 
