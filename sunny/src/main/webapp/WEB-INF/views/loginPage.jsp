@@ -72,7 +72,6 @@
             <p class="bg-warning"><c:out value="${errorMsg}"/></p>
         </c:if>
 
-
         <div style="text-align: center">
             <h4 style="margin-bottom: 14px; color: #818587">已授权账号登录</h4>
             <form id="loginForm" class="form-inline" action='<c:url value="login"/>' method="post">
@@ -86,15 +85,10 @@
     border-color: #eba963; width:240px; margin-bottom: 12px">登录</button>
                 </div>
             </form>
-            <a href="http://dev.anicloud.cn:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" style="color: #bbbfc3;">未授权,使用Anicloud
+            <a href="http://cn-bj-yatsen.anicel.cn:8080/service-bus/oauth/authorize?client_id=1058595963104900977&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" style="color: #bbbfc3;">未授权,使用Anicloud
                 账号登录
             </a>
-
         </div>
-
-
-
-
     </div>
 </div>
 </body>

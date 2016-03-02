@@ -39,6 +39,25 @@
     </properties>
 
     <dependencies>
+
+        <!-- anicel commons -->
+        <dependency>
+            <groupId>com.ani.octopus.agent.service</groupId>
+            <artifactId>service-agent</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ani.octopus</groupId>
+            <artifactId>octopus-commons</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ani.bus.commons</groupId>
+            <artifactId>service-bus-commons</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <!-- apache commons -->
         <dependency>
             <groupId>commons-logging</groupId>

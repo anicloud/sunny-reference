@@ -85,7 +85,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         });
 
         WebSocketService.openSocket(
-            "ws://localhost:8080/sunny/socket/strategy",
+            "ws://192.168.1.19:8080/sunny/socket/strategy",
             null,
             null,
             null,

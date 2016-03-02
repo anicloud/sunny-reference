@@ -41,8 +41,6 @@ import java.util.Map;
 public class HomeController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
-    private static final String authUrl = "http://dev.anicloud.cn:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
-
     @Resource
     private ApplicationInitService initService;
     @Resource
@@ -114,7 +112,7 @@ public class HomeController extends BaseController {
         UserSessionInfo userSessionInfo = getCurrentSessionUserInfo(request);
         if (userSessionInfo != null) {
             try {
-                UserDto userDto = userService.refreshUserToken(userSessionInfo.hashUserId);
+                //UserDto userDto = userService.refreshUserToken(userSessionInfo.hashUserId);
             } catch (Exception e) {
                 LOGGER.info("refresh user token error!!");
                 model.addAttribute("errorMsg", "User's refresh token was expired! Please authorize again!");
