@@ -1,10 +1,14 @@
 package com.anicloud.sunny.application.service.user;
 
 import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
-import com.ani.cel.service.manager.agent.oauth2.model.AuthorizationCodeParameter;
-import com.ani.cel.service.manager.agent.oauth2.model.OAuth2AccessToken;
 import com.ani.cel.service.manager.agent.oauth2.service.OAuth2ClientService;
 import com.ani.cel.service.manager.agent.oauth2.service.OAuth2ClientServiceImpl;
+import com.ani.octopus.service.agent.core.config.AnicelMeta;
+import com.ani.octopus.service.agent.core.http.RestTemplateFactory;
+import com.ani.octopus.service.agent.service.oauth.AniOAuthService;
+import com.ani.octopus.service.agent.service.oauth.AniOAuthServiceImpl;
+import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
+import com.ani.octopus.service.agent.service.oauth.dto.AuthorizationCodeParameter;
 import com.anicloud.sunny.application.assemble.UserDtoAssembler;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
@@ -70,17 +74,19 @@ public class UserServiceEventHandler implements UserService {
         Long currentTimeStamp = System.currentTimeMillis();
         if (userDto.expiresIn - (currentTimeStamp - userDto.createTime) / 1000 < Constants.TOKEN_REFRESH_TIME_INTERVAL_IN_SECONDS) {
             LOGGER.info("refresh user token.");
-            OAuth2ClientService auth2ClientService = new OAuth2ClientServiceImpl(AnicelServiceConfig.getInstance());
+            AniOAuthService aniOAuthService = new AniOAuthServiceImpl(
+                    new AnicelMeta(),
+                    new RestTemplateFactory()
+            );
             AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForRefreshToken(Constants.appClientDto);
-            OAuth2AccessToken auth2AccessToken = auth2ClientService.refreshAccessToken(userDto.refreshToken, authorizationCodeParameter);
-            LOGGER.info("refresh token {}.", auth2AccessToken);
+            AniOAuthAccessToken accessToken = aniOAuthService.refreshAccessToken(userDto.refreshToken, authorizationCodeParameter);
+            LOGGER.info("refresh token {}.", accessToken);
 
-            userDto.accessToken = auth2AccessToken.getAccessToken();
-            userDto.tokenType = auth2AccessToken.getTokenType();
-            userDto.refreshToken = auth2AccessToken.getRefreshToken();
-            userDto.expiresIn = auth2AccessToken.getExpiresIn();
-            userDto.scope = auth2AccessToken.getScope();
-
+            userDto.accessToken = accessToken.getAccessToken();
+            userDto.tokenType = accessToken.getTokenType();
+            userDto.refreshToken = accessToken.getRefreshToken();
+            userDto.expiresIn = accessToken.getExpiresIn();
+            userDto.scope = accessToken.getScope();
             userDto = modifyUser(userDto);
         }
         return userDto;

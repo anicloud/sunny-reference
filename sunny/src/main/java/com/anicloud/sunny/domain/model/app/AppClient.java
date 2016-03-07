@@ -2,7 +2,7 @@ package com.anicloud.sunny.domain.model.app;
 
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AppClientDao;
-import com.anicloud.sunny.infrastructure.persistence.service.AppClientPersistenceService;
+import com.anicloud.sunny.infrastructure.persistence.service.app.AppClientPersistenceService;
 
 import java.util.Date;
 

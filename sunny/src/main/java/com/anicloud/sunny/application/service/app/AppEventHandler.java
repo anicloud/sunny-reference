@@ -3,7 +3,7 @@ package com.anicloud.sunny.application.service.app;
 import com.anicloud.sunny.application.assemble.AppClientDtoAssembler;
 import com.anicloud.sunny.application.dto.app.AppClientDto;
 import com.anicloud.sunny.domain.model.app.AppClient;
-import com.anicloud.sunny.infrastructure.persistence.service.AppClientPersistenceService;
+import com.anicloud.sunny.infrastructure.persistence.service.app.AppClientPersistenceService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

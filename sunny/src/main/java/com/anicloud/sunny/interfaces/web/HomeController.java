@@ -1,10 +1,18 @@
 package com.anicloud.sunny.interfaces.web;
 
 import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
-import com.ani.cel.service.manager.agent.oauth2.model.AuthorizationCodeParameter;
 import com.ani.cel.service.manager.agent.oauth2.model.OAuth2AccessToken;
 import com.ani.cel.service.manager.agent.oauth2.service.OAuth2ClientService;
 import com.ani.cel.service.manager.agent.oauth2.service.OAuth2ClientServiceImpl;
+import com.ani.octopus.commons.accout.dto.AccountDto;
+import com.ani.octopus.service.agent.core.config.AnicelMeta;
+import com.ani.octopus.service.agent.core.http.RestTemplateFactory;
+import com.ani.octopus.service.agent.service.account.AccountService;
+import com.ani.octopus.service.agent.service.account.AccountServiceImpl;
+import com.ani.octopus.service.agent.service.oauth.AniOAuthService;
+import com.ani.octopus.service.agent.service.oauth.AniOAuthServiceImpl;
+import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
+import com.ani.octopus.service.agent.service.oauth.dto.AuthorizationCodeParameter;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
@@ -48,7 +56,8 @@ public class HomeController extends BaseController {
     @Resource
     private UserService userService;
 
-    private OAuth2ClientService auth2ClientService;
+    private AniOAuthService aniOAuthService;
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @PostConstruct
@@ -57,7 +66,12 @@ public class HomeController extends BaseController {
     }
 
     public HomeController() {
-        this.auth2ClientService = new OAuth2ClientServiceImpl(AnicelServiceConfig.getInstance());
+        AnicelMeta anicelMeta = new AnicelMeta();
+        RestTemplateFactory restTemplateFactory = new RestTemplateFactory();
+        this.aniOAuthService = new AniOAuthServiceImpl(
+                anicelMeta,
+                restTemplateFactory
+        );
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
@@ -86,10 +100,14 @@ public class HomeController extends BaseController {
     public String redirect(HttpServletRequest request, HttpServletResponse response, @RequestParam String code) {
         LOGGER.info("code is {}", code);
 
-        AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForAccessToken(Constants.appClientDto);
-        OAuth2AccessToken oAuth2AccessToken = auth2ClientService.getOAuth2AccessToken(code, authorizationCodeParameter);
+        AuthorizationCodeParameter authorizationCodeParameter =
+                OAuth2ParameterBuilder.buildForAccessToken(Constants.appClientDto);
+        AniOAuthAccessToken accessToken = aniOAuthService
+                .getOAuth2AccessToken(code, authorizationCodeParameter);
 
-        UserDto userDto = initService.initApplication(oAuth2AccessToken);
+        System.out.println(accessToken.toString());
+
+        UserDto userDto = initService.initApplication(accessToken);
         UserInfoDto userInfoDto = new UserInfoDto(userDto);
         return userSession(request, response, userInfoDto);
     }

@@ -8,6 +8,7 @@ import com.ani.cel.service.manager.agent.device.model.FunctionInfoDto;
 import com.ani.cel.service.manager.agent.device.service.DeviceService;
 import com.ani.cel.service.manager.agent.device.service.DeviceServiceImpl;
 import com.ani.cel.service.manager.agent.oauth2.model.OAuth2AccessToken;
+import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
 import com.anicloud.sunny.application.builder.DeviceAndFeatureRelationDtoBuilder;
 import com.anicloud.sunny.application.builder.DeviceDtoBuilder;
 import com.anicloud.sunny.application.constant.Constants;
@@ -59,7 +60,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     @Override
-    protected void initUserDeviceAndDeviceFeatureRelation(UserDto userDto, OAuth2AccessToken accessToken) {
+    protected void initUserDeviceAndDeviceFeatureRelation(UserDto userDto, AniOAuthAccessToken accessToken) {
         DeviceService deviceService = new DeviceServiceImpl(AnicelServiceConfig.getInstance());
 
         List<DeviceFeatureDto> deviceFeatureDtoList = deviceFeatureService.getAllDeviceFeature();
