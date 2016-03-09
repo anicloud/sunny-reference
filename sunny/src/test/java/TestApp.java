@@ -1,6 +1,10 @@
 import com.anicloud.sunny.infrastructure.persistence.domain.share.TriggerType;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.EnumSet;
 
 /**
@@ -13,5 +17,17 @@ public class TestApp {
         for (TriggerType triggerType : triggerTypeEnumSet) {
             System.out.println(triggerType.ordinal() + " : " + triggerType.name() + " : " + triggerType.toString());
         }
+    }
+
+    @Test
+    public void testFileWrite() throws IOException {
+        InputStream inputStream = TestApp.class.getResourceAsStream("log4j.properties");
+        BufferedReader bufferedReader =
+                new BufferedReader(new InputStreamReader(inputStream));
+        String line = null;
+        while ((line = bufferedReader.readLine()) != null) {
+            System.out.println(line);
+        }
+        bufferedReader.close();
     }
 }
