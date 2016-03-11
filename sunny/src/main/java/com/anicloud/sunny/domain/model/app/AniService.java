@@ -1,14 +1,13 @@
 package com.anicloud.sunny.domain.model.app;
 
+import com.anicloud.sunny.domain.adapter.DaoAdapter;
+import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
 import com.anicloud.sunny.infrastructure.persistence.service.app.AniServicePersistService;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @autor zhaoyu
@@ -22,6 +21,7 @@ public class AniService implements Serializable {
     @Resource
     private AniServicePersistService aniServicePersistService;
 
+    public Long id;
     public String aniServiceId;
     public String serviceName;
     public String version;
@@ -52,5 +52,75 @@ public class AniService implements Serializable {
     public List<AniServiceEntrance> entranceList;
 
     public AniService() {
+    }
+
+    public AniService(Long id,String aniServiceId, String serviceName, String version,
+                      String clientSecret, Set<String> resourceIds, Set<String> scope,
+                      Set<String> authorizedGrantTypes, Collection<String> authorities,
+                      String webServerRedirectUri, Integer accessTokenValidity,
+                      Integer refreshTokenValidity, String autoApprove, Date registerDate,
+                      boolean archived, boolean trusted, String serviceServerUrl,
+                      String logoPath, Set<String> languageSet, Set<String> tagSet,
+                      Double price, Date onShelf, String description, Long accountId,
+                      List<AniServiceEntrance> entranceList) {
+        this.id=id;
+        this.aniServiceId = aniServiceId;
+        this.serviceName = serviceName;
+        this.version = version;
+        this.clientSecret = clientSecret;
+        this.resourceIds = resourceIds;
+        this.scope = scope;
+        this.authorizedGrantTypes = authorizedGrantTypes;
+        this.authorities = authorities;
+        this.webServerRedirectUri = webServerRedirectUri;
+        this.accessTokenValidity = accessTokenValidity;
+        this.refreshTokenValidity = refreshTokenValidity;
+        this.autoApprove = autoApprove;
+        this.registerDate = registerDate;
+        this.archived = archived;
+        this.trusted = trusted;
+        this.serviceServerUrl = serviceServerUrl;
+        this.logoPath = logoPath;
+        this.languageSet = languageSet;
+        this.tagSet = tagSet;
+        this.price = price;
+        this.onShelf = onShelf;
+        this.description = description;
+        this.accountId = accountId;
+        this.entranceList = entranceList;
+    }
+
+    public void addServiceEntrance(AniServiceEntrance entrance) {
+        if (entranceList == null) {
+            entranceList = new ArrayList<>();
+        }
+        entranceList.add(entrance);
+    }
+
+    public void addServiceEntrance(List<AniServiceEntrance> entranceList) {
+        if (entranceList == null) {
+            entranceList = new ArrayList<>();
+        }
+        entranceList.addAll(entranceList);
+    }
+
+    public AniService save() {
+        AniServiceDao aniServiceDao = DaoAdapter.toDao(this);
+        aniServiceDao = aniServicePersistService.save(aniServiceDao);
+        return DaoAdapter.toDomain(aniServiceDao);
+    }
+
+    public AniService update() {
+        AniServiceDao aniServiceDao = DaoAdapter.toDao(this);
+        aniServiceDao = aniServicePersistService.update(aniServiceDao);
+        return DaoAdapter.toDomain(aniServiceDao);
+    }
+
+    @Override
+    public String toString() {
+        return "AniService{" +
+                "clientSecret='" + clientSecret + '\'' +
+                ", aniServiceId='" + aniServiceId + '\'' +
+                '}';
     }
 }
