@@ -14,7 +14,7 @@ import java.util.Set;
  * @since JDK 1.7
  */
 @Entity
-@Table(name = "t_aniService")
+@Table(name = "t_ani_service")
 public class AniServiceDao implements Serializable {
 
     @Id
@@ -138,8 +138,31 @@ public class AniServiceDao implements Serializable {
     @Override
     public String toString() {
         return "AniServiceDao{" +
-                "aniServiceId='" + aniServiceId + '\'' +
+                "id=" + id +
+                ", aniServiceId='" + aniServiceId + '\'' +
                 ", serviceName='" + serviceName + '\'' +
+                ", version='" + version + '\'' +
+                ", clientSecret='" + clientSecret + '\'' +
+                ", resourceIds='" + resourceIds + '\'' +
+                ", scope='" + scope + '\'' +
+                ", authorizedGrantTypes='" + authorizedGrantTypes + '\'' +
+                ", authorities='" + authorities + '\'' +
+                ", webServerRedirectUri='" + webServerRedirectUri + '\'' +
+                ", accessTokenValidity=" + accessTokenValidity +
+                ", refreshTokenValidity=" + refreshTokenValidity +
+                ", autoApprove='" + autoApprove + '\'' +
+                ", registerDate=" + registerDate +
+                ", archived=" + archived +
+                ", trusted=" + trusted +
+                ", serviceServerUrl='" + serviceServerUrl + '\'' +
+                ", logoPath='" + logoPath + '\'' +
+                ", languageSet='" + languageSet + '\'' +
+                ", tagSet='" + tagSet + '\'' +
+                ", price=" + price +
+                ", onShelf=" + onShelf +
+                ", description='" + description + '\'' +
+                ", accountId=" + accountId +
+                ", entranceList=" + entranceList +
                 '}';
     }
 }

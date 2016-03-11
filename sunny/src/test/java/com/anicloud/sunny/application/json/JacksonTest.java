@@ -1,5 +1,8 @@
 package com.anicloud.sunny.application.json;
 
+import com.anicloud.sunny.application.service.app.AniServiceManager;
+import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
+import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceEntranceDao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
@@ -15,6 +18,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @autor zhaoyu
@@ -24,6 +30,7 @@ import java.net.URL;
 public class JacksonTest {
 
     private String filePath = "classpath:properties/StubMeta.json";
+
 
     @Test
     public void testFormatJson() throws IOException {
@@ -47,6 +54,8 @@ public class JacksonTest {
         Person person1 = objectMapper.readValue(file, Person.class);
         System.out.println(person1.toString());
     }
+
+
 }
 
 class Person {

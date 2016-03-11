@@ -14,6 +14,6 @@ public interface StubPersistService {
     StubDao findById(Long stubId);
 
     StubDao save(StubDao stubDao);
-    StubDao delete(StubDao stubDao);
+    void delete(Long stubId);
     StubDao update(StubDao stubDao);
 }

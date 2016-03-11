@@ -1,7 +1,11 @@
 package com.anicloud.sunny.domain.model.app.stub;
 
+import com.anicloud.sunny.domain.adapter.StubDaoAdapter;
+import com.anicloud.sunny.infrastructure.persistence.domain.app.stub.StubDao;
+import com.anicloud.sunny.infrastructure.persistence.service.app.stub.StubPersistService;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +18,9 @@ import java.util.Objects;
 @Configurable
 public class Stub implements Serializable {
     private static final long serialVersionUID = 1557362571907132980L;
+
+    @Resource
+    private StubPersistService stubPersistService;
 
     public Integer stubId;
     public String name;
@@ -33,6 +40,18 @@ public class Stub implements Serializable {
         this.group = group;
         this.inputArguments = inputArguments;
         this.outputArguments = outputArguments;
+    }
+
+    public Stub save(){
+        StubDao stubDao= StubDaoAdapter.toDao(this);
+        stubPersistService.save(stubDao);
+        return StubDaoAdapter.toDomain(stubDao);
+    }
+
+    public Stub update(){
+        StubDao stubDao= StubDaoAdapter.toDao(this);
+        stubPersistService.update(stubDao);
+        return StubDaoAdapter.toDomain(stubDao);
     }
 
     @Override

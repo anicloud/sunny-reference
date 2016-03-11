@@ -1,12 +1,14 @@
 package com.anicloud.sunny.domain.model.app.stub;
 
 import com.anicloud.sunny.infrastructure.persistence.domain.app.stub.DataType;
+import org.springframework.beans.factory.annotation.Configurable;
 
 /**
  * @autor zhaoyu
  * @date 16-3-7
  * @since JDK 1.7
  */
+@Configurable
 public class ArgumentType {
     public DataType type;
     public ArgumentType componentType;
@@ -24,19 +26,11 @@ public class ArgumentType {
         this.componentType = componentType;
     }
 
-    public DataType getType() {
-        return type;
-    }
-
-    public void setType(DataType type) {
-        this.type = type;
-    }
-
-    public ArgumentType getComponentType() {
-        return componentType;
-    }
-
-    public void setComponentType(ArgumentType componentType) {
-        this.componentType = componentType;
+    @Override
+    public String toString() {
+        return "ArgumentType{" +
+                "type=" + type +
+                ", componentType=" + componentType +
+                '}';
     }
 }
