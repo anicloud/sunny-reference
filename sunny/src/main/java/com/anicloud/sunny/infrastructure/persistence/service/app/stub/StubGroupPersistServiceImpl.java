@@ -26,7 +26,7 @@ public class StubGroupPersistServiceImpl implements StubGroupPersistService {
     }
 
     @Override
-    public void delete(Long groupId) {
+    public void delete(Integer groupId) {
         // TODO by KaMIli
     }
 
@@ -37,7 +37,7 @@ public class StubGroupPersistServiceImpl implements StubGroupPersistService {
     }
 
     @Override
-    public StubGroupDao findById(Long groupId) {
+    public StubGroupDao findById(Integer groupId) {
         // TODO by KaMIli
         return null;
     }
@@ -49,7 +49,7 @@ public class StubGroupPersistServiceImpl implements StubGroupPersistService {
     }
 
     @Override
-    public List<StubGroupDao> findByGroupIdIn(Collection<Long> groupIds) {
+    public List<StubGroupDao> findByGroupIdIn(Collection<Integer> groupIds) {
         // TODO by KaMIli
         return null;
     }
