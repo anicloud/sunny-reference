@@ -17,6 +17,7 @@ public class RedisStubPersistServiceImpl implements StubPersistService {
     @Resource(name = "sunnyRedisTemplate")
     private RedisTemplate<String, StubDao> redisTemplate;
 
+
     @Override
     public List<StubDao> findAll() {
         return null;
@@ -33,8 +34,8 @@ public class RedisStubPersistServiceImpl implements StubPersistService {
     }
 
     @Override
-    public StubDao delete(StubDao stubDao) {
-        return null;
+    public void delete(Long stubId) {
+
     }
 
     @Override
