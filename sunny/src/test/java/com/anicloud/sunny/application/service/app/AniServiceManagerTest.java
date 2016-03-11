@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 import javax.xml.crypto.Data;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,35 +42,39 @@ public class AniServiceManagerTest {
     }
 
     @Test
-    public void testAddAniService() {
+    public void testAddAniService() throws IOException {
 
-        AniServiceEntranceDao aniServiceEntranceDao=new AniServiceEntranceDao("asds","asd","asd7","456as","asd5");
+        AniServiceEntranceDao aniServiceEntranceDao=new AniServiceEntranceDao(
+                "xinwo entrance","http://localhost:8080/xinwo",
+                "https://raw.githubusercontent.com/anicloud/anicloud.github.io/master/images/logo/ani_logo.png",
+                "life","description");
+
         List<AniServiceEntranceDao> entranceList=new ArrayList<AniServiceEntranceDao>();
         entranceList.add(aniServiceEntranceDao);
         AniServiceDao aniServiceDao=new AniServiceDao(
                 null,
-                "12356465465",
-                "sunny",
-                "1.0 Beta",
-                "asd12156465das",
-                "123,ASS,212",
-                "123,123,456",
-                "asd,asd,sad",
-                "asd,asd,456",
-                "www.baidu.com",
-                132456,
-                456797,
-                "asdasd",
-                new Date(System.currentTimeMillis()),
-                true,true,
-                "www.google.com",
-                "/D:logo/",
-                "english,chinese",
-                "asd,asdas",
-                1500.0,
-                new Date(System.currentTimeMillis()),
-                "nothing",
-                new Long("111111111111111"),
+                "1058595963104900977",
+                "sunny-app",
+                "1.0",
+                "34d54214721d6077ae021ab5d8215258",
+                "system-resource",
+                "read,write",
+                "authorization_code,refresh_token,password,implicit",
+                "ROLE_SYS",
+                "http://localhost:8080/sunny/redirect",
+                43200,
+                2592000,
+                "true",
+                new Date(new Long(("1449815849286"))),
+                false,true,
+                "http://localhost:8080/xinwo",
+                "https://raw.githubusercontent.com/anicloud/anicloud.github.io/master/images/logo/ani_logo.png",
+                "ZH_CN",
+                "life",
+                0.0,
+                new Date(new Long("1449815846929")),
+                "sunny app",
+                new Long("3888396496254000114"),
                 entranceList
         );
 
@@ -81,11 +86,17 @@ public class AniServiceManagerTest {
     }
 
     @Test
-    public void testFindAniService() {
+    public void testFindAniService() throws IOException {
         AniService aniService=aniServiceManager.getAniServiceInfo();
-        System.err.println("--------------AniService-----"+aniService.id+"---------------");
-        aniService.accountId=new Long("15648543458564");
-        aniServiceManager.update(aniService);
-        System.err.println("----------------update complete---------------");
+        System.err.println(aniService.toString());
     }
+
+
+
+
+
+
+
+
+
 }

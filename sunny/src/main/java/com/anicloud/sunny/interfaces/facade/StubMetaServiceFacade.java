@@ -16,6 +16,11 @@ public interface StubMetaServiceFacade {
     List<StubDto> getAllStub();
     StubDto getStubById(Long stubId);
 
+    /**
+     *
+     * @param stub
+     * @return
+     */
     StubDto save(StubDto stub);
     void deleteStub(Long stubId);
     StubDto updateStub(StubDto stub);

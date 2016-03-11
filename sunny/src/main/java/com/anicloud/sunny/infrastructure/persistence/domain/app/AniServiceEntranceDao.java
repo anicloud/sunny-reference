@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @since JDK 1.7
  */
 @Entity
-@Table(name="t_aniService_entrance")
+@Table(name="t_ani_service_entrance")
 public class AniServiceEntranceDao implements Serializable {
 
     @Id

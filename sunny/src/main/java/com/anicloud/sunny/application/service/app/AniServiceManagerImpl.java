@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -38,13 +39,13 @@ public class AniServiceManagerImpl implements AniServiceManager {
 
     @Override
     @Transactional(readOnly = true)
-    public AniService getAniServiceInfo() {
+    public AniService getAniServiceInfo() throws IOException {
         AniServiceDao aniServiceDao = aniServicePersistService.findAniServiceInfo();
         return DaoAdapter.toDomain(aniServiceDao);
     }
 
     @Override
-    public AniService save(AniService aniService) {
+    public AniService save(AniService aniService) throws IOException {
         if (aniService != null) {
             return aniService.save();
         }
@@ -52,7 +53,7 @@ public class AniServiceManagerImpl implements AniServiceManager {
     }
 
     @Override
-    public AniService update(AniService aniService) {
+    public AniService update(AniService aniService) throws IOException {
         if (aniService == null) {
             throw new NullPointerException("AniService is null.");
         }

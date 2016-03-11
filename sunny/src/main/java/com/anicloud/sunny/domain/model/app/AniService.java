@@ -6,6 +6,7 @@ import com.anicloud.sunny.infrastructure.persistence.service.app.AniServicePersi
 import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
@@ -104,13 +105,13 @@ public class AniService implements Serializable {
         entranceList.addAll(entranceList);
     }
 
-    public AniService save() {
+    public AniService save() throws IOException {
         AniServiceDao aniServiceDao = DaoAdapter.toDao(this);
         aniServiceDao = aniServicePersistService.save(aniServiceDao);
         return DaoAdapter.toDomain(aniServiceDao);
     }
 
-    public AniService update() {
+    public AniService update() throws IOException {
         AniServiceDao aniServiceDao = DaoAdapter.toDao(this);
         aniServiceDao = aniServicePersistService.update(aniServiceDao);
         return DaoAdapter.toDomain(aniServiceDao);
@@ -119,8 +120,32 @@ public class AniService implements Serializable {
     @Override
     public String toString() {
         return "AniService{" +
-                "clientSecret='" + clientSecret + '\'' +
+                "aniServicePersistService=" + aniServicePersistService +
+                ", id=" + id +
                 ", aniServiceId='" + aniServiceId + '\'' +
+                ", serviceName='" + serviceName + '\'' +
+                ", version='" + version + '\'' +
+                ", clientSecret='" + clientSecret + '\'' +
+                ", resourceIds=" + resourceIds +
+                ", scope=" + scope +
+                ", authorizedGrantTypes=" + authorizedGrantTypes +
+                ", authorities=" + authorities +
+                ", webServerRedirectUri='" + webServerRedirectUri + '\'' +
+                ", accessTokenValidity=" + accessTokenValidity +
+                ", refreshTokenValidity=" + refreshTokenValidity +
+                ", autoApprove='" + autoApprove + '\'' +
+                ", registerDate=" + registerDate +
+                ", archived=" + archived +
+                ", trusted=" + trusted +
+                ", serviceServerUrl='" + serviceServerUrl + '\'' +
+                ", logoPath='" + logoPath + '\'' +
+                ", languageSet=" + languageSet +
+                ", tagSet=" + tagSet +
+                ", price=" + price +
+                ", onShelf=" + onShelf +
+                ", description='" + description + '\'' +
+                ", accountId=" + accountId +
+                ", entranceList=" + entranceList +
                 '}';
     }
 }

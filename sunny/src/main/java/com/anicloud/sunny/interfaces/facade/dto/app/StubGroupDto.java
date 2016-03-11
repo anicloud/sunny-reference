@@ -10,5 +10,19 @@ import java.io.Serializable;
 public class StubGroupDto implements Serializable {
     private static final long serialVersionUID = -4680642694254117679L;
 
-    // TODO by KaMIli
+    public Integer groupId;
+    public String name;
+
+    public StubGroupDto(Integer groupId, String name) {
+        this.groupId = groupId;
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "StubGroupDto{" +
+                "groupId=" + groupId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

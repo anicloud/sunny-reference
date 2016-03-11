@@ -22,7 +22,6 @@ public class DaoAdapter {
             return null;
         }
 
-
         return new AniServiceDao(
                 aniService.id,
                 aniService.aniServiceId,
@@ -87,6 +86,9 @@ public class DaoAdapter {
     }
 
     public static AniServiceEntranceDao toDao(AniServiceEntrance serviceEntrance) {
+        if (serviceEntrance == null) {
+            return null;
+        }
         return new AniServiceEntranceDao(
                 serviceEntrance.entranceName,
                 serviceEntrance.entranceUrl,
@@ -97,7 +99,6 @@ public class DaoAdapter {
     }
 
     public static AniServiceEntrance toDomain(AniServiceEntranceDao entranceDao) {
-       
         return new AniServiceEntrance(
                 entranceDao.entranceName,
                 entranceDao.entranceUrl,
@@ -111,7 +112,7 @@ public class DaoAdapter {
         if (entranceList == null) {
             return null;
         }
-        List<AniServiceEntranceDao> serviceEntranceDaoList = new ArrayList<AniServiceEntranceDao>();
+        List<AniServiceEntranceDao> serviceEntranceDaoList = new ArrayList<>();
         for (AniServiceEntrance serviceEntrance : entranceList) {
             serviceEntranceDaoList.add(toDao(serviceEntrance));
         }
@@ -119,7 +120,6 @@ public class DaoAdapter {
     }
 
     public static List<AniServiceEntrance> toDomainList(List<AniServiceEntranceDao> daoList) {
-
         if (daoList == null){
             return null;
         }
