@@ -34,21 +34,38 @@ public class StubRedisRepository implements RedisRepository<StubDao> {
 
     @Override
     public String getName() {
+        // TODO
         return null;
     }
 
     @Override
     public List<StubDao> get(Object key) {
+        // TODO
         return null;
     }
 
     @Override
     public void put(Object key, StubDao obj) {
-
+        // TODO
     }
 
     @Override
     public void put(Object key, List<StubDao> objList) {
+        // TODO
+    }
 
+    @Override
+    public void evict(Object key, StubDao object) {
+        // TODO
+    }
+
+    @Override
+    public void evict(Object key, List<StubDao> objectSet) {
+        // TODO
+    }
+
+    @Override
+    public void clearAll(Object key) {
+        // TODO
     }
 }

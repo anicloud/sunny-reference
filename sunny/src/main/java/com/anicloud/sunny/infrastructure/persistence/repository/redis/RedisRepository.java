@@ -12,4 +12,7 @@ public interface RedisRepository<T> {
     List<T> get(Object key);
     void put(Object key, T obj);
     void put(Object key, List<T> objList);
+    void evict(Object key, T object);
+    void evict(Object key, List<T> objectSet);
+    void clearAll(Object key);
 }
