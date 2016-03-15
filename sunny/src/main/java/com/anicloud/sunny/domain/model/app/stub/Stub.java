@@ -1,8 +1,9 @@
 package com.anicloud.sunny.domain.model.app.stub;
 
+import com.anicloud.sunny.application.exception.RedisDataException;
 import com.anicloud.sunny.domain.adapter.StubDaoAdapter;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.stub.StubDao;
-import com.anicloud.sunny.infrastructure.persistence.service.app.stub.StubPersistService;
+import com.anicloud.sunny.infrastructure.persistence.repository.app.stub.StubRedisRepository;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.annotation.Resource;
@@ -20,7 +21,7 @@ public class Stub implements Serializable {
     private static final long serialVersionUID = 1557362571907132980L;
 
     @Resource
-    private StubPersistService stubPersistService;
+    private StubRedisRepository stubRedisRepository;
 
     public Integer stubId;
     public String name;
@@ -42,16 +43,11 @@ public class Stub implements Serializable {
         this.outputArguments = outputArguments;
     }
 
-    public Stub save(){
+    public Long save() {
         StubDao stubDao= StubDaoAdapter.toDao(this);
-        stubPersistService.save(stubDao);
-        return StubDaoAdapter.toDomain(stubDao);
-    }
+        return stubRedisRepository
+                .put(Stub.class.getCanonicalName(),stubDao);
 
-    public Stub update(){
-        StubDao stubDao= StubDaoAdapter.toDao(this);
-        stubPersistService.update(stubDao);
-        return StubDaoAdapter.toDomain(stubDao);
     }
 
     @Override

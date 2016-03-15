@@ -25,14 +25,14 @@ public class StubDaoAdapter {
         List<StubArgumentDao> outArg = null;
         if (stub.inputArguments != null && stub.inputArguments.size() > 0) {
             inArg = new ArrayList<>();
-            System.err.println("*******************"+stub.inputArguments.size());
+            System.err.println("*******************" + stub.inputArguments.size());
             for (StubArgument argument : stub.inputArguments) {
                 inArg.add(toDao(argument));
             }
         }
         if (stub.outputArguments != null && stub.outputArguments.size() > 0) {
             outArg = new ArrayList<>();
-            System.err.println("*******************"+stub.outputArguments.size());
+            System.err.println("*******************" + stub.outputArguments.size());
             for (StubArgument argument : stub.outputArguments) {
                 outArg.add(toDao(argument));
             }
@@ -52,13 +52,13 @@ public class StubDaoAdapter {
         }
         List<StubArgument> inArg = null;
         List<StubArgument> outArg = null;
-        if(stubDao.inputArguments != null && stubDao.inputArguments.size()>0) {
+        if (stubDao.inputArguments != null && stubDao.inputArguments.size() > 0) {
             inArg = new ArrayList<>();
             for (StubArgumentDao argument : stubDao.inputArguments) {
                 inArg.add(toDomain(argument));
             }
         }
-        if(stubDao.outputArguments != null && stubDao.outputArguments.size()>0) {
+        if (stubDao.outputArguments != null && stubDao.outputArguments.size() > 0) {
             outArg = new ArrayList<>();
             for (StubArgumentDao argument : stubDao.outputArguments) {
                 outArg.add(toDomain(argument));
@@ -71,6 +71,28 @@ public class StubDaoAdapter {
                 inArg,
                 outArg
         );
+    }
+
+    public static List<Stub> toDomain(List<StubDao> stubDaos) {
+        if (stubDaos == null) {
+            return null;
+        }
+        List<Stub> stubs = new ArrayList<>();
+        for (StubDao stubDao : stubDaos) {
+            stubs.add(toDomain(stubDao));
+        }
+        return stubs;
+    }
+
+    public static List<StubDao> toDao(List<Stub> stubList) {
+        if (stubList == null) {
+            return null;
+        }
+        List<StubDao> stubDaos = new ArrayList<>();
+        for (Stub stub : stubList) {
+            stubDaos.add(toDao(stub));
+        }
+        return stubDaos;
     }
 
     public static StubGroup toDomian(StubGroupDao stubGroupDao) {

@@ -1,5 +1,7 @@
 package com.anicloud.sunny.infrastructure.persistence.repository.redis;
 
+import com.anicloud.sunny.domain.model.app.stub.Stub;
+
 import java.util.List;
 
 /**
@@ -10,9 +12,9 @@ import java.util.List;
 public interface RedisRepository<T> {
     String getName();
     List<T> get(Object key);
-    void put(Object key, T obj);
-    void put(Object key, List<T> objList);
-    void evict(Object key, T object);
-    void evict(Object key, List<T> objectSet);
+    Long put(Object key, T obj);
+    Long put(Object key, List<T> objList);
+    Long evict(Object key, T object);
+    Long evict(Object key, List<T> objectSet);
     void clearAll(Object key);
 }

@@ -15,4 +15,5 @@ public class NumGenerate {
     public synchronized static String generate() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
+
 }

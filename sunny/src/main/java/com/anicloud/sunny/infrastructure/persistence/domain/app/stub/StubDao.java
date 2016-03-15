@@ -45,6 +45,27 @@ public class StubDao implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StubDao stubDao = (StubDao) o;
+
+        if (id != null ? !id.equals(stubDao.id) : stubDao.id != null) return false;
+        if (stubId != null ? !stubId.equals(stubDao.stubId) : stubDao.stubId != null) return false;
+        return name != null ? name.equals(stubDao.name) : stubDao.name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (stubId != null ? stubId.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "StubDao{" +
                 "id=" + id +

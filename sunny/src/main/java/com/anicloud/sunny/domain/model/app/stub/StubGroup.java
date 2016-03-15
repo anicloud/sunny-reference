@@ -1,10 +1,7 @@
 package com.anicloud.sunny.domain.model.app.stub;
 
-import com.anicloud.sunny.domain.adapter.StubDaoAdapter;
 import com.anicloud.sunny.domain.adapter.StubGroupAdapter;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.stub.StubGroupDao;
-import com.anicloud.sunny.infrastructure.persistence.service.app.stub.StubGroupPersistService;
-import com.anicloud.sunny.infrastructure.persistence.service.app.stub.StubPersistService;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.annotation.Resource;
