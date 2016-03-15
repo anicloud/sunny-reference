@@ -17,8 +17,6 @@ import java.util.Objects;
 public class StubGroup implements Serializable {
     private static final long serialVersionUID = 4026107055349990977L;
 
-    @Resource
-    private StubGroupPersistService stubGroupPersistService;
     public Integer id;
     public Integer groupId;
     public String name;
@@ -30,18 +28,6 @@ public class StubGroup implements Serializable {
         this.id = id;
         this.groupId = groupId;
         this.name = name;
-    }
-
-    public StubGroup save() {
-        StubGroupDao stubGroupDao = StubGroupAdapter.toDao(this);
-        stubGroupPersistService.save(stubGroupDao);
-        return StubGroupAdapter.toDomain(stubGroupDao);
-    }
-
-    public StubGroup update() {
-        StubGroupDao stubGroupDao = StubGroupAdapter.toDao(this);
-        stubGroupPersistService.update(stubGroupDao);
-        return StubGroupAdapter.toDomain(stubGroupDao);
     }
 
     @Override
