@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class JacksonTest {
 
-    private String filePath = "classpath:properties/StubMeta.json";
+    private String filePath = "classpath:properties/StubIdentity.json";
 
 
     @Test
