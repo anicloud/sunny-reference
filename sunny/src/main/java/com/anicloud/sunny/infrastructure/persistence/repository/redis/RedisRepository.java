@@ -15,6 +15,6 @@ public interface RedisRepository<T> {
     Long put(Object key, T obj);
     Long put(Object key, List<T> objList);
     Long evict(Object key, T object);
-    Long evict(Object key, List<T> objectSet);
+    Long evict(Object key, List<T> objectList);
     void clearAll(Object key);
 }

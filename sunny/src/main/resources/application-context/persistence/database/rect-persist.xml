@@ -56,7 +56,6 @@
             <list>
                 <value>com.anicloud.sunny.infrastructure.persistence.domain</value>
                 <value>com.anicloud.sunny.schedule.persistence.dao</value>
-                <value>com.anicloud.sunny.infrastructure.demo</value>
             </list>
         </property>
         <property name="jpaProperties">

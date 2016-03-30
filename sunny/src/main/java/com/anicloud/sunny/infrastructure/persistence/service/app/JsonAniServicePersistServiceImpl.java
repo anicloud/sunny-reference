@@ -2,6 +2,7 @@ package com.anicloud.sunny.infrastructure.persistence.service.app;
 
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -32,6 +33,7 @@ public class JsonAniServicePersistServiceImpl implements AniServicePersistServic
         org.springframework.core.io.Resource resource=resourceLoader.getResource(FILE_PATH_AND_NAME);
         AniServiceDao aniServiceDao = null;
         try {
+            objectMapper.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
             aniServiceDao = objectMapper.readValue(resource.getURL(),AniServiceDao.class);
         } catch (IOException e) {
             throw new FileNotFoundException("json file not exists.");
@@ -45,6 +47,7 @@ public class JsonAniServicePersistServiceImpl implements AniServicePersistServic
         org.springframework.core.io.Resource resource=resourceLoader.getResource(FILE_PATH_AND_NAME);
         File targetFile=resource.getFile();
         if(targetFile.exists()){
+            objectMapper.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
             objectMapper.writeValue(targetFile,aniServiceDao);
         }
         return aniServiceDao;
