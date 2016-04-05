@@ -14,23 +14,10 @@
     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
     http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.6.xsd ">
+	<!-- this file is the configuration for service-bus-agent -->
+	<!-- The implementation of callback interface ClientInvokable  -->
+	<bean id="clientInvokable" class="com.anicloud.sunny.application.service.agent.ClientInvokerImpl" />
+	<bean id="anicelMeta" class="com.ani.octopus.service.agent.core.config.AnicelMeta"/>
+	<bean id="restTemplateFactory" class="com.ani.octopus.service.agent.core.http.RestTemplateFactory" />
 
-	<!-- Root Context: defines shared resources visible to all other web components-->
-
-	<import resource="classpath:/application-context/persistence/BeansConfig.xml" />
-	<import resource="classpath:/application-context/schedule/schedule-context.xml" />
-	<!-- cache xml -->
-	<import resource="classpath:/application-context/cache/cache.xml" />
-	<import resource="classpath:/application-context/service/BeansConfig.xml" />
-	<import resource="classpath:/application-context/service/service-agent.xml" />
-
-	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
-
-	<!-- 当Spring容器启动完成后执行下面的这个Bean 
-    <bean class="cn.bjfu.fesdmp.frame.listener.InstantiationTracingBeanPostProcessor"/>-->
-
-     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-     	<property name="useCodeAsDefaultMessage" value="true" />
-    	<property name="basenames" value="classpath:messages/messages"/>
-    </bean>
 </beans>

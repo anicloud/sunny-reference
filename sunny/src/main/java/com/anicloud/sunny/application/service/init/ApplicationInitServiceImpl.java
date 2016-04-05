@@ -35,10 +35,11 @@ import java.util.*;
 /**
  * Created by zhaoyu on 15-7-11.
  */
-@Service
-@Transactional
+
+/*
 public class ApplicationInitServiceImpl extends ApplicationInitService {
     private final static Logger LOGGER = LoggerFactory.getLogger(ApplicationInitServiceImpl.class);
+
 
     @Resource
     private UserService userService;
@@ -271,3 +272,4 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         return relationDtoList;
     }
 }
+*/
