@@ -9,9 +9,9 @@ import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.dto.user.UserInfoDto;
-import com.anicloud.sunny.application.service.app.AppService;
 import com.anicloud.sunny.application.service.init.ApplicationInitService;
 import com.anicloud.sunny.application.service.user.UserService;
+import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
 import com.anicloud.sunny.interfaces.web.dto.UserSessionInfo;
 import com.anicloud.sunny.interfaces.web.listener.SessionListener;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -45,8 +45,8 @@ public class HomeController extends BaseController {
 
     @Resource
     private ApplicationInitService initService;
-    @Resource
-    private AppService appService;
+    @Resource(name = "appServiceFacade")
+    private AppServiceFacade appServiceFacade;
     @Resource
     private UserService userService;
 
@@ -55,7 +55,12 @@ public class HomeController extends BaseController {
 
     @PostConstruct
     public void init() {
-        Constants.appClientDto = appService.findByClientName(Constants.SUNNY_APP_REGISTER_NAME);
+        try {
+            Constants.aniServiceDto = appServiceFacade.getAniServiceInfo();
+        } catch (IOException e) {
+            LOGGER.error("fetch AniService information error, {}", e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public HomeController() {
@@ -88,7 +93,7 @@ public class HomeController extends BaseController {
     public String redirect(HttpServletRequest request, HttpServletResponse response, @RequestParam String code) {
         LOGGER.info("code is {}", code);
 
-        AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForAccessToken(Constants.appClientDto);
+        AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForAccessToken(Constants.aniServiceDto);
         OAuth2AccessToken oAuth2AccessToken = auth2ClientService.getOAuth2AccessToken(code, authorizationCodeParameter);
 
         UserDto userDto = initService.initApplication(oAuth2AccessToken);

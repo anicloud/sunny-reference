@@ -22,7 +22,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath:spring/rect-persist.xml",
-        "classpath:spring/root-context.xml"
+        "classpath:spring/BeansConfig.xml"
 })
 public class DeviceFeatureInstanceAssembleServiceHandlerTest {
 

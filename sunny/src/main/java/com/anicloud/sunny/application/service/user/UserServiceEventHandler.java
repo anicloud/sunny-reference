@@ -71,7 +71,7 @@ public class UserServiceEventHandler implements UserService {
         if (userDto.expiresIn - (currentTimeStamp - userDto.createTime) / 1000 < Constants.TOKEN_REFRESH_TIME_INTERVAL_IN_SECONDS) {
             LOGGER.info("refresh user token.");
             OAuth2ClientService auth2ClientService = new OAuth2ClientServiceImpl(AnicelServiceConfig.getInstance());
-            AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForRefreshToken(Constants.appClientDto);
+            AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForRefreshToken(Constants.aniServiceDto);
             OAuth2AccessToken auth2AccessToken = auth2ClientService.refreshAccessToken(userDto.refreshToken, authorizationCodeParameter);
             LOGGER.info("refresh token {}.", auth2AccessToken);
 

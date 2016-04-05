@@ -42,7 +42,7 @@ public class FunctionInstance implements Serializable {
                 .builder();
 
         AniCommandDtoBuilder commandDtoBuilder = new AniCommandDtoBuilder()
-                .setClientId(Constants.appClientDto.clientId)
+                .setClientId(Constants.aniServiceDto.aniServiceId)
                 .setDeviceIdentificationCode(deviceId)
                 .setAniFunction(functionDto);
 

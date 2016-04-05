@@ -1,4 +1,4 @@
-package com.anicloud.sunny.infrastructure.persistence.service;
+package com.anicloud.sunny.infrastructure.persistence.service.app;
 
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AppClientDao;
 import org.springframework.stereotype.Service;
