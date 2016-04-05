@@ -1,14 +1,13 @@
 package com.anicloud.sunny.application.service.user;
 
-import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
-import com.ani.cel.service.manager.agent.oauth2.model.AuthorizationCodeParameter;
 import com.ani.cel.service.manager.agent.oauth2.model.OAuth2AccessToken;
-import com.ani.cel.service.manager.agent.oauth2.service.OAuth2ClientService;
-import com.ani.cel.service.manager.agent.oauth2.service.OAuth2ClientServiceImpl;
+import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
+import com.ani.octopus.service.agent.service.oauth.dto.AuthorizationCodeParameter;
 import com.anicloud.sunny.application.assemble.UserDtoAssembler;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
+import com.anicloud.sunny.application.service.agent.AgentTemplate;
 import com.anicloud.sunny.domain.model.user.User;
 import com.anicloud.sunny.infrastructure.persistence.service.UserPersistenceService;
 import org.slf4j.Logger;
@@ -28,6 +27,8 @@ public class UserServiceEventHandler implements UserService {
 
     @Resource
     private UserPersistenceService userPersistenceService;
+    @Resource(name = "agentTemplate")
+    private AgentTemplate agentTemplate;
 
     public UserServiceEventHandler() {}
 
@@ -70,9 +71,10 @@ public class UserServiceEventHandler implements UserService {
         Long currentTimeStamp = System.currentTimeMillis();
         if (userDto.expiresIn - (currentTimeStamp - userDto.createTime) / 1000 < Constants.TOKEN_REFRESH_TIME_INTERVAL_IN_SECONDS) {
             LOGGER.info("refresh user token.");
-            OAuth2ClientService auth2ClientService = new OAuth2ClientServiceImpl(AnicelServiceConfig.getInstance());
             AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForRefreshToken(Constants.aniServiceDto);
-            OAuth2AccessToken auth2AccessToken = auth2ClientService.refreshAccessToken(userDto.refreshToken, authorizationCodeParameter);
+            AniOAuthAccessToken auth2AccessToken = agentTemplate
+                    .getAniOAuthService()
+                    .refreshAccessToken(userDto.refreshToken, authorizationCodeParameter);
             LOGGER.info("refresh token {}.", auth2AccessToken);
 
             userDto.accessToken = auth2AccessToken.getAccessToken();

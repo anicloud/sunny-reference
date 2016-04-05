@@ -9,6 +9,7 @@ import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.dto.user.UserInfoDto;
+import com.anicloud.sunny.application.service.agent.AgentTemplate;
 import com.anicloud.sunny.application.service.init.ApplicationInitService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
@@ -49,10 +50,8 @@ public class HomeController extends BaseController {
     private AppServiceFacade appServiceFacade;
     @Resource
     private UserService userService;
-
-    @Resource
-    private AniOAuthService aniOAuthService;
-
+    @Resource(name = "agentTemplate")
+    private AgentTemplate agentTemplate;
     @Resource
     private ObjectMapper objectMapper;
 
@@ -93,7 +92,8 @@ public class HomeController extends BaseController {
         LOGGER.info("code is {}", code);
 
         AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForAccessToken(Constants.aniServiceDto);
-        AniOAuthAccessToken accessToken = aniOAuthService.getOAuth2AccessToken(code, authorizationCodeParameter);
+        AniOAuthAccessToken accessToken = agentTemplate.getAniOAuthService()
+                .getOAuth2AccessToken(code, authorizationCodeParameter);
 
         UserDto userDto = null;
         try {
