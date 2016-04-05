@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Light-powerOn",
+    "desc": "Light power On",
+    "inputArgs": null,
+    "stubIdentityList": [
+      {
+        "groupId": 1,
+        "stubId": 1
+      }
+    ],
+    "inputArgMapping": null
+  },
+  {
+    "id": 2,
+    "name": "Light-powerOff",
+    "desc": "Light power Off",
+    "inputArgs": null,
+    "stubIdentityList": [
+      {
+        "groupId": 1,
+        "stubId": 2
+      }
+    ],
+    "inputArgMapping": null
+  },
+  {
+    "id": 1,
+    "name": "Light-setBrightness",
+    "desc": "Light set Brightness",
+    "inputArgs": [
+      {
+        "id": 1,
+        "name": "brightnessLux",
+        "dataType": "INTEGER",
+        "screenName": "brightnessLux"
+      }
+    ],
+    "stubIdentityList": [
+      {
+        "groupId": 1,
+        "stubId": 3
+      }
+    ],
+    "inputArgMapping": [
+      {
+        "brightnessLux": "1:3:brightnessLux"
+      }
+    ]
+  }
+]

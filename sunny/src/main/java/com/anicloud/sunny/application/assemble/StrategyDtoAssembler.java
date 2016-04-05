@@ -84,16 +84,16 @@ public class StrategyDtoAssembler {
         List<FeatureInstance> featureInstanceList = new ArrayList<>();
         for (DeviceFeatureInstance deviceFeatureInstance : strategy.deviceFeatureInstanceList) {
             DeviceFeature deviceFeature = deviceFeatureInstance.deviceFeature;
-            List<FeatureFunction> featureFunctionList = deviceFeature.featureFunctionList;
-
+            // List<FeatureFunction> featureFunctionList = deviceFeature.featureFunctionList;
+            List<FeatureFunction> featureFunctionList = null;
             List<FunctionInstance> functionInstanceList = new ArrayList<>();
             for (FeatureFunction featureFunction : featureFunctionList) {
                 FunctionInstance functionInstance =
                         toFunctionInstance(deviceFeature, deviceFeatureInstance.featureArgValueList, featureFunction);
                 functionInstanceList.add(functionInstance);
             }
-
-            FeatureInstance featureInstance = new FeatureInstance(
+            FeatureInstance featureInstance = null;
+            /*FeatureInstance featureInstance = new FeatureInstance(
                     deviceFeature.featureId,
                     deviceFeatureInstance.device.identificationCode,
                     ScheduleState.NONE,
@@ -101,7 +101,7 @@ public class StrategyDtoAssembler {
                     functionInstanceList,
                     toTriggerInstanceList(deviceFeatureInstance.triggerList),
                     deviceFeatureInstance.isScheduleNow
-            );
+            );*/
             featureInstanceList.add(featureInstance);
         }
 
@@ -166,7 +166,8 @@ public class StrategyDtoAssembler {
         String argKey = null;
         String functionArg = functionId + argName;
 
-        List<Map<String, List<String>>> mapList = deviceFeature.featureArgFuncArgMapList;
+        // List<Map<String, List<String>>> mapList = deviceFeature.featureArgFuncArgMapList;
+        List<Map<String, List<String>>> mapList = null;
         for (Map<String, List<String>> map : mapList) {
             Set<String> keySet = map.keySet();
             for (String key : keySet) {

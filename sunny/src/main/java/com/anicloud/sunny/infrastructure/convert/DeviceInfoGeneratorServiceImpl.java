@@ -2,6 +2,7 @@ package com.anicloud.sunny.infrastructure.convert;
 
 import com.ani.cel.service.manager.agent.device.model.DeviceSlaveInfoDto;
 import com.ani.cel.service.manager.agent.device.model.FunctionInfoDto;
+import com.ani.octopus.commons.stub.dto.StubDto;
 import com.anicloud.sunny.application.dto.device.ArgumentDto;
 import com.anicloud.sunny.infrastructure.exception.DeviceTypeCanNotGenerateException;
 import org.apache.commons.collections.CollectionUtils;

@@ -20,17 +20,8 @@ public class DeviceFeatureDtoAssembler {
         if (deviceFeatureDto == null) {
             return null;
         }
-
-        DeviceFeature deviceFeature = new DeviceFeature(
-                deviceFeatureDto.description,
-                deviceFeatureDto.featureArgFuncArgMapList,
-                FeatureArgAssembler.toFeatureArgList(deviceFeatureDto.argDtoList),
-                FeatureFunctionDtoAssembler.toFeatureFunctionList(deviceFeatureDto.featureFunctionDtoList),
-                deviceFeatureDto.featureId,
-                deviceFeatureDto.featureName
-        );
-
-        return deviceFeature;
+        // TODO
+        return null;
     }
 
     public static DeviceFeatureDto toDto(DeviceFeature deviceFeature) {
@@ -38,15 +29,8 @@ public class DeviceFeatureDtoAssembler {
             return null;
         }
 
-        DeviceFeatureDto deviceFeatureDto = new DeviceFeatureDto(
-                FeatureArgAssembler.toDtoList(deviceFeature.featureArgList),
-                deviceFeature.description,
-                deviceFeature.featureArgFuncArgMapList,
-                FeatureFunctionDtoAssembler.toDtoList(deviceFeature.featureFunctionList),
-                deviceFeature.featureId,
-                deviceFeature.featureName
-        );
-        return deviceFeatureDto;
+        // TODO
+        return null;
     }
 
     public static List<DeviceFeature> toDeviceFeatureList(List<DeviceFeatureDto> deviceFeatureDtoList) {
@@ -73,12 +57,8 @@ public class DeviceFeatureDtoAssembler {
 
     public static DeviceFeatureInfoDto toDeviceFeatureInfoDto(DeviceFeature deviceFeature) {
         if (deviceFeature == null) return null;
-        return new DeviceFeatureInfoDto(
-                deviceFeature.featureId,
-                deviceFeature.featureName,
-                deviceFeature.description,
-                FeatureArgAssembler.toDtoList(deviceFeature.featureArgList)
-        );
+        // TODO
+        return null;
     }
 
     public static List<DeviceFeatureInfoDto> toDeviceFeatureInfoDtoList(List<DeviceFeature> deviceFeatureList) {

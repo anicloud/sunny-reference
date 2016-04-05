@@ -57,7 +57,8 @@ public class StrategyServiceHandler implements StrategyService {
         if (strategyDto.deviceFeatureInstanceList != null) {
             for (DeviceFeatureInstanceDto deviceFeatureInstanceDto : strategyDto.deviceFeatureInstanceList) {
                 String deviceFeatureId = deviceFeatureInstanceDto.deviceFeatureDto.featureId;
-                deviceFeatureInstanceDto.deviceFeatureDto = deviceFeatureService.getDeviceFeatureById(deviceFeatureId);
+                //deviceFeatureInstanceDto.deviceFeatureDto = deviceFeatureService.getDeviceFeatureById(deviceFeatureId);
+                // TODO
             }
         }
         Strategy strategy = StrategyDtoAssembler.toStrategy(strategyDto);

@@ -1,6 +1,6 @@
 package com.anicloud.sunny.domain.model.device;
 
-import com.ani.cel.service.manager.agent.core.share.DataType;
+import com.ani.bus.service.commons.dto.anidevice.stub.DataType;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureArgDao;
 
 import java.io.Serializable;
@@ -11,6 +11,8 @@ import java.util.List;
  * Created by zhaoyu on 15-7-10.
  */
 public class FeatureArg implements Serializable, Cloneable {
+    private static final long serialVersionUID = 606509373061868994L;
+
     public String name;
     public DataType dataType;
     public String screenName;
@@ -22,9 +24,9 @@ public class FeatureArg implements Serializable, Cloneable {
         this.screenName = screenName;
     }
 
-    public FeatureArg(DataType dataType, String name, String screenName) {
-        this.dataType = dataType;
+    public FeatureArg( String name, DataType dataType, String screenName) {
         this.name = name;
+        this.dataType = dataType;
         this.screenName = screenName;
     }
 
@@ -40,8 +42,8 @@ public class FeatureArg implements Serializable, Cloneable {
     public static FeatureArg toFeatureArg(FeatureArgDao featureArgDao) {
         if (featureArgDao == null) return null;
         return new FeatureArg(
-                featureArgDao.dataType,
                 featureArgDao.name,
+                featureArgDao.dataType,
                 featureArgDao.screenName
         );
     }

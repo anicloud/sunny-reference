@@ -72,6 +72,7 @@
             <p class="bg-warning"><c:out value="${errorMsg}"/></p>
         </c:if>
 
+
         <div style="text-align: center">
             <h4 style="margin-bottom: 14px; color: #818587">已授权账号登录</h4>
             <form id="loginForm" class="form-inline" action='<c:url value="login"/>' method="post">

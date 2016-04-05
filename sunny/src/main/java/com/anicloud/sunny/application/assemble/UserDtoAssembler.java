@@ -2,7 +2,6 @@ package com.anicloud.sunny.application.assemble;
 
 import com.ani.cel.service.manager.agent.oauth2.model.OAuth2AccessToken;
 import com.ani.cel.service.manager.agent.user.model.SysUserDto;
-import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.domain.model.user.User;
 
@@ -48,7 +47,7 @@ public class UserDtoAssembler {
         );
     }
 
-    public static UserDto toUser(SysUserDto sysUserDto, AniOAuthAccessToken accessToken) {
+    public static UserDto toUser(SysUserDto sysUserDto, OAuth2AccessToken accessToken) {
         if (sysUserDto == null || accessToken == null) {
             return null;
         }
