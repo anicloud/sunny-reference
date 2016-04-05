@@ -43,6 +43,7 @@ public class ApplicationInitServiceImpl2 extends ApplicationInitService {
     protected boolean isUserNotExists(Long accountId) {
         // TODO
         // judge if the account exists in sunny database
+
         return false;
     }
 

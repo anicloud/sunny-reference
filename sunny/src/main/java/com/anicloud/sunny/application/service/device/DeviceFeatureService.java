@@ -18,6 +18,7 @@ public interface DeviceFeatureService {
 
     DeviceFeature getDeviceFeature(int featureId);
     DeviceFeature getDeviceFeature(String name);
+    List<DeviceFeature> getDeviceFeatureList(List<Integer> featureIdSet);
 
     List<DeviceFeatureInfoDto> getAllDeviceFeatureInfo();
 }

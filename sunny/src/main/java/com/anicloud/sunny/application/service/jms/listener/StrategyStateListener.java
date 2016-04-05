@@ -26,7 +26,7 @@ public class StrategyStateListener implements MessageListener {
         try {
             Strategy strategy = (Strategy) objectMessage.getObject();
             LOGGER.info("StrategyStateListener {}.", strategy.owner);
-            String hashUserId = strategy.owner.hashUserId;
+            Long hashUserId = strategy.owner.hashUserId;
             StrategyDto strategyDto = StrategyDtoAssembler.toDto(strategy);
             StrategyInfoHandler.sendMessageToUser(hashUserId, strategyDto);
         } catch (JMSException e) {

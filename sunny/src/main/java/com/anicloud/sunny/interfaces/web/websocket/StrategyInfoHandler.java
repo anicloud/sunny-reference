@@ -51,7 +51,7 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
      * @param hashUserId
      * @param strategyDto
      */
-    public static void sendMessageToUser(String hashUserId, StrategyDto strategyDto) {
+    public static void sendMessageToUser(Long hashUserId, StrategyDto strategyDto) {
         //WebSocketSession session = sessionMaps.get(hashUserId);
         Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(hashUserId);
         Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();

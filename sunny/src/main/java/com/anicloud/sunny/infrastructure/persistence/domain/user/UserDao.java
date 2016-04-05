@@ -16,8 +16,8 @@ import java.util.Set;
 public class UserDao extends AbstractEntity {
     private static final long serialVersionUID = -1856228190263844653L;
 
-    @Column(name = "hash_user_id", unique = true, nullable = false, length = 100)
-    public String hashUserId;
+    @Column(name = "hash_user_id", unique = true, nullable = false)
+    public Long hashUserId;
     @Column(name = "email", unique = true, nullable = false, length = 50)
     public String email;
     @Column(name = "screen_name", unique = true, nullable = false, length = 100)
@@ -42,13 +42,13 @@ public class UserDao extends AbstractEntity {
     public UserDao() {
     }
 
-    public UserDao(String email, String hashUserId, String screenName) {
+    public UserDao(String email, Long hashUserId, String screenName) {
         this.email = email;
         this.hashUserId = hashUserId;
         this.screenName = screenName;
     }
 
-    public UserDao(String accessToken, String email, Long expiresIn, String hashUserId,
+    public UserDao(String accessToken, String email, Long expiresIn, Long hashUserId,
                    String refreshToken, String scope, String screenName, String tokenType, Long createTime) {
         this.accessToken = accessToken;
         this.email = email;

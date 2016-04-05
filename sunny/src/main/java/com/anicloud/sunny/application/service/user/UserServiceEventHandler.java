@@ -53,7 +53,7 @@ public class UserServiceEventHandler implements UserService {
     }
 
     @Override
-    public UserDto getUserByHashUserId(String hashUserId) {
+    public UserDto getUserByHashUserId(Long hashUserId) {
         User user = User.getUserByHashUserId(userPersistenceService, hashUserId);
         return UserDtoAssembler.fromUser(user);
     }
@@ -65,7 +65,7 @@ public class UserServiceEventHandler implements UserService {
     }
 
     @Override
-    public UserDto refreshUserToken(String hashUserId) {
+    public UserDto refreshUserToken(Long hashUserId) {
         UserDto userDto = getUserByHashUserId(hashUserId);
 
         Long currentTimeStamp = System.currentTimeMillis();

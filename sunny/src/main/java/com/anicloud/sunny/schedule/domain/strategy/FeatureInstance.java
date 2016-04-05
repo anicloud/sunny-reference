@@ -21,7 +21,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     public List<TriggerInstance> triggerInstanceList;
     public boolean isScheduleNow;
 //
-    public String hashUserId;
+    public Long hashUserId;
     transient public ScheduleJob scheduleJob;
     transient public ScheduleManager scheduleManager;
     transient public ScheduleStateListener listener;

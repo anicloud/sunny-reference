@@ -2,8 +2,10 @@ package com.anicloud.sunny.application.assemble;
 
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureInfoDto;
+import com.anicloud.sunny.application.dto.device.FeatureArgDto;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.domain.model.device.FeatureArg;
+import com.anicloud.sunny.domain.model.device.StubIdentity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +14,17 @@ import java.util.Set;
 /**
  * Created by zhaoyu on 15-6-15.
  */
-public class DeviceFeatureDtoAssembler {
+public class DeviceFeatureDtoConverter {
 
-    private DeviceFeatureDtoAssembler() {}
+    private DeviceFeatureDtoConverter() {
+    }
 
     public static DeviceFeature toDeviceFeature(DeviceFeatureDto deviceFeatureDto) {
         if (deviceFeatureDto == null) {
             return null;
         }
-        // TODO
         return null;
+        //new DeviceFeature(deviceFeatureDto.featureId, deviceFeatureDto.featureName, deviceFeatureDto.description, toDomain(deviceFeatureDto.argDtoList),);
     }
 
     public static DeviceFeatureDto toDto(DeviceFeature deviceFeature) {
@@ -30,6 +33,46 @@ public class DeviceFeatureDtoAssembler {
         }
 
         // TODO
+        return null;
+    }
+
+    public static FeatureArg toDomain(FeatureArgDto featureArgDto) {
+        if (featureArgDto == null) {
+            return null;
+        }
+        return new FeatureArg(featureArgDto.name, featureArgDto.dataType, featureArgDto.screenName);
+    }
+
+    public static FeatureArgDto toDto(FeatureArg featureArg) {
+        if (featureArg == null) {
+            return null;
+        }
+        return new FeatureArgDto(featureArg.dataType, featureArg.name, featureArg.screenName);
+    }
+
+    public static List<FeatureArg> toDomain(List<FeatureArgDto> featureArgDtos) {
+        if (featureArgDtos == null) {
+            return null;
+        }
+        List<FeatureArg> featureArgList = new ArrayList<>();
+        for (FeatureArgDto featureArgDto : featureArgDtos) {
+            featureArgList.add(toDomain(featureArgDto));
+        }
+        return featureArgList;
+    }
+
+    public static List<FeatureArgDto> toDto(List<FeatureArg> featureArgs) {
+        if (featureArgs == null) {
+            return null;
+        }
+        List<FeatureArgDto> featureArgDtos = new ArrayList<>();
+        for (FeatureArg featureArg : featureArgs) {
+            featureArgDtos.add(toDto(featureArg));
+        }
+        return featureArgDtos;
+    }
+
+    public static StubIdentity toDomain(){
         return null;
     }
 

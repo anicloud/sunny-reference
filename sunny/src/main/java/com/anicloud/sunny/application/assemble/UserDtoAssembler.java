@@ -46,23 +46,4 @@ public class UserDtoAssembler {
                 user.createTime
         );
     }
-
-    public static UserDto toUser(SysUserDto sysUserDto, OAuth2AccessToken accessToken) {
-        if (sysUserDto == null || accessToken == null) {
-            return null;
-        }
-
-        UserDto userDto = new UserDto(
-                accessToken.getAccessToken(),
-                sysUserDto.email,
-                accessToken.getExpiresIn(),
-                sysUserDto.hashUserId,
-                accessToken.getRefreshToken(),
-                accessToken.getScope(),
-                sysUserDto.screenName,
-                accessToken.getTokenType(),
-                System.currentTimeMillis()
-        );
-        return userDto;
-    }
 }

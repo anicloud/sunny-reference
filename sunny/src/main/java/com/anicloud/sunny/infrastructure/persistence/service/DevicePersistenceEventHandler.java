@@ -70,7 +70,7 @@ public class DevicePersistenceEventHandler implements DevicePersistenceService {
     @Override
     public List<DeviceDao> getDeviceByUser(UserDao user) {
         List<DeviceDao> deviceDaoList = null;
-        if (StringUtils.isNotEmpty(user.hashUserId)) {
+        if (StringUtils.isNotEmpty(user.hashUserId.toString())) {
             deviceDaoList = deviceRepository.findByUserHashId(user.hashUserId);
         }
         else if (StringUtils.isNotEmpty(user.email)) {

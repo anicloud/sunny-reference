@@ -17,7 +17,7 @@ public class BaseController {
      * @param request
      * @param hashUserId
      */
-    public boolean removeUserFromSession(HttpServletRequest request, String hashUserId) {
+    public boolean removeUserFromSession(HttpServletRequest request, Long hashUserId) {
         HttpSession session = request.getSession();
         UserSessionInfo userSessionInfo = (UserSessionInfo) session.getAttribute(Constants.SUNNY_SESSION_NAME);
         if (userSessionInfo != null) {

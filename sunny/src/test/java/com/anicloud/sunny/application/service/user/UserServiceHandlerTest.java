@@ -18,8 +18,8 @@ import javax.annotation.Resource;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-        "classpath:spring/rect-persist.xml",
-        "classpath:spring/BeansConfig.xml"
+        "classpath:application-context/persistence/database/rect-persist.xml",
+        "classpath:application-context/persistence/BeansConfig.xml"
 })
 public class UserServiceHandlerTest{
 
@@ -36,7 +36,7 @@ public class UserServiceHandlerTest{
         userDto.tokenType = "bearer";
         userDto.email = "ching-zhou@anicloud.com";
         userDto.expiresIn = 43199L;
-        userDto.hashUserId = "4c781d51d638cf133df74e6176f839e2";
+        userDto.hashUserId = 1234567896465L;
         userDto.refreshToken = "f6f3f52d-06f4-49fc-ba23-c1e3c96e8809";
         userDto.scope = "read write";
         userDto.screenName = "Yeh";

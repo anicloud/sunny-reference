@@ -17,25 +17,25 @@ public interface DeviceRepository extends JpaRepository<DeviceDao, Long> {
     public DeviceDao findByIdentificationCode(String identificationCode);
 
     @Query(value = "select d from DeviceDao d where d.owner.hashUserId = ?1")
-    public List<DeviceDao> findByUserHashId(String hashUserId);
+    public List<DeviceDao> findByUserHashId(Long hashUserId);
 
     @Query(value = "select d from DeviceDao d where d.owner.email = ?1")
     public List<DeviceDao> findByUserEmail(String email);
 
     @Query(value = "select d from DeviceDao d where d.owner.hashUserId = ?1 and d.deviceGroup = ?2")
-    public List<DeviceDao> findByUserAndGroup(String hashUserId, String deviceGroup);
+    public List<DeviceDao> findByUserAndGroup(Long hashUserId, String deviceGroup);
 
     @Query(value = "select d from DeviceDao d where d.owner.hashUserId = ?1 and d.deviceType = ?2")
-    public List<DeviceDao> findByUserAndType(String hashUserId, String deviceType);
+    public List<DeviceDao> findByUserAndType(Long hashUserId, String deviceType);
 
     @Query(value = "select d from DeviceDao d where d.owner.hashUserId = ?1 and d.deviceState = ?2")
-    public List<DeviceDao> findByUserAndState(String hashUserId, DeviceState deviceState);
+    public List<DeviceDao> findByUserAndState(Long hashUserId, DeviceState deviceState);
 
     @Query(value = "select d from DeviceDao d where d.owner.hashUserId = ?1 and d.logicState = ?2")
-    public List<DeviceDao> findByUserAndLogicState(String hashUserId, DeviceLogicState logicState);
+    public List<DeviceDao> findByUserAndLogicState(Long hashUserId, DeviceLogicState logicState);
 
     @Query(value = "select distinct d.deviceGroup from DeviceDao d where d.owner.hashUserId = ?1")
-    public List<String> findDeviceGroupListByUser(String hashUserId);
+    public List<String> findDeviceGroupListByUser(Long hashUserId);
 
     @Modifying(clearAutomatically = true)
     @Query(value = "update DeviceDao d set d.deviceState = ?2 where d.identificationCode = ?1")

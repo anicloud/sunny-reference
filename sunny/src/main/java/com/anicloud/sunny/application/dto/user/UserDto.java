@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class UserDto implements Serializable {
     private static final long serialVersionUID = -3722526475602732820L;
 
-    public String hashUserId;
+    public Long hashUserId;
     public String email;
     public String screenName;
 
@@ -23,7 +23,7 @@ public class UserDto implements Serializable {
     }
 
     public UserDto(String accessToken, String email,
-                   Long expiresIn, String hashUserId,
+                   Long expiresIn, Long hashUserId,
                    String refreshToken, String scope,
                    String screenName, String tokenType,
                    Long createTime) {
@@ -39,7 +39,7 @@ public class UserDto implements Serializable {
     }
 
     public UserDto(String accessToken, Long createTime, String email,
-                   Long expiresIn, String hashUserId,
+                   Long expiresIn, Long hashUserId,
                    String refreshToken, String scope,
                    String screenName, String tokenType) {
         this.accessToken = accessToken;

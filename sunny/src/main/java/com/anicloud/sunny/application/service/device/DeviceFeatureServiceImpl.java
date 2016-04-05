@@ -7,9 +7,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -83,6 +85,21 @@ public class DeviceFeatureServiceImpl implements DeviceFeatureService {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<DeviceFeature> getDeviceFeatureList(List<Integer> featureIdSet) {
+        Set<DeviceFeature> deviceFeatureList = getAll();
+        List<DeviceFeature> targetDeviceFeatureList = new ArrayList<>();
+        for (Integer featureId : featureIdSet) {
+            for (DeviceFeature deviceFeature : deviceFeatureList) {
+                if (deviceFeature.featureId == featureId) {
+                    targetDeviceFeatureList.add(deviceFeature);
+                    break;
+                }
+            }
+        }
+        return targetDeviceFeatureList;
     }
 
     @Override

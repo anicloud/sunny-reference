@@ -28,7 +28,7 @@ public class FunctionInstance implements Serializable {
     public List<Argument> inputList;
     public List<Argument> outputList;
 
-    public boolean execute(String hashUserId, String deviceId) {
+    public boolean execute(Long hashUserId, String deviceId) {
         List<AniFunctionArgumentDto> inputDtoList = new ArrayList<>();
         for (Argument arg : inputList) {
             inputDtoList.add(new AniFunctionArgumentDto(arg.name, arg.value));

@@ -29,7 +29,7 @@ public class StrategyInfoHandshake extends HttpSessionHandshakeInterceptor {
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest serverHttpRequest = (ServletServerHttpRequest) request;
             Cookie[] cookies = serverHttpRequest.getServletRequest().getCookies();
-            String hashUserId = "";
+            Long hashUserId = null;
             for(int i=0;i<cookies.length;i++){
                 if(Constants.SUNNY_COOKIE_USER_NAME.equals(cookies[i].getName())){
                     String sunny_user = cookies[i].getValue();
