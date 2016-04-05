@@ -51,7 +51,8 @@ public class HomeController extends BaseController {
     private UserService userService;
 
     private OAuth2ClientService auth2ClientService;
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @Resource
+    private ObjectMapper objectMapper;
 
     @PostConstruct
     public void init() {

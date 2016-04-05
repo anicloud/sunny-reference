@@ -1,11 +1,9 @@
 package com.anicloud.sunny.domain.model.user;
 
-import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.domain.model.device.Device;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 import com.anicloud.sunny.infrastructure.persistence.service.UserPersistenceService;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import javax.annotation.Resource;
