@@ -1,9 +1,9 @@
 package com.anicloud.sunny.interfaces.adapter;
 
-import com.ani.bus.service.commons.dto.aniservice.AniServiceDto;
-import com.ani.bus.service.commons.dto.aniservice.AniServiceEntranceDto;
 import com.anicloud.sunny.domain.model.app.AniService;
 import com.anicloud.sunny.domain.model.app.AniServiceEntrance;
+import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
+import com.anicloud.sunny.interfaces.facade.dto.AniServiceEntranceDto;
 
 import java.util.List;
 
@@ -13,15 +13,15 @@ import java.util.List;
  * @date 16-4-5
  * @since JDK 1.7
  */
-public class AniServiceDtoConverter {
-    private AniServiceDtoConverter() {}
+public class AniServiceDtoAdapter {
+    private AniServiceDtoAdapter() {}
 
     public static AniServiceDto toDto(AniService aniService) {
         // TODO
         return null;
     }
 
-    public static  AniServiceEntranceDto toDto(AniServiceEntrance entrance) {
+    public static AniServiceEntranceDto toDto(AniServiceEntrance entrance) {
         // TODO
         return null;
     }

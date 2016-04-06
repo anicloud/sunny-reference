@@ -15,7 +15,8 @@ public class FeatureFunctionDto implements Serializable {
 
     public String featureFunctionId;
 
-    public String functionGroup;
+    public Integer stubId;
+    public Long groupId;
     public String functionName;
     public FunctionType functionType;
     public List<FunctionArgumentDto> inputArgList;
@@ -24,11 +25,14 @@ public class FeatureFunctionDto implements Serializable {
     public FeatureFunctionDto() {
     }
 
-    public FeatureFunctionDto(String featureFunctionId, String functionGroup, String functionName,
-                              FunctionType functionType, List<FunctionArgumentDto> inputArgList,
+    public FeatureFunctionDto(String featureFunctionId, Integer stubId,
+                              Long groupId, String functionName,
+                              FunctionType functionType,
+                              List<FunctionArgumentDto> inputArgList,
                               List<FunctionArgumentDto> outputArgList) {
         this.featureFunctionId = featureFunctionId;
-        this.functionGroup = functionGroup;
+        this.stubId = stubId;
+        this.groupId = groupId;
         this.functionName = functionName;
         this.functionType = functionType;
         this.inputArgList = inputArgList;
@@ -39,9 +43,9 @@ public class FeatureFunctionDto implements Serializable {
     public String toString() {
         return "FeatureFunctionDto{" +
                 "featureFunctionId='" + featureFunctionId + '\'' +
-                ", functionGroup='" + functionGroup + '\'' +
+                ", stubId=" + stubId +
+                ", groupId=" + groupId +
                 ", functionName='" + functionName + '\'' +
-                ", functionType=" + functionType +
                 '}';
     }
 }

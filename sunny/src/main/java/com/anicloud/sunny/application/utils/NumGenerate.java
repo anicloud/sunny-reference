@@ -1,7 +1,5 @@
 package com.anicloud.sunny.application.utils;
 
-import org.hibernate.annotations.Synchronize;
-
 import java.util.UUID;
 
 /**

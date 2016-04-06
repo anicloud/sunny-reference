@@ -1,6 +1,5 @@
 package com.anicloud.sunny.application.service.app;
 
-import com.anicloud.sunny.application.dto.app.AppClientDto;
 import com.anicloud.sunny.domain.model.app.AniService;
 
 import java.io.IOException;

@@ -1,8 +1,8 @@
 package com.anicloud.sunny.interfaces.facade;
 
-import com.ani.bus.service.commons.dto.aniservice.AniServiceDto;
 import com.anicloud.sunny.application.service.app.AppService;
-import com.anicloud.sunny.interfaces.adapter.AniServiceDtoConverter;
+import com.anicloud.sunny.interfaces.adapter.AniServiceDtoAdapter;
+import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -24,7 +24,7 @@ public class AppServiceFacadeImpl implements AppServiceFacade {
 
     @Override
     public AniServiceDto getAniServiceInfo() throws IOException {
-        return AniServiceDtoConverter.toDto(
+        return AniServiceDtoAdapter.toDto(
                 appService.getAniServiceInfo()
         );
     }

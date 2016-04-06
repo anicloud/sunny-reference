@@ -7,16 +7,21 @@ import java.util.List;
  */
 public class FunctionInstanceDto {
     public String functionId;
+    public Integer stubId;
+    public Long groupId;
     public String name;
-    public String group;
     public List<ArgumentDto> inputList;
     public List<ArgumentDto> outputList;
 
-    public FunctionInstanceDto(String functionId, String name, String group,
-                               List<ArgumentDto> inputList, List<ArgumentDto> outputList) {
+    public FunctionInstanceDto() {
+    }
+
+    public FunctionInstanceDto(String functionId, Integer stubId, Long groupId,
+                               String name, List<ArgumentDto> inputList, List<ArgumentDto> outputList) {
         this.functionId = functionId;
+        this.stubId = stubId;
+        this.groupId = groupId;
         this.name = name;
-        this.group = group;
         this.inputList = inputList;
         this.outputList = outputList;
     }

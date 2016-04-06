@@ -5,6 +5,7 @@ import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by zhaoyu on 15-6-8.
@@ -16,8 +17,10 @@ public class FeatureFunctionDao extends AbstractEntity {
 
     @Column(name = "feature_function_id", nullable = false, length = 100)
     public String featureFunctionId;
-    @Column(name = "function_group", nullable = false)
-    public String functionGroup;
+    @Column(name = "stub_id", nullable = false)
+    public Integer stubId;
+    @Column(name = "group_id", nullable = false)
+    public Long groupId;
     @Column(name = "function_name", nullable = false)
     public String functionName;
     @Column(name = "function_type", nullable = false)
@@ -32,15 +35,16 @@ public class FeatureFunctionDao extends AbstractEntity {
     }
 
     public FeatureFunctionDao(String featureFunctionId,
-                              List<FunctionArgumentDao> argumentDaoList,
-                              String functionGroup,
+                              Integer stubId, Long groupId,
                               String functionName,
-                              FunctionType functionType) {
+                              FunctionType functionType,
+                              List<FunctionArgumentDao> argumentDaoList) {
         this.featureFunctionId = featureFunctionId;
-        this.argumentDaoList = argumentDaoList;
-        this.functionGroup = functionGroup;
+        this.stubId = stubId;
+        this.groupId = groupId;
         this.functionName = functionName;
         this.functionType = functionType;
+        this.argumentDaoList = argumentDaoList;
     }
 
     @Override
@@ -48,32 +52,25 @@ public class FeatureFunctionDao extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-
         FeatureFunctionDao that = (FeatureFunctionDao) o;
-
-        if (featureFunctionId != null ? !featureFunctionId.equals(that.featureFunctionId) : that.featureFunctionId != null)
-            return false;
-        if (functionGroup != null ? !functionGroup.equals(that.functionGroup) : that.functionGroup != null)
-            return false;
-        return !(functionName != null ? !functionName.equals(that.functionName) : that.functionName != null);
-
+        return Objects.equals(featureFunctionId, that.featureFunctionId) &&
+                Objects.equals(stubId, that.stubId) &&
+                Objects.equals(groupId, that.groupId);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (featureFunctionId != null ? featureFunctionId.hashCode() : 0);
-        result = 31 * result + (functionGroup != null ? functionGroup.hashCode() : 0);
-        result = 31 * result + (functionName != null ? functionName.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), featureFunctionId, stubId, groupId);
     }
 
     @Override
     public String toString() {
         return "FeatureFunctionDao{" +
-                "functionGroup='" + functionGroup + '\'' +
+                "featureFunctionId='" + featureFunctionId + '\'' +
+                ", stubId=" + stubId +
+                ", groupId=" + groupId +
                 ", functionName='" + functionName + '\'' +
                 ", functionType=" + functionType +
-                '}';
+                "} " + super.toString();
     }
 }

@@ -18,8 +18,8 @@ public class FeatureArgAssembler {
     public static FeatureArg toFeatureArg(FeatureArgDto featureArgDto) {
         if (featureArgDto == null) return null;
         return new FeatureArg(
-                featureArgDto.name,
                 featureArgDto.dataType,
+                featureArgDto.name,
                 featureArgDto.screenName
         );
     }

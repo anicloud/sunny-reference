@@ -1,5 +1,6 @@
 package com.anicloud.sunny.application.service.init;
 
+import com.ani.bus.service.commons.dto.anidevice.DeviceMasterObjInfoDto;
 import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
 import com.ani.cel.service.manager.agent.device.model.DeviceMasterInfoDto;
 import com.ani.cel.service.manager.agent.device.model.DeviceSlaveInfoDto;
@@ -8,6 +9,8 @@ import com.ani.cel.service.manager.agent.device.model.FunctionInfoDto;
 import com.ani.cel.service.manager.agent.device.service.DeviceService;
 import com.ani.cel.service.manager.agent.device.service.DeviceServiceImpl;
 import com.ani.cel.service.manager.agent.oauth2.model.OAuth2AccessToken;
+import com.ani.octopus.commons.accout.dto.AccountDto;
+import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
 import com.anicloud.sunny.application.builder.DeviceAndFeatureRelationDtoBuilder;
 import com.anicloud.sunny.application.builder.DeviceDtoBuilder;
 import com.anicloud.sunny.application.constant.Constants;
@@ -16,6 +19,7 @@ import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
+import com.anicloud.sunny.application.service.agent.AgentTemplate;
 import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationService;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.user.UserService;
@@ -35,11 +39,10 @@ import java.util.*;
 /**
  * Created by zhaoyu on 15-7-11.
  */
-
-/*
+@Service
+@Transactional
 public class ApplicationInitServiceImpl extends ApplicationInitService {
     private final static Logger LOGGER = LoggerFactory.getLogger(ApplicationInitServiceImpl.class);
-
 
     @Resource
     private UserService userService;
@@ -51,7 +54,10 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     private com.anicloud.sunny.application.service.device.DeviceService sunnyDeviceService;
     @Resource
     private DeviceAndFeatureRelationService deviceAndFeatureRelationService;
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @Resource
+    private ObjectMapper objectMapper;
+    @Resource(name = "agentTemplate")
+    private AgentTemplate agentTemplate;
 
     @Override
     protected UserDto initUser(UserDto userDto) {
@@ -60,216 +66,39 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     @Override
-    protected void initUserDeviceAndDeviceFeatureRelation(UserDto userDto, OAuth2AccessToken accessToken) {
-        DeviceService deviceService = new DeviceServiceImpl(AnicelServiceConfig.getInstance());
-
-        List<DeviceFeatureDto> deviceFeatureDtoList = null;
-        //List<DeviceFeatureDto> deviceFeatureDtoList = deviceFeatureService.getAllDeviceFeature();
-        Collection<DeviceMasterInfoDto> deviceMasterInfoDtoList = deviceService.getDeviceMasterInfoList(
-                userDto.email, accessToken.getAccessToken());
-
-        Map<String, Set<String>> featureFunctionMap = getFeatureFunctionMap(deviceFeatureDtoList);
-
-        // keep the device name count
-        Map<String, Integer> deviceNameCount = new HashMap<>();
-        List<DeviceDto> deviceDtoList = new ArrayList<>();
-        List<Map<String, Set<String>>> featureOfEachDeviceList = new ArrayList<>();
-        for (DeviceMasterInfoDto deviceMasterInfoDto : deviceMasterInfoDtoList) {
-            for (DeviceSlaveInfoDto slaveInfoDto : deviceMasterInfoDto.slaves) {
-
-                Set<String> salveDeviceFunctionSet = getDeviceSlaveFunctionArgSet(slaveInfoDto);
-                if (isDeviceInDeviceFeature(salveDeviceFunctionSet, featureFunctionMap)) {
-                    DeviceDto deviceDto = toDeviceDto(deviceMasterInfoDto, slaveInfoDto, deviceNameCount, userDto);
-                    Map<String, Set<String>> deviceAndFeatureRelationShip = getRelationOfDeviceAndFeature(
-                            deviceDto, salveDeviceFunctionSet, featureFunctionMap);
-
-                    deviceDtoList.add(deviceDto);
-                    featureOfEachDeviceList.add(deviceAndFeatureRelationShip);
-                }
-                else {
-                    break;
-                }
-            }
-        }
-        // convert
-        List<DeviceAndFeatureRelationDto> relationDtoList = toDeviceAndFeatureRelationDtoList(featureOfEachDeviceList);
-        sunnyDeviceService.batchSave(deviceDtoList);
-        deviceAndFeatureRelationService.batchSave(relationDtoList);
-        LOGGER.info("initUserDeviceAndDeviceFeatureRelation success.");
-        try {
-            String deviceMasterStr = objectMapper.writeValueAsString(deviceMasterInfoDtoList);
-            String device = objectMapper.writeValueAsString(deviceDtoList);
-            String deviceFeatureRelation = objectMapper.writeValueAsString(featureOfEachDeviceList);
-            LOGGER.info("deviceMasterInfoDtoList {}.", deviceMasterStr);
-            LOGGER.info("deviceDtoList {}.", device);
-            LOGGER.info("deviceFeatureRelation {}.", deviceFeatureRelation);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+    protected void initUserDeviceAndDeviceFeatureRelation(AccountDto accountDto,
+                                                          AniOAuthAccessToken accessToken) throws Exception {
+        List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList = agentTemplate
+                .getDeviceObjService(accessToken.getAccessToken())
+                .getDeviceObjInfo(accountDto.accountId, Boolean.TRUE);
+        // TODO
     }
-
-
 
     @Override
-    protected UserDto isUserNotExists(String hashUserId) {
-        return userService.getUserByHashUserId(hashUserId);
-    }
-
-    private Map<String, Set<String>> getRelationOfDeviceAndFeature(DeviceDto deviceDto, Set<String> salveDeviceFunctionSet, Map<String, Set<String>> featureFunctionMap) {
-        Map<String, Set<String>> relationMap = new HashMap<>();
-        Set<String> featureNameSet = featureFunctionMap.keySet();
-        Set<String> deviceRelatedFeature = new HashSet<>();
-        for (String featureName : featureNameSet) {
-            Set<String> functionSet = featureFunctionMap.get(featureName);
-            Collection<String> resultSet = CollectionUtils.intersection(salveDeviceFunctionSet, functionSet);
-            if (resultSet.size() > 0) {
-                deviceRelatedFeature.add(featureName);
-            }
-        }
-        relationMap.put(deviceDto.identificationCode, deviceRelatedFeature);
-        return relationMap;
-    }
-
-    private DeviceDto toDeviceDto(DeviceMasterInfoDto deviceMasterInfoDto, DeviceSlaveInfoDto slaveInfoDto, Map<String, Integer> deviceNameCount, UserDto userDto) {
-        DeviceDtoBuilder dtoBuilder = new DeviceDtoBuilder();
-        String identificationCode = deviceMasterInfoDto.deviceId + "|" + slaveInfoDto.deviceId;
-        String deviceType = deviceInfoGeneratorService.generatorDeviceType(slaveInfoDto);
-        String deviceName = slaveInfoDto.name;
-
-        if (deviceNameCount.containsKey(deviceName)) {
-            Integer deviceNameNum = deviceNameCount.get(deviceName);
-            deviceNameCount.put(deviceName, ++deviceNameNum);
-        } else {
-            deviceNameCount.put(deviceName, 1);
-        }
-        // deviceName = "#" +deviceName + deviceNameCount.get(deviceName);
-        DeviceDto deviceDto = dtoBuilder
-                .setDeviceName(deviceName)
-                .setDeviceGroup(Constants.SUNNY_DEVICE_DEFAULT_GROUP)
-                .setDeviceState(slaveInfoDto.deviceState)
-                .setDeviceLogicState(Constants.DEVICE_DEFAULT_LOGIC_STATE)
-                .setDeviceType(deviceType)
-                .setIdentificationCode(identificationCode)
-                .setOwner(userDto)
-                .instance();
-
-        return deviceDto;
-    }
-
-    private boolean isDeviceInDeviceFeature(Set<String> salveDeviceFunctionSet, Map<String, Set<String>> featureFunctionMap) {
-        Set<String> featureNameSet = featureFunctionMap.keySet();
-        for (String featureName : featureNameSet) {
-            Set<String> functionSet = featureFunctionMap.get(featureName);
-            Collection<String> resultSet = CollectionUtils.intersection(salveDeviceFunctionSet, functionSet);
-            if (resultSet.size() > 0)
-                return true;
-        }
+    protected boolean isUserNotExists(Long accountId) {
+        // return userService.getUserByHashUserId(hashUserId);
+        // TODO
         return false;
     }
 
-    private Map<String, Set<String>> getFeatureFunctionMap(List<DeviceFeatureDto> deviceFeatureDtoList) {
-        Map<String, Set<String>> featureFunctionNameMap = new HashMap<>();
-        for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtoList) {
-            Set<String> functionNameArgSet = new HashSet<>();
-            List<FeatureFunctionDto> featureFunctionDtoList = deviceFeatureDto.featureFunctionDtoList;
-            for (FeatureFunctionDto functionDto : featureFunctionDtoList) {
-                if (functionDto.inputArgList != null && functionDto.inputArgList.size() > 0) {
-                    for (FunctionArgumentDto functionArgumentDto : functionDto.inputArgList) {
-                        StringBuilder stringBuilder = new StringBuilder();
-                        stringBuilder.append(functionDto.functionGroup)
-                                .append(":")
-                                .append(functionDto.functionName)
-                                .append(":")
-                                .append(ArgumentType.INPUT_ARGUMENT)
-                                .append(":")
-                                .append(functionArgumentDto.name);
-                        functionNameArgSet.add(stringBuilder.toString());
-                    }
-                }
-                if (functionDto.outputArgList != null && functionDto.outputArgList.size() > 0) {
-                    for (FunctionArgumentDto functionArgumentDto : functionDto.outputArgList) {
-                        StringBuilder stringBuilder = new StringBuilder();
-                        stringBuilder.append(functionDto.functionGroup)
-                                .append(":")
-                                .append(functionDto.functionName)
-                                .append(":")
-                                .append(ArgumentType.OUTPUT_ARGUMENT)
-                                .append(":")
-                                .append(functionArgumentDto.name);
-                        functionNameArgSet.add(stringBuilder.toString());
-                    }
-                }
-                if ((functionDto.inputArgList.size() == 0 && functionDto.outputArgList.size() == 0)
-                        || (functionDto.inputArgList == null && functionDto.outputArgList == null)) {
-                    functionNameArgSet.add(functionDto.functionGroup + ":" + functionDto.functionName);
-                }
-            }
-            featureFunctionNameMap.put(deviceFeatureDto.featureName, functionNameArgSet);
+    @Override
+    public UserDto initApplication(AniOAuthAccessToken accessToken) throws Exception {
+        AccountDto accountDto = agentTemplate
+                .getAccountService(accessToken.getAccessToken())
+                .getByAccessToken();
+        UserDto userDto = fetchUserInfo(accountDto, accessToken);
+        // not exists
+        if (!isUserNotExists(accountDto.accountId)) {
+            // init user
+            initUser(userDto);
+            // init user-device-devicefeature relation
+            initUserDeviceAndDeviceFeatureRelation(accountDto, accessToken);
         }
-        return featureFunctionNameMap;
+        return userDto;
     }
 
-    private Set<String> getDeviceSlaveFunctionArgSet(DeviceSlaveInfoDto slaveInfoDto) {
-        Set<String> functionNameArgSet = new HashSet<>();
-        for (FunctionInfoDto functionDto : slaveInfoDto.functions) {
-            if (functionDto.inputArguments != null && functionDto.inputArguments.size() > 0) {
-                for (FunctionArgumentDto functionArgumentDto : functionDto.inputArguments) {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append(functionDto.group.name)
-                            .append(":")
-                            .append(functionDto.name)
-                            .append(":")
-                            .append(ArgumentType.INPUT_ARGUMENT)
-                            .append(":")
-                            .append(functionArgumentDto.name);
-                    functionNameArgSet.add(stringBuilder.toString());
-                }
-            }
-            if (functionDto.outputArguments != null && functionDto.outputArguments.size() > 0) {
-                for (FunctionArgumentDto functionArgumentDto : functionDto.outputArguments) {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append(functionDto.group.name)
-                            .append(":")
-                            .append(functionDto.name)
-                            .append(":")
-                            .append(ArgumentType.OUTPUT_ARGUMENT)
-                            .append(":")
-                            .append(functionArgumentDto.name);
-                    functionNameArgSet.add(stringBuilder.toString());
-                }
-            }
-            if ((functionDto.inputArguments.size() == 0 && functionDto.outputArguments.size() == 0)
-                    || (functionDto.inputArguments == null && functionDto.outputArguments == null)) {
-                functionNameArgSet.add(functionDto.group.name + ":" + functionDto.name);
-            }
-        }
-        return functionNameArgSet;
-    }
-
-    private List<DeviceAndFeatureRelationDto> toDeviceAndFeatureRelationDtoList(List<Map<String, Set<String>>> relationList) {
-        List<DeviceAndFeatureRelationDto> relationDtoList = new ArrayList<>();
-
-        for (Map<String, Set<String>> relation : relationList) {
-            Set<String> keySet = relation.keySet();
-            for (String deviceId : keySet) {
-                DeviceDto deviceDto = new DeviceDto(deviceId);
-                List<DeviceFeatureDto> deviceFeatureDtoList = new ArrayList<>();
-                Set<String> featureNameSet = relation.get(deviceId);
-                for (String featureName : featureNameSet) {
-                    DeviceFeatureDto deviceFeatureDto = new DeviceFeatureDto(featureName);
-                    deviceFeatureDtoList.add(deviceFeatureDto);
-                }
-
-                DeviceAndFeatureRelationDtoBuilder builder = new DeviceAndFeatureRelationDtoBuilder();
-                DeviceAndFeatureRelationDto relationDto = builder
-                        .setDevice(deviceDto)
-                        .setRelateDeviceFeature(deviceFeatureDtoList)
-                        .instance();
-
-                relationDtoList.add(relationDto);
-            }
-        }
-        return relationDtoList;
+    protected UserDto fetchUserInfo(AccountDto accountDto, AniOAuthAccessToken accessToken) {
+        // TODO
+        return null;
     }
 }
-*/

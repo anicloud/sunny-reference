@@ -1,6 +1,6 @@
 package com.anicloud.sunny.infrastructure.persistence.domain.device;
 
-import com.ani.bus.service.commons.dto.anidevice.stub.DataType;
+import com.ani.cel.service.manager.agent.core.share.DataType;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
 
 import javax.persistence.*;

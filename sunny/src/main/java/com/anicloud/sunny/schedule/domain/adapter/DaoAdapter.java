@@ -1,6 +1,5 @@
 package com.anicloud.sunny.schedule.domain.adapter;
 
-import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.schedule.domain.strategy.*;
 import com.anicloud.sunny.schedule.persistence.dao.*;
 
@@ -32,8 +31,9 @@ public class DaoAdapter {
         if (functionInstance == null) return null;
         FunctionInstanceDao functionInstanceDao = new FunctionInstanceDao(
                 functionInstance.functionId,
+                functionInstance.stubId,
+                functionInstance.groupId,
                 functionInstance.name,
-                functionInstance.group,
                 toArgumentDaoList(functionInstance.outputList));
         return functionInstanceDao;
     }
@@ -127,8 +127,9 @@ public class DaoAdapter {
         if (functionInstanceDao == null) return null;
         FunctionInstance functionInstance = new FunctionInstance(
                 functionInstanceDao.functionId,
+                functionInstanceDao.stubId,
+                functionInstanceDao.groupId,
                 functionInstanceDao.name,
-                functionInstanceDao.groupName,
                 null,
                 fromArgumentDaoList(functionInstanceDao.outputList));
         return functionInstance;

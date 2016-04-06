@@ -14,10 +14,12 @@ public class FunctionInstanceDao extends AbstractEntity {
 
     @Column(name = "functionId", nullable = false, length = 100)
     public String functionId;
+    @Column(name = "stubId")
+    public Integer stubId;
+    @Column(name = "groupId")
+    public Long groupId;
     @Column(name = "name")
     public String name;
-    @Column(name = "groupName")
-    public String groupName;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "function_id", referencedColumnName = "id")
@@ -26,21 +28,22 @@ public class FunctionInstanceDao extends AbstractEntity {
     public FunctionInstanceDao() {
     }
 
-    public FunctionInstanceDao(String functionId, String name,
-                               String groupName,
-                               List<ArgumentDao> outputList) {
+    public FunctionInstanceDao(String functionId, Integer stubId, Long groupId,
+                               String name, List<ArgumentDao> outputList) {
         this.functionId = functionId;
+        this.stubId = stubId;
+        this.groupId = groupId;
         this.name = name;
-        this.groupName = groupName;
         this.outputList = outputList;
     }
 
     @Override
     public String toString() {
         return "FunctionInstanceDao{" +
-                "groupName='" + groupName + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", groupId=" + groupId +
+                ", stubId=" + stubId +
                 ", functionId='" + functionId + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }

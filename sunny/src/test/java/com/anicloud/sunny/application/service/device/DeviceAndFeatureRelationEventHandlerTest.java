@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath:spring/rect-persist.xml",
-        "classpath:spring/BeansConfig.xml"
+        "classpath:spring/root-context.xml"
 })
 public class DeviceAndFeatureRelationEventHandlerTest {
 

@@ -22,7 +22,8 @@ public class FeatureFunctionDtoAssembler {
 
         FeatureFunction featureFunction = new FeatureFunction(
                 featureFunctionDto.featureFunctionId,
-                featureFunctionDto.functionGroup,
+                featureFunctionDto.stubId,
+                featureFunctionDto.groupId,
                 featureFunctionDto.functionName,
                 featureFunctionDto.functionType,
                 FunctionArgumentDtoAssembler.toFunctionArgumentList(featureFunctionDto.inputArgList, ArgumentType.INPUT_ARGUMENT),
@@ -37,7 +38,8 @@ public class FeatureFunctionDtoAssembler {
         }
         FeatureFunctionDto featureFunctionDto = new FeatureFunctionDto(
                 featureFunction.featureFunctionId,
-                featureFunction.functionGroup,
+                featureFunction.stubId,
+                featureFunction.groupId,
                 featureFunction.functionName,
                 featureFunction.functionType,
                 FunctionArgumentDtoAssembler.toDtoList(featureFunction.inputArgList),

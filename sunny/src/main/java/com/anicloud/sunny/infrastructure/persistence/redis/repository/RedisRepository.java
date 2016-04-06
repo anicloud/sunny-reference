@@ -1,6 +1,5 @@
 package com.anicloud.sunny.infrastructure.persistence.redis.repository;
 
-import javax.persistence.SecondaryTable;
 import java.util.List;
 import java.util.Set;
 

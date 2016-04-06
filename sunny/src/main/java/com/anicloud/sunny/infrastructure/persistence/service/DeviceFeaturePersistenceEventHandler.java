@@ -1,7 +1,6 @@
 package com.anicloud.sunny.infrastructure.persistence.service;
 
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceFeatureDao;
-import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureFunctionDao;
 import com.anicloud.sunny.infrastructure.persistence.repository.device.DeviceFeatureRepository;
 import com.anicloud.sunny.infrastructure.persistence.repository.device.FeatureFunctionRepository;
 import com.anicloud.sunny.infrastructure.persistence.repository.device.FunctionArgumentRepository;

@@ -1,8 +1,8 @@
 package com.anicloud.sunny.application.builder;
 
-import com.ani.bus.service.commons.dto.aniservice.AniServiceDto;
 import com.ani.octopus.service.agent.service.oauth.dto.AuthorizationCodeParameter;
 import com.ani.octopus.service.agent.service.oauth.dto.GrantType;
+import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
 
 /**
  * Created by zhaoyu on 15-6-27.

@@ -18,7 +18,8 @@ public class FeatureFunction extends AbstractDomain implements Cloneable {
     private static final long serialVersionUID = -3112990501367413230L;
 
     public String featureFunctionId;
-    public String functionGroup;
+    public Integer stubId;
+    public Long groupId;
     public String functionName;
     public FunctionType functionType;
     public List<FunctionArgument> inputArgList;
@@ -27,12 +28,13 @@ public class FeatureFunction extends AbstractDomain implements Cloneable {
     public FeatureFunction() {
     }
 
-    public FeatureFunction(String featureFunctionId, String functionGroup,
+    public FeatureFunction(String featureFunctionId, Integer stubId, Long groupId,
                            String functionName, FunctionType functionType,
                            List<FunctionArgument> inputArgList,
                            List<FunctionArgument> outputArgList) {
         this.featureFunctionId = featureFunctionId;
-        this.functionGroup = functionGroup;
+        this.stubId = stubId;
+        this.groupId = groupId;
         this.functionName = functionName;
         this.functionType = functionType;
         this.inputArgList = inputArgList;
@@ -47,7 +49,8 @@ public class FeatureFunction extends AbstractDomain implements Cloneable {
         Map<ArgumentType, List<FunctionArgument>> result = getFunctionArgListByArgType(functionDao);
         FeatureFunction featureFunction = new FeatureFunction(
                 functionDao.featureFunctionId,
-                functionDao.functionGroup,
+                functionDao.stubId,
+                functionDao.groupId,
                 functionDao.functionName,
                 functionDao.functionType,
                 result.get(ArgumentType.INPUT_ARGUMENT),
@@ -64,10 +67,11 @@ public class FeatureFunction extends AbstractDomain implements Cloneable {
 
         FeatureFunctionDao functionDao = new FeatureFunctionDao(
                 featureFunction.featureFunctionId,
-                toFunctionArgDaoList(featureFunction),
-                featureFunction.functionGroup,
+                featureFunction.stubId,
+                featureFunction.groupId,
                 featureFunction.functionName,
-                featureFunction.functionType
+                featureFunction.functionType,
+                toFunctionArgDaoList(featureFunction)
         );
         return functionDao;
     }
@@ -136,9 +140,11 @@ public class FeatureFunction extends AbstractDomain implements Cloneable {
     @Override
     public String toString() {
         return "FeatureFunction{" +
-                "functionGroup='" + functionGroup + '\'' +
+                "functionType=" + functionType +
                 ", functionName='" + functionName + '\'' +
-                ", functionType=" + functionType +
-                '}';
+                ", groupId=" + groupId +
+                ", stubId=" + stubId +
+                ", featureFunctionId='" + featureFunctionId + '\'' +
+                "} " + super.toString();
     }
 }

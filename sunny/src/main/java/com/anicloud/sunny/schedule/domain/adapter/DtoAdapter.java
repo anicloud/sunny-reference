@@ -29,8 +29,9 @@ public class DtoAdapter {
     public static FunctionInstanceDto toFunctionInstanceDto(FunctionInstance functionInstance) {
         FunctionInstanceDto functionInstanceDto = new FunctionInstanceDto(
                 functionInstance.functionId,
+                functionInstance.stubId,
+                functionInstance.groupId,
                 functionInstance.name,
-                functionInstance.group,
                 toArgumentDtoList(functionInstance.inputList),
                 toArgumentDtoList(functionInstance.outputList));
         return functionInstanceDto;
@@ -113,8 +114,9 @@ public class DtoAdapter {
     public static FunctionInstance fromFunctionInstanceDto(FunctionInstanceDto functionInstanceDto) {
         FunctionInstance functionInstance = new FunctionInstance(
                 functionInstanceDto.functionId,
+                functionInstanceDto.stubId,
+                functionInstanceDto.groupId,
                 functionInstanceDto.name,
-                functionInstanceDto.group,
                 fromArgumentDtoList(functionInstanceDto.inputList),
                 fromArgumentDtoList(functionInstanceDto.outputList));
         return functionInstance;

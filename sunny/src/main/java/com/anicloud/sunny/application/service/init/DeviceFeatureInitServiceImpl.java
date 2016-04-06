@@ -1,11 +1,10 @@
 package com.anicloud.sunny.application.service.init;
 
+import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.infrastructure.utils.DeviceFeatureJsonUtils;
-import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,23 +18,24 @@ import java.util.*;
  */
 @Service(value = "deviceFeatureInitService")
 @Transactional
-public class DeviceFeatureInitServiceImpl implements DeviceFeatureInitService {
-    private final static Logger LOGGER = LoggerFactory.getLogger(DeviceFeatureInitServiceImpl.class);
+public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
+    private final static Logger LOGGER = org.slf4j.LoggerFactory
+            .getLogger(DeviceFeatureInitServiceImpl.class);
 
-    @Resource(name = "deviceFeatureService")
+    @Resource
     private DeviceFeatureService deviceFeatureService;
-    @Resource(name = "objectMapper")
+    @Resource
     private ObjectMapper objectMapper;
 
     @Override
     @PostConstruct
     public void initDeviceFeature() {
         try {
-            List<DeviceFeature> deviceFeatureList = DeviceFeatureJsonUtils.getDeviceFeatureList();
-            deviceFeatureService.saveAll(deviceFeatureList);
-            LOGGER.debug("initDeviceFeature, saved all. size is {}", deviceFeatureList.size());
+            List<DeviceFeatureDto> deviceFeatureDtoList = DeviceFeatureJsonUtils.getDeviceFeatureDtoListFromJsonFile();
+            //deviceFeatureService.batchSaveDeviceFeature(deviceFeatureDtoList);
+            LOGGER.debug("device feature init success.");
         } catch (IOException e) {
-            LOGGER.error("init device feature list error, {}", e.getMessage());
+            LOGGER.error("device feature init error. {}", e.getMessage());
             e.printStackTrace();
         }
     }

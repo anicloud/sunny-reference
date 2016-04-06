@@ -23,8 +23,8 @@ public class FeatureFunctionDtoBuilder {
         this.featureFunctionDto = featureFunctionDto;
     }
 
-    public FeatureFunctionDtoBuilder setFunctionGroup(String functionGroup) {
-        this.featureFunctionDto.functionGroup = functionGroup;
+    public FeatureFunctionDtoBuilder setGroupId(Long groupId) {
+        this.featureFunctionDto.groupId = groupId;
         return this;
     }
 
@@ -69,8 +69,10 @@ public class FeatureFunctionDtoBuilder {
         return this;
     }
 
-
-
+    public FeatureFunctionDtoBuilder setStubId(Integer stubId) {
+        this.featureFunctionDto.stubId = stubId;
+        return this;
+    }
     public FeatureFunctionDto instance() {
         return this.featureFunctionDto;
     }

@@ -1,9 +1,6 @@
 package com.anicloud.sunny.infrastructure.convert;
 
-import com.ani.cel.service.manager.agent.device.model.DeviceSlaveInfoDto;
-import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
-import com.ani.cel.service.manager.agent.device.model.FunctionInfoDto;
-import com.anicloud.sunny.application.dto.device.ArgumentDto;
+import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +20,6 @@ public abstract class DeviceInfoGeneratorService {
 
     public abstract void initDeviceTypeGeneratorRule();
     public abstract void initDeviceFeatureGeneratorRule();
-    public abstract String generatorDeviceType(DeviceSlaveInfoDto slaveInfoDto);
-    public abstract Map<String, List<FunctionInfoDto>> generateDeviceFeatureSet(DeviceSlaveInfoDto slaveInfoDto);
+    public abstract String generatorDeviceType(DeviceSlaveObjInfoDto slaveInfoDto);
 
 }

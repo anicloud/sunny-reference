@@ -19,13 +19,11 @@
 
 	<import resource="classpath:/application-context/persistence/BeansConfig.xml" />
 	<import resource="classpath:/application-context/schedule/schedule-context.xml" />
+	<import resource="classpath:/application-context/service/BeansConfig.xml" />
 	<!-- cache xml -->
 	<import resource="classpath:/application-context/cache/cache.xml" />
-	<import resource="classpath:/application-context/service/BeansConfig.xml" />
-	<import resource="classpath:/application-context/service/service-agent.xml" />
 
 	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
-
 	<!-- 当Spring容器启动完成后执行下面的这个Bean 
     <bean class="cn.bjfu.fesdmp.frame.listener.InstantiationTracingBeanPostProcessor"/>-->
 

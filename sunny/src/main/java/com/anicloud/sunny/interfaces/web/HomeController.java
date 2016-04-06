@@ -1,8 +1,5 @@
 package com.anicloud.sunny.interfaces.web;
 
-import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
-import com.ani.cel.service.manager.agent.oauth2.service.OAuth2ClientServiceImpl;
-import com.ani.octopus.service.agent.service.oauth.AniOAuthService;
 import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
 import com.ani.octopus.service.agent.service.oauth.dto.AuthorizationCodeParameter;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
@@ -46,11 +43,11 @@ public class HomeController extends BaseController {
 
     @Resource
     private ApplicationInitService initService;
-    @Resource(name = "appServiceFacade")
+    @Resource
     private AppServiceFacade appServiceFacade;
     @Resource
     private UserService userService;
-    @Resource(name = "agentTemplate")
+    @Resource
     private AgentTemplate agentTemplate;
     @Resource
     private ObjectMapper objectMapper;
@@ -60,7 +57,7 @@ public class HomeController extends BaseController {
         try {
             Constants.aniServiceDto = appServiceFacade.getAniServiceInfo();
         } catch (IOException e) {
-            LOGGER.error("fetch AniService information error, {}", e.getMessage());
+            LOGGER.error("read sunny basic info error. msg {}.", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -92,15 +89,14 @@ public class HomeController extends BaseController {
         LOGGER.info("code is {}", code);
 
         AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForAccessToken(Constants.aniServiceDto);
-        AniOAuthAccessToken accessToken = agentTemplate.getAniOAuthService()
-                .getOAuth2AccessToken(code, authorizationCodeParameter);
+        AniOAuthAccessToken oAuth2AccessToken = agentTemplate.getAniOAuthService().getOAuth2AccessToken(code, authorizationCodeParameter);
 
         UserDto userDto = null;
         try {
-            userDto = initService.initApplication(accessToken);
+            userDto = initService.initApplication(oAuth2AccessToken);
         } catch (Exception e) {
             // TODO
-            // to do with the error
+            // do something with the error
             e.printStackTrace();
         }
         UserInfoDto userInfoDto = new UserInfoDto(userDto);

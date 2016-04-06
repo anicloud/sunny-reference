@@ -5,7 +5,6 @@ import com.ani.bus.service.commons.dto.anistub.Argument;
 import com.ani.octopus.service.agent.service.websocket.AniInvokable;
 import com.anicloud.sunny.domain.model.strategy.DeviceFeatureInstance;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

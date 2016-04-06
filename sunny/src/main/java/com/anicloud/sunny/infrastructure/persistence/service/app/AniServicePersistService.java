@@ -1,7 +1,6 @@
 package com.anicloud.sunny.infrastructure.persistence.service.app;
 
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
-import com.fasterxml.jackson.core.JsonGenerationException;
 
 import java.io.IOException;
 

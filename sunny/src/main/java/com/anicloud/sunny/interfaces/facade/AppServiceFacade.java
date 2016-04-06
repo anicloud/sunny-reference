@@ -1,6 +1,6 @@
 package com.anicloud.sunny.interfaces.facade;
 
-import com.ani.bus.service.commons.dto.aniservice.AniServiceDto;
+import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
 
 import java.io.IOException;
 

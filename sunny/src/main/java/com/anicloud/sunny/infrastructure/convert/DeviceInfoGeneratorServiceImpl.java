@@ -1,8 +1,8 @@
 package com.anicloud.sunny.infrastructure.convert;
 
+import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
 import com.ani.cel.service.manager.agent.device.model.DeviceSlaveInfoDto;
 import com.ani.cel.service.manager.agent.device.model.FunctionInfoDto;
-import com.ani.octopus.commons.stub.dto.StubDto;
 import com.anicloud.sunny.application.dto.device.ArgumentDto;
 import com.anicloud.sunny.infrastructure.exception.DeviceTypeCanNotGenerateException;
 import org.apache.commons.collections.CollectionUtils;
@@ -59,89 +59,7 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
     }
 
     @Override
-    public String generatorDeviceType(DeviceSlaveInfoDto slaveInfoDto) {
-        String deviceType = "";
-        Set<String> funcSet = getDeviceSlaveFunctionSet(slaveInfoDto);
-        deviceType = generateTypeFromRule(funcSet);
-        if (StringUtils.isEmpty(deviceType)) {
-            if (StringUtils.isNotEmpty(slaveInfoDto.name)) {
-                deviceType = slaveInfoDto.name;
-            }
-            else if (slaveInfoDto.functions!= null && slaveInfoDto.functions.get(0) != null) {
-                deviceType = slaveInfoDto.functions.get(0).group.name;
-            }
-        }
-        return deviceType;
-    }
-
-    @Override
-    public Map<String, List<FunctionInfoDto>> generateDeviceFeatureSet(DeviceSlaveInfoDto slaveInfoDto) {
-        Map<String, List<FunctionInfoDto>> deviceFeatureMap = new HashMap<>();
-
-        Set<String> deviceFunctionSet = getDeviceSlaveFunctionSet(slaveInfoDto);
-        Collection<Set<String>> deviceFeatureKeySet = super.deviceFeatureGeneratorRule.keySet();
-        for (Set<String> eachKeySet : deviceFeatureKeySet) {
-            if (deviceFunctionSet.containsAll(eachKeySet)) {
-                List<FunctionInfoDto> featureFunctionInfoDtoList = getDeviceFeatureFunctionInfoList(slaveInfoDto, eachKeySet);
-                deviceFeatureMap.put(super.deviceFeatureGeneratorRule.get(eachKeySet), featureFunctionInfoDtoList);
-            }
-        }
-        return deviceFeatureMap;
-    }
-
-    private List<FunctionInfoDto> getDeviceFeatureFunctionInfoList(DeviceSlaveInfoDto slaveInfoDto, Set<String> eachKeySet) {
-        List<FunctionInfoDto> infoDtoList = new ArrayList<>();
-        for (String functionName : eachKeySet) {
-            for (FunctionInfoDto functionInfoDto : slaveInfoDto.functions) {
-                if (functionInfoDto.name.equals(functionName)) {
-                    infoDtoList.add(functionInfoDto);
-                    continue;
-                }
-            }
-        }
-        return infoDtoList;
-    }
-
-    private String generateTypeFromRule(Set<String> funcSet) {
-        String deviceType = null;
-        int maxIntersectionSize = 0;
-        int indexOfMaxIntersection = -1;
-        Set<String> maxIntersectionFuncSet = null;
-
-        Collection<Set<String>> setCollection = super.deviceTypeGeneratorRule.keySet();
-        int index = 0;
-        for (Set<String> eachFuncSet : setCollection) {
-            Collection<String> resultSet = CollectionUtils.intersection(eachFuncSet, funcSet);
-            int size = resultSet.size();
-            // if equals, it is the type
-            if (size == funcSet.size() && eachFuncSet.size() == funcSet.size()) {
-                maxIntersectionFuncSet = eachFuncSet;
-                break;
-            }
-            if (size > maxIntersectionSize) {
-                maxIntersectionSize = size;
-                indexOfMaxIntersection = index;
-                maxIntersectionFuncSet = eachFuncSet;
-            }
-            index++;
-        }
-
-        if (maxIntersectionFuncSet == null) {
-            return deviceType;
-        }
-
-        deviceType = super.deviceTypeGeneratorRule.get(maxIntersectionFuncSet);
-        return deviceType;
-    }
-
-    private Set<String> getDeviceSlaveFunctionSet(DeviceSlaveInfoDto slaveInfoDto) {
-        Set<String> funcSet = new HashSet<>();
-        if (slaveInfoDto == null) {
-            return funcSet;
-        }
-        for (FunctionInfoDto functionInfoDto : slaveInfoDto.functions) {
-            funcSet.add(functionInfoDto.name);
-        }
-        return funcSet;
+    public String generatorDeviceType(DeviceSlaveObjInfoDto slaveInfoDto) {
+        return null;
     }
 }

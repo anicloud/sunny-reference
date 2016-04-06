@@ -1,41 +1,41 @@
 package com.anicloud.sunny.domain.model.device;
 
+import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceFeatureDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureArgFunctionArgRelationDao;
+import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureFunctionDao;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceFeaturePersistenceService;
-import org.springframework.beans.factory.annotation.Configurable;
 
 import java.util.*;
 
 /**
  * Created by zhaoyu on 15-6-12.
  */
-@Configurable
 public class DeviceFeature extends AbstractDomain {
     private static final long serialVersionUID = -1919619805181874248L;
 
-    public Integer featureId;
+    public String featureId;
     public String featureName;
     public String description;
 
     public List<FeatureArg> featureArgList;
-    public List<StubIdentity> stubIdentityList;
-    public Map<String, Map<StubIdentity, String>> inputArgMapping;
+    public List<FeatureFunction> featureFunctionList;
+    public List<Map<String, List<String>>> featureArgFuncArgMapList;
 
     public DeviceFeature() {
     }
 
-    public DeviceFeature(Integer featureId, String featureName, String description,
+    public DeviceFeature(String description, List<Map<String, List<String>>> featureArgFuncArgMapList,
                          List<FeatureArg> featureArgList,
-                         List<StubIdentity> stubIdentityList,
-                         Map<String, Map<StubIdentity, String>> inputArgMapping) {
+                         List<FeatureFunction> featureFunctionList,
+                         String featureId, String featureName) {
+        this.description = description;
+        this.featureArgFuncArgMapList = featureArgFuncArgMapList;
+        this.featureArgList = featureArgList;
+        this.featureFunctionList = featureFunctionList;
         this.featureId = featureId;
         this.featureName = featureName;
-        this.description = description;
-        this.featureArgList = featureArgList;
-        this.stubIdentityList = stubIdentityList;
-        this.inputArgMapping = inputArgMapping;
     }
 
     public static DeviceFeature save(DeviceFeaturePersistenceService featurePersistenceService, DeviceFeature deviceFeature) {
@@ -76,16 +76,30 @@ public class DeviceFeature extends AbstractDomain {
         if (featureDao == null) {
             return null;
         }
-        // TODO
-        return null;
+        DeviceFeature deviceFeature = new DeviceFeature(
+                featureDao.description,
+                toListMap(featureDao.argRelationDaoList),
+                FeatureArg.toFeatureArgList(featureDao.featureArgDaoList),
+                FeatureFunction.toFeatureFunctionList(featureDao.featureFunctionDaoList),
+                featureDao.featureId,
+                featureDao.featureName
+        );
+        return deviceFeature;
     }
 
     public static DeviceFeatureDao toDao(DeviceFeature deviceFeature) {
         if (deviceFeature == null) {
             return null;
         }
-        // TODO
-        return null;
+        DeviceFeatureDao featureDao = new DeviceFeatureDao(
+                deviceFeature.description,
+                FeatureArg.toDaoList(deviceFeature.featureArgList),
+                toRelationDaoList(deviceFeature.featureArgFuncArgMapList),
+                FeatureFunction.toDaoList(deviceFeature.featureFunctionList),
+                deviceFeature.featureId,
+                deviceFeature.featureName
+        );
+        return featureDao;
     }
 
     public static List<DeviceFeatureDao> toDaoList(List<DeviceFeature> deviceFeatureList) {

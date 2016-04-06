@@ -23,8 +23,9 @@ import java.util.List;
 
 public class FunctionInstance implements Serializable {
     public String functionId;
+    public Integer stubId;
+    public Long groupId;
     public String name;
-    public String group;
     public List<Argument> inputList;
     public List<Argument> outputList;
 
@@ -37,7 +38,8 @@ public class FunctionInstance implements Serializable {
         AniFunctionDto functionDto = new AniFunctionDtoBuilder()
                 .setAction("call")
                 .setFunctionName(name)
-                .setGroupName(group)
+                        // TODO
+                //.setGroupName(groupId)
                 .setFunctionInputArgument(inputDtoList)
                 .builder();
 
@@ -65,10 +67,13 @@ public class FunctionInstance implements Serializable {
     public FunctionInstance() {
     }
 
-    public FunctionInstance(String functionId, String name, String group, List<Argument> inputList, List<Argument> outputList) {
+    public FunctionInstance(String functionId, Integer stubId,
+                            Long groupId, String name,
+                            List<Argument> inputList, List<Argument> outputList) {
         this.functionId = functionId;
+        this.stubId = stubId;
+        this.groupId = groupId;
         this.name = name;
-        this.group = group;
         this.inputList = inputList;
         this.outputList = outputList;
     }

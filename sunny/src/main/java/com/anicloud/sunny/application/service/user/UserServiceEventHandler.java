@@ -1,6 +1,6 @@
 package com.anicloud.sunny.application.service.user;
 
-import com.ani.cel.service.manager.agent.oauth2.model.OAuth2AccessToken;
+import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
 import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
 import com.ani.octopus.service.agent.service.oauth.dto.AuthorizationCodeParameter;
 import com.anicloud.sunny.application.assemble.UserDtoAssembler;
@@ -27,10 +27,8 @@ public class UserServiceEventHandler implements UserService {
 
     @Resource
     private UserPersistenceService userPersistenceService;
-    @Resource(name = "agentTemplate")
+    @Resource
     private AgentTemplate agentTemplate;
-
-    public UserServiceEventHandler() {}
 
     @Override
     public UserDto saveUser(UserDto userDao) {
@@ -72,16 +70,15 @@ public class UserServiceEventHandler implements UserService {
         if (userDto.expiresIn - (currentTimeStamp - userDto.createTime) / 1000 < Constants.TOKEN_REFRESH_TIME_INTERVAL_IN_SECONDS) {
             LOGGER.info("refresh user token.");
             AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForRefreshToken(Constants.aniServiceDto);
-            AniOAuthAccessToken auth2AccessToken = agentTemplate
-                    .getAniOAuthService()
+            AniOAuthAccessToken accessToken = agentTemplate.getAniOAuthService()
                     .refreshAccessToken(userDto.refreshToken, authorizationCodeParameter);
-            LOGGER.info("refresh token {}.", auth2AccessToken);
+            LOGGER.info("refresh token {}.", accessToken);
 
-            userDto.accessToken = auth2AccessToken.getAccessToken();
-            userDto.tokenType = auth2AccessToken.getTokenType();
-            userDto.refreshToken = auth2AccessToken.getRefreshToken();
-            userDto.expiresIn = auth2AccessToken.getExpiresIn();
-            userDto.scope = auth2AccessToken.getScope();
+            userDto.accessToken = accessToken.getAccessToken();
+            userDto.tokenType = accessToken.getTokenType();
+            userDto.refreshToken = accessToken.getRefreshToken();
+            userDto.expiresIn = accessToken.getExpiresIn();
+            userDto.scope = accessToken.getScope();
 
             userDto = modifyUser(userDto);
         }
