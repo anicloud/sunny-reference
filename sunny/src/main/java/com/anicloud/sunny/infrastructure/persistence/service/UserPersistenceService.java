@@ -12,6 +12,6 @@ public interface UserPersistenceService {
     public UserDao modifyUser(UserDao userDao);
     public void deleteUser(UserDao userDao);
 
-    public UserDao getUserByHashUserId(String hashUserId);
+    public UserDao getUserByHashUserId(Long hashUserId);
     public UserDao getUserByEmail(String email);
 }

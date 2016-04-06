@@ -133,7 +133,7 @@ public class HomeController extends BaseController {
 
     @RequestMapping(value = {"/logout"},method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> logout(HttpServletRequest request,@RequestParam("hashUserId")String hashUserId) {
+    public Map<String, String> logout(HttpServletRequest request,@RequestParam("hashUserId")Long hashUserId) {
         Map<String, String> message = new HashMap<>();
 
         if (removeUserFromSession(request, hashUserId)) {
@@ -152,7 +152,7 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "switchUser", method = RequestMethod.GET)
-    public String switchUser(HttpServletRequest request, Model model, @RequestParam("hashUserId") String hashUserId) {
+    public String switchUser(HttpServletRequest request, Model model, @RequestParam("hashUserId") Long hashUserId) {
         removeUserFromSession(request, hashUserId);
         UserDto userDto = userService.getUserByHashUserId(hashUserId);
         model.addAttribute("previousUser", new UserInfoDto(userDto));

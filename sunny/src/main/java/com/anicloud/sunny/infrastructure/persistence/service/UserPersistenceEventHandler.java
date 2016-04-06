@@ -32,7 +32,7 @@ public class UserPersistenceEventHandler implements UserPersistenceService {
     }
 
     @Override
-    public UserDao getUserByHashUserId(String hashUserId) {
+    public UserDao getUserByHashUserId(Long hashUserId) {
         return userRepository.findByHashUserId(hashUserId);
     }
 

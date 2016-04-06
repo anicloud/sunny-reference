@@ -20,7 +20,7 @@ public class DeviceAndFeatureRelationDao extends AbstractEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "t_device_and_feature_relation", inverseJoinColumns = @JoinColumn(name = "device_feature_id"), joinColumns = @JoinColumn(name = "relation_id"))
     public List<DeviceFeatureDao> deviceFeatureDaoList;
-
+    public String featureIdSet = "1:2:4";
     public DeviceAndFeatureRelationDao() {
     }
 

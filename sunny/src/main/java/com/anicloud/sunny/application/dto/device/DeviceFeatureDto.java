@@ -10,7 +10,7 @@ import java.util.Map;
 public class DeviceFeatureDto implements Serializable {
     private static final long serialVersionUID = 8210438835679440483L;
 
-    public String featureId;
+    public Integer featureId;
     public String featureName;
     public String description;
 
@@ -28,7 +28,7 @@ public class DeviceFeatureDto implements Serializable {
     public DeviceFeatureDto(List<FeatureArgDto> argDtoList, String description,
                             List<Map<String, List<String>>> featureArgFuncArgMapList,
                             List<FeatureFunctionDto> featureFunctionDtoList,
-                            String featureId, String featureName) {
+                            Integer featureId, String featureName) {
         this.argDtoList = argDtoList;
         this.description = description;
         this.featureArgFuncArgMapList = featureArgFuncArgMapList;

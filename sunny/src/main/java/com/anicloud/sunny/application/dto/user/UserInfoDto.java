@@ -8,14 +8,14 @@ import java.io.Serializable;
 public class UserInfoDto implements Serializable {
     private static final long serialVersionUID = -5416766932834647752L;
 
-    public String hashUserId;
+    public Long hashUserId;
     public String email;
     public String screenName;
 
     public UserInfoDto() {
     }
 
-    public UserInfoDto(String hashUserId,
+    public UserInfoDto(Long hashUserId,
                        String email, String screenName) {
         this.hashUserId = hashUserId;
         this.email = email;
@@ -39,11 +39,11 @@ public class UserInfoDto implements Serializable {
                 '}';
     }
 
-    public String getHashUserId() {
+    public Long getHashUserId() {
         return hashUserId;
     }
 
-    public void setHashUserId(String hashUserId) {
+    public void setHashUserId(Long hashUserId) {
         this.hashUserId = hashUserId;
     }
 

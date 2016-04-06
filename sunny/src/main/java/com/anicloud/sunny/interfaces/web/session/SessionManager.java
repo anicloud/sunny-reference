@@ -64,7 +64,7 @@ public class SessionManager {
         return null;
     }
 
-    public static Vector<WebSocketSession> getWebSocketSession(String hashUserId) {
+    public static Vector<WebSocketSession> getWebSocketSession(Long hashUserId) {
         Vector<WebSocketSession> sessionVector = userSessionMaps.get(hashUserId);
         return sessionVector;
     }

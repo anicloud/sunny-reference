@@ -40,7 +40,7 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
         this.isScheduled = false;
     }
 
-    public void  prepareSchedule(ScheduleManager scheduleManager, ScheduleStateListener listener, String hashUserId) {
+    public void  prepareSchedule(ScheduleManager scheduleManager, ScheduleStateListener listener, Long hashUserId) {
         for (int i=0; i<featureInstanceList.size(); i++) {
             FeatureInstance featureInstance = featureInstanceList.get(i);
             featureInstance.scheduleManager = scheduleManager;

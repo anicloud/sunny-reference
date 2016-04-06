@@ -31,7 +31,7 @@ public class DeviceController {
 
     @RequestMapping(value = "/devices",method= RequestMethod.GET)
     @ResponseBody
-    public List<DeviceFormDto> getDevice(@RequestParam(value = "hashUserId")String hashUserId){
+    public List<DeviceFormDto> getDevice(@RequestParam(value = "hashUserId")Long hashUserId){
         UserDto userDto = new UserDto();
         userDto.hashUserId = hashUserId;
         List<DeviceDto> deivces = deviceService.getDeviceByUser(userDto);

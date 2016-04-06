@@ -18,7 +18,7 @@ import java.util.Set;
 public class User extends AbstractDomain {
     private static final long serialVersionUID = -3291503820309014053L;
 
-    public String hashUserId;
+    public Long hashUserId;
     public String email;
     public String screenName;
 
@@ -35,7 +35,7 @@ public class User extends AbstractDomain {
     }
 
     public User(String accessToken, String email,
-                Long expiresIn, String hashUserId, String refreshToken,
+                Long expiresIn, Long hashUserId, String refreshToken,
                 String scope, String screenName, String tokenType, Long createTime) {
         this.accessToken = accessToken;
         this.email = email;
@@ -77,7 +77,7 @@ public class User extends AbstractDomain {
         userPersistenceService.deleteUser(userDao);
     }
 
-    public static User getUserByHashUserId(UserPersistenceService userPersistenceService, String hashUserId) {
+    public static User getUserByHashUserId(UserPersistenceService userPersistenceService, Long hashUserId) {
         UserDao userDao = userPersistenceService.getUserByHashUserId(hashUserId);
         if (userDao == null) {
             return null;

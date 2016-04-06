@@ -16,7 +16,7 @@ public class DeviceAndFeatureRelationDtoAssembler {
         if (relationDto == null) return null;
         DeviceAndFeatureRelation relation = new DeviceAndFeatureRelation(
                 DeviceDtoAssembler.toDevice(relationDto.deviceDto),
-                DeviceFeatureDtoAssembler.toDeviceFeatureList(relationDto.deviceFeatureDtoList)
+                DeviceFeatureDtoConverter.toDeviceFeatureList(relationDto.deviceFeatureDtoList)
         );
         return relation;
     }
@@ -25,7 +25,7 @@ public class DeviceAndFeatureRelationDtoAssembler {
         if (relation == null) return null;
         DeviceAndFeatureRelationDto relationDto = new DeviceAndFeatureRelationDto(
                 DeviceDtoAssembler.fromDevice(relation.device),
-                DeviceFeatureDtoAssembler.toDtoList(relation.deviceFeatureList)
+                DeviceFeatureDtoConverter.toDtoList(relation.deviceFeatureList)
         );
         return relationDto;
     }

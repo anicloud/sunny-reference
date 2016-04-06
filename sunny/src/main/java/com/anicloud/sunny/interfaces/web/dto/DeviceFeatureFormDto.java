@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class DeviceFeatureFormDto {
 
-    public String featureId;
+    public Integer featureId;
     public String featureName;
     public String description;
 

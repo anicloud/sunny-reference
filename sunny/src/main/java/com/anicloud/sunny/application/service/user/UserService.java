@@ -11,7 +11,7 @@ public interface UserService {
     public UserDto modifyUser(UserDto userDao);
     public void removeUser(UserDto userDao);
 
-    public UserDto getUserByHashUserId(String hashUserId);
+    public UserDto getUserByHashUserId(Long hashUserId);
     public UserDto getUserByEmail(String email);
-    public UserDto refreshUserToken(String hashUserId);
+    public UserDto refreshUserToken(Long hashUserId);
 }

@@ -44,7 +44,7 @@ public class StrategyController {
 
     @RequestMapping(value = "/strategy",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> saveStrategy(@RequestParam(value = "hashUserId")String hashUserId,@RequestParam(value = "strategyInstance")String strategyInstance){
+    public Map<String, Object> saveStrategy(@RequestParam(value = "hashUserId")Long hashUserId,@RequestParam(value = "strategyInstance")String strategyInstance){
         Map<String, Object> message = new HashMap<>();
         try{
             ObjectMapper mapper = new ObjectMapper();

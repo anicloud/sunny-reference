@@ -32,12 +32,12 @@ public class CommandRunServiceProxyImpl implements CommandRunServiceProxy {
     }
 
     @Override
-    public AniCommandCallResultDto runCommand(AniCommandDtoBuilder commandDtoBuilder, String hashUserId) {
+    public AniCommandCallResultDto runCommand(AniCommandDtoBuilder commandDtoBuilder, Long hashUserId) {
         return runCommand(commandDtoBuilder.builder(), hashUserId);
     }
 
     @Override
-    public AniCommandCallResultDto runCommand(AniCommandDto aniCommandDto, String hashUserId) {
+    public AniCommandCallResultDto runCommand(AniCommandDto aniCommandDto, Long hashUserId) {
         LOGGER.info("run command, userId : {}.", hashUserId);
         // refresh token
         UserDto userDto = userService.refreshUserToken(hashUserId);
