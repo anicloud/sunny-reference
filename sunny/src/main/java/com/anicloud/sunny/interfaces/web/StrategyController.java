@@ -36,7 +36,7 @@ public class StrategyController {
 
     @RequestMapping(value = "/strategies",method = RequestMethod.GET)
     @ResponseBody
-    public List<StrategyFormDto> getStrategies(@RequestParam(value = "hashUserId")String hashUserId){
+    public List<StrategyFormDto> getStrategies(@RequestParam(value = "hashUserId")Long hashUserId){
         LOGGER.info("get strategy list, user id : {}.", hashUserId);
         List<StrategyDto> strategies = strategyService.getStrategyByUser(hashUserId);
         return StrategyFormDto.convertToStrategyForms(strategies);
@@ -63,7 +63,7 @@ public class StrategyController {
 
     @RequestMapping(value="/strategy",method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, String> deleteStrategy(@RequestParam("hashUserId") String hashUserId, @RequestParam("strategyId")String strategyId){
+    public Map<String, String> deleteStrategy(@RequestParam("hashUserId") Long hashUserId, @RequestParam("strategyId")String strategyId){
         Map<String, String> message = new HashMap<>();
         try{
             strategyService.removeStrategy(hashUserId, strategyId);

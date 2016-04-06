@@ -27,7 +27,7 @@ public class DeviceFeatureDtoBuilder {
         return this;
     }
 
-    public DeviceFeatureDtoBuilder setFeatureId(Integer featureId) {
+    public DeviceFeatureDtoBuilder setFeatureId(String featureId) {
         this.deviceFeatureDto.featureId = featureId;
         return this;
     }

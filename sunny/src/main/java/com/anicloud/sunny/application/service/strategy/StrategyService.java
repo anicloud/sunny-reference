@@ -32,11 +32,11 @@ public interface StrategyService {
      * @return
      */
     public StrategyDto modifyStrategy(StrategyDto strategyDto);
-    public void removeStrategy(String hashUserId, String strategyId);
+    public void removeStrategy(Long hashUserId, String strategyId);
 
     public StrategyDto getStrategyDtoById(String strategyId);
     public Strategy getStrategyById(String strategyId);
-    public List<StrategyDto> getStrategyByUser(String hashUserId);
+    public List<StrategyDto> getStrategyByUser(Long hashUserId);
 
     // method for device feature
     /**

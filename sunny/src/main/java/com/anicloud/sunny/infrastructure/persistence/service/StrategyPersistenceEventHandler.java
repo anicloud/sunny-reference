@@ -70,7 +70,7 @@ public class StrategyPersistenceEventHandler implements StrategyPersistenceServi
     }
 
     @Override
-    public List<StrategyDao> getStrategyListByUser(String hashUserId) {
+    public List<StrategyDao> getStrategyListByUser(Long hashUserId) {
         return strategyRepository.findByUserHashId(hashUserId);
     }
 

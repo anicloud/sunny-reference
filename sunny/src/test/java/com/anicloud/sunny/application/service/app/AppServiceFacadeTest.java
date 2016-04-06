@@ -1,9 +1,9 @@
 package com.anicloud.sunny.application.service.app;
 
-import com.ani.bus.service.commons.dto.aniservice.AniServiceDto;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceEntranceDao;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
+import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;

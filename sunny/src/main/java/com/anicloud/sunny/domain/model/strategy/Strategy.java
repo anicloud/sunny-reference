@@ -70,7 +70,7 @@ public class Strategy extends AbstractDomain implements Cloneable {
         return toStrategy(strategyDao);
     }
 
-    public static List<Strategy> getStrategyListByUser(StrategyPersistenceService persistenceService, String hashUserId) {
+    public static List<Strategy> getStrategyListByUser(StrategyPersistenceService persistenceService, Long hashUserId) {
         List<StrategyDao> strategyDaoList = persistenceService.getStrategyListByUser(hashUserId);
         return toStrategyList(strategyDaoList);
     }

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class DeviceFeatureFormDto {
 
-    public Integer featureId;
+    public String featureId;
     public String featureName;
     public String description;
 
@@ -52,9 +52,9 @@ public class DeviceFeatureFormDto {
     public static List<DeviceFeatureDto> convertToDeviceFeatureDtos(List<DeviceFeatureFormDto> deviceFeatureFormDtos){
         List<DeviceFeatureDto>  deviceFeatureDtos = new ArrayList<>();
         if(deviceFeatureFormDtos != null) {
-           for (DeviceFeatureFormDto deviceFeatureFormDto : deviceFeatureFormDtos) {
-               deviceFeatureDtos.add(convertToDeviceFeatureDto(deviceFeatureFormDto));
-           }
+            for (DeviceFeatureFormDto deviceFeatureFormDto : deviceFeatureFormDtos) {
+                deviceFeatureDtos.add(convertToDeviceFeatureDto(deviceFeatureFormDto));
+            }
         }
         return deviceFeatureDtos;
     }

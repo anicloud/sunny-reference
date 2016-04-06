@@ -105,7 +105,7 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
-    public void removeStrategy(String hashUserId, String strategyId) {
+    public void removeStrategy(Long hashUserId, String strategyId) {
         Strategy.remove(strategyPersistenceService, strategyId);
         strategyInstancePersistenceService.remove(strategyId);
     }
@@ -126,7 +126,7 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
-    public List<StrategyDto> getStrategyByUser(String hashUserId) {
+    public List<StrategyDto> getStrategyByUser(Long hashUserId) {
         List<Strategy> strategyList = Strategy.getStrategyListByUser(strategyPersistenceService, hashUserId);
         for (Strategy strategy : strategyList) {
             StrategyInstanceDao instanceDao = strategyInstancePersistenceService.getByStrategyId(strategy.strategyId);

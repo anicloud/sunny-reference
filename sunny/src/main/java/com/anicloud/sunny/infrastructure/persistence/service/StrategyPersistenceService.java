@@ -20,6 +20,6 @@ public interface StrategyPersistenceService {
     public StrategyDao modify(StrategyDao strategyDao);
     public void removeById(String strategyId);
     public StrategyDao getStrategyById(String strategyId);
-    public List<StrategyDao> getStrategyListByUser(String hashUserId);
+    public List<StrategyDao> getStrategyListByUser(Long hashUserId);
 
 }

@@ -14,5 +14,5 @@ public interface StrategyRepository extends CrudRepository<StrategyDao, Long> {
     public StrategyDao findByStrategyNum(String strategyId);
 
     @Query(value = "select s from StrategyDao s where s.owner.hashUserId = ?1 ")
-    public List<StrategyDao> findByUserHashId(String hashUserId);
+    public List<StrategyDao> findByUserHashId(Long hashUserId);
 }
