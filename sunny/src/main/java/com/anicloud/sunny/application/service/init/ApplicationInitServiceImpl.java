@@ -135,7 +135,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                 DeviceDto deviceDto = new DeviceDto(
                         "default",
                         convert(objDto.state),
-                        "unknown",
+                        deviceInfoGeneratorService.generatorDeviceType(objDto),
                         buildId(dto.objectId, objDto.objectSlaveId),
                         dto.name,
                         fetchUserInfo(dto.owner, accessToken),
@@ -167,18 +167,20 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
     public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubDto> stubDtos) {
         List<DeviceFeatureDto> deviceFeatureDtoList = new ArrayList<>();
+
         for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
             Set<StubIdentity> deviceStubSet = fetchDeviceStubSet(stubDtos);
             Set<StubIdentity> featureStubSet = fetchDeviceFeatureStubSet(deviceFeatureDto);
-            Collection<StubIdentity> intersectionSet = CollectionUtils.intersection(deviceStubSet,featureStubSet);
-            if(intersectionSet.size() == 1){
+            Collection<StubIdentity> intersectionList = CollectionUtils.intersection(deviceStubSet, featureStubSet);
+            Set<StubIdentity> intersectionSet = new HashSet<>(intersectionList);
+            if(featureStubSet.equals(intersectionSet)){
                 deviceFeatureDtoList.add(deviceFeatureDto);
             }
         }
         return deviceFeatureDtoList;
     }
 
-    public Set<StubIdentity> fetchDeviceStubSet(List<StubDto> stubDtos){
+    public Set<StubIdentity> fetchDeviceStubSet(List<StubDto> stubDtos) {
         Set<StubIdentity> stubIdentitySet = new HashSet<>();
         for (StubDto stubDto : stubDtos) {
             StubIdentity stubIdentity = new StubIdentity(
@@ -190,7 +192,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         return stubIdentitySet;
     }
 
-    public Set<StubIdentity> fetchDeviceFeatureStubSet(DeviceFeatureDto deviceFeatureDto){
+    public Set<StubIdentity> fetchDeviceFeatureStubSet(DeviceFeatureDto deviceFeatureDto) {
         Set<StubIdentity> stubIdentitySet = new HashSet<>();
         for (FeatureFunctionDto ffd : deviceFeatureDto.featureFunctionDtoList) {
             StubIdentity stubIdentity = new StubIdentity(
@@ -201,6 +203,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         }
         return stubIdentitySet;
     }
+
     public Long getCurrentTime() {
         return System.currentTimeMillis();
     }
