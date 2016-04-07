@@ -168,26 +168,39 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubDto> stubDtos) {
         List<DeviceFeatureDto> deviceFeatureDtoList = new ArrayList<>();
         for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
-            for (StubDto stubDto : stubDtos) {
-
+            Set<StubIdentity> deviceStubSet = fetchDeviceStubSet(stubDtos);
+            Set<StubIdentity> featureStubSet = fetchDeviceFeatureStubSet(deviceFeatureDto);
+            Collection<StubIdentity> intersectionSet = CollectionUtils.intersection(deviceStubSet,featureStubSet);
+            if(intersectionSet.size() == 1){
+                deviceFeatureDtoList.add(deviceFeatureDto);
             }
         }
         return deviceFeatureDtoList;
     }
 
-    public boolean isBelongDeviceFeature(DeviceFeatureDto deviceFeatureDto,List<StubDto> stubDtos){
-        boolean validata =false;
+    public Set<StubIdentity> fetchDeviceStubSet(List<StubDto> stubDtos){
+        Set<StubIdentity> stubIdentitySet = new HashSet<>();
         for (StubDto stubDto : stubDtos) {
-            for (FeatureFunctionDto ffd : deviceFeatureDto.featureFunctionDtoList) {
-                if(ffd.stubId.equals(stubDto.stubId.toString())){
-                    validata = true;
-                    break;
-                }
-            }
+            StubIdentity stubIdentity = new StubIdentity(
+                    stubDto.stubId,
+                    stubDto.stubGroupId
+            );
+            stubIdentitySet.add(stubIdentity);
         }
-        return validata;
+        return stubIdentitySet;
     }
 
+    public Set<StubIdentity> fetchDeviceFeatureStubSet(DeviceFeatureDto deviceFeatureDto){
+        Set<StubIdentity> stubIdentitySet = new HashSet<>();
+        for (FeatureFunctionDto ffd : deviceFeatureDto.featureFunctionDtoList) {
+            StubIdentity stubIdentity = new StubIdentity(
+                    ffd.stubId,
+                    ffd.groupId
+            );
+            stubIdentitySet.add(stubIdentity);
+        }
+        return stubIdentitySet;
+    }
     public Long getCurrentTime() {
         return System.currentTimeMillis();
     }
