@@ -43,7 +43,6 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
         }
     }
 
-
     @Override
     public String generatorDeviceType(DeviceSlaveObjInfoDto slaveInfoDto) {
         Set<StubIdentity> identitySet = fetchDeviceStubSet(slaveInfoDto);
