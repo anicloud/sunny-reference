@@ -28,7 +28,6 @@ import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationSer
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
-import com.anicloud.sunny.infrastructure.convert.DeviceInfoGeneratorService;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
 import com.anicloud.sunny.infrastructure.utils.DeviceFeatureJsonUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
