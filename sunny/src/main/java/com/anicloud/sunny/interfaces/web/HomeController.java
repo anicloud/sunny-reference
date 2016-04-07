@@ -56,6 +56,7 @@ public class HomeController extends BaseController {
     public void init() {
         try {
             Constants.aniServiceDto = appServiceFacade.getAniServiceInfo();
+            LOGGER.debug("init AniService information.");
         } catch (IOException e) {
             LOGGER.error("read sunny basic info error. msg {}.", e.getMessage());
             e.printStackTrace();
