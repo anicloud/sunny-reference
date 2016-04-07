@@ -116,11 +116,15 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     protected UserDto fetchUserInfo(AccountDto accountDto, AniOAuthAccessToken accessToken) {
-        if (accountDto == null || accessToken == null) return null;
-        return new UserDto(accessToken.getAccessToken(), accountDto.email,
-                accessToken.getExpiresIn(), accountDto.accountId,
-                accessToken.getRefreshToken(), accessToken.getScope(),
-                accountDto.screenName, accessToken.getTokenType(),
+        return new UserDto(
+                accessToken.getAccessToken(),
+                accountDto.email,
+                accessToken.getExpiresIn(),
+                accountDto.accountId,
+                accessToken.getRefreshToken(),
+                accessToken.getScope(),
+                accountDto.screenName,
+                accessToken.getTokenType(),
                 getCurrentTime()
         );
     }
@@ -129,12 +133,17 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureDtos = new ArrayList<>();
         for (DeviceMasterObjInfoDto dto : deviceMasterObjInfoDtoList) {
             for (ObjectSlaveInfoDto objDto : dto.slaves) {
-                DeviceDto device = new DeviceDto("default", convert(objDto.state),
-                        "unknown", buildId(dto.objectId, objDto.objectSlaveId),
-                        dto.name, fetchUserInfo(dto.owner, accessToken), null
+                DeviceDto deviceDto = new DeviceDto(
+                        "default",
+                        convert(objDto.state),
+                        "unknown",
+                        buildId(dto.objectId, objDto.objectSlaveId),
+                        dto.name,
+                        fetchUserInfo(dto.owner, accessToken),
+                        null
                 );
                 DeviceAndFeatureRelationDto deviceAndFeatureDto = new DeviceAndFeatureRelationDto(
-                        device, buildDeviceFeatureByStubDto(objDto.stubs));
+                        deviceDto, buildDeviceFeatureByStubDto(objDto.stubs));
                 deviceAndFeatureDtos.add(deviceAndFeatureDto);
             }
         }
@@ -158,19 +167,28 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubDto> stubDtos) {
-        if (stubDtos == null) {
-            return null;
-        }
         List<DeviceFeatureDto> deviceFeatureDtoList = new ArrayList<>();
         for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
             for (StubDto stubDto : stubDtos) {
-                if (deviceFeatureDto.featureId == stubDto.stubId.toString()) {
-                    deviceFeatureDtoList.add(deviceFeatureDto);
-                }
+
             }
         }
         return deviceFeatureDtoList;
     }
+
+    public boolean isBelongDeviceFeature(DeviceFeatureDto deviceFeatureDto,List<StubDto> stubDtos){
+        boolean validata =false;
+        for (StubDto stubDto : stubDtos) {
+            for (FeatureFunctionDto ffd : deviceFeatureDto.featureFunctionDtoList) {
+                if(ffd.stubId.equals(stubDto.stubId.toString())){
+                    validata = true;
+                    break;
+                }
+            }
+        }
+        return validata;
+    }
+
     public Long getCurrentTime() {
         return System.currentTimeMillis();
     }
