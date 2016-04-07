@@ -1,39 +1,22 @@
 package com.anicloud.sunny.application.service.init;
 
 import com.ani.bus.service.commons.dto.anidevice.DeviceMasterObjInfoDto;
-import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
 import com.ani.cel.service.manager.agent.core.share.DeviceState;
-import com.ani.cel.service.manager.agent.device.model.DeviceMasterInfoDto;
-import com.ani.cel.service.manager.agent.device.model.DeviceSlaveInfoDto;
-import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
-import com.ani.cel.service.manager.agent.device.model.FunctionInfoDto;
-import com.ani.cel.service.manager.agent.device.service.DeviceService;
-import com.ani.cel.service.manager.agent.device.service.DeviceServiceImpl;
-import com.ani.cel.service.manager.agent.oauth2.model.OAuth2AccessToken;
 import com.ani.octopus.commons.accout.dto.AccountDto;
 import com.ani.octopus.commons.object.dto.object.ObjectSlaveInfoDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.stub.dto.StubDto;
 import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
-import com.anicloud.sunny.application.builder.DeviceAndFeatureRelationDtoBuilder;
-import com.anicloud.sunny.application.builder.DeviceDtoBuilder;
-import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
-import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.agent.AgentTemplate;
 import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationService;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.user.UserService;
-import com.anicloud.sunny.domain.model.device.DeviceFeature;
-import com.anicloud.sunny.infrastructure.convert.DeviceInfoGeneratorService;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
 import com.anicloud.sunny.infrastructure.utils.DeviceFeatureJsonUtils;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -117,10 +100,15 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
     protected UserDto fetchUserInfo(AccountDto accountDto, AniOAuthAccessToken accessToken) {
         if (accountDto == null || accessToken == null) return null;
-        return new UserDto(accessToken.getAccessToken(), accountDto.email,
-                accessToken.getExpiresIn(), accountDto.accountId,
-                accessToken.getRefreshToken(), accessToken.getScope(),
-                accountDto.screenName, accessToken.getTokenType(),
+        return new UserDto(
+                accessToken.getAccessToken(),
+                accountDto.email,
+                accessToken.getExpiresIn(),
+                accountDto.accountId,
+                accessToken.getRefreshToken(),
+                accessToken.getScope(),
+                accountDto.screenName,
+                accessToken.getTokenType(),
                 getCurrentTime()
         );
     }
