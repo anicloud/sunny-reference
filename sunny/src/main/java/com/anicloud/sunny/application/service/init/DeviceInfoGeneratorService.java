@@ -1,6 +1,6 @@
 package com.anicloud.sunny.application.service.init;
 
-import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
+import com.ani.octopus.commons.object.dto.object.ObjectSlaveInfoDto;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -14,7 +14,7 @@ public abstract class DeviceInfoGeneratorService {
     protected Map<String, Set<StubIdentity>> deviceTypeRule;  // key is type, value set is stub set
 
     public abstract void initDeviceTypeGeneratorRule();
-    public abstract String generatorDeviceType(DeviceSlaveObjInfoDto slaveInfoDto);
+    public abstract String generatorDeviceType(ObjectSlaveInfoDto slaveInfoDto);
 
 }
 
