@@ -1,0 +1,12 @@
+{
+  "Light" : [ {
+    "stubId" : 2,
+    "groupId" : 1
+  }, {
+    "stubId" : 1,
+    "groupId" : 1
+  }, {
+    "stubId" : 3,
+    "groupId" : 1
+  } ]
+}
