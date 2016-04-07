@@ -1,6 +1,7 @@
 package com.anicloud.sunny.application.service.init;
 
 import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
+import com.ani.octopus.commons.object.dto.object.ObjectSlaveInfoDto;
 import com.ani.octopus.commons.stub.dto.StubDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -44,7 +45,7 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
     }
 
     @Override
-    public String generatorDeviceType(DeviceSlaveObjInfoDto slaveInfoDto) {
+    public String generatorDeviceType(ObjectSlaveInfoDto slaveInfoDto) {
         Set<StubIdentity> identitySet = fetchDeviceStubSet(slaveInfoDto);
         Set<String> keySet = super.deviceTypeRule.keySet();
         String deviceType = "";
@@ -66,7 +67,7 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
         return deviceType;
     }
 
-    private Set<StubIdentity> fetchDeviceStubSet(DeviceSlaveObjInfoDto slaveObjInfoDto) {
+    private Set<StubIdentity> fetchDeviceStubSet(ObjectSlaveInfoDto slaveObjInfoDto) {
         if (slaveObjInfoDto == null) {
             throw new IllegalArgumentException("slaveObjInfoDto is null.");
         }
