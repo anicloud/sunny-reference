@@ -29,6 +29,7 @@ import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
+import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.anicloud.sunny.infrastructure.utils.DeviceFeatureJsonUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,6 +39,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
@@ -64,14 +66,13 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     private ObjectMapper objectMapper;
     @Resource(name = "agentTemplate")
     private AgentTemplate agentTemplate;
+
     private static List<DeviceFeatureDto> deviceFeatureDtos;
 
-    static {
-        try {
-            deviceFeatureDtos = DeviceFeatureJsonUtils.getDeviceFeatureDtoListFromJsonFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+    @PostConstruct
+    protected void getAllDeviceFeature() {
+        deviceFeatureDtos = deviceFeatureService.getAllDeviceFeature();
     }
 
     @Override
@@ -86,7 +87,8 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList = agentTemplate
                 .getDeviceObjService(accessToken.getAccessToken())
                 .getDeviceObjInfo(accountDto.accountId, Boolean.TRUE);
-        List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos = getRelation(deviceMasterObjInfoDtoList, accessToken);
+        List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos =
+                getRelation(deviceMasterObjInfoDtoList, accessToken);
         LOGGER.info("Initialize DeviceAndFeatureRelation...");
         deviceAndFeatureRelationService.batchSave(deviceAndFeatureRelationDtos);
     }
@@ -128,7 +130,9 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         );
     }
 
-    public List<DeviceAndFeatureRelationDto> getRelation(List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList, AniOAuthAccessToken accessToken) throws Exception {
+    public List<DeviceAndFeatureRelationDto> getRelation(
+            List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList,
+            AniOAuthAccessToken accessToken) throws Exception {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureDtos = new ArrayList<>();
         for (DeviceMasterObjInfoDto dto : deviceMasterObjInfoDtoList) {
             for (ObjectSlaveInfoDto objDto : dto.slaves) {
@@ -139,10 +143,13 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                         buildId(dto.objectId, objDto.objectSlaveId),
                         dto.name,
                         fetchUserInfo(dto.owner, accessToken),
-                        null
+                        DeviceLogicState.OPEN
                 );
-                DeviceAndFeatureRelationDto deviceAndFeatureDto = new DeviceAndFeatureRelationDto(
-                        deviceDto, buildDeviceFeatureByStubDto(objDto.stubs));
+                DeviceAndFeatureRelationDto deviceAndFeatureDto =
+                        new DeviceAndFeatureRelationDto(
+                                deviceDto,
+                                buildDeviceFeatureByStubDto(objDto.stubs)
+                        );
                 deviceAndFeatureDtos.add(deviceAndFeatureDto);
             }
         }
@@ -167,13 +174,11 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
     public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubDto> stubDtos) {
         List<DeviceFeatureDto> deviceFeatureDtoList = new ArrayList<>();
-
         for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
             Set<StubIdentity> deviceStubSet = fetchDeviceStubSet(stubDtos);
             Set<StubIdentity> featureStubSet = fetchDeviceFeatureStubSet(deviceFeatureDto);
             Collection<StubIdentity> intersectionList = CollectionUtils.intersection(deviceStubSet, featureStubSet);
-            Set<StubIdentity> intersectionSet = new HashSet<>(intersectionList);
-            if(featureStubSet.equals(intersectionSet)){
+            if(featureStubSet.size() == intersectionList.size()){
                 deviceFeatureDtoList.add(deviceFeatureDto);
             }
         }
@@ -206,5 +211,17 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
     public Long getCurrentTime() {
         return System.currentTimeMillis();
+    }
+
+    public static void main(String[] args) {
+        Set<StubIdentity> stubIdentities = new HashSet<>();
+        stubIdentities.add(new StubIdentity(1, 1L));
+        stubIdentities.add(new StubIdentity(1, 1L));
+
+        Set<StubIdentity> stubIdentities1 = new HashSet<>();
+        stubIdentities1.add(new StubIdentity(1, 1L));
+        stubIdentities1.add(new StubIdentity(1, 2L));
+
+        System.out.println(stubIdentities.equals(stubIdentities1));
     }
 }
