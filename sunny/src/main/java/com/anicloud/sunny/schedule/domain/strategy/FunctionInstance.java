@@ -1,24 +1,13 @@
 package com.anicloud.sunny.schedule.domain.strategy;
 
 import com.ani.bus.service.commons.dto.anistub.AniStub;
-import com.ani.cel.service.manager.agent.app.builder.AniCommandDtoBuilder;
-import com.ani.cel.service.manager.agent.app.builder.AniFunctionDtoBuilder;
-import com.ani.cel.service.manager.agent.app.model.*;
-import com.ani.cel.service.manager.agent.app.service.AppCommandService;
-import com.ani.cel.service.manager.agent.app.service.AppCommandServiceImpl;
-import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
-import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.service.agent.AniStubRunProxy;
-import com.anicloud.sunny.application.service.command.CommandRunServiceProxy;
 import com.anicloud.sunny.application.service.holder.SpringContextHolder;
 import com.anicloud.sunny.domain.model.device.Device;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import javax.websocket.EncodeException;
 import java.io.IOException;
 import java.io.Serializable;
