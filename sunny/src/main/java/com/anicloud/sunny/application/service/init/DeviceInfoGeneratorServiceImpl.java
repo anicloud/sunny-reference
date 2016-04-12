@@ -52,7 +52,7 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
         for (String key : keySet) {
             Set<StubIdentity> valueSet = super.deviceTypeRule.get(key);
             Collection<StubIdentity> intersectionSet = CollectionUtils.intersection(keySet, valueSet);
-            double tempPercentage = identitySet.size() / Double.valueOf(valueSet.size());
+            double tempPercentage = intersectionSet.size() / Double.valueOf(valueSet.size());
             // when percentage is 1.0
             if (tempPercentage == 1.0) {
                 return key;
