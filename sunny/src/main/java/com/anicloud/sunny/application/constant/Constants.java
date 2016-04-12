@@ -1,5 +1,6 @@
 package com.anicloud.sunny.application.constant;
 
+import com.ani.bus.service.commons.session.AniServiceSession;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
 
@@ -36,4 +37,8 @@ public class Constants {
      * the different enter of sunny
      */
     public static String MODEL_NAME = "modelName";
+    /**
+     * the web socket session
+     */
+    public static AniServiceSession aniServiceSession;
 }

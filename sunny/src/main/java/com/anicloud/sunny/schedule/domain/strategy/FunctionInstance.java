@@ -1,5 +1,6 @@
 package com.anicloud.sunny.schedule.domain.strategy;
 
+import com.ani.bus.service.commons.dto.anistub.AniStub;
 import com.ani.cel.service.manager.agent.app.builder.AniCommandDtoBuilder;
 import com.ani.cel.service.manager.agent.app.builder.AniFunctionDtoBuilder;
 import com.ani.cel.service.manager.agent.app.model.*;
@@ -7,12 +8,19 @@ import com.ani.cel.service.manager.agent.app.service.AppCommandService;
 import com.ani.cel.service.manager.agent.app.service.AppCommandServiceImpl;
 import com.ani.cel.service.manager.agent.core.AnicelServiceConfig;
 import com.anicloud.sunny.application.constant.Constants;
+import com.anicloud.sunny.application.service.agent.AniStubRunProxy;
 import com.anicloud.sunny.application.service.command.CommandRunServiceProxy;
 import com.anicloud.sunny.application.service.holder.SpringContextHolder;
+import com.anicloud.sunny.domain.model.device.Device;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.websocket.EncodeException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +30,8 @@ import java.util.List;
  */
 
 public class FunctionInstance implements Serializable {
+    private final static Logger LOGGER = LoggerFactory.getLogger(FunctionInstance.class);
+
     public String functionId;
     public Integer stubId;
     public Long groupId;
@@ -30,37 +40,30 @@ public class FunctionInstance implements Serializable {
     public List<Argument> outputList;
 
     public boolean execute(Long hashUserId, String deviceId) {
-        List<AniFunctionArgumentDto> inputDtoList = new ArrayList<>();
-        for (Argument arg : inputList) {
-            inputDtoList.add(new AniFunctionArgumentDto(arg.name, arg.value));
+
+        AniStubRunProxy aniStubRunProxy = (AniStubRunProxy)SpringContextHolder
+                .getBean("aniStubRunProxy");
+        try {
+            List<com.ani.bus.service.commons.dto.anistub.Argument> argumentList = aniStubRunProxy.stubRunSync(
+                    new AniStub(
+                            fetchSlaveDeviceObjId(deviceId),
+                            hashUserId,
+                            groupId,
+                            stubId,
+                            convert(inputList)
+                    )
+            );
+            LOGGER.info("function execute success, stubId is {}, groupId is {},result {}.",
+                    stubId, groupId, argumentList);
+        } catch (IOException e) {
+            LOGGER.error("function execute success, stubId is {}, groupId is {},result {}.",
+                stubId, groupId, e.getMessage());
+            e.printStackTrace();
+        } catch (EncodeException e) {
+            LOGGER.error("function execute success, stubId is {}, groupId is {},result {}.",
+                    stubId, groupId, e.getMessage());
+            e.printStackTrace();
         }
-
-        AniFunctionDto functionDto = new AniFunctionDtoBuilder()
-                .setAction("call")
-                .setFunctionName(name)
-                        // TODO
-                //.setGroupName(groupId)
-                .setFunctionInputArgument(inputDtoList)
-                .builder();
-
-        AniCommandDtoBuilder commandDtoBuilder = new AniCommandDtoBuilder()
-                .setClientId(Constants.aniServiceDto.aniServiceId)
-                .setDeviceIdentificationCode(deviceId)
-                .setAniFunction(functionDto);
-
-        CommandRunServiceProxy commandRunServiceProxy = (CommandRunServiceProxy)SpringContextHolder.getBean("commandRunServiceProxyImpl");
-        AniCommandCallResultDto resultDto = commandRunServiceProxy.runCommand(commandDtoBuilder, hashUserId);
-//        AniFunctionCallResultDto functionCallResultDto = resultDto.getResultDtoList().get(0);
-//
-        if (outputList == null) {
-            outputList = new ArrayList<>();
-        }
-        outputList.clear();
-//        for(AniFunctionArgumentDto argumentDto : functionCallResultDto.getOutput()) {
-//            outputList.add(new Argument(argumentDto.getName(), argumentDto.getValue()));
-//        }
-
-
         return true;
     }
 
@@ -76,5 +79,32 @@ public class FunctionInstance implements Serializable {
         this.name = name;
         this.inputList = inputList;
         this.outputList = outputList;
+    }
+
+    public static List<com.ani.bus.service.commons.dto.anistub.Argument> convert(List<Argument> inputList) {
+        if (inputList != null && inputList.size() > 0) {
+            List<com.ani.bus.service.commons.dto.anistub.Argument> argumentList = new ArrayList<>();
+            for (Argument argument : inputList) {
+                com.ani.bus.service.commons.dto.anistub.Argument aniArgument =
+                        new com.ani.bus.service.commons.dto.anistub.Argument(
+                            argument.name,
+                            null, // TODO
+                            argument.value
+                );
+                argumentList.add(aniArgument);
+            }
+            return argumentList;
+        } else {
+            return null;
+        }
+    }
+
+    public static Long fetchSlaveDeviceObjId(String deviceId) {
+        if (StringUtils.isNotEmpty(deviceId)) {
+            String[] arr = deviceId.split(Device.DEVICE_CODE_SEPARATOR);
+            return Long.parseLong(arr[1]);
+        } else {
+            throw new IllegalArgumentException("device id is null.");
+        }
     }
 }

@@ -27,6 +27,7 @@ import com.anicloud.sunny.application.service.agent.AgentTemplate;
 import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationService;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.user.UserService;
+import com.anicloud.sunny.domain.model.device.Device;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
@@ -50,7 +51,8 @@ import java.util.*;
 @Service
 @Transactional
 public class ApplicationInitServiceImpl extends ApplicationInitService {
-    private final static Logger LOGGER = LoggerFactory.getLogger(ApplicationInitServiceImpl.class);
+    private final static Logger LOGGER = LoggerFactory
+            .getLogger(ApplicationInitServiceImpl.class);
 
     @Resource
     private UserService userService;
@@ -169,7 +171,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     public String buildId(Long deviceMasterId, Integer slaveId) {
-        return deviceMasterId.toString() + "-" + slaveId.toString();
+        return deviceMasterId + Device.DEVICE_CODE_SEPARATOR + slaveId;
     }
 
     public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubDto> stubDtos) {

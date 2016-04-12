@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class Device extends AbstractDomain {
     private static final long serialVersionUID = 7775820276864550384L;
+    public final static String DEVICE_CODE_SEPARATOR = ":";
 
     public String identificationCode;       // id of device, consist of masterDeviceId and slaveDeviceId
     public String name;
