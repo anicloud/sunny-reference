@@ -10,6 +10,9 @@ import com.ani.octopus.service.agent.service.deviceobj.DeviceObjService;
 import com.ani.octopus.service.agent.service.deviceobj.DeviceObjServiceImpl;
 import com.ani.octopus.service.agent.service.oauth.AniOAuthService;
 import com.ani.octopus.service.agent.service.oauth.AniOAuthServiceImpl;
+import com.ani.octopus.service.agent.service.websocket.AniInvokable;
+import com.ani.octopus.service.agent.service.websocket.AniInvokerImpl;
+import com.anicloud.sunny.application.constant.Constants;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -26,6 +29,7 @@ public class AgentTemplate {
     private AccountGroupService accountGroupService;
     private AniOAuthService aniOAuthService;
     private DeviceObjService deviceObjService;
+    private AniInvokable aniInvokable;
 
     @Resource
     private AnicelMeta anicelMeta;
@@ -40,6 +44,8 @@ public class AgentTemplate {
                     restTemplateFactory,
                     accessToken
             );
+        } else {
+            accountService.setAccessToken(accessToken);
         }
         return accountService;
     }
@@ -51,6 +57,8 @@ public class AgentTemplate {
                     restTemplateFactory,
                     accessToken
             );
+        } else {
+            accountGroupService.setAccessToken(accessToken);
         }
         return accountGroupService;
     }
@@ -65,14 +73,23 @@ public class AgentTemplate {
         return aniOAuthService;
     }
 
-    public synchronized  DeviceObjService getDeviceObjService(String accessToken) {
+    public synchronized DeviceObjService getDeviceObjService(String accessToken) {
         if (deviceObjService == null) {
             deviceObjService = new DeviceObjServiceImpl(
                     anicelMeta,
                     restTemplateFactory,
                     accessToken
             );
+        } else {
+            deviceObjService.setAccessToken(accessToken);
         }
         return deviceObjService;
+    }
+
+    public synchronized AniInvokable getAniInvokable() {
+        if (aniInvokable == null) {
+            aniInvokable = new AniInvokerImpl(Constants.aniServiceSession);
+        }
+        return aniInvokable;
     }
 }
