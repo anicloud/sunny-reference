@@ -1,6 +1,5 @@
 package com.anicloud.sunny.application.service.init;
 
-import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
 import com.ani.octopus.commons.object.dto.object.ObjectSlaveInfoDto;
 import com.ani.octopus.commons.stub.dto.StubDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
