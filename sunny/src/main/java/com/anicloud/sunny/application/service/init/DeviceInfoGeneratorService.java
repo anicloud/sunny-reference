@@ -11,7 +11,7 @@ import java.util.Set;
  * Created by zhaoyu on 15-7-1.
  */
 public abstract class DeviceInfoGeneratorService {
-    protected Map<String, Set<StubIdentity>> deviceTypeRule;  // key is type, value set is stub set
+    protected static Map<String, Set<StubIdentity>> deviceTypeRule;  // key is type, value set is stub set
 
     public abstract void initDeviceTypeGeneratorRule();
     public abstract String generatorDeviceType(ObjectSlaveInfoDto slaveInfoDto);

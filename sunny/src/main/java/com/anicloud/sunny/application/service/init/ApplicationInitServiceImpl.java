@@ -71,7 +71,6 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
     private static List<DeviceFeatureDto> deviceFeatureDtos;
 
-
     @PostConstruct
     protected void getAllDeviceFeature() {
         deviceFeatureDtos = deviceFeatureService.getAllDeviceFeature();
