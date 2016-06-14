@@ -23,7 +23,7 @@
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
 
     <!--websocket-->
-    <script src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+    <script src="${pageContext.request.contextPath}/public/lib/websocket/sockjs-0.3.4.min.js"></script>
 
     <!-- jquery -->
     <script src="${pageContext.request.contextPath}/public/lib/jquery/javascript/jquery.js"

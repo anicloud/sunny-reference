@@ -9,7 +9,6 @@ import com.ani.octopus.service.agent.service.websocket.observer.AniObjectCallMes
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.service.agent.ClientInvokerImpl;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
-import org.aspectj.apache.bcel.classfile.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
