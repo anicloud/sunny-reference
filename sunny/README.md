@@ -53,7 +53,8 @@ Sunny作为第三方应用可以设计自己的Stub，然后在Anicloud平台注
 
 ### 系统设计
 
-### 领域对象设计
+### E-R图
+![Sunny系统ER图](../docs/sunny_er_model_v3.png)
 
 ### 核心对外接口
 
