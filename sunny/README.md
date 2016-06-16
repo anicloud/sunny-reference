@@ -109,6 +109,8 @@ Sunny作为第三方应用可以设计自己的Stub，然后在Anicloud平台注
  
 ### 消息服务
 
+### 调度系统
+
 ### 外部接口
 **Sunny** 主要通过Service-Agent 提供的SDK与Service-Bus模块通信。主要需要实现OAuth2.0 授信、设备信息拉取、设备Stub执行、用户状态维护以及平台对应用的反向调用等。详细的内容参见[Service-Agent文档](https://github.com/anicloud/octopus-object-client/blob/master/object-agent/java/service-agent/doc/service%20agent%20document.md)。
 
