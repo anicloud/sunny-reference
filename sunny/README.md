@@ -55,12 +55,24 @@ Sunny作为第三方应用可以设计自己的Stub，然后在Anicloud平台注
 
 ### E-R图
 ![Sunny系统ER图](../docs/sunny_er_model_v3.png)
+### 核心业务类
+* __AppService__ Sunny在Aniclod平台注册后的信息管理类。Sunny应用要实现授权，首先需要在Anicloud平台注册其基本信息，注册后由其自己保存平台颁发的ID和Secret等信息。本系统采用Json文件的方式来存储。配置文件为AniServiceInfo.json
+ * getAniServiceInfo()
+ * update(AniService aniService) 
+
+* __DeviceFeatureInitService__ Feature的元数据是有Sunny开发者事先定义好的，本系统设计为Json文件存储Feature的定义。配置文件为DeviceFeatureConfig.json。在配置文件中不仅需要定义Feature与Stub的之间的映射关系，还需要定义Feature的参数与Stub的参数之间的映射关系。
+ * void initDeviceFeature() _该方法被设计为Spring初始化后首先调用，以完成系统的Feature初始化工作_
+
+* __DeviceFeatureJsonUtils__ Feature初始化的工具类，负责从Json文件中读取Feature的配置信息。对Json文件的操作采用
+ * static List<DeviceFeatureDto> getDeviceFeatureDtoListFromJsonFile()
+
+
 
 ### 核心对外接口
 
-### 核心业务类
-
 ### 外部接口
+
+### 系统前端
 
 ### Service-Agent调用
 
