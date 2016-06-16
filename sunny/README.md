@@ -90,9 +90,25 @@ Sunny作为第三方应用可以设计自己的Stub，然后在Anicloud平台注
  * findByDeviceIdentificationCode(String identificationCode)
  * findAll()
 
-### 核心对外接口
+* __DeviceAndFeatureRelationService__ 基于Device绑定的Stub，基于配置的Device-Type规则，生成Device的默认类别。生成后用户也可以进行编辑。配置文件名DeviceType.json。
+ * void initDeviceTypeGeneratorRule() _从配置文件中读取类别生成规则。_
+ * generatorDeviceType(ObjectSlaveInfoDto slaveInfoDto) _根据设备信息，生成设备类别。_
 
+* __TriggerTypeService__ Trigger的业务类。主要功能从数据库中读取所有的支持的Trigger类型。
+ * List<String> getAllTriggerType()
+ 
+* __StrategyService__ 策略相关的核心业务类。
+ * saveStrategy(StrategyDto strategyDto)
+ * saveStrategy(Strategy strategy)
+ * operateStrategy(String strategyId, StrategyAction action)
+ * modifyStrategy(StrategyDto strategyDto)
+ * removeStrategy(Long hashUserId, String strategyId)
+ * getStrategyDtoById(String strategyId)
+ * getStrategyByUser(Long hashUserId)
+ * runDeviceFeature(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto)
+ 
 ### 外部接口
+**Sunny** 主要通过Service-Agent 提供的SDK与Service-Bus模块通信。详细的内容参见[Service-Agent文档](https://github.com/anicloud/octopus-object-client/blob/master/object-agent/java/service-agent/doc/service%20agent%20document.md)。
 
 ### 系统前端
 
