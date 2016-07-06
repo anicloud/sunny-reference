@@ -180,7 +180,7 @@ public class HomeController extends BaseController {
         String model = (String) session.getAttribute(Constants.MODEL_NAME);
 
         UserSessionInfo userSessionInfo = new UserSessionInfo();
-        userSessionInfo.hashUserId = userInfoDto.hashUserId;
+        userSessionInfo.hashUserId = Long.parseLong(userInfoDto.hashUserId);
         userSessionInfo.ipAddr = getIpAddr(request);
         HttpSession sessionOld = SessionListener.userSessionMaps.get(userSessionInfo.hashUserId);
         if(sessionOld == null) {

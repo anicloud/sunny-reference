@@ -33,7 +33,7 @@ public class DeviceDao extends AbstractEntity {
     @Column(name = "device_group", length = 50)
     public String deviceGroup;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
     public UserDao owner;
 

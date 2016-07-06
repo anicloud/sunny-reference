@@ -1,6 +1,5 @@
 package com.anicloud.sunny.application.assemble;
 
-import com.ani.cel.service.manager.agent.user.model.SysUserDto;
 import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.domain.model.user.User;

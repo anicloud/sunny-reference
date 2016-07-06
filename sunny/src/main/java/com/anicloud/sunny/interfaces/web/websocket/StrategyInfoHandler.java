@@ -35,7 +35,8 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         super.afterConnectionClosed(session, status);
-        String hashUserId = (String) session.getAttributes().get("hashUserId");
+        //String hashUserId = (String) session.getAttributes().get("hashUserId");
+        String hashUserId = session.getAttributes().get("hashUserId").toString();
         LOG.info("afterConnectionClosed" + hashUserId);
         // sessionMaps.remove(hashUserId);
         SessionManager.removeSession(hashUserId, session.getId());

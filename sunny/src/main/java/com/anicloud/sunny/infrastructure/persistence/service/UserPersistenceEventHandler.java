@@ -22,7 +22,9 @@ public class UserPersistenceEventHandler implements UserPersistenceService {
     @Override
     public UserDao modifyUser(UserDao userDao) {
         UserDao modifiedUserDao = userRepository.findByHashUserId(userDao.hashUserId);
-        return modifiedUserDao;
+        if(modifiedUserDao!=null)
+            userDao.id = modifiedUserDao.id;
+        return userRepository.save(userDao);
     }
 
     @Override
