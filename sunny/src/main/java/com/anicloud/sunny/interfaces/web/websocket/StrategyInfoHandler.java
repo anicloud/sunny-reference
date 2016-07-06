@@ -26,7 +26,7 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         super.afterConnectionEstablished(session);
-        String hashUserId = (String) session.getAttributes().get("hashUserId");
+        String hashUserId = String.valueOf(session.getAttributes().get("hashUserId"));
         SessionManager.addSession(hashUserId, session);
         //sessionMaps.put(hashUserId, session);
         LOG.info("afterConnectionEstablished" + hashUserId);
