@@ -1,6 +1,6 @@
 package com.anicloud.sunny.application.assemble;
 
-import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
+import com.ani.agent.service.commons.object.dto.FunctionArgumentDto;
 import com.anicloud.sunny.domain.model.device.FunctionArgument;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
 

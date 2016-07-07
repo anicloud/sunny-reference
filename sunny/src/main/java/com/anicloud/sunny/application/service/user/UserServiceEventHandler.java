@@ -1,7 +1,8 @@
 package com.anicloud.sunny.application.service.user;
 
-import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
-import com.ani.octopus.service.agent.service.oauth.dto.AuthorizationCodeParameter;
+
+import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
+import com.ani.agent.service.commons.oauth.dto.AuthorizationCodeParameter;
 import com.anicloud.sunny.application.assemble.UserDtoAssembler;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;

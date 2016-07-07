@@ -1,7 +1,8 @@
 package com.anicloud.sunny.application.builder;
 
-import com.ani.cel.service.manager.agent.core.share.FunctionType;
-import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
+
+import com.ani.agent.service.commons.object.dto.FunctionArgumentDto;
+import com.ani.agent.service.commons.object.enumeration.FunctionType;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 
 import java.util.ArrayList;

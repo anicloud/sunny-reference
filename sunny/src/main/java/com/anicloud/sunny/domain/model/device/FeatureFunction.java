@@ -1,6 +1,7 @@
 package com.anicloud.sunny.domain.model.device;
 
-import com.ani.cel.service.manager.agent.core.share.FunctionType;
+
+import com.ani.agent.service.commons.object.enumeration.FunctionType;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureFunctionDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FunctionArgumentDao;

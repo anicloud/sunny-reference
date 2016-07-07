@@ -1,6 +1,7 @@
 package com.anicloud.sunny.application.service.device;
 
-import com.ani.cel.service.manager.agent.core.share.DeviceState;
+
+import com.ani.agent.service.commons.object.enumeration.DeviceState;
 import com.anicloud.sunny.application.assemble.DeviceDtoAssembler;
 import com.anicloud.sunny.application.assemble.UserDtoAssembler;
 import com.anicloud.sunny.application.dto.device.DeviceDto;

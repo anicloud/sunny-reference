@@ -86,7 +86,7 @@
     border-color: #eba963; width:240px; margin-bottom: 12px">登录</button>
                 </div>
             </form>
-            <a href="http://cn-bj-yatsen.anicel.cn:8080/service-bus/oauth/authorize?client_id=1058595963104900977&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" style="color: #bbbfc3;">未授权,使用Anicloud
+            <a href="http://localhost:8081/service-bus/oauth/authorize?client_id=1058595963104900977&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write" style="color: #bbbfc3;">未授权,使用Anicloud
                 账号登录
             </a>
         </div>

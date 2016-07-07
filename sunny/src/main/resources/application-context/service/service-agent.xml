@@ -17,7 +17,7 @@
 	<!-- this file is the configuration for service-bus-agent -->
 	<!-- The implementation of callback interface ClientInvokable  -->
 	<bean id="clientInvokable" class="com.anicloud.sunny.application.service.agent.ClientInvokerImpl" />
-	<bean id="anicelMeta" class="com.ani.octopus.service.agent.core.config.AnicelMeta"/>
-	<bean id="restTemplateFactory" class="com.ani.octopus.service.agent.core.http.RestTemplateFactory" />
+	<bean id="anicelMeta" class="com.ani.agent.service.core.config.AnicelMeta"/>
+	<bean id="restTemplateFactory" class="com.ani.agent.service.core.http.RestTemplateFactory" />
 
 </beans>

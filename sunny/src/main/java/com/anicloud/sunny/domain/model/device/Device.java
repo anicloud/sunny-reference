@@ -1,7 +1,7 @@
 package com.anicloud.sunny.domain.model.device;
 
 
-import com.ani.cel.service.manager.agent.core.share.DeviceState;
+import com.ani.agent.service.commons.object.enumeration.DeviceState;
 import com.anicloud.sunny.domain.model.user.User;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceDao;

@@ -1,13 +1,12 @@
 package com.anicloud.sunny.application.service.init;
 
+import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
+import com.ani.agent.service.commons.object.enumeration.DeviceState;
 import com.ani.bus.service.commons.dto.anidevice.DeviceMasterObjInfoDto;
 import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
-import com.ani.cel.service.manager.agent.core.share.DeviceState;
 import com.ani.octopus.commons.accout.dto.AccountDto;
-import com.ani.octopus.commons.object.dto.object.ObjectSlaveInfoDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.stub.dto.StubDto;
-import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
 import com.ani.utils.core.AniByte;
 import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
 import com.anicloud.sunny.application.dto.device.DeviceDto;

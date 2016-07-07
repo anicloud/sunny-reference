@@ -1,6 +1,7 @@
 package com.anicloud.sunny.domain.model.device;
 
-import com.ani.cel.service.manager.agent.core.share.DataType;
+
+import com.ani.agent.service.commons.object.enumeration.DataType;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureArgDao;
 
 import java.io.Serializable;

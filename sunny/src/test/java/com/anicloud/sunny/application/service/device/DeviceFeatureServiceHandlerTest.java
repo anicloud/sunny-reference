@@ -1,8 +1,8 @@
 package com.anicloud.sunny.application.service.device;
 
-import com.ani.cel.service.manager.agent.core.share.DataType;
-import com.ani.cel.service.manager.agent.core.share.FunctionType;
-import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
+import com.ani.agent.service.commons.object.dto.FunctionArgumentDto;
+import com.ani.agent.service.commons.object.enumeration.DataType;
+import com.ani.agent.service.commons.object.enumeration.FunctionType;
 import com.anicloud.sunny.application.builder.DeviceFeatureDtoBuilder;
 import com.anicloud.sunny.application.builder.FeatureFunctionDtoBuilder;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
