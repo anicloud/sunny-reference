@@ -1,7 +1,8 @@
 package com.anicloud.sunny.interfaces.web.websocket;
 
+import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
-import com.anicloud.sunny.domain.model.strategy.Strategy;
+import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
 import com.anicloud.sunny.interfaces.web.session.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -54,7 +55,7 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
      */
     public static void sendMessageToUser(Long hashUserId, StrategyDto strategyDto) {
         //WebSocketSession session = sessionMaps.get(hashUserId);
-        Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(hashUserId);
+        Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(String.valueOf(hashUserId));
         Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();
         while (sessionEnumeration.hasMoreElements()) {
             WebSocketSession session = sessionEnumeration.nextElement();
@@ -64,6 +65,25 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
                     StrategyFormDto strategyFormDto = StrategyFormDto.convertToStrategyForm(strategyDto);
                     String strategyInfoJson = mapper.writeValueAsString(strategyFormDto);
                     TextMessage message = new TextMessage(strategyInfoJson);
+                    session.sendMessage(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void sendDeviceMessageToUser(Long hashUserId,DeviceDto deviceDto) {
+        Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(String.valueOf(hashUserId));
+        Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();
+        while (sessionEnumeration.hasMoreElements()) {
+            WebSocketSession session = sessionEnumeration.nextElement();
+            if (session != null && session.isOpen()) {
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    DeviceFormDto deviceFormDto = DeviceFormDto.convertToDeviceForm(deviceDto);
+                    String deviceInfoJson = mapper.writeValueAsString(deviceFormDto);
+                    TextMessage message = new TextMessage(deviceInfoJson);
                     session.sendMessage(message);
                 } catch (IOException e) {
                     e.printStackTrace();
