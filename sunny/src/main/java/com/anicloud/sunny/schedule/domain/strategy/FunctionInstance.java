@@ -35,7 +35,7 @@ public class FunctionInstance implements Serializable {
         try {
             List<com.ani.bus.service.commons.dto.anistub.Argument> argumentList = aniStubRunProxy.stubRunSync(
                     new AniStub(
-                            fetchSlaveDeviceObjId(deviceId),
+                            Long.valueOf(deviceId),
                             hashUserId,
                             groupId,
                             stubId,

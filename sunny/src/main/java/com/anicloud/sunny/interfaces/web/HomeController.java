@@ -2,11 +2,11 @@ package com.anicloud.sunny.interfaces.web;
 
 import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
 import com.ani.agent.service.commons.oauth.dto.AuthorizationCodeParameter;
+import com.ani.agent.service.service.AgentTemplate;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.dto.user.UserInfoDto;
-import com.anicloud.sunny.application.service.agent.AgentTemplate;
 import com.anicloud.sunny.application.service.init.ApplicationInitService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
