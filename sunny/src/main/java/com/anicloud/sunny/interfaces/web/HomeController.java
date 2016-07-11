@@ -52,17 +52,6 @@ public class HomeController extends BaseController {
     @Resource
     private ObjectMapper objectMapper;
 
-    @PostConstruct
-    public void init() {
-        try {
-            Constants.aniServiceDto = appServiceFacade.getAniServiceInfo();
-            LOGGER.debug("init AniService information.");
-        } catch (IOException e) {
-            LOGGER.error("read sunny basic info error. msg {}.", e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response,
                         @CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME, required = false) String currentUser,
