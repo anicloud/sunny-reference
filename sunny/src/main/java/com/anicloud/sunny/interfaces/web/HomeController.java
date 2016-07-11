@@ -2,6 +2,10 @@ package com.anicloud.sunny.interfaces.web;
 
 import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
 import com.ani.agent.service.commons.oauth.dto.AuthorizationCodeParameter;
+import com.ani.agent.service.service.websocket.AccountInvoker;
+import com.ani.agent.service.service.websocket.AniInvokerImpl;
+import com.ani.bus.service.commons.dto.accountobject.AccountObject;
+import com.ani.bus.service.commons.message.SocketMessage;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
@@ -95,6 +99,10 @@ public class HomeController extends BaseController {
         UserDto userDto = null;
         try {
             userDto = initService.initApplication(oAuth2AccessToken);
+            //通知服务器客户端状态
+            AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
+            AccountObject accountObj = new AccountObject(userDto.hashUserId);
+            SocketMessage socketMessage = accountInvoker.registerAndLogin(accountObj);
         } catch (Exception e) {
             // TODO
             // do something with the error
