@@ -1,6 +1,5 @@
 package com.anicloud.sunny.application.service.init;
 
-import com.ani.octopus.commons.object.dto.object.ObjectSlaveInfoDto;
 import com.ani.octopus.commons.stub.dto.StubDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -35,8 +34,24 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
         try {
             File targetFile = resource.getFile();
             objectMapper.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
-            Map<String, Set<StubIdentity>> typeRule = objectMapper.readValue(targetFile, Map.class);
-            super.deviceTypeRule = typeRule;
+            Map<String, ArrayList<HashMap<String, Integer>>> typeRule = objectMapper.readValue(targetFile, Map.class);
+            Map<String, Set<StubIdentity>> targetTypeRule = new HashMap<>();
+            Iterator<Map.Entry<String, ArrayList<HashMap<String, Integer>>>> entries = typeRule.entrySet().iterator();
+            while(entries.hasNext()){
+                Map.Entry<String, ArrayList<HashMap<String, Integer>>> entry = entries.next();
+                ArrayList<HashMap<String, Integer>> stublist = entry.getValue();
+                Set<StubIdentity> stubIdentitySet = new HashSet<>();
+                for (int i = 0;i < stublist.size();i++) {
+                    String stubId = stublist.get(i).get("stubId").toString();
+                    StubIdentity stubIdentity = new StubIdentity(
+                            stublist.get(i).get("stubId"),
+                            stublist.get(i).get("groupId").longValue()
+                    );
+                    stubIdentitySet.add(stubIdentity);
+                }
+                targetTypeRule.put(entry.getKey(),stubIdentitySet);
+            }
+            super.deviceTypeRule = targetTypeRule;
         } catch (IOException e) {
             LOGGER.error("read device type generate rule error. {}", e.getMessage());
             e.printStackTrace();
@@ -44,14 +59,14 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
     }
 
     @Override
-    public String generatorDeviceType(ObjectSlaveInfoDto slaveInfoDto) {
-        Set<StubIdentity> identitySet = fetchDeviceStubSet(slaveInfoDto);
+    public String generatorDeviceType(List<StubDto> stubs) {
+        Set<StubIdentity> identitySet = fetchDeviceStubSet(stubs);
         Set<String> keySet = super.deviceTypeRule.keySet();
         String deviceType = "";
         double percentage = 0.0;
         for (String key : keySet) {
-            Set<StubIdentity> valueSet = super.deviceTypeRule.get(key);
-            Collection<StubIdentity> intersectionSet = CollectionUtils.intersection(keySet, valueSet);
+            Set<StubIdentity> valueSet = (Set<StubIdentity>) super.deviceTypeRule.get(key);
+            Collection<StubIdentity> intersectionSet = CollectionUtils.intersection(identitySet, valueSet);
             double tempPercentage = intersectionSet.size() / Double.valueOf(valueSet.size());
             // when percentage is 1.0
             if (tempPercentage == 1.0) {
@@ -66,12 +81,12 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
         return deviceType;
     }
 
-    private Set<StubIdentity> fetchDeviceStubSet(ObjectSlaveInfoDto slaveObjInfoDto) {
-        if (slaveObjInfoDto == null) {
-            throw new IllegalArgumentException("slaveObjInfoDto is null.");
+    private Set<StubIdentity> fetchDeviceStubSet(List<StubDto> stubs) {
+        if (stubs == null) {
+            throw new IllegalArgumentException("stubs is null.");
         }
         Set<StubIdentity> stubIdentitySet = new HashSet<>();
-        for (StubDto stubDto : slaveObjInfoDto.stubs) {
+        for (StubDto stubDto : stubs) {
             StubIdentity stubIdentity = new StubIdentity(
                     stubDto.stubId,
                     stubDto.stubGroupId

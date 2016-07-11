@@ -1,8 +1,8 @@
 package com.anicloud.sunny.application.service.agent;
 
+import com.ani.agent.service.service.websocket.AniInvokable;
 import com.ani.bus.service.commons.dto.anistub.AniStub;
 import com.ani.bus.service.commons.dto.anistub.Argument;
-import com.ani.octopus.service.agent.service.websocket.AniInvokable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

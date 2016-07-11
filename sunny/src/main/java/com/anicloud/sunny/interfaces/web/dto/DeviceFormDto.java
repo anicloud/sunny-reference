@@ -1,6 +1,7 @@
 package com.anicloud.sunny.interfaces.web.dto;
 
-import com.ani.cel.service.manager.agent.core.share.DeviceState;
+
+import com.ani.agent.service.commons.object.enumeration.DeviceState;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;

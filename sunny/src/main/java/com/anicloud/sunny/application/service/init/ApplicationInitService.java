@@ -1,7 +1,7 @@
 package com.anicloud.sunny.application.service.init;
 
+import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
 import com.ani.octopus.commons.accout.dto.AccountDto;
-import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
 import com.anicloud.sunny.application.dto.user.UserDto;
 
 

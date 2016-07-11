@@ -13,14 +13,14 @@ import java.util.List;
 public class DeviceAndFeatureRelationDao extends AbstractEntity {
     private static final long serialVersionUID = -7155254617419368104L;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     @JoinColumn(name = "device_id", referencedColumnName = "id")
     public DeviceDao deviceDao;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "t_device_and_feature_relation", inverseJoinColumns = @JoinColumn(name = "device_feature_id"), joinColumns = @JoinColumn(name = "relation_id"))
     public List<DeviceFeatureDao> deviceFeatureDaoList;
-    public String featureIdSet = "1:2:4";
+
     public DeviceAndFeatureRelationDao() {
     }
 

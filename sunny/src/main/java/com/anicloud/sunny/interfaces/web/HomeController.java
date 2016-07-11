@@ -1,7 +1,7 @@
 package com.anicloud.sunny.interfaces.web;
 
-import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
-import com.ani.octopus.service.agent.service.oauth.dto.AuthorizationCodeParameter;
+import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
+import com.ani.agent.service.commons.oauth.dto.AuthorizationCodeParameter;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
@@ -169,7 +169,7 @@ public class HomeController extends BaseController {
         String model = (String) session.getAttribute(Constants.MODEL_NAME);
 
         UserSessionInfo userSessionInfo = new UserSessionInfo();
-        userSessionInfo.hashUserId = userInfoDto.hashUserId;
+        userSessionInfo.hashUserId = Long.parseLong(userInfoDto.hashUserId);
         userSessionInfo.ipAddr = getIpAddr(request);
         HttpSession sessionOld = SessionListener.userSessionMaps.get(userSessionInfo.hashUserId);
         if(sessionOld == null) {

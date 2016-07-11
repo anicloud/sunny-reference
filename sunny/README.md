@@ -108,7 +108,7 @@ Sunny 作为第三方应用可以设计自己的Stub，然后在Anicloud 平台�
  * runDeviceFeature(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto)
 
 ### 调度系统
-**Sunny** 系统当前支持基于时间点的任务触发机制。系统采用**Quartz** 来实现Strategy 的Job 管理工作。具体的细节参见代码和**Quartz**[文档](http://www.quartz-scheduler.org/)。 
+**Sunny** 系统当前支持基于时间点的任务触发机制。系统采用**Quartz** 来实现Strategy 的Job 管理工作。当调度系统的任务执行完毕后，会通过消息服务将运行结果推送到ActiveMQ中。具体的细节参见代码和**Quartz**[文档](http://www.quartz-scheduler.org/)。 
  
 ### 消息服务
 对于基于**Quartz** 产生的Job 的结果需要通过消息的方式推送到用户的前端。系统采用Spring JMSTemplate 和 ActiveMQ 实现。核心类如下：

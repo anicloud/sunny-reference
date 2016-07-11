@@ -1,12 +1,13 @@
 package com.anicloud.sunny.application.service.init;
 
+import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
+import com.ani.agent.service.commons.object.enumeration.DeviceState;
 import com.ani.bus.service.commons.dto.anidevice.DeviceMasterObjInfoDto;
-import com.ani.cel.service.manager.agent.core.share.DeviceState;
+import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
 import com.ani.octopus.commons.accout.dto.AccountDto;
-import com.ani.octopus.commons.object.dto.object.ObjectSlaveInfoDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.stub.dto.StubDto;
-import com.ani.octopus.service.agent.service.oauth.dto.AniOAuthAccessToken;
+import com.ani.utils.core.AniByte;
 import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
@@ -92,7 +93,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                 .getByAccessToken();
         UserDto userDto = fetchUserInfo(accountDto, accessToken);
         // not exists
-        if (!isUserNotExists(accountDto.accountId)) {
+        if (isUserNotExists(accountDto.accountId)) {
             // init user
             initUser(userDto);
             // init user-device-devicefeature relation
@@ -119,17 +120,35 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
             List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList,
             AniOAuthAccessToken accessToken) throws Exception {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureDtos = new ArrayList<>();
-        for (DeviceMasterObjInfoDto dto : deviceMasterObjInfoDtoList) {
-            for (ObjectSlaveInfoDto objDto : dto.slaves) {
+        for (DeviceMasterObjInfoDto masterDto : deviceMasterObjInfoDtoList) {
+            DeviceDto masterDeviceDto = new DeviceDto(
+                    "default",
+                    convertMasterState(masterDto),
+                    deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
+                    buildId(masterDto.objectId, masterDto.objectId),
+                    masterDto.name,
+                    fetchUserInfo(masterDto.owner, accessToken),
+                    DeviceLogicState.OPEN
+            );
+            DeviceAndFeatureRelationDto masterDeviceAndFeatureDto =
+                    new DeviceAndFeatureRelationDto(
+                            masterDeviceDto,
+                            buildDeviceFeatureByStubDto(masterDto.stubs)
+                    );
+            deviceAndFeatureDtos.add(masterDeviceAndFeatureDto);
+
+            for (DeviceSlaveObjInfoDto objDto : masterDto.slaves) {
                 DeviceDto deviceDto = new DeviceDto(
                         "default",
                         convert(objDto.state),
-                        deviceInfoGeneratorService.generatorDeviceType(objDto),
-                        buildId(dto.objectId, objDto.objectSlaveId),
-                        dto.name,
-                        fetchUserInfo(dto.owner, accessToken),
+                        deviceInfoGeneratorService.generatorDeviceType(objDto.stubs),
+                        buildId(masterDto.objectId, objDto.objectSlaveId.longValue()),
+                        objDto.name,
+                        fetchUserInfo(masterDto.owner, accessToken),
                         DeviceLogicState.OPEN
                 );
+                if(deviceDto.deviceState == null)
+                    continue;
                 DeviceAndFeatureRelationDto deviceAndFeatureDto =
                         new DeviceAndFeatureRelationDto(
                                 deviceDto,
@@ -142,18 +161,39 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     public static DeviceState convert(AniObjectState state) {
-        switch (state) {
-            case ACTIVE:
-                return DeviceState.CONNECTED;
-            case DISABLE:
-                return DeviceState.DISCONNECTED;
-            case REMOVED:
-                return DeviceState.REMOVED;
+        if (state != null) {
+            switch (state) {
+                case ACTIVE:
+                    return DeviceState.CONNECTED;
+                case DISABLE:
+                    return DeviceState.DISCONNECTED;
+                case REMOVED:
+                    return DeviceState.REMOVED;
+            }
+        }
+        return null;
+    }
+    public static DeviceState convertMasterState(DeviceMasterObjInfoDto dto){
+        Set<AniByte> keyset = dto.hostsState.keySet();
+        AniObjectState state = null;
+        for(AniByte key : keyset){
+            state = dto.hostsState.get(key);
+           break;
+        }
+        if (state != null) {
+            switch (state) {
+                case ACTIVE:
+                    return DeviceState.CONNECTED;
+                case DISABLE:
+                    return DeviceState.DISCONNECTED;
+                case REMOVED:
+                    return DeviceState.REMOVED;
+            }
         }
         return null;
     }
 
-    public String buildId(Long deviceMasterId, Integer slaveId) {
+    public String buildId(Long deviceMasterId, Long slaveId) {
         return deviceMasterId + Device.DEVICE_CODE_SEPARATOR + slaveId;
     }
 

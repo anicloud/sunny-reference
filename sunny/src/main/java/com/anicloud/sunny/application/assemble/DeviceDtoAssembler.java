@@ -1,6 +1,5 @@
 package com.anicloud.sunny.application.assemble;
 
-import com.ani.cel.service.manager.agent.device.model.DeviceMasterInfoDto;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.domain.model.device.Device;
 

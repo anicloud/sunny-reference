@@ -1,12 +1,15 @@
 package com.anicloud.sunny.application.service.device;
 
 import com.anicloud.sunny.application.assemble.DeviceAndFeatureRelationDtoAssembler;
+import com.anicloud.sunny.application.assemble.DeviceDtoAssembler;
 import com.anicloud.sunny.application.builder.DeviceAndFeatureRelationDtoBuilder;
 import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
+import com.anicloud.sunny.domain.model.device.Device;
 import com.anicloud.sunny.domain.model.device.DeviceAndFeatureRelation;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceAndFeatureRelationPersistenceService;
+import com.anicloud.sunny.infrastructure.persistence.service.DevicePersistenceService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -26,6 +29,8 @@ import java.util.Set;
 public class DeviceAndFeatureRelationEventHandler implements DeviceAndFeatureRelationService {
     @Resource
     private DeviceAndFeatureRelationPersistenceService deviceAndFeatureRelationPersistenceService;
+    @Resource
+    private DevicePersistenceService devicePersistenceService;
 
     @Override
     public DeviceAndFeatureRelationDto save(DeviceAndFeatureRelationDto deviceAndFeatureRelationDto) {
@@ -40,6 +45,7 @@ public class DeviceAndFeatureRelationEventHandler implements DeviceAndFeatureRel
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void batchSave(List<DeviceAndFeatureRelationDto> relationDtoList) {
         for (DeviceAndFeatureRelationDto relationDto : relationDtoList) {
+            Device.save(devicePersistenceService, DeviceDtoAssembler.toDevice(relationDto.deviceDto));
             save(relationDto);
         }
     }

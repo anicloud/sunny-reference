@@ -36,7 +36,7 @@ public class UserDao extends AbstractEntity {
     @Column(name = "create_time")
     public Long createTime;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     public Set<DeviceDao> deviceDaoSet;
 
     public UserDao() {

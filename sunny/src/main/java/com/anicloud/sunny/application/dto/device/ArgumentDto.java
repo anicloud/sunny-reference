@@ -1,7 +1,6 @@
 package com.anicloud.sunny.application.dto.device;
 
-import com.ani.cel.service.manager.agent.core.share.DataType;
-
+import com.ani.agent.service.commons.object.enumeration.DataType;
 import java.io.Serializable;
 
 /**

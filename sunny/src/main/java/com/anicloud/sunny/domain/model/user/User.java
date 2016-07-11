@@ -65,7 +65,7 @@ public class User extends AbstractDomain {
         userDao.expiresIn = user.expiresIn;
         userDao.scope = user.scope;
 
-        userDao = userPersistenceService.saveUser(userDao);
+        userDao = userPersistenceService.modifyUser(userDao);
         return toUser(userDao);
     }
 

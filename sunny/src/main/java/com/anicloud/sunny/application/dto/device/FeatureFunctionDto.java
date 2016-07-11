@@ -1,7 +1,9 @@
 package com.anicloud.sunny.application.dto.device;
 
-import com.ani.cel.service.manager.agent.core.share.FunctionType;
-import com.ani.cel.service.manager.agent.device.model.FunctionArgumentDto;
+
+
+import com.ani.agent.service.commons.object.dto.FunctionArgumentDto;
+import com.ani.agent.service.commons.object.enumeration.FunctionType;
 
 import java.io.Serializable;
 import java.util.List;

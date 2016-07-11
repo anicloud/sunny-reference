@@ -1,6 +1,7 @@
 package com.anicloud.sunny.infrastructure.persistence.repository.device;
 
-import com.ani.cel.service.manager.agent.core.share.DeviceState;
+
+import com.ani.agent.service.commons.object.enumeration.DeviceState;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import org.springframework.data.jpa.repository.JpaRepository;

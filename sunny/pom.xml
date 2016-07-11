@@ -42,8 +42,19 @@
     <dependencies>
 
         <!-- anicel commons -->
+        <!--<dependency>-->
+            <!--<groupId>com.ani.octopus.agent.service</groupId>-->
+            <!--<artifactId>service-agent</artifactId>-->
+            <!--<version>1.0</version>-->
+        <!--</dependency>-->
+        <!-- service-manager-agent-->
+        <!--<dependency>-->
+            <!--<groupId>com.ani.cel.service.manager</groupId>-->
+            <!--<artifactId>service-manager-agent</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>com.ani.octopus.agent.service</groupId>
+            <groupId>com.ani.agent.service</groupId>
             <artifactId>service-agent</artifactId>
             <version>1.0</version>
         </dependency>
@@ -381,13 +392,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
             <version>${org.springframework.security-version}</version>
-        </dependency>
-
-        <!-- service-manager-agent-->
-        <dependency>
-            <groupId>com.ani.cel.service.manager</groupId>
-            <artifactId>service-manager-agent</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <!-- Test -->

@@ -1,6 +1,7 @@
 package com.anicloud.sunny.infrastructure.persistence.domain.device;
 
-import com.ani.cel.service.manager.agent.core.share.DataType;
+
+import com.ani.agent.service.commons.object.enumeration.DataType;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
 

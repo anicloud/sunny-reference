@@ -1,17 +1,18 @@
 package com.anicloud.sunny.application.service.agent;
 
-import com.ani.octopus.service.agent.core.config.AnicelMeta;
-import com.ani.octopus.service.agent.core.http.RestTemplateFactory;
-import com.ani.octopus.service.agent.service.account.AccountGroupService;
-import com.ani.octopus.service.agent.service.account.AccountGroupServiceImpl;
-import com.ani.octopus.service.agent.service.account.AccountService;
-import com.ani.octopus.service.agent.service.account.AccountServiceImpl;
-import com.ani.octopus.service.agent.service.deviceobj.DeviceObjService;
-import com.ani.octopus.service.agent.service.deviceobj.DeviceObjServiceImpl;
-import com.ani.octopus.service.agent.service.oauth.AniOAuthService;
-import com.ani.octopus.service.agent.service.oauth.AniOAuthServiceImpl;
-import com.ani.octopus.service.agent.service.websocket.AniInvokable;
-import com.ani.octopus.service.agent.service.websocket.AniInvokerImpl;
+
+import com.ani.agent.service.core.config.AnicelMeta;
+import com.ani.agent.service.core.http.RestTemplateFactory;
+import com.ani.agent.service.service.account.AccountGroupService;
+import com.ani.agent.service.service.account.AccountGroupServiceImpl;
+import com.ani.agent.service.service.account.AccountService;
+import com.ani.agent.service.service.account.AccountServiceImpl;
+import com.ani.agent.service.service.deviceobj.DeviceObjService;
+import com.ani.agent.service.service.deviceobj.DeviceObjServiceImpl;
+import com.ani.agent.service.service.oauth.AniOAuthService;
+import com.ani.agent.service.service.oauth.AniOAuthServiceImpl;
+import com.ani.agent.service.service.websocket.AniInvokable;
+import com.ani.agent.service.service.websocket.AniInvokerImpl;
 import com.anicloud.sunny.application.constant.Constants;
 import org.springframework.stereotype.Component;
 
