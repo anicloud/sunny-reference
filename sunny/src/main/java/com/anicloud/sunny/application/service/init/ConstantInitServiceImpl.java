@@ -4,10 +4,12 @@ import com.ani.agent.service.core.config.AnicelMeta;
 import com.ani.agent.service.core.websocket.WebSocketClient;
 import com.ani.agent.service.core.websocket.WebSocketSessionFactory;
 import com.ani.agent.service.service.websocket.ClientInvokable;
+import com.ani.agent.service.service.websocket.ObjectNotify;
 import com.ani.agent.service.service.websocket.observer.AniObjectCallMessageObserver;
 import com.ani.bus.service.commons.observer.MessageObserver;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.service.agent.ClientInvokerImpl;
+import com.anicloud.sunny.application.service.agent.ObjectNotifyImpl;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +49,8 @@ public class ConstantInitServiceImpl implements ConstantInitService {
         // you need to implement the Invokable interface and register on
         // WebSocketClient for anicloud platform to callback
         ClientInvokable invokable = new ClientInvokerImpl();
-        WebSocketClient socketClient = new WebSocketClient(invokable);
+        ObjectNotify objectNotify = new ObjectNotifyImpl();
+        WebSocketClient socketClient = new WebSocketClient(invokable,objectNotify);
 
         // you need to implement your own observer and register on socketClient
         // to receive the message from anicloud platform
