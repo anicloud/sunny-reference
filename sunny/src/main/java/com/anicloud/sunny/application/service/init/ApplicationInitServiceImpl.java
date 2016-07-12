@@ -2,6 +2,7 @@ package com.anicloud.sunny.application.service.init;
 
 import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
 import com.ani.agent.service.commons.object.enumeration.DeviceState;
+import com.ani.agent.service.service.AgentTemplate;
 import com.ani.bus.service.commons.dto.anidevice.DeviceMasterObjInfoDto;
 import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
 import com.ani.octopus.commons.accout.dto.AccountDto;
@@ -13,7 +14,6 @@ import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
-import com.anicloud.sunny.application.service.agent.AgentTemplate;
 import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationService;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.user.UserService;
@@ -125,7 +125,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                     "default",
                     convertMasterState(masterDto),
                     deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
-                    buildId(masterDto.objectId, masterDto.objectId),
+                    String.valueOf(masterDto.objectId),
                     masterDto.name,
                     fetchUserInfo(masterDto.owner, accessToken),
                     DeviceLogicState.OPEN
@@ -142,7 +142,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                         "default",
                         convert(objDto.state),
                         deviceInfoGeneratorService.generatorDeviceType(objDto.stubs),
-                        buildId(masterDto.objectId, objDto.objectSlaveId.longValue()),
+                        String.valueOf(objDto.objectSlaveId),
                         objDto.name,
                         fetchUserInfo(masterDto.owner, accessToken),
                         DeviceLogicState.OPEN

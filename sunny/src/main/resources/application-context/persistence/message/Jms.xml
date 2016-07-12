@@ -30,13 +30,15 @@
         <!--<property name="exceptionListener" ref="jmsExceptionListener"/>-->
     </bean>
 
+    <amq:topic id="strategyTopic" physicalName="${jms.queue.sunny.strategy.state}" />
     <!--jms template-->
     <bean id="strategyJmsTemplate"
           class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="jmsConnectionFactory"/>
         <!-- publish sub mode -->
-        <property name="pubSubDomain" value="false"/>
-        <property name="defaultDestinationName" value="${jms.queue.sunny.strategy.state}"/>
+        <property name="pubSubDomain" value="true"/>
+        <!--<property name="defaultDestinationName" value="${jms.queue.sunny.strategy.state}"/>-->
+        <property name="defaultDestination" ref="strategyTopic"/>
         <!-- Value = javax.jms.DeliveryMode.PERSISTENT -->
         <property name="deliveryMode" value="2"/>
         <!-- Value = javax.jms.Session.CLIENT_ACKNOWLEDGE -->
@@ -48,7 +50,29 @@
     <bean id="consumerListener" class="org.springframework.jms.listener.DefaultMessageListenerContainer"
           p:connectionFactory-ref="jmsConnectionFactory"
           p:sessionTransacted="true"
-          p:destinationName="${jms.queue.sunny.strategy.state}"
+          p:destination-ref="strategyTopic"
           p:messageListener-ref="consumerMessageListener"
+          p:sessionAcknowledgeMode="1"/>
+
+    <amq:topic id="deviceNotifyTopic" physicalName="${jms.queue.sunny.device.state}" />
+    <bean id="deviceJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+        <!-- publish sub mode -->
+        <property name="pubSubDomain" value="true"/>
+        <!--<property name="defaultDestinationName" value="${jms.queue.sunny.strategy.state}"/>-->
+        <property name="defaultDestination" ref="deviceNotifyTopic"/>
+        <!-- Value = javax.jms.DeliveryMode.PERSISTENT -->
+        <property name="deliveryMode" value="2"/>
+        <!-- Value = javax.jms.Session.CLIENT_ACKNOWLEDGE -->
+        <property name="sessionAcknowledgeMode" value="1"/>
+        <!-- Needs to be true for the deliveryMode to work -->
+        <property name="explicitQosEnabled" value="true"/>
+    </bean>
+
+    <bean id="deviceListener" class="org.springframework.jms.listener.DefaultMessageListenerContainer"
+          p:connectionFactory-ref="jmsConnectionFactory"
+          p:sessionTransacted="true"
+          p:destination-ref="deviceNotifyTopic"
+          p:messageListener-ref="deviceStateListener"
           p:sessionAcknowledgeMode="1"/>
 </beans>

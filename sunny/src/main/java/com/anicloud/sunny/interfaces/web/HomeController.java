@@ -2,11 +2,15 @@ package com.anicloud.sunny.interfaces.web;
 
 import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
 import com.ani.agent.service.commons.oauth.dto.AuthorizationCodeParameter;
+import com.ani.agent.service.service.websocket.AccountInvoker;
+import com.ani.agent.service.service.websocket.AniInvokerImpl;
+import com.ani.bus.service.commons.dto.accountobject.AccountObject;
+import com.ani.bus.service.commons.message.SocketMessage;
+import com.ani.agent.service.service.AgentTemplate;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.dto.user.UserInfoDto;
-import com.anicloud.sunny.application.service.agent.AgentTemplate;
 import com.anicloud.sunny.application.service.init.ApplicationInitService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
@@ -52,6 +56,17 @@ public class HomeController extends BaseController {
     @Resource
     private ObjectMapper objectMapper;
 
+    @PostConstruct
+    public void init() {
+        try {
+            Constants.aniServiceDto = appServiceFacade.getAniServiceInfo();
+            LOGGER.debug("init AniService information.");
+        } catch (IOException e) {
+            LOGGER.error("read sunny basic info error. msg {}.", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response,
                         @CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME, required = false) String currentUser,
@@ -84,6 +99,10 @@ public class HomeController extends BaseController {
         UserDto userDto = null;
         try {
             userDto = initService.initApplication(oAuth2AccessToken);
+            //通知服务器客户端状态
+            AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
+            AccountObject accountObj = new AccountObject(userDto.hashUserId);
+            SocketMessage socketMessage = accountInvoker.registerAndLogin(accountObj);
         } catch (Exception e) {
             // TODO
             // do something with the error

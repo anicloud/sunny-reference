@@ -1,7 +1,13 @@
 package com.anicloud.sunny.interfaces.web.websocket;
 
+import com.ani.agent.service.service.websocket.AccountInvoker;
+import com.ani.agent.service.service.websocket.AniInvokerImpl;
+import com.ani.bus.service.commons.dto.accountobject.AccountObject;
+import com.ani.bus.service.commons.message.SocketMessage;
+import com.anicloud.sunny.application.constant.Constants;
+import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
-import com.anicloud.sunny.domain.model.strategy.Strategy;
+import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
 import com.anicloud.sunny.interfaces.web.session.SessionManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,7 +34,13 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
         super.afterConnectionEstablished(session);
         String hashUserId = String.valueOf(session.getAttributes().get("hashUserId"));
         SessionManager.addSession(hashUserId, session);
-        //sessionMaps.put(hashUserId, session);
+        int sessionMapSize = sessionMaps.size();
+        sessionMaps.put(hashUserId, session);
+        if(sessionMapSize == 0) {
+            AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
+            AccountObject accountObj = new AccountObject(Long.parseLong(hashUserId));
+            SocketMessage socketMessage = accountInvoker.login(accountObj);
+        }
         LOG.info("afterConnectionEstablished" + hashUserId);
     }
 
@@ -38,7 +50,14 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
         //String hashUserId = (String) session.getAttributes().get("hashUserId");
         String hashUserId = session.getAttributes().get("hashUserId").toString();
         LOG.info("afterConnectionClosed" + hashUserId);
-        // sessionMaps.remove(hashUserId);
+        sessionMaps.remove(hashUserId);
+        int sessionMapSize = sessionMaps.size();
+        sessionMaps.put(hashUserId, session);
+        if(sessionMapSize == 0) {
+            AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
+            AccountObject accountObj = new AccountObject(Long.parseLong(hashUserId));
+            SocketMessage socketMessage = accountInvoker.logout(accountObj);
+        }
         SessionManager.removeSession(hashUserId, session.getId());
     }
 
@@ -54,7 +73,7 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
      */
     public static void sendMessageToUser(Long hashUserId, StrategyDto strategyDto) {
         //WebSocketSession session = sessionMaps.get(hashUserId);
-        Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(hashUserId);
+        Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(String.valueOf(hashUserId));
         Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();
         while (sessionEnumeration.hasMoreElements()) {
             WebSocketSession session = sessionEnumeration.nextElement();
@@ -64,6 +83,25 @@ public class StrategyInfoHandler extends TextWebSocketHandler {
                     StrategyFormDto strategyFormDto = StrategyFormDto.convertToStrategyForm(strategyDto);
                     String strategyInfoJson = mapper.writeValueAsString(strategyFormDto);
                     TextMessage message = new TextMessage(strategyInfoJson);
+                    session.sendMessage(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void sendDeviceMessageToUser(Long hashUserId,DeviceDto deviceDto) {
+        Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(String.valueOf(hashUserId));
+        Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();
+        while (sessionEnumeration.hasMoreElements()) {
+            WebSocketSession session = sessionEnumeration.nextElement();
+            if (session != null && session.isOpen()) {
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    DeviceFormDto deviceFormDto = DeviceFormDto.convertToDeviceForm(deviceDto);
+                    String deviceInfoJson = mapper.writeValueAsString(deviceFormDto);
+                    TextMessage message = new TextMessage(deviceInfoJson);
                     session.sendMessage(message);
                 } catch (IOException e) {
                     e.printStackTrace();
