@@ -40,19 +40,44 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+    <!-- define of profile-->
+    <profiles>
+        <profile>
+            <id>development</id>
+            <properties>
+                <build.profile.id>development</build.profile.id>
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <build.profile.id>production</build.profile.id>
+            </properties>
+        </profile>
+        <profile>
+            <id>localhost</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <build.profile.id>localhost</build.profile.id>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
 
         <!-- anicel commons -->
         <!--<dependency>-->
-            <!--<groupId>com.ani.octopus.agent.service</groupId>-->
-            <!--<artifactId>service-agent</artifactId>-->
-            <!--<version>1.0</version>-->
+        <!--<groupId>com.ani.octopus.agent.service</groupId>-->
+        <!--<artifactId>service-agent</artifactId>-->
+        <!--<version>1.0</version>-->
         <!--</dependency>-->
         <!-- service-manager-agent-->
         <!--<dependency>-->
-            <!--<groupId>com.ani.cel.service.manager</groupId>-->
-            <!--<artifactId>service-manager-agent</artifactId>-->
-            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--<groupId>com.ani.cel.service.manager</groupId>-->
+        <!--<artifactId>service-manager-agent</artifactId>-->
+        <!--<version>1.0-SNAPSHOT</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>com.ani.agent.service</groupId>
@@ -387,7 +412,7 @@
         </dependency>
 
         <!-- Servlet -->
-       <dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
@@ -438,40 +463,47 @@
         </dependency>
     </dependencies>
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.19</version>
-                    <configuration>
-                        <forkMode>once</forkMode>
-                        <argLine>
-                            -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.8.7/aspectjweaver-1.8.7.jar
-                        </argLine>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.3</version>
-                    <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
-                    <configuration>
-                        <port>8080</port>
-                        <uriEncoding>UTF-8</uriEncoding>
-                        <server>tomcat7</server>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <filters>
+            <filter>src/main/resources/${build.profile.id}.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19</version>
+                <configuration>
+                    <forkMode>once</forkMode>
+                    <argLine>
+                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.8.7/aspectjweaver-1.8.7.jar
+                    </argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>8080</port>
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <server>tomcat7</server>
+                </configuration>
+            </plugin>
+        </plugins>
         <finalName>sunny</finalName>
     </build>
 </project>
