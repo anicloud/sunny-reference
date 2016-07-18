@@ -33,6 +33,8 @@ public class ConstantInitServiceImpl implements ConstantInitService {
     private AnicelMeta anicelMeta;
     @Resource
     private AppServiceFacade appServiceFacade;
+    @Resource(name = "objectNotify")
+    private ObjectNotify objectNotify;
 
     @Override
     @PostConstruct
@@ -49,7 +51,6 @@ public class ConstantInitServiceImpl implements ConstantInitService {
         // you need to implement the Invokable interface and register on
         // WebSocketClient for anicloud platform to callback
         ClientInvokable invokable = new ClientInvokerImpl();
-        ObjectNotify objectNotify = new ObjectNotifyImpl();
         WebSocketClient socketClient = new WebSocketClient(invokable,objectNotify);
 
         // you need to implement your own observer and register on socketClient

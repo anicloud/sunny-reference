@@ -5,12 +5,14 @@ import com.ani.agent.service.service.websocket.ObjectNotify;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.service.device.DeviceService;
 import com.anicloud.sunny.infrastructure.jms.DeviceStateQueueService;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
 /**
  * Created by wyf on 16-7-11.
  */
+@Component("objectNotify")
 public class ObjectNotifyImpl implements ObjectNotify{
 
     @Resource
