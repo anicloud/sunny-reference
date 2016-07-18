@@ -5,7 +5,6 @@ import com.anicloud.sunny.application.dto.user.UserDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -14,14 +13,13 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 /**
- * Created by sirhuoshan on 2015/7/15.
+ * Created by lihui on 2016/7/18.
  */
-public class StrategyInfoHandshake extends HttpSessionHandshakeInterceptor {
-    private static final Logger LOG = LoggerFactory.getLogger(StrategyInfoHandshake.class);
+public class DeviceStrategyInfoHandshake extends HttpSessionHandshakeInterceptor {
+    private static final Logger LOG = LoggerFactory.getLogger(DeviceStrategyInfoHandshake.class);
 
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {

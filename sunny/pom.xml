@@ -89,6 +89,12 @@
             <groupId>com.ani.octopus</groupId>
             <artifactId>octopus-commons</artifactId>
             <version>1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.ani.bus.commons</groupId>
