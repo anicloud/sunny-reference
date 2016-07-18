@@ -1,7 +1,7 @@
 package com.anicloud.sunny.application.service.jms.listener;
 
 import com.anicloud.sunny.application.dto.device.DeviceDto;
-import com.anicloud.sunny.interfaces.web.websocket.StrategyInfoHandler;
+import com.anicloud.sunny.interfaces.web.websocket.DeviceStrategyInfoHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class DeviceStateListener implements MessageListener {
             DeviceDto deviceDto = (DeviceDto) objectMessage.getObject();
             LOGGER.info("DeviceStateListener {}.", deviceDto.owner);
             Long hashUserId = deviceDto.owner.hashUserId;
-            StrategyInfoHandler.sendDeviceMessageToUser(hashUserId, deviceDto);
+            DeviceStrategyInfoHandler.sendDeviceMessageToUser(hashUserId, deviceDto);
         } catch (JMSException e) {
             e.printStackTrace();
         }

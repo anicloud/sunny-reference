@@ -20,14 +20,14 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Created by sirhuoshan on 2015/7/15.
+ * Created by lihui on 2016/7/18.
  */
-public class StrategyInfoHandler extends TextWebSocketHandler {
-    private static final Logger LOG = LoggerFactory.getLogger(StrategyInfoHandler.class);
+public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(DeviceStrategyInfoHandler.class);
 
     private static Map<String, WebSocketSession> sessionMaps = new HashMap<String, WebSocketSession>();
 
-    public StrategyInfoHandler() {}
+    public DeviceStrategyInfoHandler() {}
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {

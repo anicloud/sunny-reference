@@ -3,7 +3,7 @@ package com.anicloud.sunny.application.service.jms.listener;
 import com.anicloud.sunny.application.assemble.StrategyDtoAssembler;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
-import com.anicloud.sunny.interfaces.web.websocket.StrategyInfoHandler;
+import com.anicloud.sunny.interfaces.web.websocket.DeviceStrategyInfoHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,7 @@ public class StrategyStateListener implements MessageListener {
             LOGGER.info("StrategyStateListener {}.", strategy.owner);
             Long hashUserId = strategy.owner.hashUserId;
             StrategyDto strategyDto = StrategyDtoAssembler.toDto(strategy);
-            StrategyInfoHandler.sendMessageToUser(hashUserId, strategyDto);
+            DeviceStrategyInfoHandler.sendMessageToUser(hashUserId, strategyDto);
         } catch (JMSException e) {
             e.printStackTrace();
         }

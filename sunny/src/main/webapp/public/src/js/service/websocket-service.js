@@ -37,11 +37,12 @@ anicloud.sunny.service.WebSocketService = function () {
             }
 
             sock.onmessage = function (event) {
+                alert(event.data)
                 // Get the content
                 var content = event.data;
-                var strategy = JSON.parse(content);
+                var obj = JSON.parse(content);
                 if (onMessage != null) {
-                    onMessage(strategy);
+                    onMessage(obj);
                 }
             };
         },
