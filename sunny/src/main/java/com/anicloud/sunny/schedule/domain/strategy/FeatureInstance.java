@@ -5,16 +5,8 @@ import com.anicloud.sunny.application.service.holder.SpringContextHolder;
 import com.anicloud.sunny.application.service.strategy.CurrentFeatureService;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.CurrentFeatureInstanceDao;
 import com.anicloud.sunny.schedule.domain.schedule.*;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 

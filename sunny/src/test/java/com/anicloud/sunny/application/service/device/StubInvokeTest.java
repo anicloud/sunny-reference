@@ -2,10 +2,6 @@ package com.anicloud.sunny.application.service.device;
 
 import com.anicloud.sunny.application.service.strategy.CurrentFeatureService;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.CurrentFeatureInstanceDao;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
