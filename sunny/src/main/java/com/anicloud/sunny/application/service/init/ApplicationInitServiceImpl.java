@@ -139,7 +139,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         for (DeviceMasterObjInfoDto masterDto : deviceMasterObjInfoDtoList) {
             DeviceDto masterDeviceDto = new DeviceDto(
                     "default",
-                    convertMasterState(masterDto),
+                    convert(masterDto.state),
                     deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
                     String.valueOf(masterDto.objectId),
                     masterDto.name,
@@ -180,7 +180,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureDtos = new ArrayList<>();
         DeviceDto masterDeviceDto = new DeviceDto(
                 "default",
-                convertMasterState(masterDto),
+                convert(masterDto.state),
                 deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
                 String.valueOf(masterDto.objectId),
                 masterDto.name,
@@ -217,25 +217,6 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     public static DeviceState convert(AniObjectState state) {
-        if (state != null) {
-            switch (state) {
-                case ACTIVE:
-                    return DeviceState.CONNECTED;
-                case DISABLE:
-                    return DeviceState.DISCONNECTED;
-                case REMOVED:
-                    return DeviceState.REMOVED;
-            }
-        }
-        return null;
-    }
-    public static DeviceState convertMasterState(DeviceMasterObjInfoDto dto){
-        Set<AniByte> keyset = dto.hostsState.keySet();
-        AniObjectState state = null;
-        for(AniByte key : keyset){
-            state = dto.hostsState.get(key);
-           break;
-        }
         if (state != null) {
             switch (state) {
                 case ACTIVE:
