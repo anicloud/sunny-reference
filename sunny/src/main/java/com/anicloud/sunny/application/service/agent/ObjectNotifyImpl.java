@@ -2,8 +2,11 @@ package com.anicloud.sunny.application.service.agent;
 
 import com.ani.agent.service.commons.object.enumeration.DeviceState;
 import com.ani.agent.service.service.websocket.ObjectNotify;
+import com.ani.bus.service.commons.dto.anidevice.DeviceMasterObjInfoDto;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.service.device.DeviceService;
+import com.anicloud.sunny.application.service.init.ApplicationInitService;
+import com.anicloud.sunny.domain.model.device.Device;
 import com.anicloud.sunny.infrastructure.jms.DeviceStateQueueService;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +22,8 @@ public class ObjectNotifyImpl implements ObjectNotify{
     private DeviceService deviceService;
     @Resource
     private DeviceStateQueueService deviceStateQueueService;
+    @Resource
+    ApplicationInitService applicationInitService;
 
     @Override
     public void deviceConectedNotify(Long objectId, String description) {
@@ -61,7 +66,15 @@ public class ObjectNotifyImpl implements ObjectNotify{
     }
 
     @Override
-    public void deviceUpdatedNotify(Long objectId, String description) {
-        //TODO
+    public void deviceUpdatedNotify(DeviceMasterObjInfoDto deviceMasterObjInfoDto) {
+        applicationInitService.updateUserDeviceAndDeviceFeatureRelation(deviceMasterObjInfoDto);
+        DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(String.valueOf(deviceMasterObjInfoDto.objectId));
+        if(deviceDto != null) {
+            deviceService.modifyDeviceState(deviceDto, DeviceState.CONNECTED);
+            deviceDto.deviceState = DeviceState.CONNECTED;
+            deviceStateQueueService.updateDeviceState(deviceDto);
+        }
     }
+
+
 }

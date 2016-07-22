@@ -18,6 +18,7 @@ import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationSer
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.domain.model.device.Device;
+import com.anicloud.sunny.domain.model.device.DeviceAndFeatureRelation;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.CollectionUtils;
@@ -80,6 +81,17 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     @Override
+    public void updateUserDeviceAndDeviceFeatureRelation(DeviceMasterObjInfoDto masterDto) {
+        List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos = getRalation(masterDto);
+        DeviceAndFeatureRelationDto relationDto = deviceAndFeatureRelationService.findByDeviceIdentificationCode(String.valueOf(masterDto.objectId));
+        if(relationDto == null) {
+            deviceAndFeatureRelationService.batchSave(deviceAndFeatureRelationDtos);
+        } else {
+            deviceAndFeatureRelationService.batchModify(deviceAndFeatureRelationDtos);
+        }
+    }
+
+    @Override
     protected boolean isUserNotExists(Long accountId) {
         // return userService.getUserByHashUserId(hashUserId);
         UserDto userDto = userService.getUserByHashUserId(accountId);
@@ -103,17 +115,21 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     protected UserDto fetchUserInfo(AccountDto accountDto, AniOAuthAccessToken accessToken) {
-        return new UserDto(
-                accessToken.getAccessToken(),
-                accountDto.email,
-                accessToken.getExpiresIn(),
-                accountDto.accountId,
-                accessToken.getRefreshToken(),
-                accessToken.getScope(),
-                accountDto.screenName,
-                accessToken.getTokenType(),
-                getCurrentTime()
-        );
+        if(accessToken != null) {
+            return new UserDto(
+                    accessToken.getAccessToken(),
+                    accountDto.email,
+                    accessToken.getExpiresIn(),
+                    accountDto.accountId,
+                    accessToken.getRefreshToken(),
+                    accessToken.getScope(),
+                    accountDto.screenName,
+                    accessToken.getTokenType(),
+                    getCurrentTime()
+            );
+        } else {
+            return userService.getUserByHashUserId(accountDto.accountId);
+        }
     }
 
     public List<DeviceAndFeatureRelationDto> getRelation(
@@ -157,6 +173,46 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                 deviceAndFeatureDtos.add(deviceAndFeatureDto);
             }
         }
+        return deviceAndFeatureDtos;
+    }
+
+    public List<DeviceAndFeatureRelationDto> getRalation(DeviceMasterObjInfoDto masterDto) {
+        List<DeviceAndFeatureRelationDto> deviceAndFeatureDtos = new ArrayList<>();
+        DeviceDto masterDeviceDto = new DeviceDto(
+                "default",
+                convertMasterState(masterDto),
+                deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
+                String.valueOf(masterDto.objectId),
+                masterDto.name,
+                fetchUserInfo(masterDto.owner,null),
+                DeviceLogicState.OPEN
+        );
+        DeviceAndFeatureRelationDto masterDeviceAndFeatureDto = new DeviceAndFeatureRelationDto(
+                masterDeviceDto,
+                buildDeviceFeatureByStubDto(masterDto.stubs)
+        );
+        deviceAndFeatureDtos.add(masterDeviceAndFeatureDto);
+
+        for (DeviceSlaveObjInfoDto objDto : masterDto.slaves) {
+            DeviceDto deviceDto = new DeviceDto(
+                    "default",
+                    convert(objDto.state),
+                    deviceInfoGeneratorService.generatorDeviceType(objDto.stubs),
+                    String.valueOf(objDto.objectSlaveId),
+                    objDto.name,
+                    fetchUserInfo(masterDto.owner, null),
+                    DeviceLogicState.OPEN
+            );
+            if(deviceDto.deviceState == null)
+                continue;
+            DeviceAndFeatureRelationDto deviceAndFeatureDto =
+                    new DeviceAndFeatureRelationDto(
+                            deviceDto,
+                            buildDeviceFeatureByStubDto(objDto.stubs)
+                    );
+            deviceAndFeatureDtos.add(deviceAndFeatureDto);
+        }
+
         return deviceAndFeatureDtos;
     }
 

@@ -51,6 +51,13 @@ public class DeviceAndFeatureRelationEventHandler implements DeviceAndFeatureRel
     }
 
     @Override
+    public void batchModify(List<DeviceAndFeatureRelationDto> relationDtoList) {
+        for (DeviceAndFeatureRelationDto relationDto: relationDtoList) {
+            Device.modify(devicePersistenceService,DeviceDtoAssembler.toDevice(relationDto.deviceDto));
+        }
+    }
+
+    @Override
     public DeviceAndFeatureRelationDto findByDeviceIdentificationCode(String identificationCode) {
         DeviceAndFeatureRelation relation = DeviceAndFeatureRelation.findByDeviceIdentificationCode(
                 deviceAndFeatureRelationPersistenceService, identificationCode);

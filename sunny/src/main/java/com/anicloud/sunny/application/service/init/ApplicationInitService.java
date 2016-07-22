@@ -1,6 +1,7 @@
 package com.anicloud.sunny.application.service.init;
 
 import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
+import com.ani.bus.service.commons.dto.anidevice.DeviceMasterObjInfoDto;
 import com.ani.octopus.commons.accout.dto.AccountDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 
@@ -15,4 +16,5 @@ public abstract class ApplicationInitService {
     protected abstract boolean isUserNotExists(Long accountId);
 
     public abstract UserDto initApplication(AniOAuthAccessToken accessToken) throws Exception;
+    public abstract void updateUserDeviceAndDeviceFeatureRelation(DeviceMasterObjInfoDto masterDto);
 }

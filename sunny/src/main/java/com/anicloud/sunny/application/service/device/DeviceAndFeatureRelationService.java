@@ -13,6 +13,7 @@ import java.util.Set;
 public interface DeviceAndFeatureRelationService {
     public DeviceAndFeatureRelationDto save(DeviceAndFeatureRelationDto deviceAndFeatureRelationDto);
     public void batchSave(List<DeviceAndFeatureRelationDto> relationDtoList);
+    public void batchModify(List<DeviceAndFeatureRelationDto> relationDtoList);
     public DeviceAndFeatureRelationDto findByDeviceIdentificationCode(String identificationCode);
     public List<DeviceAndFeatureRelationDto> findAll();
 }
