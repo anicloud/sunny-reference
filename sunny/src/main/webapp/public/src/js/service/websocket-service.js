@@ -37,7 +37,6 @@ anicloud.sunny.service.WebSocketService = function () {
             }
 
             sock.onmessage = function (event) {
-                alert(event.data)
                 // Get the content
                 var content = event.data;
                 var obj = JSON.parse(content);

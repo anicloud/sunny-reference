@@ -6,6 +6,7 @@ import com.ani.bus.service.commons.dto.accountobject.AccountObject;
 import com.ani.bus.service.commons.message.SocketMessage;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
+import com.anicloud.sunny.application.dto.device.DeviceStrategyInfoDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
@@ -100,8 +101,9 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
                 try {
                     ObjectMapper mapper = new ObjectMapper();
                     DeviceFormDto deviceFormDto = DeviceFormDto.convertToDeviceForm(deviceDto);
-                    String deviceInfoJson = mapper.writeValueAsString(deviceFormDto);
-                    TextMessage message = new TextMessage(deviceInfoJson);
+                    DeviceStrategyInfoDto infoDto = new DeviceStrategyInfoDto(0,deviceDto);
+                    String jsonData = mapper.writeValueAsString(infoDto);
+                    TextMessage message = new TextMessage(jsonData);
                     session.sendMessage(message);
                 } catch (IOException e) {
                     e.printStackTrace();

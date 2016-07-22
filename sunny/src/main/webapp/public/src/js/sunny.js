@@ -89,15 +89,8 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
             null,
             null,
             null,
-            ManagerService.updateStrategy
+            ManagerService.updateStrategyDevice
         );
-        // WebSocketService.openSocket(
-        //     "ws://localhost:8080/sunny/socket/device",
-        //     null,
-        //     null,
-        //     null,
-        //     ManagerService.updateDevice
-        // );
     });
 }
 

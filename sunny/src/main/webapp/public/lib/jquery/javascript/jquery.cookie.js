@@ -53,9 +53,7 @@
 	}
 
 	var config = $.cookie = function (key, value, options) {
-
 		// Write
-
 		if (value !== undefined && !$.isFunction(value)) {
 			options = $.extend({}, config.defaults, options);
 

@@ -1,10 +1,20 @@
 package com.anicloud.sunny.schedule.domain.strategy;
 
 
+import com.anicloud.sunny.application.service.holder.SpringContextHolder;
+import com.anicloud.sunny.application.service.strategy.CurrentFeatureService;
+import com.anicloud.sunny.infrastructure.persistence.domain.device.CurrentFeatureInstanceDao;
 import com.anicloud.sunny.schedule.domain.schedule.*;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,11 +30,12 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     public List<FunctionInstance> functionInstanceList;
     public List<TriggerInstance> triggerInstanceList;
     public boolean isScheduleNow;
-//
     public Long hashUserId;
     transient public ScheduleJob scheduleJob;
     transient public ScheduleManager scheduleManager;
     transient public ScheduleStateListener listener;
+
+    private CurrentFeatureService service = (CurrentFeatureService) SpringContextHolder.getBean("currentFeatureEventHandler");
 
     public Integer reenter = -1;
 
@@ -81,6 +92,10 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
                 scheduleManager.addJob(scheduleJob);
                 state = ScheduleState.RUNNING;
                 listener.onScheduleStateChanged(this, state);
+
+                CurrentFeatureInstanceDao dao = new CurrentFeatureInstanceDao(featureId,deviceId,1,hashUserId);
+                service.saveCurrentFeature(dao);
+
                 return true;
             case RUNNING:
                 break;

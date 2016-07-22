@@ -108,32 +108,50 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
             });
         },
 
-        updateStrategy: function (obj) {
-           if(obj.stage != null) {
-               alert(obj);
+        updateStrategyDevice: function (obj) {
+           alert(JSON.stringify(obj));
+           if(obj.kind == 0) {//device update
+               var device = obj.instance;
+               var isNew = true;
+               for (var i = 0; i < $rootScope.devices.length; i++) {
+                   if ($rootScope.devices[i].id == device.id) {
+                       $rootScope.devices.splice(i, 1, JSON.parse(JSON.stringify(device)));
+                       isNew = false;
+                       console.log("update device:");
+                       console.log(device);
+                   }
+               }
+               if (isNew) {
+                   console.log("update device:");
+                   console.log(device);
+                   $rootScope.devices.push(device);
+                   console.log(device);
+               }
+               location.reload();
+           } else if(obj.kind == 1){//strategy update
                // handle normal strategy
                var isNew = true;
+               var strategy = obj.instance;
                for (var i = 0; i < $rootScope.strategies.length; i++) {
-                   if ($rootScope.strategies[i].strategyId == obj.strategyId) {
-                       $rootScope.strategies.splice(i, 1, JSON.parse(JSON.stringify(obj)));
+                   if ($rootScope.strategies[i].strategyId == strategy.strategyId) {
+                       $rootScope.strategies.splice(i, 1, JSON.parse(JSON.stringify(strategy)));
                        isNew = false;
                        console.log("update strategy:");
-                       console.log(obj);
+                       console.log(strategy);
                    }
                }
                if (isNew) {
                    console.log("update strategy:");
-                   console.log(obj);
-                   $rootScope.strategies.push(obj);
+                   console.log(strategy);
+                   $rootScope.strategies.push(strategy);
                }
 
-
                // handle phony strategy
-               if (obj.strategyName == "_PHONY_STRATEGY_") {
-                   var deviceId = obj.featureList[0].device.id;
-                   if (obj.state == "RUNNING" || obj.state == "SUSPENDED") {
-                       $rootScope.phonyStrategyMap[deviceId] = obj;
-                   } else if (obj.state == "DONE") {
+               if (strategy.strategyName == "_PHONY_STRATEGY_") {
+                   var deviceId = strategy.featureList[0].device.id;
+                   if (strategy.state == "RUNNING" || obj.state == "SUSPENDED") {
+                       $rootScope.phonyStrategyMap[deviceId] = strategy;
+                   } else if (strategy.state == "DONE") {
                        if (deviceId in $rootScope.phonyStrategyMap) {
                            delete $rootScope.phonyStrategyMap[deviceId];
                        }
@@ -145,24 +163,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                        Notify.alert(notifyMsg, notifyOpts);
                    }
                    console.log("update phony strategy:");
-                   console.log(obj);
-               }
-           } else {
-               alert(obj);
-               var isNew = true;
-               for (var i = 0; i < $rootScope.devices.length; i++) {
-                   if ($rootScope.devices[i].id == obj.id) {
-                       $rootScope.devices.splice(i, 1, JSON.parse(JSON.stringify(obj)));
-                       isNew = false;
-                       console.log("update device:");
-                       console.log(obj);
-                   }
-               }
-               if (isNew) {
-                   console.log("update device:");
-                   console.log(obj);
-                   $rootScope.devices.push(obj);
-                   console.log(obj);
+                   console.log(strategy);
                }
            }
         }

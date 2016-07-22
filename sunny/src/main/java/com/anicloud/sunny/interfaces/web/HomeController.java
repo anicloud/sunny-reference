@@ -32,7 +32,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -101,7 +103,11 @@ public class HomeController extends BaseController {
             userDto = initService.initApplication(oAuth2AccessToken);
             //通知服务器客户端状态
             AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
-            AccountObject accountObj = new AccountObject(userDto.hashUserId);
+            Map<Long, List<Integer>> map = new HashMap<Long, List<Integer>>();
+            List<Integer> list = new ArrayList<>();
+            list.add(1);
+            map.put(10L,list);
+            AccountObject accountObj = new AccountObject(userDto.hashUserId,map);
             SocketMessage socketMessage = accountInvoker.registerAndLogin(accountObj);
         } catch (Exception e) {
             // TODO
