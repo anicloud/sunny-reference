@@ -16,6 +16,10 @@ public class UserPersistenceEventHandler implements UserPersistenceService {
 
     @Override
     public UserDao saveUser(UserDao userDao) {
+        UserDao originUserDao = userRepository.findByHashUserId(userDao.hashUserId);
+        if (originUserDao!=null){
+            userDao.id = originUserDao.id;
+        }
         return userRepository.save(userDao);
     }
 

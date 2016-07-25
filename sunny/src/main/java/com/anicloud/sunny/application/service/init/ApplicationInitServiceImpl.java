@@ -74,10 +74,12 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList = agentTemplate
                 .getDeviceObjService(accessToken.getAccessToken())
                 .getDeviceObjInfo(accountDto.accountId, Boolean.TRUE);
-        List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos =
-                getRelation(deviceMasterObjInfoDtoList, accessToken);
-        LOGGER.info("Initialize DeviceAndFeatureRelation...");
-        deviceAndFeatureRelationService.batchSave(deviceAndFeatureRelationDtos);
+        if(deviceMasterObjInfoDtoList!=null){
+            List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos =
+                    getRelation(deviceMasterObjInfoDtoList, accessToken);
+            LOGGER.info("Initialize DeviceAndFeatureRelation...");
+            deviceAndFeatureRelationService.batchSave(deviceAndFeatureRelationDtos);
+        }
     }
 
     @Override
@@ -110,6 +112,8 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
             initUser(userDto);
             // init user-device-devicefeature relation
             initUserDeviceAndDeviceFeatureRelation(accountDto, accessToken);
+        }else{
+            initUser(userDto);
         }
         return userDto;
     }
