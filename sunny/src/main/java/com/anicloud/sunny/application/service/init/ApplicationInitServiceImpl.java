@@ -5,7 +5,7 @@ import com.ani.agent.service.commons.object.enumeration.DeviceState;
 import com.ani.agent.service.service.AgentTemplate;
 import com.ani.bus.service.commons.dto.anidevice.DeviceMasterObjInfoDto;
 import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
-import com.ani.octopus.commons.accout.dto.AccountDto;
+import com.ani.earth.commons.dto.AccountDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.stub.dto.StubDto;
 import com.ani.utils.core.AniByte;
