@@ -2,17 +2,30 @@ package com.anicloud.sunny.interfaces.web;
 
 import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
 import com.ani.agent.service.commons.oauth.dto.AuthorizationCodeParameter;
+import com.ani.agent.service.core.config.AnicelMeta;
+import com.ani.agent.service.core.websocket.WebSocketClient;
+import com.ani.agent.service.core.websocket.WebSocketSessionFactory;
+import com.ani.agent.service.service.aniservice.AniServiceManager;
 import com.ani.agent.service.service.websocket.AccountInvoker;
 import com.ani.agent.service.service.websocket.AniInvokerImpl;
+import com.ani.agent.service.service.websocket.ClientInvokable;
+import com.ani.agent.service.service.websocket.ObjectNotify;
+import com.ani.agent.service.service.websocket.observer.AniObjectCallMessageObserver;
 import com.ani.bus.service.commons.dto.accountobject.AccountObject;
+import com.ani.bus.service.commons.dto.aniservice.AniServiceDto;
+import com.ani.bus.service.commons.dto.aniservice.AniServiceRegisterDto;
+import com.ani.bus.service.commons.dto.aniservice.LanguageEnum;
 import com.ani.bus.service.commons.message.SocketMessage;
 import com.ani.agent.service.service.AgentTemplate;
+import com.ani.bus.service.commons.observer.MessageObserver;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.dto.user.UserInfoDto;
+import com.anicloud.sunny.application.service.agent.ClientInvokerImpl;
 import com.anicloud.sunny.application.service.init.ApplicationInitService;
 import com.anicloud.sunny.application.service.user.UserService;
+import com.anicloud.sunny.domain.adapter.AniServiceDaoAdapter;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
 import com.anicloud.sunny.interfaces.web.dto.UserSessionInfo;
 import com.anicloud.sunny.interfaces.web.listener.SessionListener;
@@ -32,11 +45,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.ani.bus.service.commons.dto.aniservice.AniServiceInfoDto;
 /**
  * Created by zhaoyu on 15-5-27.
  */
@@ -57,16 +68,92 @@ public class HomeController extends BaseController {
     private AgentTemplate agentTemplate;
     @Resource
     private ObjectMapper objectMapper;
+    @Resource
+    private AnicelMeta anicelMeta;
+    @Resource(name = "objectNotify")
+    private ObjectNotify objectNotify;
 
     @PostConstruct
     public void init() {
         try {
             Constants.aniServiceDto = appServiceFacade.getAniServiceInfo();
-            LOGGER.debug("init AniService information.");
+            AniServiceManager aniServiceManager = agentTemplate.getAniServiceManager();
+            String aniServiceID = Constants.aniServiceDto.aniServiceId;
+            String clientSecret = Constants.aniServiceDto.clientSecret;
+
+
+            Set<LanguageEnum> languageEnumSet  =new HashSet<>();
+                    for(String lan :Constants.aniServiceDto.languageSet){
+                        LanguageEnum languageEnum = (LanguageEnum)Enum.valueOf(LanguageEnum.class,lan.trim());
+                        languageEnumSet.add(languageEnum);
+                    }
+            AniServiceInfoDto aniserviceinfo = new AniServiceInfoDto(
+                    null,
+                    Constants.aniServiceDto.serviceServerUrl,
+                    Constants.aniServiceDto.logoPath,
+                    languageEnumSet,
+                    Constants.aniServiceDto.tagSet,
+                    Constants.aniServiceDto.price,
+                    Constants.aniServiceDto.onShelf,
+                    Constants.aniServiceDto.description
+            );
+            List<com.ani.bus.service.commons.dto.aniservice.AniServiceEntranceDto> aniServiceEntranceDto =
+                    AniServiceDaoAdapter.fromCommonsToLocal(Constants.aniServiceDto.entranceList);
+
+            AniServiceRegisterDto aniServiceRegisterDto = new AniServiceRegisterDto(
+                    Constants.aniServiceDto.aniServiceId,
+                    Constants.aniServiceDto.serviceName,
+                    Constants.aniServiceDto.version,
+                    Constants.aniServiceDto.webServerRedirectUri,
+                    Constants.aniServiceDto.accountId,
+                    aniServiceEntranceDto,
+                    aniserviceinfo,
+                    null
+            );
+            aniServiceRegisterDto.addStub(1L, 1);
+            AniServiceDto aniServiceDto;
+            if(aniServiceID.equals("")||clientSecret.equals("")){
+                aniServiceDto = null;
+            }else{
+                aniServiceDto = aniServiceManager.getByAniService(aniServiceID,clientSecret);
+            }
+            if(aniServiceDto== null){
+                aniServiceManager.register(aniServiceRegisterDto);
+                LOGGER.debug("registing the new application");
+                return ;
+            }else{
+                LOGGER.debug("init AniService information.");
+            }
+
         } catch (IOException e) {
             LOGGER.error("read sunny basic info error. msg {}.", e.getMessage());
             e.printStackTrace();
+        }catch (java.lang.Exception e2){
+            LOGGER.error("get sunny aniServiceDto error. msg {}.", e2.getMessage());
+            e2.printStackTrace();
         }
+        // you need to implement the Invokable interface and register on
+        // WebSocketClient for anicloud platform to callback
+        ClientInvokable invokable = new ClientInvokerImpl();
+        WebSocketClient socketClient = new WebSocketClient(invokable,objectNotify);
+
+        // you need to implement your own observer and register on socketClient
+        // to receive the message from anicloud platform
+        Vector<MessageObserver> messageObservers = new Vector<>();
+        messageObservers.add(new AniObjectCallMessageObserver());
+        socketClient.setObs(messageObservers);
+
+        // inject your WebSocketClient instance and anicloud socket destination url to factory
+        // and use factory to get the session, than you can use the session to communicate
+        // with anicloud platform
+        WebSocketSessionFactory sessionFactory = new WebSocketSessionFactory(
+                socketClient,
+                anicelMeta,
+                Constants.aniServiceDto.aniServiceId,
+                Constants.aniServiceDto.clientSecret
+        );
+        Constants.aniServiceSession = sessionFactory.getAniServiceSession();
+        LOGGER.info("build ani service session success.");
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)

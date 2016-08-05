@@ -5,6 +5,7 @@ import com.anicloud.sunny.domain.model.app.AniServiceEntrance;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceEntranceDao;
 import org.springframework.util.StringUtils;
+import com.ani.bus.service.commons.dto.aniservice.AniServiceEntranceDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,4 +131,24 @@ public class AniServiceDaoAdapter {
 
         return serviceEntranceList;
     }
+    public static List<AniServiceEntranceDto> fromCommonsToLocal(List<com.anicloud.sunny.interfaces.facade.dto.AniServiceEntranceDto> entranceDtoList)
+    {
+        if (entranceDtoList == null){
+            return null;
+        }
+        List<AniServiceEntranceDto> commonsEntranceList = new ArrayList<>();
+        for (com.anicloud.sunny.interfaces.facade.dto.AniServiceEntranceDto entranceDto: entranceDtoList) {
+            commonsEntranceList.add(new AniServiceEntranceDto(
+                    entranceDto.entranceId,
+                    entranceDto.entranceName,
+                    entranceDto.entranceUrl,
+                    entranceDto.logoPath,
+                    entranceDto.tagSet,
+                    entranceDto.description)
+            );
+        }
+        return commonsEntranceList;
+    }
+
+
 }
