@@ -1,5 +1,12 @@
 package com.anicloud.sunny.application.service.app;
 
+import com.ani.agent.service.service.AgentTemplate;
+import com.ani.agent.service.service.aniservice.AniServiceManager;
+import com.ani.bus.service.commons.dto.aniservice.AniServiceInfoDto;
+import com.ani.bus.service.commons.dto.aniservice.AniServiceRegisterDto;
+import com.ani.bus.service.commons.dto.aniservice.LanguageEnum;
+import com.anicloud.sunny.application.constant.Constants;
+import com.anicloud.sunny.domain.adapter.AniServiceDaoAdapter;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceEntranceDao;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
@@ -15,9 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @autor zhaoyu
@@ -37,6 +42,8 @@ public class AppServiceFacadeTest {
     @Resource
     private ObjectMapper objectMapper;
 
+    @Resource
+    private AgentTemplate agentTemplate;
     @Test
     public void testGetAniServiceInfo() throws Exception {
         AniServiceDto aniServiceDto = appServiceFacade.getAniServiceInfo();
@@ -54,7 +61,6 @@ public class AppServiceFacadeTest {
         org.springframework.core.io.Resource resource = resourceLoader.getResource(FILE_PATH);
         File targetFile = resource.getFile();
         AniServiceDao aniServiceDao = new AniServiceDao();
-        aniServiceDao.id = 1L;
         aniServiceDao.accessTokenValidity = 43200;
         aniServiceDao.accountId = 1707593791689932096L;
         aniServiceDao.aniServiceId = "1058595963104900977";
@@ -74,27 +80,58 @@ public class AppServiceFacadeTest {
         aniServiceDao.description = "sunny app";
         aniServiceDao.languageSet = "ZH_CN";
         aniServiceDao.logoPath = "https://raw.githubusercontent.com/anicloud/anicloud.github.io/master/images/logo/ani_logo.png";
-        aniServiceDao.onShelf = new Date(1449815846929L);
+        //aniServiceDao.onShelf = new Date(1449815846929L);
         aniServiceDao.price = 0.0;
         aniServiceDao.serviceServerUrl = "http://localhost:8080/sunny";
         aniServiceDao.tagSet = "life";
 
         List<AniServiceEntranceDao> entranceDaoList = new ArrayList<>();
         AniServiceEntranceDao aniServiceEntranceDao = new AniServiceEntranceDao(
-                1L,
-                "sunny entrance",
-                "http://localhost:8080/sunny/strategy",
+                null,
+                "yihealth entrance",
+                "http://localhost:8080/yihealth/strategy",
                 "https://raw.githubusercontent.com/anicloud/anicloud.github.io/master/images/logo/ani_logo.png",
                 "life",
-                "sunny entrance"
+                "yihealth entrance"
         );
-
+        Set<LanguageEnum> languageEnumSet  =new HashSet<>();
+        for(String lan :Constants.aniServiceDto.languageSet){
+            LanguageEnum languageEnum = (LanguageEnum)Enum.valueOf(LanguageEnum.class,lan.trim());
+            languageEnumSet.add(languageEnum);
+        }
+        AniServiceInfoDto aniserviceinfo = new AniServiceInfoDto(
+                null,
+                "http://localhost:8080/yihealth",
+                Constants.aniServiceDto.logoPath,
+                languageEnumSet,
+                Constants.aniServiceDto.tagSet,
+                Constants.aniServiceDto.price,
+                Constants.aniServiceDto.onShelf,
+                "yihealth app"
+        );
         entranceDaoList.add(aniServiceEntranceDao);
         aniServiceDao.entranceList = entranceDaoList;
+        AniServiceManager aniServiceManager = agentTemplate.getAniServiceManager();
+        List<com.ani.bus.service.commons.dto.aniservice.AniServiceEntranceDto> aniServiceEntranceDto =
+                AniServiceDaoAdapter.fromCommonsToLocal(Constants.aniServiceDto.entranceList);
+        AniServiceRegisterDto aniServiceRegisterDto = new AniServiceRegisterDto(
+                Constants.aniServiceDto.aniServiceId,
+                "yihealth-app",
+                Constants.aniServiceDto.version,
+                "http://localhost:8080/yihealth/home/redirect",
+                Constants.aniServiceDto.accountId,
+                aniServiceEntranceDto,
+                aniserviceinfo,
+                null
+        );
+        aniServiceRegisterDto.addStub(1L, 1);
 
-        if (targetFile.exists()) {
-            objectMapper.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
-            objectMapper.writeValue(targetFile, aniServiceDao);
+        try {
+            com.ani.bus.service.commons.dto.aniservice.AniServiceDto dto = aniServiceManager.register(aniServiceRegisterDto);
+            String str = objectMapper.writeValueAsString(dto);
+            System.out.println(str);
+        }catch (Exception e){
+
         }
     }
 }

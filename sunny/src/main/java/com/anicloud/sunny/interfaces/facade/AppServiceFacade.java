@@ -1,5 +1,6 @@
 package com.anicloud.sunny.interfaces.facade;
 
+import com.ani.bus.service.commons.dto.aniservice.AniServiceEntranceDto;
 import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
 
 import java.io.IOException;
@@ -11,4 +12,5 @@ import java.io.IOException;
  */
 public interface AppServiceFacade {
     AniServiceDto getAniServiceInfo() throws IOException;
+    void update(AniServiceDto aniServiceDto) throws IOException;
 }

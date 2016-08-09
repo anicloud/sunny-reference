@@ -44,6 +44,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -118,7 +119,10 @@ public class HomeController extends BaseController {
                 aniServiceDto = aniServiceManager.getByAniService(aniServiceID,clientSecret);
             }
             if(aniServiceDto== null){
-                aniServiceManager.register(aniServiceRegisterDto);
+                 aniServiceDto = aniServiceManager.register(aniServiceRegisterDto);
+                 Constants.aniServiceDto.clientSecret = aniServiceDto.clientSecret;
+                 Constants.aniServiceDto.aniServiceId = aniServiceDto.aniServiceId;
+                 appServiceFacade.update(Constants.aniServiceDto);
                 LOGGER.debug("registing the new application");
                 return ;
             }else{
