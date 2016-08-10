@@ -29,6 +29,7 @@ public class AppServiceImpl implements AppService {
 
     @Override
     public void update(AniService aniService) throws IOException {
-        aniService.update();
+        AniServiceDao aniServiceDao = AniServiceDaoAdapter.toDao(aniService);
+        aniServicePersistService.update(aniServiceDao);
     }
 }

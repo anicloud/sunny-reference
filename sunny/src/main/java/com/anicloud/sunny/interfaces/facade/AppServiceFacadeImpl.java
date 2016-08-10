@@ -1,6 +1,9 @@
 package com.anicloud.sunny.interfaces.facade;
 
+import com.anicloud.sunny.application.service.adapter.AniServiceAdapter;
 import com.anicloud.sunny.application.service.app.AppService;
+import com.anicloud.sunny.domain.adapter.AniServiceDaoAdapter;
+import com.anicloud.sunny.domain.model.app.AniService;
 import com.anicloud.sunny.interfaces.adapter.AniServiceDtoAdapter;
 import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
 import org.slf4j.Logger;
@@ -27,5 +30,11 @@ public class AppServiceFacadeImpl implements AppServiceFacade {
         return AniServiceDtoAdapter.toDto(
                 appService.getAniServiceInfo()
         );
+    }
+
+    @Override
+    public void update(AniServiceDto aniServiceDto) throws IOException {
+        AniService aniService = AniServiceAdapter.toService(aniServiceDto);
+        appService.update(aniService);
     }
 }
