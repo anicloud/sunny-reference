@@ -1,10 +1,13 @@
 package com.anicloud.sunny.application.service.app;
 
 import com.ani.agent.service.service.AgentTemplate;
+import com.ani.agent.service.service.account.AccountService;
 import com.ani.agent.service.service.aniservice.AniServiceManager;
 import com.ani.bus.service.commons.dto.aniservice.AniServiceInfoDto;
 import com.ani.bus.service.commons.dto.aniservice.AniServiceRegisterDto;
 import com.ani.bus.service.commons.dto.aniservice.LanguageEnum;
+import com.ani.earth.commons.dto.AccountRegisterDto;
+import com.ani.earth.commons.dto.AccountType;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.domain.adapter.AniServiceDaoAdapter;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
@@ -131,6 +134,25 @@ public class AppServiceFacadeTest {
             String str = objectMapper.writeValueAsString(dto);
             System.out.println(str);
         }catch (Exception e){
+
+        }
+    }
+    @Test
+    public void testAccountRegist() throws IOException{
+        AccountService accountService = agentTemplate.getAccountService(null);
+        AccountRegisterDto accountRegisterDto = new AccountRegisterDto(
+                        "Bill",
+                        "bill@anicloud.com",
+                        "123456",
+                        AccountType.PERSONAL,
+                        "18511929814",
+                        "Fengtai, Beijing",
+                        "Anicloud Limited",
+                        "https://raw.githubusercontent.com/anicloud/anicloud.github.io/master/images/logo/ani_logo.png"
+        );
+        try {
+            accountService.register(accountRegisterDto);
+        }catch (Exception e) {
 
         }
     }

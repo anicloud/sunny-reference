@@ -31,6 +31,7 @@ import com.anicloud.sunny.interfaces.web.dto.UserSessionInfo;
 import com.anicloud.sunny.interfaces.web.listener.SessionListener;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.deser.impl.CreatorCollector;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,36 +83,7 @@ public class HomeController extends BaseController {
             String aniServiceID = Constants.aniServiceDto.aniServiceId;
             String clientSecret = Constants.aniServiceDto.clientSecret;
 
-
-            Set<LanguageEnum> languageEnumSet  =new HashSet<>();
-                    for(String lan :Constants.aniServiceDto.languageSet){
-                        LanguageEnum languageEnum = (LanguageEnum)Enum.valueOf(LanguageEnum.class,lan.trim());
-                        languageEnumSet.add(languageEnum);
-                    }
-            AniServiceInfoDto aniserviceinfo = new AniServiceInfoDto(
-                    null,
-                    Constants.aniServiceDto.serviceServerUrl,
-                    Constants.aniServiceDto.logoPath,
-                    languageEnumSet,
-                    Constants.aniServiceDto.tagSet,
-                    Constants.aniServiceDto.price,
-                    Constants.aniServiceDto.onShelf,
-                    Constants.aniServiceDto.description
-            );
-            List<com.ani.bus.service.commons.dto.aniservice.AniServiceEntranceDto> aniServiceEntranceDto =
-                    AniServiceDaoAdapter.fromCommonsToLocal(Constants.aniServiceDto.entranceList);
-
-            AniServiceRegisterDto aniServiceRegisterDto = new AniServiceRegisterDto(
-                    Constants.aniServiceDto.aniServiceId,
-                    Constants.aniServiceDto.serviceName,
-                    Constants.aniServiceDto.version,
-                    Constants.aniServiceDto.webServerRedirectUri,
-                    Constants.aniServiceDto.accountId,
-                    aniServiceEntranceDto,
-                    aniserviceinfo,
-                    null
-            );
-            aniServiceRegisterDto.addStub(1L, 1);
+            AniServiceRegisterDto aniServiceRegisterDto = CreateRegisterDto();
             AniServiceDto aniServiceDto;
             if(aniServiceID.equals("")||clientSecret.equals("")){
                 aniServiceDto = null;
@@ -128,7 +100,6 @@ public class HomeController extends BaseController {
             }else{
                 LOGGER.debug("init AniService information.");
             }
-
         } catch (IOException e) {
             LOGGER.error("read sunny basic info error. msg {}.", e.getMessage());
             e.printStackTrace();
@@ -171,8 +142,7 @@ public class HomeController extends BaseController {
             UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
             return userSession(request, response, userInfoDto);
         } else {
-            System.out.println("redirect:loginPage");
-            return "redirect:loginPage";
+            return "redirect:http://localhost:8081/service-bus/oauth/authorize?client_id=6081746604750111311&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
         }
     }
 
@@ -310,5 +280,41 @@ public class HomeController extends BaseController {
             return ip;
         }
         return request.getRemoteAddr();
+    }
+
+    private AniServiceRegisterDto CreateRegisterDto()
+    {
+        Set<LanguageEnum> languageEnumSet  =new HashSet<>();
+        for(String lan :Constants.aniServiceDto.languageSet){
+            LanguageEnum languageEnum = (LanguageEnum)Enum.valueOf(LanguageEnum.class,lan.trim());
+            languageEnumSet.add(languageEnum);
+        }
+        AniServiceInfoDto aniserviceinfo = new AniServiceInfoDto(
+                null,
+                Constants.aniServiceDto.serviceServerUrl,
+                Constants.aniServiceDto.logoPath,
+                languageEnumSet,
+                Constants.aniServiceDto.tagSet,
+                Constants.aniServiceDto.price,
+                Constants.aniServiceDto.onShelf,
+                Constants.aniServiceDto.description
+        );
+        List<com.ani.bus.service.commons.dto.aniservice.AniServiceEntranceDto> aniServiceEntranceDto =
+                AniServiceDaoAdapter.fromCommonsToLocal(Constants.aniServiceDto.entranceList);
+
+        AniServiceRegisterDto aniServiceRegisterDto = new AniServiceRegisterDto(
+                Constants.aniServiceDto.aniServiceId,
+                Constants.aniServiceDto.serviceName,
+                Constants.aniServiceDto.version,
+                Constants.aniServiceDto.webServerRedirectUri,
+                Constants.aniServiceDto.accountId,
+                aniServiceEntranceDto,
+                aniserviceinfo,
+                null
+        );
+        aniServiceRegisterDto.addStub(1L, 1);
+
+        return aniServiceRegisterDto;
+
     }
 }
