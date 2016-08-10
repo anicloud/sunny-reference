@@ -2,7 +2,7 @@
   "aniServiceId": "1058595963104900977",
   "serviceName": "sunny-app",
   "version": "1.0",
-  "clientSecret": "ed76fcd39a2911b79ce52e99f3021ef8",
+  "clientSecret": "34d54214721d6077ae021ab5d8215258",
   "resourceIds": "system-resource",
   "scope": "read,write",
   "authorizedGrantTypes": "authorization_code,refresh_token,password,implicit",
