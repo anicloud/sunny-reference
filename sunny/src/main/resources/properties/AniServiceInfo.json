@@ -1,8 +1,9 @@
 {
-  "aniServiceId": "",
+  "id": 1,
+  "aniServiceId": "1058595963104900977",
   "serviceName": "sunny-app",
   "version": "1.0",
-  "clientSecret": "",
+  "clientSecret": "34d54214721d6077ae021ab5d8215258",
   "resourceIds": "system-resource",
   "scope": "read,write",
   "authorizedGrantTypes": "authorization_code,refresh_token,password,implicit",
@@ -21,9 +22,10 @@
   "price": 0.0,
   "onShelf": 1449815846929,
   "description": "sunny app",
-  "accountId": 7581089877683183796,
+  "accountId": 1707593791689932096,
   "entranceList": [
     {
+      "id": 1,
       "entranceName": "sunny entrance",
       "entranceUrl": "http://localhost:8080/sunny/strategy",
       "logoPath": "https://raw.githubusercontent.com/anicloud/anicloud.github.io/master/images/logo/ani_logo.png",
