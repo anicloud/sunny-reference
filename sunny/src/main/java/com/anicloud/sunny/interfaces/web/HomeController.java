@@ -32,6 +32,7 @@ import com.anicloud.sunny.interfaces.web.listener.SessionListener;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.impl.CreatorCollector;
+import javassist.bytecode.stackmap.BasicBlock;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,7 @@ import org.springframework.web.util.CookieGenerator;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -91,10 +93,10 @@ public class HomeController extends BaseController {
                 aniServiceDto = aniServiceManager.getByAniService(aniServiceID,clientSecret);
             }
             if(aniServiceDto== null){
-                 aniServiceDto = aniServiceManager.register(aniServiceRegisterDto);
+                 //aniServiceDto = aniServiceManager.register(aniServiceRegisterDto);
                  Constants.aniServiceDto.clientSecret = aniServiceDto.clientSecret;
                  Constants.aniServiceDto.aniServiceId = aniServiceDto.aniServiceId;
-                 appServiceFacade.update(Constants.aniServiceDto);
+                 //appServiceFacade.update(Constants.aniServiceDto);
                 LOGGER.debug("registing the new application");
                 return ;
             }else{
@@ -142,7 +144,7 @@ public class HomeController extends BaseController {
             UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
             return userSession(request, response, userInfoDto);
         } else {
-            return "redirect:http://localhost:8081/service-bus/oauth/authorize?client_id=6081746604750111311&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
+            return "redirect:http://localhost:8081/service-bus/oauth/authorize?client_id=1058595963104900977&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
         }
     }
 
@@ -223,8 +225,15 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logoutPage() {
-        return "logout";
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response,
+                             @CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME, required = false) String currentUser) {
+    try {
+        UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
+        removeUserInfoFromCookie(userInfoDto,response);
+    }catch (IOException e){
+        e.printStackTrace();
+    }
+        return "redirect:http://localhost:8081/service-bus/logout";
     }
 
     @RequestMapping(value = "switchUser", method = RequestMethod.GET)
@@ -245,11 +254,23 @@ public class HomeController extends BaseController {
         CookieGenerator cookieGenerator = new CookieGenerator();
         //cookieGenerator.setCookiePath(Constants.SUNNY_COOKIE_PATH);
         cookieGenerator.setCookieName(Constants.SUNNY_COOKIE_USER_NAME);
-        cookieGenerator.setCookieMaxAge(Constants.SUNNY_COOKIE_MAX_AGE);
+        cookieGenerator.setCookieMaxAge(-1);
         cookieGenerator.addCookie(response, currentUser);
         //cookieGenerator.removeCookie(response);
     }
 
+    private void removeUserInfoFromCookie(UserInfoDto userInfoDto,HttpServletResponse response){
+        String currentUser = null;
+        try {
+            currentUser = objectMapper.writeValueAsString(userInfoDto);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        CookieGenerator cookieGenerator = new CookieGenerator();
+        cookieGenerator.setCookieName(Constants.SUNNY_COOKIE_USER_NAME);
+        cookieGenerator.setCookieMaxAge(0);
+        cookieGenerator.addCookie(response, currentUser);
+    }
     private String userSession(HttpServletRequest request,HttpServletResponse response, UserInfoDto userInfoDto) {
         HttpSession session = request.getSession();
         String model = (String) session.getAttribute(Constants.MODEL_NAME);
