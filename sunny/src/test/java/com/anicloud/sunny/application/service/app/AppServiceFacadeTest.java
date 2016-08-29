@@ -6,6 +6,7 @@ import com.ani.agent.service.service.aniservice.AniServiceManager;
 import com.ani.bus.service.commons.dto.aniservice.AniServiceInfoDto;
 import com.ani.bus.service.commons.dto.aniservice.AniServiceRegisterDto;
 import com.ani.bus.service.commons.dto.aniservice.LanguageEnum;
+import com.ani.earth.commons.dto.AccountPhoneDto;
 import com.ani.earth.commons.dto.AccountRegisterDto;
 import com.ani.earth.commons.dto.AccountType;
 import com.anicloud.sunny.application.constant.Constants;
@@ -47,6 +48,7 @@ public class AppServiceFacadeTest {
 
     @Resource
     private AgentTemplate agentTemplate;
+
     @Test
     public void testGetAniServiceInfo() throws Exception {
         AniServiceDto aniServiceDto = appServiceFacade.getAniServiceInfo();
@@ -97,9 +99,9 @@ public class AppServiceFacadeTest {
                 "life",
                 "yihealth entrance"
         );
-        Set<LanguageEnum> languageEnumSet  =new HashSet<>();
-        for(String lan :Constants.aniServiceDto.languageSet){
-            LanguageEnum languageEnum = (LanguageEnum)Enum.valueOf(LanguageEnum.class,lan.trim());
+        Set<LanguageEnum> languageEnumSet = new HashSet<>();
+        for (String lan : Constants.aniServiceDto.languageSet) {
+            LanguageEnum languageEnum = (LanguageEnum) Enum.valueOf(LanguageEnum.class, lan.trim());
             languageEnumSet.add(languageEnum);
         }
         AniServiceInfoDto aniserviceinfo = new AniServiceInfoDto(
@@ -133,26 +135,29 @@ public class AppServiceFacadeTest {
             com.ani.bus.service.commons.dto.aniservice.AniServiceDto dto = aniServiceManager.register(aniServiceRegisterDto);
             String str = objectMapper.writeValueAsString(dto);
             System.out.println(str);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
+
     @Test
-    public void testAccountRegist() throws IOException{
+    public void testAccountRegist() throws IOException {
         AccountService accountService = agentTemplate.getAccountService(null);
+        AccountPhoneDto accountPhoneDto = new AccountPhoneDto();
+        accountPhoneDto.phoneNumber = "18511929814";
         AccountRegisterDto accountRegisterDto = new AccountRegisterDto(
-                        "Bill",
-                        "bill@anicloud.com",
-                        "123456",
-                        AccountType.PERSONAL,
-                        "18511929814",
-                        "Fengtai, Beijing",
-                        "Anicloud Limited",
-                        "https://raw.githubusercontent.com/anicloud/anicloud.github.io/master/images/logo/ani_logo.png"
+                "Bill",
+                "bill@anicloud.com",
+                "123456",
+                AccountType.PERSONAL,
+                accountPhoneDto,
+                "Fengtai, Beijing",
+                "Anicloud Limited",
+                "https://raw.githubusercontent.com/anicloud/anicloud.github.io/master/images/logo/ani_logo.png"
         );
         try {
             accountService.register(accountRegisterDto);
-        }catch (Exception e) {
+        } catch (Exception e) {
 
         }
     }
