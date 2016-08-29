@@ -2,6 +2,7 @@ package com.anicloud.sunny.schedule.domain.strategy;
 
 
 import com.anicloud.sunny.application.service.holder.SpringContextHolder;
+import com.anicloud.sunny.application.service.strategy.CurrentFeatureEventHandler;
 import com.anicloud.sunny.application.service.strategy.CurrentFeatureService;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.CurrentFeatureInstanceDao;
 import com.anicloud.sunny.schedule.domain.schedule.*;
@@ -27,7 +28,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     transient public ScheduleManager scheduleManager;
     transient public ScheduleStateListener listener;
 
-    private CurrentFeatureService service = (CurrentFeatureService) SpringContextHolder.getBean("currentFeatureEventHandler");
+    private CurrentFeatureService currentFeatureService = (CurrentFeatureEventHandler) SpringContextHolder.getBean("currentFeatureEventHandler");
 
     public Integer reenter = -1;
 
@@ -83,10 +84,9 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
             case NONE:
                 scheduleManager.addJob(scheduleJob);
                 state = ScheduleState.RUNNING;
+//                CurrentFeatureInstanceDao dao = new CurrentFeatureInstanceDao(featureId,deviceId,1,hashUserId);
+//                CurrentFeatureInstanceDao newDao = currentFeatureService.saveCurrentFeature(dao);
                 listener.onScheduleStateChanged(this, state);
-
-                CurrentFeatureInstanceDao dao = new CurrentFeatureInstanceDao(featureId,deviceId,1,hashUserId);
-                service.saveCurrentFeature(dao);
 
                 return true;
             case RUNNING:

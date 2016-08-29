@@ -26,8 +26,6 @@ import java.util.*;
 public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
     private static final Logger LOG = LoggerFactory.getLogger(DeviceStrategyInfoHandler.class);
 
-    private static Map<String, WebSocketSession> sessionMaps = new HashMap<String, WebSocketSession>();
-
     public DeviceStrategyInfoHandler() {}
 
     @Override
@@ -35,8 +33,7 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
         super.afterConnectionEstablished(session);
         String hashUserId = String.valueOf(session.getAttributes().get("hashUserId"));
         SessionManager.addSession(hashUserId, session);
-        int sessionMapSize = sessionMaps.size();
-        sessionMaps.put(hashUserId, session);
+        int sessionMapSize = SessionManager.getWebSocketSession(hashUserId).size();
         if(sessionMapSize == 0) {
             AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
             AccountObject accountObj = new AccountObject(Long.parseLong(hashUserId));
@@ -48,18 +45,15 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         super.afterConnectionClosed(session, status);
-        //String hashUserId = (String) session.getAttributes().get("hashUserId");
         String hashUserId = session.getAttributes().get("hashUserId").toString();
         LOG.info("afterConnectionClosed" + hashUserId);
-        sessionMaps.remove(hashUserId);
-        int sessionMapSize = sessionMaps.size();
-        sessionMaps.put(hashUserId, session);
+        SessionManager.removeSession(hashUserId, session.getId());
+        int sessionMapSize = SessionManager.getWebSocketSession(hashUserId).size();
         if(sessionMapSize == 0) {
             AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
             AccountObject accountObj = new AccountObject(Long.parseLong(hashUserId));
             SocketMessage socketMessage = accountInvoker.logout(accountObj);
         }
-        SessionManager.removeSession(hashUserId, session.getId());
     }
 
     @Override

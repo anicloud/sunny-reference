@@ -14,13 +14,14 @@ anicloud.sunny.controller.UserCtrl = function ($rootScope, $scope, $window, User
     }
 
     $scope.logout = function () {
-        UserService.logout(function(data) {
-            if (data.status == "success") {
-                $window.location.href = "logout";
-            } else {
-                console.log("user logout error.");
-            }
-        });
+        // UserService.logout(function(data) {
+        //     if (data.status == "success") {
+        //         $window.location.href = "logout";
+        //     } else {
+        //         console.log("user logout error.");
+        //     }
+        // });
+        $window.location.href = "logout";
     }
 
     $scope.switchUser = function() {

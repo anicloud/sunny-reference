@@ -15,7 +15,7 @@ import java.util.Map;
 public class SessionListener implements HttpSessionListener, HttpSessionAttributeListener {
     private static final Logger LOG = LoggerFactory.getLogger(SessionListener.class);
 
-    public static Map<Long, HttpSession> userSessionMaps = new HashMap<Long, HttpSession>();
+    //public static Map<Long, HttpSession> userSessionMaps = new HashMap<Long, HttpSession>();
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
@@ -27,14 +27,14 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
         LOG.info(httpSessionEvent.getSession().getId() + "destroyed");
         UserSessionInfo userSessionInfoOld = (UserSessionInfo)httpSessionEvent.getSession().getAttribute(Constants.SUNNY_SESSION_NAME);
         Long hashUserId = userSessionInfoOld.hashUserId;
-        userSessionMaps.remove(hashUserId);
+        //userSessionMaps.remove(hashUserId);
     }
 
     @Override
     public void attributeAdded(HttpSessionBindingEvent httpSessionBindingEvent) {
         HttpSession session = httpSessionBindingEvent.getSession();
         UserSessionInfo userSessionInfo = (UserSessionInfo)session.getAttribute(Constants.SUNNY_SESSION_NAME);
-        userSessionMaps.put(userSessionInfo.hashUserId,session);
+        //userSessionMaps.put(userSessionInfo.hashUserId,session);
         LOG.info(userSessionInfo.hashUserId.toString());
     }
 

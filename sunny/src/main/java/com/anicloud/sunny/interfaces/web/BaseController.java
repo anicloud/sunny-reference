@@ -22,7 +22,7 @@ public class BaseController {
         UserSessionInfo userSessionInfo = (UserSessionInfo) session.getAttribute(Constants.SUNNY_SESSION_NAME);
         if (userSessionInfo != null) {
             session.removeAttribute(Constants.SUNNY_SESSION_NAME);
-            SessionListener.userSessionMaps.remove(hashUserId);
+            //SessionListener.userSessionMaps.remove(hashUserId);
             return true;
         } else {
             return false;

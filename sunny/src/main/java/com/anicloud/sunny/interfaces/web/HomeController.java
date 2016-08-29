@@ -36,9 +36,11 @@ import javassist.bytecode.stackmap.BasicBlock;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.CookieGenerator;
 
 import javax.annotation.PostConstruct;
@@ -144,6 +146,7 @@ public class HomeController extends BaseController {
             UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
             return userSession(request, response, userInfoDto);
         } else {
+            LOGGER.info("redirect:http://localhost:8081/service-bus/oauth/authorize");
             return "redirect:http://localhost:8081/service-bus/oauth/authorize?client_id=1058595963104900977&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
         }
     }
@@ -157,6 +160,7 @@ public class HomeController extends BaseController {
     @RequestMapping(value = "/redirect")
     public String redirect(HttpServletRequest request, HttpServletResponse response, @RequestParam String code) {
         LOGGER.info("code is {}", code);
+
 
         AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForAccessToken(Constants.aniServiceDto);
         AniOAuthAccessToken oAuth2AccessToken = agentTemplate.getAniOAuthService().getOAuth2AccessToken(code, authorizationCodeParameter);
@@ -209,40 +213,43 @@ public class HomeController extends BaseController {
         return "index";
     }
 
-    @RequestMapping(value = {"/logout"},method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, String> logout(HttpServletRequest request,@RequestParam("hashUserId")Long hashUserId) {
-        Map<String, String> message = new HashMap<>();
-
-        if (removeUserFromSession(request, hashUserId)) {
-            message.put("status", "success");
-            message.put("message", "remove web socket session success.");
-        } else {
-            message.put("status", "error");
-            message.put("message", "user not in the session list.");
-        }
-        return message;
-    }
+//    @RequestMapping(value = {"/logout"},method = RequestMethod.POST)
+//    public Map<String, String> logout(HttpServletRequest request,HttpServletResponse response,@RequestParam("hashUserId")Long hashUserId,
+//                                      @CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME, required = false) String currentUser) {
+//        Map<String, String> message = new HashMap<>();
+//
+//        if (removeUserFromSession(request, hashUserId)) {
+//            message.put("status", "success");
+//            message.put("message", "remove web socket session success.");
+//        } else {
+//            message.put("status", "error");
+//            message.put("message", "user not in the session list.");
+//        }
+//        return message;
+//    }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response,
                              @CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME, required = false) String currentUser) {
-    try {
-        UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
-        removeUserInfoFromCookie(userInfoDto,response);
-    }catch (IOException e){
-        e.printStackTrace();
-    }
+        try {
+            if(currentUser != null){
+                UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
+                removeUserInfoFromCookie(userInfoDto,response);
+                //removeUserFromSession(request, Long.parseLong(userInfoDto.hashUserId));
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
         return "redirect:http://localhost:8081/service-bus/logout";
     }
 
-    @RequestMapping(value = "switchUser", method = RequestMethod.GET)
-    public String switchUser(HttpServletRequest request, Model model, @RequestParam("hashUserId") Long hashUserId) {
-        removeUserFromSession(request, hashUserId);
-        UserDto userDto = userService.getUserByHashUserId(hashUserId);
-        model.addAttribute("previousUser", new UserInfoDto(userDto));
-        return "loginPage";
-    }
+//    @RequestMapping(value = "switchUser", method = RequestMethod.GET)
+//    public String switchUser(HttpServletRequest request, Model model, @RequestParam("hashUserId") Long hashUserId) {
+//        removeUserFromSession(request, hashUserId);
+//        UserDto userDto = userService.getUserByHashUserId(hashUserId);
+//        model.addAttribute("previousUser", new UserInfoDto(userDto));
+//        return "loginPage";
+//    }
 
     private void writeUserInfoToCookie(UserInfoDto userInfoDto, HttpServletResponse response) {
         String currentUser = null;
@@ -277,12 +284,13 @@ public class HomeController extends BaseController {
 
         UserSessionInfo userSessionInfo = new UserSessionInfo();
         userSessionInfo.hashUserId = Long.parseLong(userInfoDto.hashUserId);
-        userSessionInfo.ipAddr = getIpAddr(request);
-        HttpSession sessionOld = SessionListener.userSessionMaps.get(userSessionInfo.hashUserId);
-        if(sessionOld == null) {
-            writeUserInfoToCookie(userInfoDto, response);
+//        userSessionInfo.ipAddr = getIpAddr(request);
+        //HttpSession sessionOld = SessionListener.userSessionMaps.get(userSessionInfo.hashUserId);
+        writeUserInfoToCookie(userInfoDto, response);
+//        if(sessionOld == null) {
+//            writeUserInfoToCookie(userInfoDto, response);
             session.setAttribute(Constants.SUNNY_SESSION_NAME, userSessionInfo);
-        }
+//        }
         return "redirect:home#/app/" + model;
     }
 
