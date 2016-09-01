@@ -109,7 +109,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
         },
 
         updateStrategyDevice: function (obj) {
-           alert(JSON.stringify(obj));
+           // alert(JSON.stringify(obj));
            if(obj.kind == 0) {//device update
                var device = obj.instance;
                var isNew = true;

@@ -32,7 +32,7 @@ public class DeviceFeatureInitServiceImpl extends DeviceFeatureInitService {
     public void initDeviceFeature() {
         try {
             List<DeviceFeatureDto> deviceFeatureDtoList = DeviceFeatureJsonUtils.getDeviceFeatureDtoListFromJsonFile();
-            //deviceFeatureService.batchSaveDeviceFeature(deviceFeatureDtoList);
+//            deviceFeatureService.batchSaveDeviceFeature(deviceFeatureDtoList);
             LOGGER.debug("device feature init success.");
         } catch (IOException e) {
             LOGGER.error("device feature init error. {}", e.getMessage());

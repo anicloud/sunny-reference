@@ -25,17 +25,20 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
         LOG.info(httpSessionEvent.getSession().getId() + "destroyed");
-        UserSessionInfo userSessionInfoOld = (UserSessionInfo)httpSessionEvent.getSession().getAttribute(Constants.SUNNY_SESSION_NAME);
-        Long hashUserId = userSessionInfoOld.hashUserId;
-        //userSessionMaps.remove(hashUserId);
+        UserSessionInfo userSessionInfoOld = (UserSessionInfo) httpSessionEvent.getSession().getAttribute(Constants.SUNNY_SESSION_NAME);
+        if (userSessionInfoOld != null) {
+            Long hashUserId = userSessionInfoOld.hashUserId;
+            //userSessionMaps.remove(hashUserId);
+        }
     }
 
     @Override
     public void attributeAdded(HttpSessionBindingEvent httpSessionBindingEvent) {
         HttpSession session = httpSessionBindingEvent.getSession();
-        UserSessionInfo userSessionInfo = (UserSessionInfo)session.getAttribute(Constants.SUNNY_SESSION_NAME);
+        UserSessionInfo userSessionInfo = (UserSessionInfo) session.getAttribute(Constants.SUNNY_SESSION_NAME);
         //userSessionMaps.put(userSessionInfo.hashUserId,session);
-        LOG.info(userSessionInfo.hashUserId.toString());
+        if (userSessionInfo != null)
+            LOG.info(userSessionInfo.hashUserId.toString());
     }
 
     @Override

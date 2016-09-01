@@ -108,7 +108,12 @@
 		<property name="maxTextMessageBufferSize" value="8192" />
 		<property name="maxBinaryMessageBufferSize" value="81921" />
 	</bean>
-
+	<!--处理连接池问题-->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="preferredTestQuery" value="SELECT 1"/>
+		<property name="idleConnectionTestPeriod" value="18000"/>
+		<property name="testConnectionOnCheckout" value="true"/>
+	</bean>
 
 	<!-- 定义异常处理页面  对应view 下面的outException.jsp-->
 	<!--<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

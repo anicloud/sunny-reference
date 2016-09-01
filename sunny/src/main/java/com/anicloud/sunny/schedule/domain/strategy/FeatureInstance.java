@@ -28,7 +28,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     transient public ScheduleManager scheduleManager;
     transient public ScheduleStateListener listener;
 
-    private CurrentFeatureService currentFeatureService = (CurrentFeatureEventHandler) SpringContextHolder.getBean("currentFeatureEventHandler");
+    //private CurrentFeatureService currentFeatureService = (CurrentFeatureEventHandler) SpringContextHolder.getBean("currentFeatureEventHandler");
 
     public Integer reenter = -1;
 

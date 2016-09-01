@@ -14,4 +14,5 @@ public class TestApp {
             System.out.println(triggerType.ordinal() + " : " + triggerType.name() + " : " + triggerType.toString());
         }
     }
+
 }

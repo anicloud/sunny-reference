@@ -5,6 +5,7 @@ import com.ani.agent.service.commons.object.enumeration.DeviceState;
 import com.ani.agent.service.service.AgentTemplate;
 import com.ani.bus.service.commons.dto.anidevice.DeviceMasterObjInfoDto;
 import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
+import com.ani.bus.service.commons.dto.anidevice.stub.StubMeta;
 import com.ani.earth.commons.dto.AccountDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.stub.dto.StubDto;
@@ -238,7 +239,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         return deviceMasterId + Device.DEVICE_CODE_SEPARATOR + slaveId;
     }
 
-    public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubDto> stubDtos) {
+    public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubMeta> stubDtos) {
         List<DeviceFeatureDto> deviceFeatureDtoList = new ArrayList<>();
         for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
             Set<StubIdentity> deviceStubSet = fetchDeviceStubSet(stubDtos);
@@ -251,12 +252,12 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         return deviceFeatureDtoList;
     }
 
-    public Set<StubIdentity> fetchDeviceStubSet(List<StubDto> stubDtos) {
+    public Set<StubIdentity> fetchDeviceStubSet(List<StubMeta> stubDtos) {
         Set<StubIdentity> stubIdentitySet = new HashSet<>();
-        for (StubDto stubDto : stubDtos) {
+        for (StubMeta stubDto : stubDtos) {
             StubIdentity stubIdentity = new StubIdentity(
                     stubDto.stubId,
-                    stubDto.stubGroupId
+                    stubDto.group.groupId
             );
             stubIdentitySet.add(stubIdentity);
         }
