@@ -49,6 +49,6 @@ public class DeviceController {
     @RequestMapping(value="/device/{id}",method = RequestMethod.PUT)
     @ResponseBody
     public void modifyDevice(@PathVariable("id")String identificationCode,@RequestParam("deviceGroup")String deviceGroup){
-
+System.out.print(identificationCode +"  "+ deviceGroup);
     }
 }

@@ -24,6 +24,17 @@ anicloud.sunny.service.DeviceService = function($http,$cookies){
             }
 
         },
+        editGroup:function (deviceId,groupName) {
+            $http({
+                method:'PUT',
+                url:'device/'+deviceId,
+                params: {deviceGroup:groupName}
+        }).success(function (data) {
+                if(data)console.log('edit device_group successful');
+            }).error(function(data){
+                console.log('edit device_group failures');
+            })
+        },
         getDeviceFeatures:function(callback){
             $http({
                 method:'GET',
