@@ -26,13 +26,24 @@ anicloud.sunny.service.DeviceService = function($http,$cookies){
         },
         editGroup:function (deviceId,groupName) {
             $http({
-                method:'PUT',
+                method:'POST',
                 url:'device/'+deviceId,
-                params: {deviceGroup:groupName}
+                data: angular.toJson({deviceGroup:groupName})
         }).success(function (data) {
                 if(data)console.log('edit device_group successful');
             }).error(function(data){
                 console.log('edit device_group failures');
+            })
+        },
+        editName:function (deviceId,deviceName) {
+            $http({
+                method:'POST',
+                url:'device/'+deviceId,
+                data: angular.toJson({deviceName:deviceName})
+            }).success(function (data) {
+                if(data)console.log('edit device_name successful');
+            }).error(function(data){
+                console.log('edit device_name failures');
             })
         },
         getDeviceFeatures:function(callback){

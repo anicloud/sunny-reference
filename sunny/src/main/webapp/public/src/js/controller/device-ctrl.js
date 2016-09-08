@@ -53,6 +53,7 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
     $scope.deviceDetail.editName = function() {
         $scope.deviceDetail.device.name = $scope.deviceDetail.nameInput;
         $scope.deviceDetail.nameEditable = false;
+        DeviceService.editName($scope.deviceDetail.device.id,$scope.deviceDetail.device.name);
     };
 
     $scope.deviceDetail.getGroups = function () {
