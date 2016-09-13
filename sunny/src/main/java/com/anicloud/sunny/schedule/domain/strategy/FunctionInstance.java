@@ -82,7 +82,7 @@ public class FunctionInstance implements Serializable {
                 com.ani.bus.service.commons.dto.anistub.Argument aniArgument =
                         new com.ani.bus.service.commons.dto.anistub.Argument(
                             argument.name,
-                            null, // TODO
+                            argument.argumentType,
                             argument.value
                 );
                 argumentList.add(aniArgument);
