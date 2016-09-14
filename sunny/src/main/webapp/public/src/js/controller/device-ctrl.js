@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
-anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerService, Notify) {
+anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerService, Notify,DeviceService) {
     // main
     $scope.getGroups = function () {
         var json = {"default": 1};
@@ -53,6 +53,7 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
     $scope.deviceDetail.editName = function() {
         $scope.deviceDetail.device.name = $scope.deviceDetail.nameInput;
         $scope.deviceDetail.nameEditable = false;
+        DeviceService.editName($scope.deviceDetail.device.id,$scope.deviceDetail.device.name);
     };
 
     $scope.deviceDetail.getGroups = function () {
@@ -74,6 +75,7 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         $scope.deviceDetail.groupEditable = false;
         $scope.deviceDetail.groupChosen = "";
         $scope.deviceDetail.groupInput = "";
+        DeviceService.editGroup($scope.deviceDetail.device.id,$scope.deviceDetail.device.deviceGroup);
     };
 
     $scope.deviceDetail.getFeatureList = function() {
@@ -133,7 +135,6 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         var strategy = $rootScope.phonyStrategyMap[key];
         ManagerService.resume(strategy);
     };
-
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
