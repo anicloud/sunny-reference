@@ -62,7 +62,7 @@ import com.ani.bus.service.commons.dto.aniservice.AniServiceInfoDto;
 public class HomeController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
-    private static final String authUrl = "http://dev.anicloud.cn:8222/rect-manager/oauth/authorize?client_id=sunny-client&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
+    private final static String REDIRECT_SERVICE_BUS_OAUTH = "redirect:http://bj-yatsen.anicel.cn:8080/service-bus/oauth/authorize?client_id=1058595963104900977&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
 
     @Resource
     private ApplicationInitService initService;
@@ -147,7 +147,7 @@ public class HomeController extends BaseController {
             return userSession(request, response, userInfoDto);
         } else {
             LOGGER.info("redirect:http://localhost:8081/service-bus/oauth/authorize");
-            return "redirect:http://localhost:8081/service-bus/oauth/authorize?client_id=1058595963104900977&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
+            return REDIRECT_SERVICE_BUS_OAUTH;
         }
     }
 
