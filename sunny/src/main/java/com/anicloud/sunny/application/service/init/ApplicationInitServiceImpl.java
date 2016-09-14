@@ -146,7 +146,8 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                     "default",
                     convert(masterDto.state),
                     deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
-                    String.valueOf(masterDto.objectId),
+                    //String.valueOf(masterDto.objectId),
+                    buildId(masterDto.objectId,-1),
                     masterDto.name,
                     fetchUserInfo(masterDto.owner, accessToken),
                     DeviceLogicState.OPEN
@@ -163,7 +164,8 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                         "default",
                         convert(objDto.state),
                         deviceInfoGeneratorService.generatorDeviceType(objDto.stubs),
-                        String.valueOf(objDto.objectSlaveId),
+                        //String.valueOf(objDto.objectSlaveId),
+                        buildId(masterDto.objectId,objDto.objectSlaveId),
                         objDto.name,
                         fetchUserInfo(masterDto.owner, accessToken),
                         DeviceLogicState.OPEN
@@ -187,7 +189,8 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                 "default",
                 convert(masterDto.state),
                 deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
-                String.valueOf(masterDto.objectId),
+                //String.valueOf(masterDto.objectId),
+                buildId(masterDto.objectId,-1),
                 masterDto.name,
                 fetchUserInfo(masterDto.owner,null),
                 DeviceLogicState.OPEN
@@ -203,7 +206,8 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                     "default",
                     convert(objDto.state),
                     deviceInfoGeneratorService.generatorDeviceType(objDto.stubs),
-                    String.valueOf(objDto.objectSlaveId),
+                    //String.valueOf(objDto.objectSlaveId),
+                    buildId(masterDto.objectId,objDto.objectSlaveId),
                     objDto.name,
                     fetchUserInfo(masterDto.owner, null),
                     DeviceLogicState.OPEN
@@ -235,7 +239,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         return null;
     }
 
-    public String buildId(Long deviceMasterId, Long slaveId) {
+    public String buildId(Long deviceMasterId, Integer slaveId) {
         return deviceMasterId + Device.DEVICE_CODE_SEPARATOR + slaveId;
     }
 

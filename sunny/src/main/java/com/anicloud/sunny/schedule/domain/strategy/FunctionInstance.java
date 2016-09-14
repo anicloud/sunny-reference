@@ -7,6 +7,7 @@ import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.service.agent.AniStubRunProxy;
 import com.anicloud.sunny.application.service.holder.SpringContextHolder;
 import com.anicloud.sunny.domain.model.device.Device;
+import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,8 @@ public class FunctionInstance implements Serializable {
          //       .getBean("aniStubRunProxy");
         try {
             AniStub aniStub = new AniStub(
-                    Long.valueOf(deviceId),
+                    fetchDeviceMasterId(deviceId),
+                    fetchDeviceSlaveId(deviceId),
                     hashUserId,
                     groupId,
                     stubId,
@@ -93,10 +95,19 @@ public class FunctionInstance implements Serializable {
         }
     }
 
-    public static Long fetchSlaveDeviceObjId(String deviceId) {
+    public static Integer fetchDeviceSlaveId(String deviceId) {
         if (StringUtils.isNotEmpty(deviceId)) {
             String[] arr = deviceId.split(Device.DEVICE_CODE_SEPARATOR);
-            return Long.parseLong(arr[1]);
+            return Integer.parseInt(arr[1]) == -1?null: Integer.parseInt(arr[1]);
+        } else {
+            throw new IllegalArgumentException("device id is null.");
+        }
+    }
+
+    public static Long fetchDeviceMasterId(String deviceId) {
+        if (StringUtils.isNotEmpty(deviceId)) {
+            String[] arr = deviceId.split(Device.DEVICE_CODE_SEPARATOR);
+            return Long.parseLong(arr[0]);
         } else {
             throw new IllegalArgumentException("device id is null.");
         }
