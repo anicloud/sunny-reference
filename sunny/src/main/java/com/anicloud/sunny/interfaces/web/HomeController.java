@@ -62,7 +62,7 @@ import com.ani.bus.service.commons.dto.aniservice.AniServiceInfoDto;
 public class HomeController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
-    private final static String REDIRECT_SERVICE_BUS_OAUTH = "redirect:http://bj-yatsen.anicel.cn:8080/service-bus/oauth/authorize?client_id=1058595963104900977&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
+    private final static String REDIRECT_SERVICE_BUS_OAUTH = "redirect:http://localhost:8081/service-bus/oauth/authorize?client_id=1058595963104900977&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
 
     @Resource
     private ApplicationInitService initService;
