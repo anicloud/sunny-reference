@@ -23,8 +23,8 @@ public class DeviceStateListener implements MessageListener {
         ObjectMessage objectMessage = (ObjectMessage)message;
         try {
             DeviceDto deviceDto = (DeviceDto) objectMessage.getObject();
-            LOGGER.info("DeviceStateListener {}.", deviceDto.owner);
-            Long hashUserId = deviceDto.owner.hashUserId;
+            LOGGER.info("DeviceStateListener {}.", deviceDto.ownerId);
+            Long hashUserId = deviceDto.ownerId;
             DeviceStrategyInfoHandler.sendDeviceMessageToUser(hashUserId, deviceDto);
         } catch (JMSException e) {
             e.printStackTrace();

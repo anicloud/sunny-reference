@@ -44,8 +44,8 @@ public class DeviceDtoBuilder {
         return this;
     }
 
-    public DeviceDtoBuilder setOwner(UserDto owner) {
-        this.deviceDto.owner = owner;
+    public DeviceDtoBuilder setOwner(Long ownerId) {
+        this.deviceDto.ownerId = ownerId;
         return this;
     }
 

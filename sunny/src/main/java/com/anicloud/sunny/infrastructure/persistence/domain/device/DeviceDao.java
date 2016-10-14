@@ -8,6 +8,7 @@ import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -34,22 +35,25 @@ public class DeviceDao extends AbstractEntity {
     @Column(name = "device_group", length = 50)
     public String deviceGroup;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
-    public UserDao owner;
+    @Column(name = "user_id", nullable = true)
+    public Long ownerId;
+
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "device", cascade = {CascadeType.ALL}, orphanRemoval = true)
+//    public List<DeviceAndUserRelationDao> deviceAndUserRelationDaoList;
 
     public DeviceDao() {
     }
 
     public DeviceDao(String deviceGroup, DeviceState deviceState, String deviceType,
-                     String identificationCode, String name, UserDao owner, DeviceLogicState logicState) {
+                     String identificationCode, String name, Long ownerId, DeviceLogicState logicState) {
         this.deviceGroup = deviceGroup;
         this.deviceState = deviceState;
         this.deviceType = deviceType;
         this.identificationCode = identificationCode;
         this.name = name;
-        this.owner = owner;
+        this.ownerId = ownerId;
         this.logicState = logicState;
+//        this.deviceAndUserRelationDaoList = deviceAndUserRelationDaos;
     }
 
     @Override

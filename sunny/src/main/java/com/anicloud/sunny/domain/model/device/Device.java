@@ -25,21 +25,37 @@ public class Device extends AbstractDomain {
     public String deviceType;
     public String deviceGroup;
 
-    public User owner;
+    public Long ownerId;
+
+//    public List<DeviceAndUserRelation> deviceAndUserRelations;
 
     public Device() {
     }
 
     public Device(String deviceGroup, DeviceState deviceState,
                   String deviceType, String identificationCode,
-                  String name, User owner, DeviceLogicState logicState) {
+                  String name, Long ownerId, DeviceLogicState logicState) {
         this.deviceGroup = deviceGroup;
         this.deviceState = deviceState;
         this.deviceType = deviceType;
         this.identificationCode = identificationCode;
         this.name = name;
-        this.owner = owner;
+        this.ownerId = ownerId;
         this.logicState = logicState;
+    }
+
+    public Device(String deviceGroup, DeviceState deviceState,
+                  String deviceType, String identificationCode,
+                  String name, Long ownerId, DeviceLogicState logicState,
+                  List<DeviceAndUserRelation> deviceAndUserRelations) {
+        this.deviceGroup = deviceGroup;
+        this.deviceState = deviceState;
+        this.deviceType = deviceType;
+        this.identificationCode = identificationCode;
+        this.name = name;
+        this.ownerId = ownerId;
+        this.logicState = logicState;
+//        this.deviceAndUserRelations = deviceAndUserRelations;
     }
 
     public static Device save(DevicePersistenceService persistenceService, Device device) {
@@ -122,8 +138,9 @@ public class Device extends AbstractDomain {
                 deviceDao.deviceType,
                 deviceDao.identificationCode,
                 deviceDao.name,
-                User.toUser(deviceDao.owner),
+                deviceDao.ownerId,
                 deviceDao.logicState
+//                DeviceAndUserRelation.toRelationList(deviceDao.deviceAndUserRelationDaoList)
         );
         return device;
     }
@@ -138,8 +155,9 @@ public class Device extends AbstractDomain {
                 device.deviceType,
                 device.identificationCode,
                 device.name,
-                User.toDao(device.owner),
+                device.ownerId,
                 device.logicState
+//                DeviceAndUserRelation.toDaoList(device.deviceAndUserRelations)
         );
         return deviceDao;
     }

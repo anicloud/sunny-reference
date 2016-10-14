@@ -17,25 +17,22 @@ public interface DeviceRepository extends JpaRepository<DeviceDao, Long> {
     @Query(value = "select d from DeviceDao d where d.identificationCode = ?1")
     public DeviceDao findByIdentificationCode(String identificationCode);
 
-    @Query(value = "select d from DeviceDao d where d.owner.hashUserId = ?1")
+    @Query(value = "select d from DeviceDao d where d.ownerId = ?1")
     public List<DeviceDao> findByUserHashId(Long hashUserId);
 
-    @Query(value = "select d from DeviceDao d where d.owner.email = ?1")
-    public List<DeviceDao> findByUserEmail(String email);
-
-    @Query(value = "select d from DeviceDao d where d.owner.hashUserId = ?1 and d.deviceGroup = ?2")
+    @Query(value = "select d from DeviceDao d where d.ownerId = ?1 and d.deviceGroup = ?2")
     public List<DeviceDao> findByUserAndGroup(Long hashUserId, String deviceGroup);
 
-    @Query(value = "select d from DeviceDao d where d.owner.hashUserId = ?1 and d.deviceType = ?2")
+    @Query(value = "select d from DeviceDao d where d.ownerId = ?1 and d.deviceType = ?2")
     public List<DeviceDao> findByUserAndType(Long hashUserId, String deviceType);
 
-    @Query(value = "select d from DeviceDao d where d.owner.hashUserId = ?1 and d.deviceState = ?2")
+    @Query(value = "select d from DeviceDao d where d.ownerId = ?1 and d.deviceState = ?2")
     public List<DeviceDao> findByUserAndState(Long hashUserId, DeviceState deviceState);
 
-    @Query(value = "select d from DeviceDao d where d.owner.hashUserId = ?1 and d.logicState = ?2")
+    @Query(value = "select d from DeviceDao d where d.ownerId = ?1 and d.logicState = ?2")
     public List<DeviceDao> findByUserAndLogicState(Long hashUserId, DeviceLogicState logicState);
 
-    @Query(value = "select distinct d.deviceGroup from DeviceDao d where d.owner.hashUserId = ?1")
+    @Query(value = "select distinct d.deviceGroup from DeviceDao d where d.ownerId = ?1")
     public List<String> findDeviceGroupListByUser(Long hashUserId);
 
     @Modifying(clearAutomatically = true)

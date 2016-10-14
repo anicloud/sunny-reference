@@ -25,8 +25,9 @@ public class DeviceDtoAssembler {
                 deviceDto.deviceType,
                 deviceDto.identificationCode,
                 deviceDto.name,
-                UserDtoAssembler.toUser(deviceDto.owner),
+                deviceDto.ownerId,
                 deviceDto.logicState
+//                DeviceAndUserRelationDtoAssembler.toRelationList(deviceDto.deviceAndUserRelationDtos)
         );
         return device;
     }
@@ -42,8 +43,9 @@ public class DeviceDtoAssembler {
                 device.deviceType,
                 device.identificationCode,
                 device.name,
-                UserDtoAssembler.fromUser(device.owner),
+                device.ownerId,
                 device.logicState
+//                DeviceAndUserRelationDtoAssembler.toDtoList(device.deviceAndUserRelations)
         );
         return deviceDto;
     }
