@@ -149,7 +149,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                     //String.valueOf(masterDto.objectId),
                     buildId(masterDto.objectId,-1),
                     masterDto.name,
-                    fetchUserInfo(masterDto.owner, accessToken),
+                    masterDto.owner.accountId,
                     DeviceLogicState.OPEN
             );
             DeviceAndFeatureRelationDto masterDeviceAndFeatureDto =
@@ -167,7 +167,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                         //String.valueOf(objDto.objectSlaveId),
                         buildId(masterDto.objectId,objDto.objectSlaveId),
                         objDto.name,
-                        fetchUserInfo(masterDto.owner, accessToken),
+                        masterDto.owner.accountId,
                         DeviceLogicState.OPEN
                 );
                 if(deviceDto.deviceState == null)
@@ -192,7 +192,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                 //String.valueOf(masterDto.objectId),
                 buildId(masterDto.objectId,-1),
                 masterDto.name,
-                fetchUserInfo(masterDto.owner,null),
+                masterDto.owner.accountId,
                 DeviceLogicState.OPEN
         );
         DeviceAndFeatureRelationDto masterDeviceAndFeatureDto = new DeviceAndFeatureRelationDto(
@@ -209,7 +209,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                     //String.valueOf(objDto.objectSlaveId),
                     buildId(masterDto.objectId,objDto.objectSlaveId),
                     objDto.name,
-                    fetchUserInfo(masterDto.owner, null),
+                    masterDto.owner.accountId,
                     DeviceLogicState.OPEN
             );
             if(deviceDto.deviceState == null)

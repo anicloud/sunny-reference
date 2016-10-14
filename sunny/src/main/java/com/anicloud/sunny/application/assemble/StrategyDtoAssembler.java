@@ -1,5 +1,8 @@
 package com.anicloud.sunny.application.assemble;
 
+import com.ani.agent.service.commons.object.enumeration.DataType;
+import com.ani.bus.service.commons.dto.anistub.AniDataType;
+import com.ani.bus.service.commons.dto.anistub.ArgumentType;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
@@ -123,7 +126,8 @@ public class StrategyDtoAssembler {
             String value = getArgumentValue(deviceFeature, valueList, featureFunction.featureFunctionId, functionArgument.name);
             Argument argument = new Argument(
                     functionArgument.name,
-                    value
+                    value,
+                    getArgumentType(functionArgument.dataType)
             );
             inputList.add(argument);
         }
@@ -163,10 +167,36 @@ public class StrategyDtoAssembler {
         return triggerInstanceList;
     }
 
+    public static ArgumentType getArgumentType(DataType dataType) {
+        ArgumentType type = null;
+        if (dataType != null) {
+            switch (dataType) {
+                case INTEGER:
+                    type = new ArgumentType(AniDataType.INTEGER);
+                    break;
+                case PERCENTAGE:
+                    type = new ArgumentType(AniDataType.SHORT);
+                    break;
+                case FLOAT:
+                    type = new ArgumentType(AniDataType.FLOAT);
+                    break;
+                case BOOLEAN:
+                    type = new ArgumentType(AniDataType.BOOLEAN);
+                    break;
+                case STRING:
+                    type = new ArgumentType(AniDataType.STRING);
+                    break;
+                default:
+                    type = new ArgumentType(AniDataType.STRING);
+                    break;
+            }
+        }
+        return type;
+    }
+
     public static String getArgumentValue(DeviceFeature deviceFeature, List<FeatureArgValue> valueList,  String functionId, String argName) {
         String argKey = null;
-        String functionArg = functionId + argName;
-
+        String functionArg = functionId + ":" +argName;
         List<Map<String, List<String>>> mapList = deviceFeature.featureArgFuncArgMapList;
         for (Map<String, List<String>> map : mapList) {
             Set<String> keySet = map.keySet();

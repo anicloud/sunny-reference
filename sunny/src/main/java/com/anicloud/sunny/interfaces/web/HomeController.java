@@ -235,7 +235,7 @@ public class HomeController extends BaseController {
             if(currentUser != null){
                 UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
                 removeUserInfoFromCookie(userInfoDto,response);
-                //removeUserFromSession(request, Long.parseLong(userInfoDto.hashUserId));
+                removeUserFromSession(request, Long.parseLong(userInfoDto.hashUserId));
             }
         }catch (IOException e){
             e.printStackTrace();

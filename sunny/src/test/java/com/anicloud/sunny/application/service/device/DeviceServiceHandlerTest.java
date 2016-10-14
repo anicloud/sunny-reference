@@ -46,7 +46,7 @@ public class DeviceServiceHandlerTest {
         deviceDto.deviceType = "Conditioner";
         deviceDto.deviceGroup = "Air Conditioner";
 
-        deviceDto.owner = userDto;
+        deviceDto.ownerId = userDto.hashUserId;
     }
 
     @Ignore
@@ -130,7 +130,7 @@ public class DeviceServiceHandlerTest {
                 .setDeviceGroup("Air Conditioner")
                 .setDeviceState(DeviceState.CONNECTED)
                 .setDeviceType("Conditioner")
-                .setOwner(userDto)
+                .setOwner(userDto.hashUserId)
                 .instance();
         return deviceDto;
     }

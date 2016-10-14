@@ -27,8 +27,6 @@ public class DevicePersistenceEventHandler implements DevicePersistenceService {
 
     @Override
     public DeviceDao save(DeviceDao deviceDao) {
-        UserDao userDao = userRepository.findByHashUserId(deviceDao.owner.hashUserId);
-        deviceDao.owner = userDao;
         return deviceRepository.save(deviceDao);
     }
 
@@ -74,9 +72,7 @@ public class DevicePersistenceEventHandler implements DevicePersistenceService {
         if (StringUtils.isNotEmpty(user.hashUserId.toString())) {
             deviceDaoList = deviceRepository.findByUserHashId(user.hashUserId);
         }
-        else if (StringUtils.isNotEmpty(user.email)) {
-            deviceDaoList = deviceRepository.findByUserEmail(user.email);
-        }
+
         return deviceDaoList;
     }
 
