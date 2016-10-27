@@ -55,12 +55,12 @@
             </properties>
         </profile>
         <profile>
-            <id>localhost</id>
+            <id>test</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <build.profile.id>localhost</build.profile.id>
+                <build.profile.id>test</build.profile.id>
             </properties>
         </profile>
     </profiles>
