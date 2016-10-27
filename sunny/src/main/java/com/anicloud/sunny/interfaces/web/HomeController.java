@@ -36,6 +36,7 @@ import javassist.bytecode.stackmap.BasicBlock;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,8 +63,10 @@ import com.ani.bus.service.commons.dto.aniservice.AniServiceInfoDto;
 public class HomeController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
-    private final static String REDIRECT_SERVICE_BUS_OAUTH = "redirect:http://localhost:8081/service-bus/oauth/authorize?client_id=1058595963104900977&redirect_uri=http://localhost:8080/sunny/redirect&response_type=code&scope=read write";
-
+    @Value("${servicebus.oauth.url}")
+    private  String OAUTH_URL;
+    @Value("${servicebus.logout.url}")
+    private  String LOGOUT_URL;
     @Resource
     private ApplicationInitService initService;
     @Resource
@@ -146,8 +149,8 @@ public class HomeController extends BaseController {
             UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
             return userSession(request, response, userInfoDto);
         } else {
-            LOGGER.info("redirect:http://localhost:8081/service-bus/oauth/authorize");
-            return REDIRECT_SERVICE_BUS_OAUTH;
+            LOGGER.info("redirect:"+OAUTH_URL);
+            return "redirect:"+OAUTH_URL;
         }
     }
 
@@ -235,12 +238,14 @@ public class HomeController extends BaseController {
             if(currentUser != null){
                 UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
                 removeUserInfoFromCookie(userInfoDto,response);
-                //removeUserFromSession(request, Long.parseLong(userInfoDto.hashUserId));
+                removeUserFromSession(request, Long.parseLong(userInfoDto.hashUserId));
             }
         }catch (IOException e){
             e.printStackTrace();
         }
-        return "redirect:http://localhost:8081/service-bus/logout";
+        LOGGER.info("redirect:"+LOGOUT_URL);
+//        return "redirect:http://bj-yatsen.anicel.cn:8080/service-bus/logout";
+        return "redirect:"+LOGOUT_URL;
     }
 
 //    @RequestMapping(value = "switchUser", method = RequestMethod.GET)

@@ -40,7 +40,7 @@
 <div class="container">
     <div style="text-align: center; margin: 120px;">
             <h1 style="font-size: 48px; font-family: Helvetica Neue, hiragino sans gb w3, Microsoft Yahei, Arial, sans-serif; margin-bottom: 20px; color: #42464a">退出成功</h1>
-            <a href='<c:url value="/loginPage"/> ' type="button" class="btn btn-primary" style="background-image: linear-gradient(to bottom, #ffb36f 0%, #eba963 100%);
+            <a href='<c:url value="/"/> ' type="button" class="btn btn-primary" style="background-image: linear-gradient(to bottom, #ffb36f 0%, #eba963 100%);
     background-color: #eba963;
     border-color: #eba963;">重新登录</a>
         </div>

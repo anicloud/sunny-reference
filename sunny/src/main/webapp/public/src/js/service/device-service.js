@@ -76,6 +76,17 @@ anicloud.sunny.service.DeviceService = function($http,$cookies){
             }).error(function(data){
                 console.log('get feature failures');
             })
+        },
+        getDeviceInitParam:function (callback,deviceId) {
+            $http({
+                method:'GET',
+                url:'initParam/' + deviceId,
+                params: {deviceId:deviceId}
+            }).success(function(data){
+                callback(data);
+            }).error(function (data) {
+                console.log('get device init param failures');
+            })
         }
     }
 }

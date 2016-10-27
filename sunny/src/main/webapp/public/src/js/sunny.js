@@ -51,8 +51,9 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         $rootScope.devices = [];
         $rootScope.features = [];
         $rootScope.triggers = [];
-        $rootScope.phonyStrategyMap = {}
-        $rootScope.busyDeviceMap = {}
+        $rootScope.phonyStrategyMap = {};
+        $rootScope.busyDeviceMap = {};
+        $rootScope.initParam = {};
 
         StrategyService.getStrategies(function (data) {
             $rootScope.strategies = data;

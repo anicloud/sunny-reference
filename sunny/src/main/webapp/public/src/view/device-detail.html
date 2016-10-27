@@ -76,7 +76,7 @@
                                     {{arg.screenName}}:
                                     <div style="display: inline-block; float: right">
                                         <input ng-model="deviceDetail.arguments[feature.featureId][arg.name]"
-                                               ng-init="deviceDetail.arguments[feature.featureId][arg.name]=90" style="width: 40px;">
+                                               ng-init="deviceDetail.arguments[feature.featureId][arg.name]={{initParam.brightLux}}" style="width: 40px;">
                                     </div>
 
                                     <input ng-model="deviceDetail.arguments[feature.featureId][arg.name]" type="range" step=".1" min="0" max="100">
