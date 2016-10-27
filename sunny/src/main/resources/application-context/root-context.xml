@@ -16,6 +16,18 @@
     http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.6.xsd ">
 
 	<!-- Root Context: defines shared resources visible to all other web components-->
+	<!-- config spring aop auto proxy -->
+	<aop:aspectj-autoproxy />
+
+	<!-- to configure a bean of AnnotationBeanConfigurerAspect
+    to enable @Configurable annotation for domain model -->
+	<!-- AnnotationBeanConfigurerAspect is used to get the BeanFactory -->
+	<context:spring-configured />
+
+	<!-- config @Configurable annotation, aspectjweaver was used to for Aop -->
+	<context:load-time-weaver />
+
+	<context:annotation-config />
 
 	<import resource="classpath:/application-context/persistence/BeansConfig.xml" />
 	<import resource="classpath:/application-context/schedule/schedule-context.xml" />
