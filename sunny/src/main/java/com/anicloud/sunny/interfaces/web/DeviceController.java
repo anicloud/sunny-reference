@@ -1,17 +1,14 @@
 package com.anicloud.sunny.interfaces.web;
 
+import com.anicloud.sunny.application.constant.Constants;
+import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
-import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
-import com.anicloud.sunny.application.service.device.DeviceFeatureService;
+import com.anicloud.sunny.application.dto.user.UserInfoDto;
+import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
 import com.anicloud.sunny.application.service.device.DeviceService;
-import com.anicloud.sunny.application.service.strategy.TriggerTypeService;
-import com.anicloud.sunny.infrastructure.persistence.domain.share.TriggerType;
-import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import org.omg.CORBA.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -22,7 +19,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,14 +34,20 @@ public class DeviceController {
 
     @Resource
     private DeviceService deviceService;
+    @Resource
+    private DeviceAndUserRelationServcie deviceAndUserRelationServcie;
+    @Resource
+    private ObjectMapper objectMapper;
 
     @RequestMapping(value = "/devices", method = RequestMethod.GET)
     @ResponseBody
     public List<DeviceFormDto> getDevice(@RequestParam(value = "hashUserId") Long hashUserId) {
+
         UserDto userDto = new UserDto();
         userDto.hashUserId = hashUserId;
-        List<DeviceDto> deivces = deviceService.getDeviceByUser(userDto);
-        return DeviceFormDto.convertToDeviceForms(deivces);
+//        List<DeviceDto> deivces = deviceService.getDeviceByUser(userDto);
+        List<DeviceAndUserRelationDto> relations = deviceAndUserRelationServcie.getRelationsByUser(userDto);
+        return DeviceFormDto.convertToDeviceFormsByRelations(relations);
     }
 
     @RequestMapping(value = "/device/{id}", method = RequestMethod.DELETE)
@@ -66,7 +68,8 @@ public class DeviceController {
 //    }
     @RequestMapping(value = "/device/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public void modifyDevice(@PathVariable("id") String identificationCode, @Payload("device") HttpServletRequest req) {
+    public void modifyDevice(@PathVariable("id") String identificationCode, @Payload("device") HttpServletRequest req,
+                             @CookieValue(value = Constants.SUNNY_COOKIE_USER_NAME, required = false) String currentUser) throws IOException {
         StringBuilder sb = new StringBuilder();
         try {
             BufferedReader reader = req.getReader();
@@ -79,15 +82,16 @@ public class DeviceController {
             e.printStackTrace();
         }
         JSONObject deviceJson = JSONObject.fromObject(sb.toString());
-        DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(identificationCode);
+        UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
+        DeviceAndUserRelationDto deviceDto = deviceAndUserRelationServcie.getDeviceAndUserRelation(identificationCode, Long.parseLong(userInfoDto.hashUserId));
         Iterator it = deviceJson.keys();
         while (it.hasNext()) {
             String key = it.next().toString().trim();
             if (key.equals("deviceGroup"))
                 deviceDto.deviceGroup = deviceJson.getString(key);
             if (key.equals("deviceName"))
-                deviceDto.name = deviceJson.getString(key);
+                deviceDto.screenName = deviceJson.getString(key);
         }
-        deviceService.modifyDevice(deviceDto);
+        deviceAndUserRelationServcie.modifyRelation(deviceDto);
     }
 }

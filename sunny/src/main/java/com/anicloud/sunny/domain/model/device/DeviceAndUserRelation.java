@@ -1,8 +1,10 @@
 package com.anicloud.sunny.domain.model.device;
 
+import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
 import com.anicloud.sunny.domain.model.user.User;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceAndUserRelationDao;
+import com.anicloud.sunny.infrastructure.persistence.service.DeviceAndUserRelationPersistenceService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,5 +71,29 @@ public class DeviceAndUserRelation extends AbstractDomain {
             daoList.add(toDao(deviceAndUserRelation));
         }
         return daoList;
+    }
+
+    public static DeviceAndUserRelation save(DeviceAndUserRelationPersistenceService persistenceService, DeviceAndUserRelation relation){
+        DeviceAndUserRelationDao relationDao = persistenceService.save(toDao(relation));
+        return toDeviceAndUserRelation(relationDao);
+    }
+
+    public static void remove(DeviceAndUserRelationPersistenceService persistenceService, DeviceAndUserRelation relation) {
+        persistenceService.remove(toDao(relation));
+    }
+
+    public static DeviceAndUserRelation modify(DeviceAndUserRelationPersistenceService persistenceService, DeviceAndUserRelation relation) {
+        DeviceAndUserRelationDao relationDao = persistenceService.modify(toDao(relation));
+        return toDeviceAndUserRelation(relationDao);
+    }
+
+    public static List<DeviceAndUserRelation> getRelationsByHashUserId(DeviceAndUserRelationPersistenceService persistenceService, Long hashUserId){
+        List<DeviceAndUserRelationDao> relationDaoList = persistenceService.getRelationsByHashUserId(hashUserId);
+        return toRelationList(relationDaoList);
+    }
+
+    public static DeviceAndUserRelation getRelaionByDeviceIdAndHashUserId(DeviceAndUserRelationPersistenceService persistenceService,String identificationCode, Long hashUserId){
+        DeviceAndUserRelationDao relationDao = persistenceService.getRelationByHashUserIdAndDeviceId(hashUserId,identificationCode);
+        return toDeviceAndUserRelation(relationDao);
     }
 }

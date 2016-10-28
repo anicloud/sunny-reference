@@ -12,7 +12,7 @@ import com.anicloud.sunny.application.dto.user.UserDto;
 public abstract class ApplicationInitService {
 
     protected abstract UserDto initUser(UserDto userDto);
-    protected abstract void initUserDeviceAndDeviceFeatureRelation(AccountDto accountDto, AniOAuthAccessToken accessToken) throws Exception;
+    protected abstract void initUserDeviceAndDeviceFeatureRelation(UserDto accountDto, AniOAuthAccessToken accessToken) throws Exception;
     protected abstract boolean isUserNotExists(Long accountId);
 
     public abstract UserDto initApplication(AniOAuthAccessToken accessToken) throws Exception;

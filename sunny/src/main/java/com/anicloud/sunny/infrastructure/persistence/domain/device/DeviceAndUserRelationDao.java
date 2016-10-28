@@ -34,6 +34,8 @@ public class DeviceAndUserRelationDao extends AbstractEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     public UserDao user;
 
+    public DeviceAndUserRelationDao(){}
+
     public DeviceAndUserRelationDao(DeviceDao device, UserDao user, String initParam, String screenName, String deviceGroup){
         this.device = device;
         this.initParam = initParam;

@@ -13,4 +13,6 @@ import java.util.List;
 public interface DeviceAndUserRelationRepository extends JpaRepository<DeviceAndUserRelationDao, Long> {
     @Query(value = "select d from DeviceAndUserRelationDao d where d.user.hashUserId = ?1")
     List<DeviceAndUserRelationDao> findByUserId(Long hashUserId);
+    @Query(value = "select d from DeviceAndUserRelationDao d where d.device.identificationCode = ?1 and d.user.hashUserId = ?2")
+    DeviceAndUserRelationDao findUniqueRelationByDeviceIdAndUserId(String identificationCode, Long hashUserId);
 }

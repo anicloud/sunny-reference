@@ -1,7 +1,9 @@
 package com.anicloud.sunny.interfaces.web;
 
+import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
+import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
 import com.anicloud.sunny.application.service.strategy.StrategyService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
@@ -9,6 +11,7 @@ import com.anicloud.sunny.interfaces.web.dto.DeviceFeatureInstanceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +35,10 @@ public class StrategyController {
     private StrategyService strategyService;
     @Resource
     private UserService userService;
+    @Resource
+    private DeviceAndUserRelationServcie deviceAndUserRelationServcie;
+    @Resource
+    private ObjectMapper objectMapper;
 
     @RequestMapping(value = "/strategies",method = RequestMethod.GET)
     @ResponseBody
@@ -46,11 +53,12 @@ public class StrategyController {
     public Map<String, Object> saveStrategy(@RequestParam(value = "hashUserId")Long hashUserId,@RequestParam(value = "strategyInstance")String strategyInstance){
         Map<String, Object> message = new HashMap<>();
         try{
-            ObjectMapper mapper = new ObjectMapper();
             strategyInstance = strategyInstance.replaceAll("triggerValue","value");
-            StrategyFormDto strategyFormDto = mapper.readValue(strategyInstance,StrategyFormDto.class);
+            StrategyFormDto strategyFormDto = objectMapper.readValue(strategyInstance,StrategyFormDto.class);
             UserDto userDto = userService.getUserByHashUserId(hashUserId);
             strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto, userDto));
+
+            saveDeviceParam(strategyFormDto.featureList,hashUserId);
             message.put("status", "success");
         }catch (Exception e){
             message.put("status", "error");
@@ -58,6 +66,18 @@ public class StrategyController {
             e.printStackTrace();
         }
         return message;
+    }
+
+    private void saveDeviceParam(List<DeviceFeatureInstanceFormDto> featureList, Long hashUserId) {
+        try {
+            for (DeviceFeatureInstanceFormDto featureForm : featureList) {
+                DeviceAndUserRelationDto deviceDto = deviceAndUserRelationServcie.getDeviceAndUserRelation(featureForm.device.id, hashUserId);
+                deviceDto.initParam = objectMapper.writeValueAsString(featureForm.device.initParam);
+                deviceAndUserRelationServcie.modifyRelation(deviceDto);
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value="/strategy",method = RequestMethod.GET)

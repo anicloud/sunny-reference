@@ -2,6 +2,7 @@ package com.anicloud.sunny.interfaces.web.dto;
 
 
 import com.ani.agent.service.commons.object.enumeration.DeviceState;
+import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
@@ -18,6 +19,7 @@ public class DeviceFormDto {
     public DeviceState deviceState;
     public String deviceType;
     public String deviceGroup;
+    public Object initParam;
 
     public DeviceFormDto(){
 
@@ -65,5 +67,26 @@ public class DeviceFormDto {
         return deviceDto;
     }
 
+    public static DeviceFormDto convertToDeviceForm(DeviceAndUserRelationDto relationDto){
+        DeviceFormDto deviceFormDto = new DeviceFormDto();
+        if(relationDto != null) {
+            deviceFormDto.id = relationDto.deviceDto.identificationCode;
+            deviceFormDto.name = relationDto.screenName;
+            deviceFormDto.deviceState = relationDto.deviceDto.deviceState;
+            deviceFormDto.deviceType = relationDto.deviceDto.deviceType;
+            deviceFormDto.deviceGroup = relationDto.deviceGroup;
+            deviceFormDto.initParam = relationDto.initParam;
+        }
+        return deviceFormDto;
+    }
 
+    public static List<DeviceFormDto> convertToDeviceFormsByRelations(List<DeviceAndUserRelationDto> relations){
+        List<DeviceFormDto> deviceFormDtos = new ArrayList<>();
+        if(relations != null) {
+            for (DeviceAndUserRelationDto relationDto : relations) {
+                deviceFormDtos.add(convertToDeviceForm(relationDto));
+            }
+        }
+        return deviceFormDtos;
+    }
 }

@@ -10,16 +10,15 @@ import com.ani.earth.commons.dto.AccountDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.stub.dto.StubDto;
 import com.ani.utils.core.AniByte;
-import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
-import com.anicloud.sunny.application.dto.device.DeviceDto;
-import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
-import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
+import com.anicloud.sunny.application.dto.device.*;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationService;
+import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.domain.model.device.Device;
 import com.anicloud.sunny.domain.model.device.DeviceAndFeatureRelation;
+import com.anicloud.sunny.domain.model.device.DeviceAndUserRelation;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.CollectionUtils;
@@ -48,11 +47,9 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     @Resource
     private DeviceInfoGeneratorService deviceInfoGeneratorService;
     @Resource
-    private com.anicloud.sunny.application.service.device.DeviceService sunnyDeviceService;
-    @Resource
     private DeviceAndFeatureRelationService deviceAndFeatureRelationService;
     @Resource
-    private ObjectMapper objectMapper;
+    private DeviceAndUserRelationServcie deviceAndUserRelationServcie;
     @Resource(name = "agentTemplate")
     private AgentTemplate agentTemplate;
 
@@ -70,16 +67,19 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     @Override
-    protected void initUserDeviceAndDeviceFeatureRelation(AccountDto accountDto,
+    protected void initUserDeviceAndDeviceFeatureRelation(UserDto userDto,
                                                           AniOAuthAccessToken accessToken) throws Exception {
         List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList = agentTemplate
                 .getDeviceObjService(accessToken.getAccessToken())
-                .getDeviceObjInfo(accountDto.accountId, Boolean.TRUE);
+                .getDeviceObjInfo(userDto.hashUserId, Boolean.TRUE);
         if(deviceMasterObjInfoDtoList!=null){
             List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos =
                     getRelation(deviceMasterObjInfoDtoList, accessToken);
             LOGGER.info("Initialize DeviceAndFeatureRelation...");
             deviceAndFeatureRelationService.batchSave(deviceAndFeatureRelationDtos);
+            List<DeviceAndUserRelationDto> deviceAndUserRelationDtoList =
+                    getDeviceAndUserRelations(deviceAndFeatureRelationDtos, userDto);
+            deviceAndUserRelationServcie.batchSave(deviceAndUserRelationDtoList);
         }
     }
 
@@ -112,7 +112,8 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
             // init user
             initUser(userDto);
             // init user-device-devicefeature relation
-            initUserDeviceAndDeviceFeatureRelation(accountDto, accessToken);
+            initUserDeviceAndDeviceFeatureRelation(userDto, accessToken);
+
         }else{
             initUser(userDto);
         }
@@ -135,6 +136,16 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         } else {
             return userService.getUserByHashUserId(accountDto.accountId);
         }
+    }
+
+    public List<DeviceAndUserRelationDto> getDeviceAndUserRelations(List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos,UserDto userDto){
+        List<DeviceAndUserRelationDto> relations = new ArrayList<>(deviceAndFeatureRelationDtos.size());
+        for (DeviceAndFeatureRelationDto featureRelationDto : deviceAndFeatureRelationDtos) {
+            DeviceAndUserRelationDto relationDto = new DeviceAndUserRelationDto(featureRelationDto.
+                    deviceDto,userDto,null,featureRelationDto.deviceDto.name,"default");
+            relations.add(relationDto);
+        }
+        return relations;
     }
 
     public List<DeviceAndFeatureRelationDto> getRelation(

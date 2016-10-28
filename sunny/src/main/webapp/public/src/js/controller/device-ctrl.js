@@ -34,7 +34,6 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
     };
 
     // device detail
-    $scope.initParam = {};
     $scope.deviceDetail = {};
     $scope.deviceDetail.visible = false;
     $scope.deviceDetail.device = null;
@@ -42,10 +41,6 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         $scope.deviceDetail.visible = true;
         $scope.deviceDetail.device = device;
         $scope.deviceDetail.featureCqhosen = null;
-        
-        DeviceService.getDeviceInitParam(function (data){
-            $scope.initParam = data;
-        },device.identificationCode);
     };
 
     $scope.deviceDetail.hide = function(event) {
@@ -104,6 +99,7 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
             obj.argName = arg;
             obj.value = argumentMap[arg];
             argumentList.push(obj);
+            $scope.deviceDetail.device.initParam[arg] = argumentMap[arg];
         }
 
         var featureInstance = new anicloud.sunny.model.FeatureInstance(

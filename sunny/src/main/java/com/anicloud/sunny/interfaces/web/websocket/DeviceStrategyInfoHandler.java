@@ -76,7 +76,8 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
                 try {
                     ObjectMapper mapper = new ObjectMapper();
                     StrategyFormDto strategyFormDto = StrategyFormDto.convertToStrategyForm(strategyDto);
-                    String strategyInfoJson = mapper.writeValueAsString(strategyFormDto);
+                    DeviceStrategyInfoDto infoDto = new DeviceStrategyInfoDto(1,strategyFormDto);
+                    String strategyInfoJson = mapper.writeValueAsString(infoDto);
                     TextMessage message = new TextMessage(strategyInfoJson);
                     session.sendMessage(message);
                 } catch (IOException e) {
@@ -95,7 +96,7 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
                 try {
                     ObjectMapper mapper = new ObjectMapper();
                     DeviceFormDto deviceFormDto = DeviceFormDto.convertToDeviceForm(deviceDto);
-                    DeviceStrategyInfoDto infoDto = new DeviceStrategyInfoDto(0,deviceDto);
+                    DeviceStrategyInfoDto infoDto = new DeviceStrategyInfoDto(0,deviceFormDto);
                     String jsonData = mapper.writeValueAsString(infoDto);
                     TextMessage message = new TextMessage(jsonData);
                     session.sendMessage(message);

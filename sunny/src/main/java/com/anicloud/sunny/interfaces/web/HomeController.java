@@ -188,6 +188,7 @@ public class HomeController extends BaseController {
         return userSession(request, response, userInfoDto);
     }
 
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(HttpServletRequest request, HttpServletResponse response,
                         Model model, @RequestParam(value = "email") String email) {
