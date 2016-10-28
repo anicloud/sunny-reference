@@ -30,8 +30,8 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-        "classpath:spring/rect-persist.xml",
-        "classpath:spring/root-context.xml"
+        "classpath:application-context/persistence/database/rect-persist.xml",
+        "classpath:application-context/root-context.xml"
 })
 public class StrategyServiceHandlerTest {
 

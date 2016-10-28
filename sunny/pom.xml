@@ -32,7 +32,7 @@
         <jackson-version>2.5.0</jackson-version>
         <slf4j-version>1.7.12</slf4j-version>
         <logback-version>1.1.7</logback-version>
-        <org.aspectj-version>1.8.0</org.aspectj-version>
+        <org.aspectj-version>1.8.7</org.aspectj-version>
         <org.junit.version>4.11</org.junit.version>
         <activemq-version>5.7.0</activemq-version>
 
@@ -55,12 +55,12 @@
             </properties>
         </profile>
         <profile>
-            <id>localhost</id>
+            <id>test</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <build.profile.id>localhost</build.profile.id>
+                <build.profile.id>test</build.profile.id>
             </properties>
         </profile>
     </profiles>
@@ -150,7 +150,7 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.8.7</version>
+            <version>${org.aspectj-version}</version>
         </dependency>
 
         <!-- validation -->
