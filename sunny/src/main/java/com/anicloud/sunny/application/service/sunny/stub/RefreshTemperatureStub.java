@@ -4,6 +4,7 @@ import com.ani.bus.service.commons.dto.anistub.AniStub;
 import com.ani.bus.service.commons.dto.anistub.Argument;
 import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
 import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
+import org.springframework.jms.core.JmsTemplate;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,6 +16,8 @@ public class RefreshTemperatureStub implements SunnyStub {
 
     @Resource
     private DeviceAndUserRelationServcie relationService;
+    @Resource
+    private JmsTemplate paramJmsTemplate;
 
     @Override
     public List<Argument> invokeStub(AniStub stub) {
@@ -23,7 +26,7 @@ public class RefreshTemperatureStub implements SunnyStub {
         List<Argument> inputValues = stub.getInputValues();
 //        DeviceAndUserRelationDto relation = relationService.getDeviceAndUserRelation(stub.getKeyId())
         for (Argument arg : inputValues) {
-
+            
         }
         return null;
     }
