@@ -107,4 +107,8 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
         }
     }
 
+    public static void sendDeviceParamToUser(Long hashUserId) {
+
+    }
+
 }

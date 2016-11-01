@@ -140,7 +140,6 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
         return JSON.parse(JSON.stringify(obj));
     };
 
-
 };
 
 
