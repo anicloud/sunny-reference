@@ -3,11 +3,11 @@
  */
 var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
-anicloud.sunny.controller = anicloud.sunny.controller || {}
-anicloud.sunny.service = anicloud.sunny.service || {}
-anicloud.sunny.config = anicloud.sunny.config || {}
-anicloud.sunny.directive = anicloud.sunny.directive || {}
-anicloud.sunny.global = anicloud.sunny.global || {}
+anicloud.sunny.controller = anicloud.sunny.controller || {};
+anicloud.sunny.service = anicloud.sunny.service || {};
+anicloud.sunny.config = anicloud.sunny.config || {};
+anicloud.sunny.directive = anicloud.sunny.directive || {};
+anicloud.sunny.global = anicloud.sunny.global || {};
 
 
 if (window.console) {
@@ -72,7 +72,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         DeviceService.getDevices(function (data) {
             $rootScope.devices = data;
             for (var i = 0; i < $rootScope.devices.length; i++) {
-                $rootScope.devices[i].initParam = JSON.parse($rootScope.devices[i].initParam);
+                $rootScope.devices[i].initParam = JSON.parse($rootScope.devices[i].initParam) || {};
             }
         });
 
