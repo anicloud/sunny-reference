@@ -5,9 +5,11 @@ import com.ani.agent.service.service.websocket.AniInvokerImpl;
 import com.ani.bus.service.commons.dto.accountobject.AccountObject;
 import com.ani.bus.service.commons.message.SocketMessage;
 import com.anicloud.sunny.application.constant.Constants;
+import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceStrategyInfoDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
+import com.anicloud.sunny.domain.model.device.DeviceAndUserRelation;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
 import com.anicloud.sunny.interfaces.web.session.SessionManager;
@@ -87,7 +89,7 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
         }
     }
 
-    public static void sendDeviceMessageToUser(Long hashUserId,DeviceDto deviceDto) {
+    public static void sendDeviceMessageToUser(Long hashUserId,Object deviceDto) {
         Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(String.valueOf(hashUserId));
         Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();
         while (sessionEnumeration.hasMoreElements()) {
@@ -95,7 +97,11 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
             if (session != null && session.isOpen()) {
                 try {
                     ObjectMapper mapper = new ObjectMapper();
-                    DeviceFormDto deviceFormDto = DeviceFormDto.convertToDeviceForm(deviceDto);
+                    DeviceFormDto deviceFormDto = null;
+                    if(deviceDto instanceof DeviceDto)
+                        deviceFormDto = DeviceFormDto.convertToDeviceForm((DeviceDto) deviceDto);
+                    else if(deviceDto instanceof DeviceAndUserRelationDto)
+                        deviceFormDto = DeviceFormDto.convertToDeviceForm((DeviceAndUserRelationDto) deviceDto);
                     DeviceStrategyInfoDto infoDto = new DeviceStrategyInfoDto(0,deviceFormDto);
                     String jsonData = mapper.writeValueAsString(infoDto);
                     TextMessage message = new TextMessage(jsonData);
@@ -107,8 +113,5 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
         }
     }
 
-    public static void sendDeviceParamToUser(Long hashUserId) {
-
-    }
 
 }
