@@ -97,16 +97,16 @@ public class HomeController extends BaseController {
             }else{
                 aniServiceDto = aniServiceManager.getByAniService(aniServiceID,clientSecret);
             }
-            if(aniServiceDto== null){
-                 //aniServiceDto = aniServiceManager.register(aniServiceRegisterDto);
-                 Constants.aniServiceDto.clientSecret = aniServiceDto.clientSecret;
-                 Constants.aniServiceDto.aniServiceId = aniServiceDto.aniServiceId;
-                 //appServiceFacade.update(Constants.aniServiceDto);
-                LOGGER.debug("registing the new application");
-                return ;
-            }else{
-                LOGGER.debug("init AniService information.");
-            }
+//            if(aniServiceDto== null){
+//                 aniServiceDto = aniServiceManager.register(aniServiceRegisterDto);
+//                 Constants.aniServiceDto.clientSecret = aniServiceDto.clientSecret;
+//                 Constants.aniServiceDto.aniServiceId = aniServiceDto.aniServiceId;
+//                 appServiceFacade.update(Constants.aniServiceDto);
+//                LOGGER.debug("registing the new application");
+//                return ;
+//            }else{
+//                LOGGER.debug("init AniService information.");
+//            }
         } catch (IOException e) {
             LOGGER.error("read sunny basic info error. msg {}.", e.getMessage());
             e.printStackTrace();

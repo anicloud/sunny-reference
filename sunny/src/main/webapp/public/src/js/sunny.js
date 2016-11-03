@@ -93,10 +93,10 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
             null,
             null,
             null,
-            ManagerService.updateStrategyDevice
+            ManagerService.updateFrontInfo
         );
     });
-}
+};
 
 anicloud.sunny.global.loadApp(
     anicloud.sunny.config,

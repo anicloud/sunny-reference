@@ -96,7 +96,6 @@
 	<!-- websocket -->
 
 	<bean id="strategyInfoHandler" class="com.anicloud.sunny.interfaces.web.websocket.DeviceStrategyInfoHandler"></bean>
-
 	<websocket:handlers>
 		<websocket:mapping path="/socket/strategy" handler="strategyInfoHandler"/>
 		<websocket:handshake-interceptors>
