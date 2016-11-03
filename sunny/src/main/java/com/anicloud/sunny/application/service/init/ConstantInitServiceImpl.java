@@ -10,6 +10,7 @@ import com.ani.bus.service.commons.observer.MessageObserver;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.service.agent.ClientInvokerImpl;
 import com.anicloud.sunny.application.service.agent.ObjectNotifyImpl;
+import com.anicloud.sunny.infrastructure.persistence.service.app.SunnyStubPersistService;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,8 @@ public class ConstantInitServiceImpl implements ConstantInitService {
     private AppServiceFacade appServiceFacade;
     @Resource(name = "objectNotify")
     private ObjectNotify objectNotify;
+    @Resource
+    private SunnyStubPersistService sunnyStubPersistService;
 
     @Override
     @PostConstruct
@@ -42,9 +45,12 @@ public class ConstantInitServiceImpl implements ConstantInitService {
 
         try {
             Constants.aniServiceDto = appServiceFacade.getAniServiceInfo();
+            Constants.SUNNY_STUB_MAPPINGS = sunnyStubPersistService.fetchSunnyStubMappings();
             LOGGER.debug("init AniService information.");
         } catch (IOException e) {
             LOGGER.error("read sunny basic info error. msg {}.", e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

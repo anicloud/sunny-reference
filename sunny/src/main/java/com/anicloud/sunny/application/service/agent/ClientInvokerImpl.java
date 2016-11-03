@@ -44,14 +44,7 @@ public class ClientInvokerImpl implements ClientInvokable {
         String stubGroupId = String.valueOf(stub.getStubId()) + String.valueOf(stub.getGroupId());
         int hashCode = stubGroupId.hashCode();
 
-        List<SunnyStubMappings> stubMappingses = Constants.SUNNY_STUB_MAPPINGS_LIST;
-        SunnyStub sunnyStub = null;
-        for(SunnyStubMappings stubMappings:stubMappingses) {
-            if(stubMappings.findByHashId(hashCode) != null) {
-                sunnyStub = stubMappings.findByHashId(hashCode);
-                break;
-            }
-        }
+        SunnyStub sunnyStub = Constants.SUNNY_STUB_MAPPINGS.get(hashCode);
         if(sunnyStub != null)
             return sunnyStub.invokeStub(stub);
         else

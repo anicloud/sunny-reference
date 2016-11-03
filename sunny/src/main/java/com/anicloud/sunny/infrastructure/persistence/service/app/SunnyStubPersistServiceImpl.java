@@ -1,5 +1,7 @@
 package com.anicloud.sunny.infrastructure.persistence.service.app;
 
+import com.ani.bus.service.commons.dto.anistub.AniStub;
+import com.anicloud.sunny.application.service.sunny.stub.SunnyStub;
 import com.anicloud.sunny.application.service.sunny.stub.SunnyStubMappings;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,49 +12,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihui on 16-10-28.
  */
-@Component("sunnyStubPersistServiceImpl")
+@Component("sunnyStubPersistService")
 public class SunnyStubPersistServiceImpl implements SunnyStubPersistService {
     private final static Logger LOGGER = LoggerFactory.getLogger(SunnyStubPersistServiceImpl.class);
-    private final static String FILE_PATH = "properties/SunnyStubMappings.json";
+    private final static String FILE_PATH = "properties/StubMappings";
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Override
-    public SunnyStubMappings fetchSunnyStubMappings() throws Exception {
-        DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource(FILE_PATH);
-        SunnyStubMappings stubMappings = null;
-        if(resource.exists()) {
-            objectMapper.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
-            JavaType javaType = objectMapper.getTypeFactory().constructParametricType(List.class,SunnyStubMappings.class);
-            stubMappings = objectMapper.readValue(resource.getURL(),javaType);
-        }else {
-            LOGGER.error("sunnystub information file not exists.");
-            throw new IOException("sunnystub information file not exists.");
+    public Map<Integer,SunnyStub> fetchSunnyStubMappings() throws Exception {
+        String path = getClass().getResource("/").getPath()+FILE_PATH;
+        Map<Integer,SunnyStub> resultMap = new HashMap<>();
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(new File(path)));
+        BufferedReader br = new BufferedReader(isr);
+        String temp = null;
+        while(!StringUtils.isEmpty(temp = br.readLine())) {
+            String regex = "\\s+";
+            temp = temp.trim();
+            String[] strs = temp.split(regex);
+            if(strs.length >= 3) {
+                int hashCode = (strs[0] + strs[1]).hashCode();
+                SunnyStub stub = (SunnyStub) Class.forName(strs[2]).newInstance();
+                resultMap.put(hashCode,stub);
+            }
         }
-        return stubMappings;
+        return resultMap;
     }
 
     @Override
-    public void update(SunnyStubMappings sunnyStubMappings) throws Exception {
-        DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource(FILE_PATH);
-        File targetFile = resource.getFile();
-        if(targetFile.exists()) {
-            objectMapper.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
-            objectMapper.writeValue(targetFile,sunnyStubMappings);
-        }else {
-            LOGGER.error("sunnystub information file not exists.");
-            throw new IOException("sunnystub information file not exists.");
-        }
+    public void update(AniStub aniStub,SunnyStub sunnyStub) throws Exception {
+//        OutputStreamWriter osw = new OutputStreamWriter();
     }
 }

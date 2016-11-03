@@ -1,11 +1,13 @@
 package com.anicloud.sunny.application.constant;
 
 import com.ani.bus.service.commons.session.AniServiceSession;
+import com.anicloud.sunny.application.service.sunny.stub.SunnyStub;
 import com.anicloud.sunny.application.service.sunny.stub.SunnyStubMappings;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhaoyu on 15-6-27.
@@ -13,7 +15,7 @@ import java.util.List;
 public class Constants {
     private Constants() {}
 
-    public static List<SunnyStubMappings> SUNNY_STUB_MAPPINGS_LIST;
+    public static Map<Integer,SunnyStub> SUNNY_STUB_MAPPINGS;
     public final static String CURRENT_USER = "@current_user";
     public final static String SUNNY_APP_REGISTER_NAME = "sunny-client";
     public final static String SUNNY_COOKIE_USER_NAME = "sunny_user";
