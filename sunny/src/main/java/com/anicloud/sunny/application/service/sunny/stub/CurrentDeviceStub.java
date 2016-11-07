@@ -4,7 +4,6 @@ import com.ani.bus.service.commons.dto.anistub.AniDataType;
 import com.ani.bus.service.commons.dto.anistub.AniStub;
 import com.ani.bus.service.commons.dto.anistub.Argument;
 import com.ani.bus.service.commons.dto.anistub.ArgumentType;
-import com.anicloud.sunny.application.service.agent.ClientInvokerImpl;
 import com.anicloud.sunny.application.service.strategy.CurrentFeatureService;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.CurrentFeatureInstanceDao;
 import org.slf4j.Logger;
