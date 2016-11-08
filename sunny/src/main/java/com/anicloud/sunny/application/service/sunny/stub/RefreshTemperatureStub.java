@@ -1,5 +1,6 @@
 package com.anicloud.sunny.application.service.sunny.stub;
 
+import com.ani.bus.service.commons.dto.anistub.AniDataType;
 import com.ani.bus.service.commons.dto.anistub.AniStub;
 import com.ani.bus.service.commons.dto.anistub.Argument;
 import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
@@ -7,6 +8,7 @@ import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServci
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.jms.JMSException;
@@ -19,11 +21,12 @@ import java.util.Map;
 /**
  * Created by lihui on 16-10-28.
  */
+@Service
 public class RefreshTemperatureStub implements SunnyStub {
 
     @Resource
     private DeviceAndUserRelationServcie relationService;
-    @Resource
+    @Resource(name = "paramJmsTemplate")
     private JmsTemplate paramJmsTemplate;
     @Resource
     private ObjectMapper objectMapper;
@@ -38,40 +41,8 @@ public class RefreshTemperatureStub implements SunnyStub {
 
             Map<String,String> params =  objectMapper.readValue(relationDto.initParam,Map.class);
             for (Argument arg : inputValues) {
-                switch (arg.getArgumentType().getType()) {
-                    case FLOAT:
-                        Float aFloat = (Float)arg.getValue();
-                        params.put(arg.getName(),String.valueOf(aFloat));
-                        break;
-                    case INTEGER:
-                        Integer aInteger = (Integer)arg.getValue();
-                        params.put(arg.getName(),String.valueOf(aInteger));
-                        break;
-                    case STRING:
-                        String str = (String)arg.getValue();
-                        params.put(arg.getName(),str);
-                        break;
-                    case CHAR:
-                        Character c = (Character)arg.getValue();
-                        params.put(arg.getName(),String.valueOf(c));
-                        break;
-                    case BOOLEAN:
-                        Boolean bool = (Boolean) arg.getValue();
-                        params.put(arg.getName(),String.valueOf(bool));
-                        break;
-                    case BYTE:
-                        Byte aByte = (Byte) arg.getValue();
-                        params.put(arg.getName(),String.valueOf(aByte));
-                        break;
-                    case LONG:
-                        Long aLong = (Long) arg.getValue();
-                        params.put(arg.getName(),String.valueOf(aLong));
-                        break;
-                    case SHORT:
-                        Short aShort = (Short) arg.getValue();
-                        params.put(arg.getName(),String.valueOf(aShort));
-                        break;
-                    default:break;
+                if (arg.getArgumentType().getType() != AniDataType.ARRAY){
+                    params.put(arg.getName(),arg.getValue().toString());
                 }
             }
             relationDto.initParam = objectMapper.writeValueAsString(params);

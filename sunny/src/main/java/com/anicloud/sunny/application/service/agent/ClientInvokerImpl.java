@@ -23,6 +23,7 @@ import javax.websocket.EncodeException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @autor zhaoyu
@@ -41,8 +42,7 @@ public class ClientInvokerImpl implements ClientInvokable {
             throw new ValidationException("Invalid AniStub Instance.");
         }
 
-        String stubGroupId = String.valueOf(stub.getStubId()) + String.valueOf(stub.getGroupId());
-        int hashCode = stubGroupId.hashCode();
+        int hashCode = Objects.hash(stub.getGroupId(),stub.getStubId());
 
         SunnyStub sunnyStub = Constants.SUNNY_STUB_MAPPINGS.get(hashCode);
         if(sunnyStub != null)

@@ -1,6 +1,7 @@
 package com.anicloud.sunny.infrastructure.persistence.service.app;
 
 import com.ani.bus.service.commons.dto.anistub.AniStub;
+import com.anicloud.sunny.application.service.holder.SpringContextHolder;
 import com.anicloud.sunny.application.service.sunny.stub.SunnyStub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.util.StringUtils;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by lihui on 16-10-28.
@@ -37,9 +39,9 @@ public class SunnyStubPersistServiceImpl implements SunnyStubPersistService {
                 temp = temp.trim();
                 String[] strs = temp.split(regex);
                 if(strs.length >= 3) {
-                    int hashCode = (strs[0] + strs[1]).hashCode();
-                    SunnyStub stub = (SunnyStub) Class.forName(strs[2]).newInstance();
-                    resultMap.put(hashCode,stub);
+                    int hashCode = Objects.hash(Long.valueOf(strs[0]), Integer.valueOf(strs[1]));
+                    SunnyStub stubInvoker = (SunnyStub) SpringContextHolder.getBean(Class.forName(strs[2]));
+                    resultMap.put(hashCode,stubInvoker);
                 }
             }
         } catch (Exception e) {
