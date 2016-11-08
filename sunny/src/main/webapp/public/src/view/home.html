@@ -15,6 +15,11 @@
                             <i class="icon icon-appliances-lamp device-icon"></i>
                         </div>
                         <p><strong>{{device.name}}</strong><br>
+                        <div ng-repeat="feature in features[device.id]">
+                            <div ng-repeat="arg in feature.argDtoList">
+                                <small>{{arg.screenName}}:{{device.initParam[arg.name]}}</small>
+                            </div>
+                        </div>
                             <small>{{device.deviceState}}</small>
                         </p>
                     </div>

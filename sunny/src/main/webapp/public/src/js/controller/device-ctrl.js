@@ -83,7 +83,6 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
             return $rootScope.features[$scope.deviceDetail.device.id];
         }
     };
-
     $scope.deviceDetail.getArgumentList = function(feature) {
         $scope.deviceDetail.arguments = {};
         return feature.argDtoList;
