@@ -44,11 +44,7 @@ public class SessionManager {
                 if(sessionVector.size() <= 0) {
                     //通知service-bus用户掉线
                     AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
-                    Map<Long, List<Integer>> map = new HashMap<Long, List<Integer>>();
-                    List<Integer> list = new ArrayList<>();
-                    list.add(1);
-                    map.put(10L,list);
-                    AccountObject accountObj = new AccountObject(Long.valueOf(hashUserId),map);
+                    AccountObject accountObj = new AccountObject(Long.valueOf(hashUserId));
                     SocketMessage socketMessage = accountInvoker.logout(accountObj);
                 }
             }
