@@ -229,9 +229,6 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                         console.log(strategy);
                     }
                     break;
-                case 3:
-
-                    break;
             }
         }
     };
