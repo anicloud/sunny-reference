@@ -50,4 +50,6 @@ public class DeviceStrategyInfoHandshake extends HttpSessionHandshakeInterceptor
         LOG.info("after hands shake");
         super.afterHandshake(request, response, wsHandler, ex);
     }
+
+
 }

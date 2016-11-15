@@ -9,13 +9,13 @@
 
             <div id="device-wrapper">
                 <div class="device-body device-body-homepage">
-                    <div class="device-cel" ng-repeat="device in devices" ng-click="deviceDetail.show(device)" style="overflow-y: scroll;">
+                    <div class="device-cel" ng-repeat="device in devices" ng-click="deviceDetail.show(device)">
                         <!--<div class="panel">-->
                         <div class="panel-heading">
                             <i class="icon icon-appliances-lamp device-icon"></i>
                         </div>
                         <p><strong>{{device.name}}</strong><br>
-                        <div ng-repeat="feature in features[device.id]">
+                        <div ng-repeat="feature in features[device.id]" style="overflow-y: scroll;">
                             <div ng-repeat="arg in feature.argDtoList">
                                 <small>{{arg.screenName}}:{{device.initParam[arg.name]}}</small>
                             </div>
