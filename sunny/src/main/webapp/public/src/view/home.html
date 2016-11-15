@@ -1,4 +1,4 @@
-<div class="homepage row" ng-controller="HomePageCtrl">
+<div class="homepage row" ng-controller="HomePageCtrl" xmlns="http://www.w3.org/1999/html">
     <div ng-controller="DeviceCtrl">
         <div ng-include="'public/src/view/device-detail.html'"></div>
         <div>
@@ -9,15 +9,15 @@
 
             <div id="device-wrapper">
                 <div class="device-body device-body-homepage">
-                    <div class="device-cel" ng-repeat="device in devices" ng-click="deviceDetail.show(device)">
+                    <div class="device-cel" ng-repeat="device in devices" ng-click="deviceDetail.show(device)" style="overflow-y:scroll;overflow-x: hidden;">
                         <!--<div class="panel">-->
                         <div class="panel-heading">
                             <i class="icon icon-appliances-lamp device-icon"></i>
                         </div>
                         <p><strong>{{device.name}}</strong><br>
-                        <div ng-repeat="feature in features[device.id]" style="overflow-y: scroll;">
+                        <div ng-repeat="feature in features[device.id]">
                             <div ng-repeat="arg in feature.argDtoList">
-                                <small>{{arg.screenName}}:{{device.initParam[arg.name]}}</small>
+                                <p><small>{{arg.screenName}}:{{device.initParam[arg.name]}}</small></p>
                             </div>
                         </div>
                             <small>{{device.deviceState}}</small>
