@@ -6,10 +6,7 @@ import com.ani.agent.service.core.config.AnicelMeta;
 import com.ani.agent.service.core.websocket.WebSocketClient;
 import com.ani.agent.service.core.websocket.WebSocketSessionFactory;
 import com.ani.agent.service.service.aniservice.AniServiceManager;
-import com.ani.agent.service.service.websocket.AccountInvoker;
-import com.ani.agent.service.service.websocket.AniInvokerImpl;
-import com.ani.agent.service.service.websocket.ClientInvokable;
-import com.ani.agent.service.service.websocket.ObjectNotify;
+import com.ani.agent.service.service.websocket.*;
 import com.ani.agent.service.service.websocket.observer.AniObjectCallMessageObserver;
 import com.ani.bus.service.commons.dto.accountobject.AccountObject;
 import com.ani.bus.service.commons.dto.aniservice.AniServiceDto;
@@ -29,6 +26,7 @@ import com.anicloud.sunny.domain.adapter.AniServiceDaoAdapter;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
 import com.anicloud.sunny.interfaces.web.dto.UserSessionInfo;
 import com.anicloud.sunny.interfaces.web.listener.SessionListener;
+import com.anicloud.sunny.interfaces.web.session.SessionManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.impl.CreatorCollector;
@@ -117,7 +115,8 @@ public class HomeController extends BaseController {
         // you need to implement the Invokable interface and register on
         // WebSocketClient for anicloud platform to callback
         ClientInvokable invokable = new ClientInvokerImpl();
-        WebSocketClient socketClient = new WebSocketClient(invokable,objectNotify);
+        AccountNotify accountNotify = new SessionManager();
+        WebSocketClient socketClient = new WebSocketClient(invokable,objectNotify,accountNotify);
 
         // you need to implement your own observer and register on socketClient
         // to receive the message from anicloud platform
