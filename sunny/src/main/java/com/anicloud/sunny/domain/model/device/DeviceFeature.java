@@ -1,5 +1,6 @@
 package com.anicloud.sunny.domain.model.device;
 
+import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
 import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceFeatureDao;
@@ -18,6 +19,7 @@ public class DeviceFeature extends AbstractDomain {
     public String featureId;
     public String featureName;
     public String description;
+    public PrivilegeType type;
 
     public List<FeatureArg> featureArgList;
     public List<FeatureFunction> featureFunctionList;
@@ -29,13 +31,14 @@ public class DeviceFeature extends AbstractDomain {
     public DeviceFeature(String description, List<Map<String, List<String>>> featureArgFuncArgMapList,
                          List<FeatureArg> featureArgList,
                          List<FeatureFunction> featureFunctionList,
-                         String featureId, String featureName) {
+                         String featureId, String featureName,PrivilegeType type) {
         this.description = description;
         this.featureArgFuncArgMapList = featureArgFuncArgMapList;
         this.featureArgList = featureArgList;
         this.featureFunctionList = featureFunctionList;
         this.featureId = featureId;
         this.featureName = featureName;
+        this.type = type;
     }
 
     public static DeviceFeature save(DeviceFeaturePersistenceService featurePersistenceService, DeviceFeature deviceFeature) {
@@ -82,7 +85,8 @@ public class DeviceFeature extends AbstractDomain {
                 FeatureArg.toFeatureArgList(featureDao.featureArgDaoList),
                 FeatureFunction.toFeatureFunctionList(featureDao.featureFunctionDaoList),
                 featureDao.featureId,
-                featureDao.featureName
+                featureDao.featureName,
+                featureDao.type
         );
         return deviceFeature;
     }
@@ -97,7 +101,8 @@ public class DeviceFeature extends AbstractDomain {
                 toRelationDaoList(deviceFeature.featureArgFuncArgMapList),
                 FeatureFunction.toDaoList(deviceFeature.featureFunctionList),
                 deviceFeature.featureId,
-                deviceFeature.featureName
+                deviceFeature.featureName,
+                deviceFeature.type
         );
         return featureDao;
     }

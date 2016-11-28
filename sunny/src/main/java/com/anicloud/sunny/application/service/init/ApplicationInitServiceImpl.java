@@ -69,10 +69,12 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     @Override
     protected void initUserDeviceAndDeviceFeatureRelation(UserDto userDto,
                                                           AniOAuthAccessToken accessToken) throws Exception {
+        LOGGER.info("initUserDeviceAndDeviceFeatureRelation");
         List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList = agentTemplate
                 .getDeviceObjService(accessToken.getAccessToken())
                 .getDeviceObjInfo(userDto.hashUserId, Boolean.TRUE);
         if(deviceMasterObjInfoDtoList!=null){
+            LOGGER.info("deviceMasterObjInfoDtoList size is "+deviceMasterObjInfoDtoList.size());
             List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos =
                     getRelation(deviceMasterObjInfoDtoList, accessToken);
             LOGGER.info("Initialize DeviceAndFeatureRelation...");
@@ -163,6 +165,8 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                     masterDto.owner.accountId,
                     DeviceLogicState.OPEN
             );
+            if (masterDeviceDto.deviceState == null)
+                continue;
             DeviceAndFeatureRelationDto masterDeviceAndFeatureDto =
                     new DeviceAndFeatureRelationDto(
                             masterDeviceDto,
@@ -247,6 +251,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                     return DeviceState.REMOVED;
             }
         }
+        LOGGER.info("device state is "+ state);
         return null;
     }
 
@@ -256,12 +261,14 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
     public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubMeta> stubDtos) {
         List<DeviceFeatureDto> deviceFeatureDtoList = new ArrayList<>();
-        for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
+        if (stubDtos != null) {
             Set<StubIdentity> deviceStubSet = fetchDeviceStubSet(stubDtos);
-            Set<StubIdentity> featureStubSet = fetchDeviceFeatureStubSet(deviceFeatureDto);
-            Collection<StubIdentity> intersectionList = CollectionUtils.intersection(deviceStubSet, featureStubSet);
-            if(featureStubSet.size() == intersectionList.size()){
-                deviceFeatureDtoList.add(deviceFeatureDto);
+            for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
+                Set<StubIdentity> featureStubSet = fetchDeviceFeatureStubSet(deviceFeatureDto);
+                Collection<StubIdentity> intersectionList = CollectionUtils.intersection(deviceStubSet, featureStubSet);
+                if (featureStubSet.size() == intersectionList.size()) {
+                    deviceFeatureDtoList.add(deviceFeatureDto);
+                }
             }
         }
         return deviceFeatureDtoList;

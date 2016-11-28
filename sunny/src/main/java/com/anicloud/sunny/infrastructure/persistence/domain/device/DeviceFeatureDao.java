@@ -1,5 +1,6 @@
 package com.anicloud.sunny.infrastructure.persistence.domain.device;
 
+import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -23,6 +24,8 @@ public class DeviceFeatureDao extends AbstractEntity {
     public String featureName;
     @Column(name = "description", length = 255)
     public String description;
+    @Column(name = "type")
+    public PrivilegeType type;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "device_feature_id", referencedColumnName = "id")
@@ -43,13 +46,14 @@ public class DeviceFeatureDao extends AbstractEntity {
                             List<FeatureArgDao> featureArgDaoList,
                             List<FeatureArgFunctionArgRelationDao> argRelationDaoList,
                             List<FeatureFunctionDao> featureFunctionDaoList,
-                            String featureId, String featureName) {
+                            String featureId, String featureName, PrivilegeType type) {
         this.description = description;
         this.featureArgDaoList = featureArgDaoList;
         this.argRelationDaoList = argRelationDaoList;
         this.featureFunctionDaoList = featureFunctionDaoList;
         this.featureId = featureId;
         this.featureName = featureName;
+        this.type = type;
     }
 
     @Override

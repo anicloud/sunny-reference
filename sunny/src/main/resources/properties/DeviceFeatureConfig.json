@@ -3,6 +3,7 @@
     "featureId": "1",
     "featureName": "Power On",
     "description": "light power on feature.",
+    "type": "EXECUTE",
     "argDtoList": [
       {
         "name": "brightnessLux",
@@ -38,6 +39,7 @@
     "featureId": "2",
     "featureName": "Power Off",
     "description": "light power off feature.",
+    "type": "EXECUTE",
     "argDtoList": [],
     "featureFunctionDtoList": [
       {
@@ -56,6 +58,7 @@
     "featureId": "3",
     "featureName": "#Air-Sensor--powerOn",
     "description": "Air Sensor power on feature.",
+    "type": "EXECUTE",
     "argDtoList": [
       {
         "name": "degreesC",
@@ -91,6 +94,7 @@
     "featureId": "4",
     "featureName": "temperature",
     "description": "temperature Sensor.",
+    "type": "READ",
     "argDtoList": [
       {
         "name": "temperature",
@@ -126,6 +130,7 @@
     "featureId": "5",
     "featureName": "humidity",
     "description": "humidity Sensor.",
+    "type": "READ",
     "argDtoList": [
       {
         "name": "humidity",
