@@ -15,6 +15,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,8 +39,11 @@ public class RefreshTemperatureStub implements SunnyStub {
             Long accountId = stub.getAccountId();
             DeviceAndUserRelationDto relationDto = relationService.getDeviceAndUserRelation(fromObjectId,accountId);
             List<Argument> inputValues = stub.getInputValues();
-
-            Map<String,String> params =  objectMapper.readValue(relationDto.initParam,Map.class);
+            Map<String,String> params;
+            if (relationDto.initParam != null)
+                params =  objectMapper.readValue(relationDto.initParam,Map.class);
+            else
+                params = new HashMap<>();
             for (Argument arg : inputValues) {
                 if (arg.getArgumentType().getType() != AniDataType.ARRAY){
                     params.put(arg.getName(),arg.getValue().toString());
