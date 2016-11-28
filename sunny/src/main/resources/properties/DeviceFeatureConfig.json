@@ -86,5 +86,75 @@
         ]
       }
     ]
+  },
+  {
+    "featureId": "4",
+    "featureName": "temperature",
+    "description": "temperature Sensor.",
+    "argDtoList": [
+      {
+        "name": "temperature",
+        "dataType": "FLOAT",
+        "screenName": "temperature"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "1",
+        "stubId": 3,
+        "groupId": 2,
+        "functionName": "temperatureNotify",
+        "functionType": "SYNC",
+        "inputArgList": [
+          {
+            "name": "temperature",
+            "dataType": "FLOAT"
+          }
+        ],
+        "outputArgList": null
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "temperature": [
+          "1:temperature"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "5",
+    "featureName": "humidity",
+    "description": "humidity Sensor.",
+    "argDtoList": [
+      {
+        "name": "humidity",
+        "dataType": "FLOAT",
+        "screenName": "humidity"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "1",
+        "stubId": 4,
+        "groupId": 2,
+        "functionName": "humidityNotify",
+        "functionType": "SYNC",
+        "inputArgList": [
+          {
+            "name": "humidity",
+            "dataType": "FLOAT"
+          }
+        ],
+        "outputArgList": null
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "humidity": [
+          "1:humidity"
+        ]
+      }
+    ]
   }
 ]
