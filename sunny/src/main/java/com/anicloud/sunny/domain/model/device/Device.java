@@ -188,4 +188,8 @@ public class Device extends AbstractDomain {
         }
         return device;
     }
+
+    public static String buildIdentificationCode(Long masterId,Integer slaveId){
+        return masterId + DEVICE_CODE_SEPARATOR + slaveId;
+    }
 }

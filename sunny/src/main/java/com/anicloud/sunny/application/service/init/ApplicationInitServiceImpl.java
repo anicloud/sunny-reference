@@ -88,7 +88,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     @Override
     public void updateUserDeviceAndDeviceFeatureRelation(DeviceMasterObjInfoDto masterDto) {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos = getRalation(masterDto);
-        DeviceAndFeatureRelationDto relationDto = deviceAndFeatureRelationService.findByDeviceIdentificationCode(String.valueOf(masterDto.objectId));
+        DeviceAndFeatureRelationDto relationDto = deviceAndFeatureRelationService.findByDeviceIdentificationCode(buildId(masterDto.objectId,-1));
         if(relationDto == null) {
             deviceAndFeatureRelationService.batchSave(deviceAndFeatureRelationDtos);
         } else {

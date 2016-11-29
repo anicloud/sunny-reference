@@ -27,7 +27,7 @@ public class ObjectNotifyImpl implements ObjectNotify{
 
     @Override
     public void deviceConectedNotify(Long objectId, String description) {
-        DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(String.valueOf(objectId));
+        DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(objectId,-1));
         if(deviceDto != null){
             deviceService.modifyDeviceState(deviceDto,DeviceState.CONNECTED);
             deviceDto.deviceState = DeviceState.CONNECTED;
@@ -37,7 +37,7 @@ public class ObjectNotifyImpl implements ObjectNotify{
 
     @Override
     public void deviceDisconnectedNotify(Long objectId, String description) {
-        DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(String.valueOf(objectId));
+        DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(objectId,-1));
         if(deviceDto != null){
             deviceService.modifyDeviceState(deviceDto,DeviceState.DISCONNECTED);
             deviceDto.deviceState = DeviceState.DISCONNECTED;
@@ -68,7 +68,7 @@ public class ObjectNotifyImpl implements ObjectNotify{
     @Override
     public void deviceUpdatedNotify(DeviceMasterObjInfoDto deviceMasterObjInfoDto) {
         applicationInitService.updateUserDeviceAndDeviceFeatureRelation(deviceMasterObjInfoDto);
-        DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(String.valueOf(deviceMasterObjInfoDto.objectId));
+        DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(deviceMasterObjInfoDto.objectId,-1));
         if(deviceDto != null) {
             deviceService.modifyDeviceState(deviceDto, DeviceState.CONNECTED);
             deviceDto.deviceState = DeviceState.CONNECTED;
