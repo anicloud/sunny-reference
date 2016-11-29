@@ -170,14 +170,6 @@ public class HomeController extends BaseController {
         UserDto userDto = null;
         try {
             userDto = initService.initApplication(oAuth2AccessToken);
-            //通知服务器客户端状态
-            AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
-            Map<Long, List<Integer>> map = new HashMap<Long, List<Integer>>();
-            List<Integer> list = new ArrayList<>();
-            list.add(1);
-            map.put(10L,list);
-            AccountObject accountObj = new AccountObject(userDto.hashUserId,map);
-            SocketMessage socketMessage = accountInvoker.registerAndLogin(accountObj);
         } catch (Exception e) {
             // TODO
             // do something with the error

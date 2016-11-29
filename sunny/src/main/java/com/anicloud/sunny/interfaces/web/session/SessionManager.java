@@ -42,12 +42,6 @@ public class SessionManager implements AccountNotify{
                     }
                 }
                 sessionVector.removeElementAt(index);
-                if(sessionVector.size() <= 0) {
-                    //通知service-bus用户掉线
-                    AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
-                    AccountObject accountObj = new AccountObject(Long.valueOf(hashUserId));
-                    SocketMessage socketMessage = accountInvoker.logout(accountObj);
-                }
             }
         }
     }
@@ -61,15 +55,6 @@ public class SessionManager implements AccountNotify{
         } else {
             sessionVector = new Vector<>();
             sessionVector.add(session);
-
-            //通知服务器客户端状态
-            AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
-            Map<Long, List<Integer>> map = new HashMap<Long, List<Integer>>();
-            List<Integer> list = new ArrayList<>();
-            list.add(1);
-            map.put(10L,list);
-            AccountObject accountObj = new AccountObject(Long.valueOf(hashUserId),map);
-            SocketMessage socketMessage = accountInvoker.registerAndLogin(accountObj);
         }
         userSessionMaps.put(hashUserId, sessionVector);
     }
