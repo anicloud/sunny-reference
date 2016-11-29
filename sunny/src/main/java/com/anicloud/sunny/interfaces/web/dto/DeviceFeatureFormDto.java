@@ -1,5 +1,6 @@
 package com.anicloud.sunny.interfaces.web.dto;
 
+import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.device.FeatureArgDto;
 
@@ -14,6 +15,7 @@ public class DeviceFeatureFormDto {
     public String featureId;
     public String featureName;
     public String description;
+    public PrivilegeType type;
 
     public List<FeatureArgDto> argDtoList;
 
@@ -24,6 +26,7 @@ public class DeviceFeatureFormDto {
             deviceFeatureFormDto.featureName = deviceFeatureDto.featureName;
             deviceFeatureFormDto.description = deviceFeatureDto.description;
             deviceFeatureFormDto.argDtoList = deviceFeatureDto.argDtoList;
+            deviceFeatureFormDto.type = deviceFeatureDto.type;
         }
         return deviceFeatureFormDto;
     }
@@ -45,6 +48,7 @@ public class DeviceFeatureFormDto {
             deviceFeatureDto.featureName = deviceFeatureFormDto.featureName;
             deviceFeatureDto.description = deviceFeatureFormDto.description;
             deviceFeatureDto.argDtoList = deviceFeatureFormDto.argDtoList;
+            deviceFeatureDto.type = deviceFeatureFormDto.type;
         }
         return deviceFeatureDto;
     }
