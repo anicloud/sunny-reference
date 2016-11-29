@@ -1,0 +1,135 @@
+<div class="feature-dialog">
+    <!--<div class="">-->
+    <div>
+        <label>设备:</label>
+
+        <select class="form-control"
+                name="deviceId"
+                ng-model="device"
+                style="border-width: 0"
+                ng-options="device as device.name for device in devices"
+                required>
+            <option value="">选择设备</option>
+            <!--<button class="feature-device-icon">{{device.name}}</button>-->
+        </select>
+    </div>
+    <div>
+        <label>任务:</label>
+
+        <select class="form-control"
+                ng-model="feature"
+                style="border-width: 0"
+                ng-disabled="device==null"
+                ng-options="feature as feature.featureName for feature in getDeviceFeatures()">
+            <option value="">选择任务</option>
+            <!--<div class="">{{feature.featureName}}</div>-->
+        </select>
+    </div>
+    <div ng-if="feature != {} && feature.argDtoList.length > 0">
+        <label>任务参数：</label>
+        <div ng-repeat="arg in feature.argDtoList">
+            <!--<label>-->
+            <!--<small>{{arg.screenName}}:</small>-->
+            <!--</label>-->
+            <!--<input class="form-control" ng-model="argumentMap[arg.name]" required>-->
+            <div ng-if="arg.dataType == 'INTEGER'">
+                {{arg.screenName}}:
+                <!--<div class="btn btn-default" ng-click="deviceDetail.arguments[feature.featureId][arg.name] = deviceDetail.arguments[feature.featureId][arg.name] - 1">-->
+                <!-&#45;&#45;-->
+                <!--</div>-->
+                <input type="number" ng-model="deviceDetail.arguments[feature.featureId][arg.name]">
+
+                <!--<div class="btn btn-default" ng-click="deviceDetail.arguments[feature.featureId][arg.name] = deviceDetail.arguments[feature.featureId][arg.name] + 1">-->
+                <!--+-->
+                <!--</div>-->
+            </div>
+            <div ng-if="arg.dataType == 'FLOAT'">
+                {{arg.screenName}}:
+                <div style="display: inline-block; float: right">
+                    <input type="text" ng-model="deviceDetail.arguments[feature.featureId][arg.name]"
+                           ng-init="deviceDetail.arguments[feature.featureId][arg.name]=device.initParam[arg.name]" style="width: 40px;">
+                </div>
+
+                <input ng-model="deviceDetail.arguments[feature.featureId][arg.name]" type="range" step=".1" min="0"
+                       max="100">
+
+
+            </div>
+            <div ng-if="arg.dataType == 'STRING'">
+                <input type="text" ng-model="deviceDetail.arguments[feature.featureId][arg.name]">
+            </div>
+        </div>
+    </div>
+    <div>
+        <label>执行条件:</label>
+        <select class="form-control" style="border-width: 0"
+                ng-model="trigger.triggerType" ng-change="console.log('changing')"
+                ng-options="trigger as trigger for trigger in triggers" ng-disabled="device==null||feature==null">
+            <option value="">选择执行条件</option>
+        </select>
+    </div>
+    <div ng-show="trigger.triggerType == 'TIMER'">
+        <div>
+            <label>
+                <small>开始时间：</small>
+            </label>
+
+            <div>
+                <!--<input type="text"-->
+                       <!--class="form-control"-->
+                       <!--datetime-picker-->
+                       <!--is-open="isCalenderOpen"-->
+                       <!--ng-model="triggerTimer.startTime"/>-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button type="button" class="btn btn-default" ng-click="openCalendar($event)">-->
+                            <!--<i class="fa fa-calendar"></i>-->
+                        <!--</button>-->
+                    <!--</span>-->
+                <!--<timepicker ng-model="triggerTimer.startTime"-->
+                            <!--hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>-->
+                <div class="container" style="height:100%;width:300px;margin: 0 auto;">
+                    <div>
+                        <div style="overflow:hidden;">
+                            <div class="form-group">
+                                    <div>
+                                        <div id="datetimepicker12"></div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div>-->
+        <!--<label>-->
+        <!--重复间隔：-->
+        <!--</label>-->
+        <!--<input type="number" ng-model="triggerTimer.repeatInterval" placeholder="0"/>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<label>-->
+        <!--重复次数：-->
+        <!--</label>-->
+        <!--<input type="number" ng-model="triggerTimer.repeatCount" placeholder="0"/>-->
+        <!--</div>-->
+    </div>
+    <!--<div ng-show="trigger.triggerType == 'LOCATION'">-->
+    <!--<label>输入位置：</label>-->
+    <!--<input type="text" class="form-control">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="">-->
+    <div class="alert alert-danger" ng-show="!valid">
+        {{error}}
+    </div>
+    <div class="btn btn-default btn-long"
+         ng-click="addFeature(strategyTemplate) && closeThisDialog('')">
+        添加
+    </div>
+    <!--<div class="btn btn-default"-->
+         <!--ng-click="closeThisDialog('')">-->
+        <!--取消-->
+    <!--</div>-->
+
+    <!--</div>-->
+</div>

@@ -45,7 +45,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         app.directive(key, directive[key]);
     }
 
-    app.run(["$rootScope", "StrategyService", "DeviceService", "WebSocketService", "ManagerService", function($rootScope, StrategyService, DeviceService, WebSocketService, ManagerService) {
+    app.run(function($rootScope, StrategyService, DeviceService, WebSocketService, ManagerService) {
         $rootScope.strategies = [];
         $rootScope.devices = [];
         $rootScope.features = [];
@@ -95,7 +95,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
             null,
             ManagerService.updateFrontInfo
         );
-    }]);
+    });
 };
 
 anicloud.sunny.global.loadApp(

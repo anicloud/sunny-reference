@@ -1,0 +1,55 @@
+<div ng-controller="StrategyEditCtrl" class="row">
+    <div class="group-wrapper" style="padding-left:20px; padding-top: 28px">
+        <span>新建任务</span>
+    </div>
+    <div class="strategy-template">
+        <div class="list-group-item col-lg-12">
+            <div class="panel-input">
+                <input type="text" class="form-control" ng-model="strategyTemplate.strategyName" placeholder="输入策略名称"
+                       focus
+                       required>
+                <!--<ul class="operation list-unstyled">-->
+                <div class="operation">
+                    <i class="fa fa-retweet" ng-click="openRepeatTemplate()"></i>
+                    <i class="fa fa-plus" ng-click="openFeatureEditTemplate()"></i>
+                </div>
+                <!--</ul>-->
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="feature-cel col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                         ng-repeat="feature in strategyTemplate.featureList">
+                        <div class="col-xs-4 device-description">
+                            <div class="feature-num">{{$index+1}}</div>
+                            <div class="device-panel">
+                                <i class="icon icon-appliances-lamp device-icon"></i>
+
+                                <p>{{feature.device.name}}</p>
+                            </div>
+
+
+                        </div>
+                        <div class="col-xs-8 device-feature">
+                            <i class="fa fa-times close" ng-click="deleteFeature($index, strategyTemplate)"></i>
+
+                            <p><strong>{{feature.deviceFeature.featureName}}</strong></p>
+
+                            <p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) |
+                                date:'hh:mm a'}}</p>
+                            <!--<p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date}}</p>-->
+                            <!--<p class="device-trigger">{{triggerTimerToDate(triggerTimer.startTime)}}</p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-danger" ng-show="!strategyTemplate.valid">
+            {{strategyTemplate.error}}
+        </div>
+        <div class="btn-submit">
+            <button class="btn btn-default btn-long" ng-click="addStrategy() && closeThisDialog()">提交</button>
+            <!--<button class="btn btn-default">取消</button>-->
+        </div>
+    </div>
+</div>
