@@ -22,10 +22,8 @@ public class DeviceDto implements Serializable {
     public DeviceLogicState logicState;
     public String deviceType;
     public String deviceGroup;
-
+    public String logoUrl;
     public Long ownerId;
-
-//    public List<DeviceAndUserRelationDto> deviceAndUserRelationDtos;
 
     public DeviceDto() {
     }
@@ -35,19 +33,8 @@ public class DeviceDto implements Serializable {
     }
 
     public DeviceDto(String deviceGroup, DeviceState deviceState, String deviceType,
-                     String identificationCode, String name, Long ownerId, DeviceLogicState logicState) {
-        this.deviceGroup = deviceGroup;
-        this.deviceState = deviceState;
-        this.deviceType = deviceType;
-        this.identificationCode = identificationCode;
-        this.name = name;
-        this.ownerId = ownerId;
-        this.logicState = logicState;
-    }
-
-    public DeviceDto(String deviceGroup, DeviceState deviceState, String deviceType,
                      String identificationCode, String name, Long ownerId, DeviceLogicState logicState,
-                     List<DeviceAndUserRelationDto> deviceAndUserRelationDtos) {
+                     String logoUrl) {
         this.deviceGroup = deviceGroup;
         this.deviceState = deviceState;
         this.deviceType = deviceType;
@@ -55,7 +42,7 @@ public class DeviceDto implements Serializable {
         this.name = name;
         this.ownerId = ownerId;
         this.logicState = logicState;
-//        this.deviceAndUserRelationDtos = deviceAndUserRelationDtos;
+        this.logoUrl = logoUrl;
     }
 
     @Override

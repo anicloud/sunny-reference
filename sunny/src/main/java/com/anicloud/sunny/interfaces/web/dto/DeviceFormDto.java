@@ -20,17 +20,19 @@ public class DeviceFormDto {
     public String deviceType;
     public String deviceGroup;
     public Object initParam;
+    public String logoUrl;
 
     public DeviceFormDto(){
 
     }
     public DeviceFormDto(String id, String name, DeviceState deviceState,
-                     String deviceType, String deviceGroup) {
+                     String deviceType, String deviceGroup, String logoUrl) {
         this.id = id;
         this.name = name;
         this.deviceState = deviceState;
         this.deviceType = deviceType;
         this.deviceGroup = deviceGroup;
+        this.logoUrl = logoUrl;
     }
 
     public static DeviceFormDto convertToDeviceForm(DeviceDto deviceDto){
@@ -41,6 +43,7 @@ public class DeviceFormDto {
             deviceFormDto.deviceState = deviceDto.deviceState;
             deviceFormDto.deviceType = deviceDto.deviceType;
             deviceFormDto.deviceGroup = deviceDto.deviceGroup;
+            deviceFormDto.logoUrl = deviceDto.logoUrl;
         }
         return deviceFormDto;
     }
@@ -63,6 +66,7 @@ public class DeviceFormDto {
             deviceDto.deviceState = deviceFormDto.deviceState;
             deviceDto.deviceType = deviceFormDto.deviceType;
             deviceDto.deviceGroup = deviceFormDto.deviceGroup;
+            deviceDto.logoUrl = deviceFormDto.logoUrl;
         }
         return deviceDto;
     }
@@ -76,6 +80,7 @@ public class DeviceFormDto {
             deviceFormDto.deviceType = relationDto.deviceDto.deviceType;
             deviceFormDto.deviceGroup = relationDto.deviceGroup;
             deviceFormDto.initParam = relationDto.initParam;
+            deviceFormDto.logoUrl = relationDto.deviceDto.logoUrl;
         }
         return deviceFormDto;
     }

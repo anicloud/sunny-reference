@@ -1,4 +1,11 @@
 {
+  "Router" : [ {
+    "stubId" : 1,
+    "groupId" : 0
+  },{
+    "stubId" : 2,
+    "groupId" : 0
+  } ],
   "Light" : [ {
     "stubId" : 2,
     "groupId" : 1

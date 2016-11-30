@@ -34,18 +34,17 @@ public class DeviceDao extends AbstractEntity {
     public String deviceType;
     @Column(name = "device_group", length = 50)
     public String deviceGroup;
-
+    @Column(name = "logoUrl", length = 200)
+    public String logoUrl;
     @Column(name = "user_id", nullable = true)
     public Long ownerId;
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "device", cascade = {CascadeType.ALL}, orphanRemoval = true)
-//    public List<DeviceAndUserRelationDao> deviceAndUserRelationDaoList;
 
     public DeviceDao() {
     }
 
     public DeviceDao(String deviceGroup, DeviceState deviceState, String deviceType,
-                     String identificationCode, String name, Long ownerId, DeviceLogicState logicState) {
+                     String identificationCode, String name, Long ownerId, DeviceLogicState logicState, String logoUrl) {
         this.deviceGroup = deviceGroup;
         this.deviceState = deviceState;
         this.deviceType = deviceType;
@@ -53,7 +52,7 @@ public class DeviceDao extends AbstractEntity {
         this.name = name;
         this.ownerId = ownerId;
         this.logicState = logicState;
-//        this.deviceAndUserRelationDaoList = deviceAndUserRelationDaos;
+        this.logoUrl = logoUrl;
     }
 
     @Override

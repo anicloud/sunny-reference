@@ -155,15 +155,16 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
             AniOAuthAccessToken accessToken) throws Exception {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureDtos = new ArrayList<>();
         for (DeviceMasterObjInfoDto masterDto : deviceMasterObjInfoDtoList) {
+            String masterType = deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs);
             DeviceDto masterDeviceDto = new DeviceDto(
                     "default",
                     convert(masterDto.state),
-                    deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
-                    //String.valueOf(masterDto.objectId),
+                    masterType,
                     buildId(masterDto.objectId,-1),
                     masterDto.name,
                     masterDto.owner.accountId,
-                    DeviceLogicState.OPEN
+                    DeviceLogicState.OPEN,
+                    deviceInfoGeneratorService.getDeviceLogoUrl(masterType)
             );
             if (masterDeviceDto.deviceState == null)
                 continue;
@@ -175,15 +176,16 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
             deviceAndFeatureDtos.add(masterDeviceAndFeatureDto);
 
             for (DeviceSlaveObjInfoDto objDto : masterDto.slaves) {
+                String deviceType = deviceInfoGeneratorService.generatorDeviceType(objDto.stubs);
                 DeviceDto deviceDto = new DeviceDto(
                         "default",
                         convert(objDto.state),
-                        deviceInfoGeneratorService.generatorDeviceType(objDto.stubs),
-                        //String.valueOf(objDto.objectSlaveId),
+                        deviceType,
                         buildId(masterDto.objectId,objDto.objectSlaveId),
                         objDto.name,
                         masterDto.owner.accountId,
-                        DeviceLogicState.OPEN
+                        DeviceLogicState.OPEN,
+                        deviceInfoGeneratorService.getDeviceLogoUrl(deviceType)
                 );
                 if(deviceDto.deviceState == null)
                     continue;
@@ -200,15 +202,16 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
     public List<DeviceAndFeatureRelationDto> getRalation(DeviceMasterObjInfoDto masterDto) {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureDtos = new ArrayList<>();
+        String masterType = deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs);
         DeviceDto masterDeviceDto = new DeviceDto(
                 "default",
                 convert(masterDto.state),
-                deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
-                //String.valueOf(masterDto.objectId),
+                masterType,
                 buildId(masterDto.objectId,-1),
                 masterDto.name,
                 masterDto.owner.accountId,
-                DeviceLogicState.OPEN
+                DeviceLogicState.OPEN,
+                deviceInfoGeneratorService.getDeviceLogoUrl(masterType)
         );
         DeviceAndFeatureRelationDto masterDeviceAndFeatureDto = new DeviceAndFeatureRelationDto(
                 masterDeviceDto,
@@ -217,15 +220,16 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         deviceAndFeatureDtos.add(masterDeviceAndFeatureDto);
 
         for (DeviceSlaveObjInfoDto objDto : masterDto.slaves) {
+            String deviceType = deviceInfoGeneratorService.generatorDeviceType(objDto.stubs);
             DeviceDto deviceDto = new DeviceDto(
                     "default",
                     convert(objDto.state),
-                    deviceInfoGeneratorService.generatorDeviceType(objDto.stubs),
-                    //String.valueOf(objDto.objectSlaveId),
+                    deviceType,
                     buildId(masterDto.objectId,objDto.objectSlaveId),
                     objDto.name,
                     masterDto.owner.accountId,
-                    DeviceLogicState.OPEN
+                    DeviceLogicState.OPEN,
+                    deviceInfoGeneratorService.getDeviceLogoUrl(deviceType)
             );
             if(deviceDto.deviceState == null)
                 continue;
