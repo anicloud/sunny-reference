@@ -8,7 +8,7 @@ import com.ani.bus.service.commons.dto.aniservice.AniServiceRegisterDto;
 import com.ani.bus.service.commons.dto.aniservice.LanguageEnum;
 import com.ani.earth.commons.dto.AccountPhoneDto;
 import com.ani.earth.commons.dto.AccountRegisterDto;
-import com.ani.earth.commons.dto.AccountType;
+import com.ani.earth.commons.enumeration.AccountType;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.domain.adapter.AniServiceDaoAdapter;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;

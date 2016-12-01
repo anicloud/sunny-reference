@@ -2,7 +2,6 @@ package com.anicloud.sunny.application.constant;
 
 import com.ani.bus.service.commons.session.AniServiceSession;
 import com.anicloud.sunny.application.service.sunny.stub.SunnyStub;
-import com.anicloud.sunny.application.service.sunny.stub.SunnyStubMappings;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
 

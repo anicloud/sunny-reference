@@ -3,6 +3,7 @@
     "featureId": "1",
     "featureName": "Power On",
     "description": "light power on feature.",
+    "type": "EXECUTE",
     "argDtoList": [
       {
         "name": "brightnessLux",
@@ -38,6 +39,7 @@
     "featureId": "2",
     "featureName": "Power Off",
     "description": "light power off feature.",
+    "type": "EXECUTE",
     "argDtoList": [],
     "featureFunctionDtoList": [
       {
@@ -56,6 +58,7 @@
     "featureId": "3",
     "featureName": "#Air-Sensor--powerOn",
     "description": "Air Sensor power on feature.",
+    "type": "EXECUTE",
     "argDtoList": [
       {
         "name": "degreesC",
@@ -83,6 +86,78 @@
       {
         "degreesC": [
           "1:degreesC"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "4",
+    "featureName": "temperature",
+    "description": "temperature Sensor.",
+    "type": "READ",
+    "argDtoList": [
+      {
+        "name": "temperature",
+        "dataType": "FLOAT",
+        "screenName": "temperature"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "1",
+        "stubId": 3,
+        "groupId": 2,
+        "functionName": "temperatureNotify",
+        "functionType": "SYNC",
+        "inputArgList": [
+          {
+            "name": "temperature",
+            "dataType": "FLOAT"
+          }
+        ],
+        "outputArgList": null
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "temperature": [
+          "1:temperature"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "5",
+    "featureName": "humidity",
+    "description": "humidity Sensor.",
+    "type": "READ",
+    "argDtoList": [
+      {
+        "name": "humidity",
+        "dataType": "FLOAT",
+        "screenName": "humidity"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "1",
+        "stubId": 4,
+        "groupId": 2,
+        "functionName": "humidityNotify",
+        "functionType": "SYNC",
+        "inputArgList": [
+          {
+            "name": "humidity",
+            "dataType": "FLOAT"
+          }
+        ],
+        "outputArgList": null
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "humidity": [
+          "1:humidity"
         ]
       }
     ]

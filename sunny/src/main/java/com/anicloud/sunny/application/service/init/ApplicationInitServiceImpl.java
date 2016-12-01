@@ -69,10 +69,12 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     @Override
     protected void initUserDeviceAndDeviceFeatureRelation(UserDto userDto,
                                                           AniOAuthAccessToken accessToken) throws Exception {
+        LOGGER.info("initUserDeviceAndDeviceFeatureRelation");
         List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList = agentTemplate
                 .getDeviceObjService(accessToken.getAccessToken())
                 .getDeviceObjInfo(userDto.hashUserId, Boolean.TRUE);
         if(deviceMasterObjInfoDtoList!=null){
+            LOGGER.info("deviceMasterObjInfoDtoList size is "+deviceMasterObjInfoDtoList.size());
             List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos =
                     getRelation(deviceMasterObjInfoDtoList, accessToken);
             LOGGER.info("Initialize DeviceAndFeatureRelation...");
@@ -86,7 +88,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     @Override
     public void updateUserDeviceAndDeviceFeatureRelation(DeviceMasterObjInfoDto masterDto) {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos = getRalation(masterDto);
-        DeviceAndFeatureRelationDto relationDto = deviceAndFeatureRelationService.findByDeviceIdentificationCode(String.valueOf(masterDto.objectId));
+        DeviceAndFeatureRelationDto relationDto = deviceAndFeatureRelationService.findByDeviceIdentificationCode(buildId(masterDto.objectId,-1));
         if(relationDto == null) {
             deviceAndFeatureRelationService.batchSave(deviceAndFeatureRelationDtos);
         } else {
@@ -153,16 +155,19 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
             AniOAuthAccessToken accessToken) throws Exception {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureDtos = new ArrayList<>();
         for (DeviceMasterObjInfoDto masterDto : deviceMasterObjInfoDtoList) {
+            String masterType = deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs);
             DeviceDto masterDeviceDto = new DeviceDto(
                     "default",
                     convert(masterDto.state),
-                    deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
-                    //String.valueOf(masterDto.objectId),
+                    masterType,
                     buildId(masterDto.objectId,-1),
                     masterDto.name,
                     masterDto.owner.accountId,
-                    DeviceLogicState.OPEN
+                    DeviceLogicState.OPEN,
+                    deviceInfoGeneratorService.getDeviceLogoUrl(masterType)
             );
+            if (masterDeviceDto.deviceState == null)
+                continue;
             DeviceAndFeatureRelationDto masterDeviceAndFeatureDto =
                     new DeviceAndFeatureRelationDto(
                             masterDeviceDto,
@@ -171,15 +176,16 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
             deviceAndFeatureDtos.add(masterDeviceAndFeatureDto);
 
             for (DeviceSlaveObjInfoDto objDto : masterDto.slaves) {
+                String deviceType = deviceInfoGeneratorService.generatorDeviceType(objDto.stubs);
                 DeviceDto deviceDto = new DeviceDto(
                         "default",
                         convert(objDto.state),
-                        deviceInfoGeneratorService.generatorDeviceType(objDto.stubs),
-                        //String.valueOf(objDto.objectSlaveId),
+                        deviceType,
                         buildId(masterDto.objectId,objDto.objectSlaveId),
                         objDto.name,
                         masterDto.owner.accountId,
-                        DeviceLogicState.OPEN
+                        DeviceLogicState.OPEN,
+                        deviceInfoGeneratorService.getDeviceLogoUrl(deviceType)
                 );
                 if(deviceDto.deviceState == null)
                     continue;
@@ -196,15 +202,16 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
     public List<DeviceAndFeatureRelationDto> getRalation(DeviceMasterObjInfoDto masterDto) {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureDtos = new ArrayList<>();
+        String masterType = deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs);
         DeviceDto masterDeviceDto = new DeviceDto(
                 "default",
                 convert(masterDto.state),
-                deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs),
-                //String.valueOf(masterDto.objectId),
+                masterType,
                 buildId(masterDto.objectId,-1),
                 masterDto.name,
                 masterDto.owner.accountId,
-                DeviceLogicState.OPEN
+                DeviceLogicState.OPEN,
+                deviceInfoGeneratorService.getDeviceLogoUrl(masterType)
         );
         DeviceAndFeatureRelationDto masterDeviceAndFeatureDto = new DeviceAndFeatureRelationDto(
                 masterDeviceDto,
@@ -213,15 +220,16 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         deviceAndFeatureDtos.add(masterDeviceAndFeatureDto);
 
         for (DeviceSlaveObjInfoDto objDto : masterDto.slaves) {
+            String deviceType = deviceInfoGeneratorService.generatorDeviceType(objDto.stubs);
             DeviceDto deviceDto = new DeviceDto(
                     "default",
                     convert(objDto.state),
-                    deviceInfoGeneratorService.generatorDeviceType(objDto.stubs),
-                    //String.valueOf(objDto.objectSlaveId),
+                    deviceType,
                     buildId(masterDto.objectId,objDto.objectSlaveId),
                     objDto.name,
                     masterDto.owner.accountId,
-                    DeviceLogicState.OPEN
+                    DeviceLogicState.OPEN,
+                    deviceInfoGeneratorService.getDeviceLogoUrl(deviceType)
             );
             if(deviceDto.deviceState == null)
                 continue;
@@ -247,6 +255,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                     return DeviceState.REMOVED;
             }
         }
+        LOGGER.info("device state is "+ state);
         return null;
     }
 
@@ -256,12 +265,14 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
     public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubMeta> stubDtos) {
         List<DeviceFeatureDto> deviceFeatureDtoList = new ArrayList<>();
-        for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
+        if (stubDtos != null) {
             Set<StubIdentity> deviceStubSet = fetchDeviceStubSet(stubDtos);
-            Set<StubIdentity> featureStubSet = fetchDeviceFeatureStubSet(deviceFeatureDto);
-            Collection<StubIdentity> intersectionList = CollectionUtils.intersection(deviceStubSet, featureStubSet);
-            if(featureStubSet.size() == intersectionList.size()){
-                deviceFeatureDtoList.add(deviceFeatureDto);
+            for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
+                Set<StubIdentity> featureStubSet = fetchDeviceFeatureStubSet(deviceFeatureDto);
+                Collection<StubIdentity> intersectionList = CollectionUtils.intersection(deviceStubSet, featureStubSet);
+                if (featureStubSet.size() == intersectionList.size()) {
+                    deviceFeatureDtoList.add(deviceFeatureDto);
+                }
             }
         }
         return deviceFeatureDtoList;

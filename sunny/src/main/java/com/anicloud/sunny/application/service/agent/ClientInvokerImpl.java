@@ -2,16 +2,12 @@ package com.anicloud.sunny.application.service.agent;
 
 import com.ani.agent.service.core.validate.DomainObjectValidator;
 import com.ani.agent.service.service.websocket.ClientInvokable;
-import com.ani.bus.service.commons.dto.anistub.AniDataType;
 import com.ani.bus.service.commons.dto.anistub.AniStub;
 import com.ani.bus.service.commons.dto.anistub.Argument;
 
-import com.ani.bus.service.commons.dto.anistub.ArgumentType;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.service.strategy.CurrentFeatureService;
 import com.anicloud.sunny.application.service.sunny.stub.SunnyStub;
-import com.anicloud.sunny.application.service.sunny.stub.SunnyStubMappings;
-import com.anicloud.sunny.infrastructure.persistence.domain.device.CurrentFeatureInstanceDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -21,7 +17,6 @@ import javax.validation.ValidationException;
 import javax.websocket.CloseReason;
 import javax.websocket.EncodeException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

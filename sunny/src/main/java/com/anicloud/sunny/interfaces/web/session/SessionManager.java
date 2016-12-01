@@ -1,6 +1,7 @@
 package com.anicloud.sunny.interfaces.web.session;
 
 import com.ani.agent.service.service.websocket.AccountInvoker;
+import com.ani.agent.service.service.websocket.AccountNotify;
 import com.ani.agent.service.service.websocket.AniInvokerImpl;
 import com.ani.bus.service.commons.dto.accountobject.AccountObject;
 import com.ani.bus.service.commons.message.SocketMessage;
@@ -18,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by zhaoyu on 15-9-29.
  */
-public class SessionManager {
+public class SessionManager implements AccountNotify{
     private final static Logger LOGGER = LoggerFactory.getLogger(SessionManager.class);
 
     /**
@@ -40,12 +41,6 @@ public class SessionManager {
                     }
                 }
                 sessionVector.removeElementAt(index);
-                if(sessionVector.size() <= 0) {
-                    //通知service-bus用户掉线
-                    AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
-                    AccountObject accountObj = new AccountObject(Long.valueOf(hashUserId));
-                    SocketMessage socketMessage = accountInvoker.logout(accountObj);
-                }
             }
         }
     }
@@ -59,15 +54,6 @@ public class SessionManager {
         } else {
             sessionVector = new Vector<>();
             sessionVector.add(session);
-
-            //通知服务器客户端状态
-            AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
-            Map<Long, List<Integer>> map = new HashMap<Long, List<Integer>>();
-            List<Integer> list = new ArrayList<>();
-            list.add(1);
-            map.put(10L,list);
-            AccountObject accountObj = new AccountObject(Long.valueOf(hashUserId),map);
-            SocketMessage socketMessage = accountInvoker.registerAndLogin(accountObj);
         }
         userSessionMaps.put(hashUserId, sessionVector);
     }
@@ -87,5 +73,21 @@ public class SessionManager {
     public static Vector<WebSocketSession> getWebSocketSession(String hashUserId) {
         Vector<WebSocketSession> sessionVector = userSessionMaps.get(hashUserId);
         return sessionVector;
+    }
+
+    @Override
+    public void accountReconnectNotify() {
+        AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
+        try {
+            for (String hashUserId:userSessionMaps.keySet()) {
+                AccountObject accountObj = new AccountObject(Long.valueOf(hashUserId));
+                SocketMessage socketMessage = accountInvoker.registerAndLogin(accountObj);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (EncodeException e) {
+            e.printStackTrace();
+        }
+
     }
 }

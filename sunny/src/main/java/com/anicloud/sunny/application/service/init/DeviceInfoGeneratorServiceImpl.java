@@ -22,7 +22,8 @@ import java.util.*;
 @Service
 public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
     private final static Logger LOGGER = LoggerFactory.getLogger(DeviceInfoGeneratorServiceImpl.class);
-    private final static String FILE_PATH = "properties/DeviceTypeRule.json";
+    private final static String FILE_PATH_DEVICE_TYPE = "properties/DeviceTypeRule.json";
+    private final static String FILE_PATH_DEVICE_LOGO = "properties/DeviceLogoUrl.json";
 
     @Resource
     private ObjectMapper objectMapper;
@@ -31,7 +32,7 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
     @PostConstruct
     public void initDeviceTypeGeneratorRule() {
         DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
-        org.springframework.core.io.Resource resource = resourceLoader.getResource(FILE_PATH);
+        org.springframework.core.io.Resource resource = resourceLoader.getResource(FILE_PATH_DEVICE_TYPE);
         try {
             File targetFile = resource.getFile();
             objectMapper.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
@@ -80,6 +81,26 @@ public class DeviceInfoGeneratorServiceImpl extends DeviceInfoGeneratorService {
             }
         }
         return deviceType;
+    }
+
+    @Override
+    @PostConstruct
+    public void initDeviceLogoUrl() {
+        DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
+        org.springframework.core.io.Resource resource = resourceLoader.getResource(FILE_PATH_DEVICE_LOGO);
+        try {
+            File targetFile = resource.getFile();
+            deviceLogoUrls = objectMapper.readValue(targetFile, Map.class);
+        } catch (IOException e) {
+            LOGGER.error("read device logo error. {}", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getDeviceLogoUrl(String deviceType) {
+        String logoUrl = deviceLogoUrls.get(deviceType);
+        return  logoUrl;
     }
 
     private Set<StubIdentity> fetchDeviceStubSet(List<StubMeta> stubs) {

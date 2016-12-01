@@ -2,22 +2,26 @@ package com.anicloud.sunny.application.service.init;
 
 import com.ani.bus.service.commons.dto.anidevice.stub.StubMeta;
 import com.ani.octopus.commons.stub.dto.StubDto;
+import com.anicloud.sunny.domain.model.device.Device;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.collections.map.HashedMap;
 
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by zhaoyu on 15-7-1.
  */
 public abstract class DeviceInfoGeneratorService {
     protected static Map<String, Set<StubIdentity>> deviceTypeRule;  // key is type, value set is stub set
+    protected static Map<String, String> deviceLogoUrls; //key is type, value is logo url
 
     public abstract void initDeviceTypeGeneratorRule();
     public abstract String generatorDeviceType(List<StubMeta> stubs);
-
+    public abstract void initDeviceLogoUrl();
+    public abstract String getDeviceLogoUrl(String deviceType);
 }
 
 class StubIdentity implements Serializable {

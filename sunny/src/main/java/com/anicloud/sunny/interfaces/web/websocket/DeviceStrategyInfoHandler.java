@@ -36,9 +36,14 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
         String hashUserId = String.valueOf(session.getAttributes().get("hashUserId"));
         SessionManager.addSession(hashUserId, session);
         int sessionMapSize = SessionManager.getWebSocketSession(hashUserId).size();
-        if(sessionMapSize == 0) {
+        //向平台汇报账户状态：通知上线
+        if(sessionMapSize == 1) {
             AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
-            AccountObject accountObj = new AccountObject(Long.parseLong(hashUserId));
+            Map<Long, List<Integer>> map = new HashMap<Long, List<Integer>>();
+            List<Integer> list = new ArrayList<>();
+            list.add(1);
+            map.put(10L,list);
+            AccountObject accountObj = new AccountObject(Long.parseLong(hashUserId),map);
             SocketMessage socketMessage = accountInvoker.login(accountObj);
         }
         LOG.info("afterConnectionEstablished" + hashUserId);
@@ -51,6 +56,7 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
         LOG.info("afterConnectionClosed" + hashUserId);
         SessionManager.removeSession(hashUserId, session.getId());
         int sessionMapSize = SessionManager.getWebSocketSession(hashUserId).size();
+        //向平台汇报账户状态：通知下线
         if(sessionMapSize == 0) {
             AccountInvoker accountInvoker = new AniInvokerImpl(Constants.aniServiceSession);
             AccountObject accountObj = new AccountObject(Long.parseLong(hashUserId));

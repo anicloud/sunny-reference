@@ -2,7 +2,6 @@ package com.anicloud.sunny.infrastructure.persistence.service.app;
 
 import com.ani.bus.service.commons.dto.anistub.AniStub;
 import com.anicloud.sunny.application.service.sunny.stub.SunnyStub;
-import com.anicloud.sunny.application.service.sunny.stub.SunnyStubMappings;
 
 import java.util.Map;
 

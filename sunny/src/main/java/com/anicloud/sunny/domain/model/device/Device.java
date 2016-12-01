@@ -24,30 +24,16 @@ public class Device extends AbstractDomain {
     public DeviceLogicState logicState;
     public String deviceType;
     public String deviceGroup;
-
+    public String logoUrl;
     public Long ownerId;
-
-//    public List<DeviceAndUserRelation> deviceAndUserRelations;
 
     public Device() {
     }
 
     public Device(String deviceGroup, DeviceState deviceState,
                   String deviceType, String identificationCode,
-                  String name, Long ownerId, DeviceLogicState logicState) {
-        this.deviceGroup = deviceGroup;
-        this.deviceState = deviceState;
-        this.deviceType = deviceType;
-        this.identificationCode = identificationCode;
-        this.name = name;
-        this.ownerId = ownerId;
-        this.logicState = logicState;
-    }
-
-    public Device(String deviceGroup, DeviceState deviceState,
-                  String deviceType, String identificationCode,
                   String name, Long ownerId, DeviceLogicState logicState,
-                  List<DeviceAndUserRelation> deviceAndUserRelations) {
+                  String logoUrl) {
         this.deviceGroup = deviceGroup;
         this.deviceState = deviceState;
         this.deviceType = deviceType;
@@ -55,7 +41,7 @@ public class Device extends AbstractDomain {
         this.name = name;
         this.ownerId = ownerId;
         this.logicState = logicState;
-//        this.deviceAndUserRelations = deviceAndUserRelations;
+        this.logoUrl = logoUrl;
     }
 
     public static Device save(DevicePersistenceService persistenceService, Device device) {
@@ -139,8 +125,8 @@ public class Device extends AbstractDomain {
                 deviceDao.identificationCode,
                 deviceDao.name,
                 deviceDao.ownerId,
-                deviceDao.logicState
-//                DeviceAndUserRelation.toRelationList(deviceDao.deviceAndUserRelationDaoList)
+                deviceDao.logicState,
+                deviceDao.logoUrl
         );
         return device;
     }
@@ -156,8 +142,8 @@ public class Device extends AbstractDomain {
                 device.identificationCode,
                 device.name,
                 device.ownerId,
-                device.logicState
-//                DeviceAndUserRelation.toDaoList(device.deviceAndUserRelations)
+                device.logicState,
+                device.logoUrl
         );
         return deviceDao;
     }
@@ -187,5 +173,9 @@ public class Device extends AbstractDomain {
             throw new RuntimeException("This class does not implement Cloneable.");
         }
         return device;
+    }
+
+    public static String buildIdentificationCode(Long masterId,Integer slaveId){
+        return masterId + DEVICE_CODE_SEPARATOR + slaveId;
     }
 }

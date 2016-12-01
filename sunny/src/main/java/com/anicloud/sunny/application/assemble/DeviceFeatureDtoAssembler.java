@@ -27,7 +27,8 @@ public class DeviceFeatureDtoAssembler {
                 FeatureArgAssembler.toFeatureArgList(deviceFeatureDto.argDtoList),
                 FeatureFunctionDtoAssembler.toFeatureFunctionList(deviceFeatureDto.featureFunctionDtoList),
                 deviceFeatureDto.featureId,
-                deviceFeatureDto.featureName
+                deviceFeatureDto.featureName,
+                deviceFeatureDto.type
         );
 
         return deviceFeature;
@@ -44,7 +45,8 @@ public class DeviceFeatureDtoAssembler {
                 deviceFeature.featureArgFuncArgMapList,
                 FeatureFunctionDtoAssembler.toDtoList(deviceFeature.featureFunctionList),
                 deviceFeature.featureId,
-                deviceFeature.featureName
+                deviceFeature.featureName,
+                deviceFeature.type
         );
         return deviceFeatureDto;
     }
