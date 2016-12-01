@@ -5391,3 +5391,6 @@ h3 > .breadcrumb.pull-right,
 .uk-notify-message:hover > .close {
   visibility: visible;
 }
+.ngdialog.ngdialog-theme-default .ngdialog-content{
+  border-radius: 0;
+}

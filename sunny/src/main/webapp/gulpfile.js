@@ -48,11 +48,13 @@ var paths = {
 
 var replacePluginMapDev={
     'sunny_bootstrap.css':'bower_components/bootstrap/dist/css',
-    'simple-sidebar.css':'bower_components/simple-sidebar'
+    'simple-sidebar.css':'bower_components/simple-sidebar',
+    'bootstrap-datetimepicker.css':'bower_components/eonasdan-bootstrap-datetimepicker/build/css'
 };
 var replacePluginMapProd={
     'sunny_bootstrap.min.css':'bower_components/bootstrap/dist/css',
-    'simple-sidebar.min.css':'bower_components/simple-sidebar'
+    'simple-sidebar.min.css':'bower_components/simple-sidebar',
+    'bootstrap-datetimepicker.min.css':'bower_components/eonasdan-bootstrap-datetimepicker/build/css'
 };
 ///////////////////////
 // Development tasks //
@@ -194,15 +196,43 @@ gulp.task('minimize',['minimizeCss','minimizeJs']);
 gulp.task('minimizeCss',function () {
   //  var cssFilter=$.filter();
     return gulp.src(app.dev+'/src/css/**/*.css')
-        .pipe($.concat('app.min.css'))
-       // .pipe($.minifyCss({cache: true}))
-        .pipe(gulp.dest(app.dist+'/src/css'))
+          .pipe($.order([
+              "/src/css/app.css",
+              "/src/css/sunny.css",
+              "/src/css/timeline.css"
+          ]))
+          .pipe($.concat('app.min.css'))
+          .pipe($.minifyCss({cache: true}))
+          .pipe(gulp.dest(app.dist+'/src/css'))
 });
 gulp.task('minimizeJs',function () {
     //  var jsFilter=$.filter();
     return gulp.src(app.dev+'/src/js/**/*.js')
-        //.pipe($.concat('app.min.js'))
-        .pipe($.ngAnnotate())
+        .pipe($.order([
+            "src/js/config/language-config.js",
+            "src/js/config/route-config.js",
+            "src/js/service/user-service.js",
+            "src/js/service/strategy-service.js",
+            "src/js/service/device-service.js",
+            "src/js/service/websocket-service.js",
+            "src/js/service/manager-service.js",
+            "src/js/service/notify-service.js",
+            "src/js/controller/home-page-ctrl.js",
+            "src/js/controller/strategy-ctrl.js",
+            "src/js/controller/strategy-edit-ctrl.js",
+            "src/js/controller/feature-edit-ctrl.js",
+            "src/js/controller/device-ctrl.js",
+            "src/js/controller/main-ctrl.js",
+            "src/js/controller/user-ctrl.js",
+            "src/js/controller/slider.js",
+            "src/js/controller/repeat-control.js",
+            "src/js/controller/device-detail-ctrl.js",
+            "src/js/dto/featureInstance-dto.js",
+            "src/js/dto/strategyInstance-dto.js",
+            "src/js/sunny.js"
+        ]))
+        .pipe($.concat('app.min.js'))
+        //.pipe($.ngAnnotate())
         //.pipe($.uglify())
         .pipe(gulp.dest(app.dist+'/src/js'))
 });
