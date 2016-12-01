@@ -48,6 +48,18 @@ public class StrategyController {
         return StrategyFormDto.convertToStrategyForms(strategies);
     }
 
+    @RequestMapping(value="/strategies/{hashUserId}/{page}/{number}")
+    @ResponseBody
+    public Map<String,Object> getStrategies(@PathVariable("hashUserId") Long hashUserId,@PathVariable("page") int page, @PathVariable("number") int number ){
+        Map<String,Object> result = new HashMap<>();
+        int count = strategyService.getCountByHashUserId(hashUserId);
+        List<StrategyDto> strategyDtos = strategyService.getStrategyByUser(hashUserId,page,number);
+        result.put("count",count);
+        result.put("list",StrategyFormDto.convertToStrategyForms(strategyDtos));
+        return result;
+
+    }
+
     @RequestMapping(value = "/strategy",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> saveStrategy(@RequestParam(value = "hashUserId")Long hashUserId,@RequestParam(value = "strategyInstance")String strategyInstance){

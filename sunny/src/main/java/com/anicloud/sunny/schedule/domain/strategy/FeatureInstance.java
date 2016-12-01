@@ -1,13 +1,10 @@
 package com.anicloud.sunny.schedule.domain.strategy;
 
 
-import com.anicloud.sunny.application.service.holder.SpringContextHolder;
-import com.anicloud.sunny.application.service.strategy.CurrentFeatureEventHandler;
-import com.anicloud.sunny.application.service.strategy.CurrentFeatureService;
-import com.anicloud.sunny.infrastructure.persistence.domain.device.CurrentFeatureInstanceDao;
 import com.anicloud.sunny.schedule.domain.schedule.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 import java.util.List;
 

@@ -39,7 +39,7 @@ public class RefreshTemperatureStub implements SunnyStub {
             DeviceAndUserRelationDto relationDto = relationService.getDeviceAndUserRelation(fromObjectId,accountId);
             List<Argument> inputValues = stub.getInputValues();
 
-            Map<String,String> params =  objectMapper.readValue(relationDto.initParam,Map.class);
+            Map<String,String> params = objectMapper.readValue(relationDto.initParam,Map.class);
             for (Argument arg : inputValues) {
                 if (arg.getArgumentType().getType() != AniDataType.ARRAY){
                     params.put(arg.getName(),arg.getValue().toString());

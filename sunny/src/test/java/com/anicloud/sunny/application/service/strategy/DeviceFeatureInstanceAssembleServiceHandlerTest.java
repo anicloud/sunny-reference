@@ -31,6 +31,7 @@ public class DeviceFeatureInstanceAssembleServiceHandlerTest {
     @Resource
     private DeviceFeatureInstanceAssembleService assembleService;
 
+
     private DeviceFeatureInstanceAssembleDto assembleDto;
     private ObjectMapper objectMapper = new ObjectMapper();
 

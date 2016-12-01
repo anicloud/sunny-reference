@@ -37,6 +37,8 @@ public interface StrategyService {
     public StrategyDto getStrategyDtoById(String strategyId);
     public Strategy getStrategyById(String strategyId);
     public List<StrategyDto> getStrategyByUser(Long hashUserId);
+    List<StrategyDto> getStrategyByUser(Long hashUserId,int page,int number);
+    int getCountByHashUserId(Long hashUserId);
 
     // method for device feature
     /**
