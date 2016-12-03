@@ -373,23 +373,23 @@ body {
 }
 
 
-.panel-default{
-    color: #478fca;
-    font-weight: 400;
-    background-image: none;!important;
-    background-color: #ffffff;
-    padding: 20px 0px;
-    position: relative;
-}
-.panel-collapse {
-    background-color: #ffffff;
-    margin: 10px 15px 20px;
-    border-radius: 4px;
-    border: 1px #D3D3D3 solid;
-}
-.panel-collapse .panel-body {
-    padding: 0 15px;
-}
+/*.panel-default{*/
+    /*color: #478fca;*/
+    /*font-weight: 400;*/
+    /*background-image: none;!important;*/
+    /*background-color: #ffffff;*/
+    /*padding: 20px 0px;*/
+    /*position: relative;*/
+/*}*/
+/*.panel-collapse {*/
+    /*background-color: #ffffff;*/
+    /*margin: 10px 15px 20px;*/
+    /*border-radius: 4px;*/
+    /*border: 1px #D3D3D3 solid;*/
+/*}*/
+/*.panel-collapse .panel-body {*/
+    /*padding: 0 15px;*/
+/*}*/
 
 .strategy-control {
     /*position: absolute;*/

@@ -4,14 +4,18 @@
     </div>
     <div class="strategy-template">
         <div class="list-group-item col-lg-12">
-            <div class="panel-input">
-                <input type="text" class="form-control" ng-model="strategyTemplate.strategyName" placeholder="输入策略名称"
+            <div class="panel-input row">
+                <div class="col-xs-6">
+                <input type="text" style="padding:5px" ng-model="strategyTemplate.strategyName" placeholder="输入策略名称"
                        focus
                        required>
+                </div>
+
                 <!--<ul class="operation list-unstyled">-->
-                <div class="operation">
-                    <i class="fa fa-retweet" ng-click="openRepeatTemplate()"></i>
-                    <i class="fa fa-plus" ng-click="openFeatureEditTemplate()"></i>
+                <div class="col-xs-offset-9">
+                        repeat: <button class="btn btn-default" ng-click="openRepeatTemplate()">once</button>
+                    <!--<i class="fa fa-retweet" ></i>-->
+                    <!--<i class="fa fa-plus" ng-click="openFeatureEditTemplate()"></i>-->
                 </div>
                 <!--</ul>-->
             </div>

@@ -215,9 +215,9 @@ fieldset .form-group {
 .popover .popover-title {
   border: 0;
 }
-.nav.nav-pills .active > a {
-  background-color: #5d9cec;
-}
+/*.nav.nav-pills .active > a {*/
+  /*background-color: #5d9cec;*/
+/*}*/
 .dropdown-menu {
   border-radius: 3px;
 }
@@ -5393,4 +5393,12 @@ h3 > .breadcrumb.pull-right,
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content{
   border-radius: 0;
+}
+.repeat-tab-btn{
+  min-width: 40px;
+  margin:0 10px;
+  background-color: white;
+}
+.repeat-tab-btn-selected{
+  background-color:#e79f32 ;
 }

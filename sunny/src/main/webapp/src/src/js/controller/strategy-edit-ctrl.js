@@ -16,7 +16,7 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
                 controller: 'FeatureEditCtrl'
             });
     }
-
+    
     $scope.openRepeatTemplate = function () {
         ngDialog.open(
             {
@@ -25,11 +25,11 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
                 controller: 'RepeatCtrl'
             });
     }
-
+    
     $scope.deleteFeature = function (index, strategy) {
         ManagerService.deleteFeature(index, strategy);
     };
-
+    
     // strategy Template
     $scope.strategyTemplate = {
         "strategyId": "",
@@ -48,13 +48,13 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
             }
         }
     };
-
+    
     $scope.strategyTemplate.clearAll = function () {
         $scope.strategyTemplate.strategyName = "";
         $scope.strategyTemplate.strategyDescription = "";
         $scope.strategyTemplate.strategyState = "";
     };
-
+    
     $scope.addStrategy = function () {
         $scope.strategyTemplate.valid = true;
         if ($scope.strategyTemplate.strategyName.length == 0) {
@@ -81,27 +81,33 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
             null,
             null,
             jsonClone($scope.strategyTemplate.featureList));
-
+    
         ManagerService.addStrategy(strategyInstance);
         return true;
     };
     $scope.triggerTimerToDate = function(value) {
         var obj = JSON.parse(value);
         return obj.startTime;
-    }
-
+    };
+    
     //
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
-
+    
     $scope.dynamicPopover = {
         content: 'Hello, World!',
         templateUrl: 'myPopoverTemplate.html',
         title: 'Title'
     };
     $scope.initTimer=function () {
-        
+       
+    };
+    $scope.strategyRepeat={ //init
+        isRepeat:false, //once,week
+        weekRepeat:[],  //[] if isRepeat is once
+        startTime:moment(),
+        isScheduleNow:false   //
     }
-
+   
 };
