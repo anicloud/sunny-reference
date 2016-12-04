@@ -4,20 +4,19 @@
     </div>
     <div class="strategy-template">
         <div class="list-group-item col-lg-12">
-            <div class="panel-input row">
-                <div class="col-xs-6">
-                <input type="text" style="padding:5px" ng-model="strategyTemplate.strategyName" placeholder="输入策略名称"
-                       focus
-                       required>
+            <div class="panel-input row" style="padding-left:20px">
+                <div>
+                    <span>{{strategyTemplate.strategyName||'未命名'}}</span>&nbsp;&nbsp;
+                    <span>{{strategyRepeat.startTime.calendar()}}开始</span>&nbsp;&nbsp;
+                    <span>{{strategyRepeat.isRepeat?'按星期重复':"不重复"}}</span>
+                    <span ng-show="strategyRepeat.isRepeat">
+                        每周<span ng-repeat="weekDay in strategyRepeat.weekRepeat">{{['日','一','二','三','四','五','六'][weekDay]}}</span>
+                    </span>
+                <span>
+                      &nbsp;&nbsp;<button class="btn btn-default" ng-click="openRepeatTemplate()">修改</button>
+                </span>
+                    <!--</ul>-->
                 </div>
-
-                <!--<ul class="operation list-unstyled">-->
-                <div class="col-xs-offset-9">
-                        repeat: <button class="btn btn-default" ng-click="openRepeatTemplate()">once</button>
-                    <!--<i class="fa fa-retweet" ></i>-->
-                    <!--<i class="fa fa-plus" ng-click="openFeatureEditTemplate()"></i>-->
-                </div>
-                <!--</ul>-->
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -52,7 +51,7 @@
             {{strategyTemplate.error}}
         </div>
         <div class="btn-submit">
-            <button class="btn btn-default btn-long" ng-click="addStrategy() && closeThisDialog()">提交</button>
+            <button class="btn btn-default btn-long" ng-click="addStrategy()">提交</button>
             <!--<button class="btn btn-default">取消</button>-->
         </div>
     </div>

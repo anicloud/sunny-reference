@@ -1,47 +1,48 @@
-<div class="repeat-dialog">
+<div class="repeat-dialog" id="repeat-wrapper">
     <div class="repeatarea">
         <div>
-            <label>start time</label>
-            <div class="container">
+            <label>策略名称:&nbsp;</label><input type="text" focus required ng-model="tempRepeat.name"><span ng-show="!tempRepeat.nameRequired">策略名不能为空</span>
+        </div>
+        <div>
+            <label>策略开始时间:</label>
+            <span>&nbsp;&nbsp;{{tempRepeat.startTime.calendar()}}</span>
+            <div>
                 <div class="row">
                     <div style="overflow:hidden;">
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-xs-6" style="width: 200px; height:200px;text-align: center;display: block;">
-                                    <div id="datetimepicker12"></div>
-                                </div>
-                                <!--<div class="col-xs-6" style="width:200px;">-->
-                                    <!--<button ng-click="checkDOM()">checkDOM</button>-->
-                                <!--</div>-->
-                            </div>
+                            <div id="datetimepicker12"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
         <script>
             $('#datetimepicker12').datetimepicker({
                 inline: true,
-                minDate:moment(),
-                maxDate:moment().add(1,'months'),
-                format:'LT'
+                minDate: moment(localStorage.getItem('currentStrategyTime')||new Date()),
+                maxDate: moment(localStorage.getItem('currentStrategyTime')||new Date()).add(1, 'day'),
+                format: 'LT'
             });
         </script>
+        </div>
         <div>
             <label>重复设置</label>
-            <button class="btn repeat-tab-btn" ng-class="{'repeat-tab-btn-selected':!strategyRepeat.isRepeat}" ng-click="strategyRepeat.isRepeat=false">once</button>
-            <button class="btn repeat-tab-btn" ng-class="{'repeat-tab-btn-selected':strategyRepeat.isRepeat}" ng-click="strategyRepeat.isRepeat=true">week</button>
+            <button class="btn repeat-tab-btn" ng-class="{'repeat-tab-btn-selected':!tempRepeat.isRepeat}"
+                    ng-click="tempRepeat.isRepeat=false">仅一次
+            </button>
+            <button class="btn repeat-tab-btn" ng-class="{'repeat-tab-btn-selected':tempRepeat.isRepeat}"
+                    ng-click="tempRepeat.isRepeat=true">按星期
+            </button>
         </div>
-        <form class="repeatlist" ng-show="">
-            <!--<div class="btn-group weekfreq">-->
-                <!--<label class="btn btn-primary" ng-model="repweek.sun" uib-btn-checkbox>日</label>-->
-                <!--<label class="btn btn-primary" ng-model="repweek.mon" uib-btn-checkbox>一</label>-->
-                <!--<label class="btn btn-primary" ng-model="repweek.tue" uib-btn-checkbox>二</label>-->
-                <!--<label class="btn btn-primary" ng-model="repweek.wed" uib-btn-checkbox>三</label>-->
-                <!--<label class="btn btn-primary" ng-model="repweek.thu" uib-btn-checkbox>四</label>-->
-                <!--<label class="btn btn-primary" ng-model="repweek.fri" uib-btn-checkbox>五</label>-->
-                <!--<label class="btn btn-primary" ng-model="repweek.sat" uib-btn-checkbox>六</label>-->
-            <!--</div>-->
+            </div>
+        <form class="repeatlist" ng-show="tempRepeat.isRepeat" style="margin-top: 10px">
+            <div class="btn-group weekfreq">
+            <label class="btn btn-primary" ng-model="tempRepeat.repWeek[0]" uib-btn-checkbox>日</label>
+                <label class="btn btn-primary" ng-model="tempRepeat.repWeek[1]" uib-btn-checkbox>一</label>
+            <label class="btn btn-primary" ng-model="tempRepeat.repWeek[2]" uib-btn-checkbox>二</label>
+            <label class="btn btn-primary" ng-model="tempRepeat.repWeek[3]" uib-btn-checkbox>三</label>
+            <label class="btn btn-primary" ng-model="tempRepeat.repWeek[4]" uib-btn-checkbox>四</label>
+            <label class="btn btn-primary" ng-model="tempRepeat.repWeek[5]" uib-btn-checkbox>五</label>
+            <label class="btn btn-primary" ng-model="tempRepeat.repWeek[6]" uib-btn-checkbox>六</label>
+            </div>
             <!--<div type="radio">-->
             <!--<input type="text" value="{{dt | date:'fullDate' }}" placeholder="选择中止日期"-->
             <!--popover-template="dynamicPopover.templateUrl"-->
@@ -103,50 +104,49 @@
         </form>
     </div>
     <!--<div>-->
-        <!--<label class="endlabel">结束任务</label>-->
+    <!--<label class="endlabel">结束任务</label>-->
 
-        <!--<form class="endlist">-->
+    <!--<form class="endlist">-->
 
-            <!--<ul>-->
-                <!--<li>-->
-                    <!--<input name="task" type="radio" ng-model="end.type" value="forever">-->
-                    <!--永不-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<input name="task" type="radio" ng-model="end.type" value="count">-->
-                    <!--<label>-->
-                        <!--<input style="width: 40px" class="form-control" ng-model="count">-->
-                    <!--</label>-->
-                    <!--次之后-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<input name="task" type="radio" ng-model="end.type" value="date">-->
-                    <!--截止日期:-->
-                    <!--<label>-->
-                        <!--<input type="date" class="form-control" datepicker-popup is-open="opened" datepicker-options="dateOptions" initDate="date"-->
-                               <!--date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="display: inline-block" ng-model="date"/>-->
-                        <!--&lt;!&ndash;<input type="date" value="{{dt}}" placeholder="">&ndash;&gt;-->
+    <!--<ul>-->
+    <!--<li>-->
+    <!--<input name="task" type="radio" ng-model="end.type" value="forever">-->
+    <!--永不-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<input name="task" type="radio" ng-model="end.type" value="count">-->
+    <!--<label>-->
+    <!--<input style="width: 40px" class="form-control" ng-model="count">-->
+    <!--</label>-->
+    <!--次之后-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<input name="task" type="radio" ng-model="end.type" value="date">-->
+    <!--截止日期:-->
+    <!--<label>-->
+    <!--<input type="date" class="form-control" datepicker-popup is-open="opened" datepicker-options="dateOptions" initDate="date"-->
+    <!--date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="display: inline-block" ng-model="date"/>-->
+    <!--&lt;!&ndash;<input type="date" value="{{dt}}" placeholder="">&ndash;&gt;-->
 
-                        <!--&lt;!&ndash;<datepicker ng-model="dt" min-date="minDate" show-weeks="false" class="well well-sm"&ndash;&gt;-->
-                        <!--&lt;!&ndash;custom-class="getDayClass(date, mode)"></datepicker>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<script type="text/ng-template" id="myPopoverTemplate.html">&ndash;&gt;-->
+    <!--&lt;!&ndash;<datepicker ng-model="dt" min-date="minDate" show-weeks="false" class="well well-sm"&ndash;&gt;-->
+    <!--&lt;!&ndash;custom-class="getDayClass(date, mode)"></datepicker>&ndash;&gt;-->
+    <!--&lt;!&ndash;<script type="text/ng-template" id="myPopoverTemplate.html">&ndash;&gt;-->
 
-                        <!--&lt;!&ndash;</script>&ndash;&gt;-->
-                    <!--</label>-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</form>-->
+    <!--&lt;!&ndash;</script>&ndash;&gt;-->
+    <!--</label>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</form>-->
     <!--</div>-->
     <div class="repeatcontroll">
         <div class="btn btn-default btn-long"
              ng-click="save()">
-             <!--ng-click="addFeature(strategyTemplate) && closeThisDialog('')">-->
+            <!--ng-click="addFeature(strategyTemplate) && closeThisDialog('')">-->
             保存
         </div>
         <!--<div class="btn btn-default"-->
-             <!--ng-click="closeThisDialog('')">-->
-            <!--取消-->
+        <!--ng-click="closeThisDialog('')">-->
+        <!--取消-->
         <!--</div>-->
     </div>
-
 </div>

@@ -8,6 +8,7 @@ anicloud.sunny.controller = anicloud.sunny.controller || {};
 
 
 anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDialog, ManagerService) {
+    localStorage.setItem('currentStrategyTime','');
     $scope.openFeatureEditTemplate = function () {
         ngDialog.open(
             {
@@ -24,7 +25,7 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
                 scope: $scope,
                 controller: 'RepeatCtrl'
             });
-    }
+    };
     
     $scope.deleteFeature = function (index, strategy) {
         ManagerService.deleteFeature(index, strategy);
@@ -94,20 +95,12 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
-    
-    $scope.dynamicPopover = {
-        content: 'Hello, World!',
-        templateUrl: 'myPopoverTemplate.html',
-        title: 'Title'
-    };
-    $scope.initTimer=function () {
-       
-    };
     $scope.strategyRepeat={ //init
         isRepeat:false, //once,week
         weekRepeat:[],  //[] if isRepeat is once
         startTime:moment(),
         isScheduleNow:false   //
-    }
+    };
+
    
 };

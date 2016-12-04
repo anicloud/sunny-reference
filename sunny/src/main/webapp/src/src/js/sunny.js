@@ -96,6 +96,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
             ManagerService.updateFrontInfo
         );
     });
+    moment.locale('zh-cn');
 };
 
 anicloud.sunny.global.loadApp(

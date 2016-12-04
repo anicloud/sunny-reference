@@ -15,7 +15,6 @@ var app = {
     dist: 'public',
     dev: 'dev'
 };
-
 var paths = {
     scripts: [
       //  app.src + '/app.js',
@@ -273,11 +272,11 @@ gulp.task('clean:prod', function (cb) {
 });
 
 gulp.task('link', $.shell.task([
-    'ln -srf bower_components ' + app.dev + '/bower_components'
+    'ln -sf '+__dirname+'/bower_components ' + app.dev + '/bower_components'
 ]));
 
 gulp.task('link:prod', $.shell.task([
-    'ln -srf bower_components ' + app.dist + '/bower_components'
+    'ln -sf'+__dirname+'/bower_components ' + app.dist + '/bower_components'
 ]));
 
 
