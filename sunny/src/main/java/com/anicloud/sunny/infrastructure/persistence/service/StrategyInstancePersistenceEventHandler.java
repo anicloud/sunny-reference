@@ -1,13 +1,17 @@
 package com.anicloud.sunny.infrastructure.persistence.service;
 
+import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
 import com.anicloud.sunny.schedule.persistence.dao.StrategyInstanceDao;
 import com.anicloud.sunny.infrastructure.persistence.repository.schedule.StrategyInstanceRepository;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.Join;
+import java.util.List;
 
 /**
  * Created by zhaoyu on 15-7-20.
@@ -41,5 +45,13 @@ public class StrategyInstancePersistenceEventHandler implements StrategyInstance
         if (instanceDao != null) {
             strategyInstanceRepository.delete(instanceDao);
         }
+    }
+
+    @Override
+    public List<StrategyInstanceDao> findRunningStragegy(Long hashUserId) {
+        Specification<StrategyInstanceDao> specification = (root, criteriaQuery, criteriaBuilder) -> {
+            return criteriaQuery.getRestriction();
+        };
+        return null;
     }
 }
