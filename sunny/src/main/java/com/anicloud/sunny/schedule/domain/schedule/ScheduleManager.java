@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.*;
+import java.util.Calendar;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
@@ -46,31 +47,54 @@ public class ScheduleManager implements Serializable {
                     .build();
             jobDetail.getJobDataMap().put("ScheduleJob", job);
             if (job.isScheduleNow) {
+                if(scheduler.checkExists(jobDetail.getKey())) {
+                    scheduler.deleteJob(jobDetail.getKey());
+                }
                 scheduler.addJob(jobDetail, false);
                 scheduler.triggerJob(jobDetail.getKey());
             } else {
                 for (ScheduleTrigger scheduleTrigger : job.triggers) {
-                    SimpleTrigger simpleTrigger = (SimpleTrigger) newTrigger()
-                            .withIdentity(scheduleTrigger.triggerName, scheduleTrigger.triggerGroup)
-                            .forJob(jobDetail)
-                            .startAt(scheduleTrigger.startTime)
-                            .withSchedule(
-                                    simpleSchedule()
-                                            .withIntervalInSeconds(scheduleTrigger.repeatInterval)
-                                            .withRepeatCount(scheduleTrigger.repeatCount)
-                                            .withMisfireHandlingInstructionFireNow()
-                            )
-                            .build();
-                    if (scheduler.checkExists(jobDetail.getKey())) {
-                        scheduler.scheduleJob(simpleTrigger);
+                    Trigger trigger;
+                    if(scheduleTrigger.isRepeat) {
+                        trigger = TriggerBuilder.newTrigger()
+                                .withIdentity(scheduleTrigger.triggerName,scheduleTrigger.triggerGroup)
+                                .forJob(jobDetail)
+                                .withSchedule(CronScheduleBuilder.cronSchedule(getCronTriggerExpress(scheduleTrigger.startTime,scheduleTrigger.repeatWeek)))
+                                .build();
                     } else {
-                        scheduler.scheduleJob(jobDetail, simpleTrigger);
+                        trigger = (SimpleTrigger) newTrigger()
+                                .withIdentity(scheduleTrigger.triggerName, scheduleTrigger.triggerGroup)
+                                .forJob(jobDetail)
+                                .startAt(scheduleTrigger.startTime)
+                                .build();
                     }
+                    if (scheduler.checkExists(jobDetail.getKey())) {
+                        scheduler.scheduleJob(trigger);
+                    } else {
+                        scheduler.scheduleJob(jobDetail, trigger);
+                    }
+
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private String getCronTriggerExpress(Date startTime,String[] repeatWeek) {
+        if(startTime != null && repeatWeek != null) {
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTime(startTime);
+            int minute = startCalendar.get(Calendar.MINUTE);
+            int hour = startCalendar.get(Calendar.HOUR_OF_DAY);
+            StringBuilder sb = new StringBuilder("");
+            for(String week:repeatWeek) {
+                sb.append(week);
+                sb.append(",");
+            }
+            sb.deleteCharAt(sb.lastIndexOf(","));
+            return "0\b" + minute + "\b" + hour + "\b" + "?\b" + "*\b" + sb.toString();
+        }
+        return null;
     }
 
     public void deleteJob(ScheduleJob job) {

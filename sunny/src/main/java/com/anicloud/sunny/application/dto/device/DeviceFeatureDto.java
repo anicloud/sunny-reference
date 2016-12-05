@@ -16,6 +16,7 @@ public class DeviceFeatureDto implements Serializable {
     public String featureName;
     public String description;
     public PrivilegeType type;
+    public Long intervalTime;
 
     public List<FeatureArgDto> argDtoList;
     public List<FeatureFunctionDto> featureFunctionDtoList;
@@ -39,6 +40,21 @@ public class DeviceFeatureDto implements Serializable {
         this.featureId = featureId;
         this.featureName = featureName;
         this.type = type;
+    }
+
+    public DeviceFeatureDto(String featureId, String featureName,
+                            String description, PrivilegeType type,
+                            Long intervalTime, List<FeatureArgDto> argDtoList,
+                            List<FeatureFunctionDto> featureFunctionDtoList,
+                            List<Map<String, List<String>>> featureArgFuncArgMapList) {
+        this.featureId = featureId;
+        this.featureName = featureName;
+        this.description = description;
+        this.type = type;
+        this.intervalTime = intervalTime;
+        this.argDtoList = argDtoList;
+        this.featureFunctionDtoList = featureFunctionDtoList;
+        this.featureArgFuncArgMapList = featureArgFuncArgMapList;
     }
 
     @Override

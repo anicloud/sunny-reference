@@ -16,12 +16,14 @@ public class ScheduleTrigger implements Serializable {
     public Date startTime;
     public Integer repeatInterval;
     public Integer repeatCount;
+    public boolean isRepeat;
+    public String[] repeatWeek;
 
     public ScheduleTrigger() {
     }
 
     public ScheduleTrigger(String jobName, String jobGroup, String triggerName, String triggerGroup,
-                           Date startTime, Integer repeatInterval, Integer repeatCount) {
+                           Date startTime, Integer repeatInterval, Integer repeatCount,String[] repeatWeek ,boolean isRepeat) {
         this.jobName = jobName;
         this.jobGroup = jobGroup;
         this.triggerName = triggerName;
@@ -29,5 +31,7 @@ public class ScheduleTrigger implements Serializable {
         this.startTime = startTime;
         this.repeatInterval = repeatInterval;
         this.repeatCount = repeatCount;
+        this.repeatWeek = repeatWeek;
+        this.isRepeat = isRepeat;
     }
 }

@@ -21,6 +21,9 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     public List<TriggerInstance> triggerInstanceList;
     public boolean isScheduleNow;
     public Long hashUserId;
+
+    public Long intervalTime;
+
     transient public ScheduleJob scheduleJob;
     transient public ScheduleManager scheduleManager;
     transient public ScheduleStateListener listener;
@@ -44,6 +47,17 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
         this.functionInstanceList = functionInstanceList;
         this.triggerInstanceList = triggerInstanceList;
         this.isScheduleNow = isScheduleNow;
+    }
+
+    public FeatureInstance(String featureId, String deviceId, ScheduleState state, Integer stage, List<FunctionInstance> functionInstanceList, List<TriggerInstance> triggerInstanceList, boolean isScheduleNow, Long intervalTime) {
+        this.featureId = featureId;
+        this.deviceId = deviceId;
+        this.state = state;
+        this.stage = stage;
+        this.functionInstanceList = functionInstanceList;
+        this.triggerInstanceList = triggerInstanceList;
+        this.isScheduleNow = isScheduleNow;
+        this.intervalTime = intervalTime;
     }
 
     @Override
@@ -100,21 +114,10 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
 
     @Override
     public boolean stop() {
-        switch (state) {
-            case NONE:
-                break;
-            case RUNNING:
-            case SUSPENDED:
-                scheduleManager.deleteJob(scheduleJob);
-                state = ScheduleState.DONE;
-                listener.onScheduleStateChanged(this, state);
-                return true;
-            case DONE:
-                break;
-            default:
-                break;
-        }
-        return false;
+        scheduleManager.deleteJob(scheduleJob);
+        state = ScheduleState.DONE;
+        listener.onScheduleStateChanged(this, state);
+        return true;
     }
 
     @Override

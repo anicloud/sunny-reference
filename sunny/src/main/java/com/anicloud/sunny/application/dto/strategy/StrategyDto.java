@@ -4,6 +4,7 @@ import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.schedule.dto.StrategyInstanceDto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +19,10 @@ public class StrategyDto implements Serializable {
     public String description;
 
     public UserDto owner;
+    public Date startTime;
+    public boolean isScheduleNow;
+    public boolean isRepeat;
+    public String[] repeatWeek;
     public List<DeviceFeatureInstanceDto> deviceFeatureInstanceList;
 
     public StrategyInstanceDto strategyInstanceDto;
@@ -42,6 +47,23 @@ public class StrategyDto implements Serializable {
         this.strategyName = strategyName;
         this.description = description;
         this.owner = owner;
+        this.deviceFeatureInstanceList = deviceFeatureInstanceList;
+        this.strategyInstanceDto = strategyInstanceDto;
+    }
+
+    public StrategyDto(String strategyId, String strategyName,
+                       String description, UserDto owner, Date startTime,
+                       boolean isScheduleNow, boolean isRepeat, String[] repeatWeek,
+                       List<DeviceFeatureInstanceDto> deviceFeatureInstanceList,
+                       StrategyInstanceDto strategyInstanceDto) {
+        this.strategyId = strategyId;
+        this.strategyName = strategyName;
+        this.description = description;
+        this.owner = owner;
+        this.startTime = startTime;
+        this.isScheduleNow = isScheduleNow;
+        this.isRepeat = isRepeat;
+        this.repeatWeek = repeatWeek;
         this.deviceFeatureInstanceList = deviceFeatureInstanceList;
         this.strategyInstanceDto = strategyInstanceDto;
     }

@@ -16,6 +16,7 @@ public class DeviceFeatureFormDto {
     public String featureName;
     public String description;
     public PrivilegeType type;
+    public Long intervalTime;
 
     public List<FeatureArgDto> argDtoList;
 
@@ -27,6 +28,7 @@ public class DeviceFeatureFormDto {
             deviceFeatureFormDto.description = deviceFeatureDto.description;
             deviceFeatureFormDto.argDtoList = deviceFeatureDto.argDtoList;
             deviceFeatureFormDto.type = deviceFeatureDto.type;
+            deviceFeatureFormDto.intervalTime = deviceFeatureDto.intervalTime;
         }
         return deviceFeatureFormDto;
     }
@@ -49,6 +51,7 @@ public class DeviceFeatureFormDto {
             deviceFeatureDto.description = deviceFeatureFormDto.description;
             deviceFeatureDto.argDtoList = deviceFeatureFormDto.argDtoList;
             deviceFeatureDto.type = deviceFeatureFormDto.type;
+            deviceFeatureDto.intervalTime = deviceFeatureFormDto.intervalTime;
         }
         return deviceFeatureDto;
     }

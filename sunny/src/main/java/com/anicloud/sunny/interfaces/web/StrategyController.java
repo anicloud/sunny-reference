@@ -6,9 +6,7 @@ import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
 import com.anicloud.sunny.application.service.strategy.StrategyService;
 import com.anicloud.sunny.application.service.user.UserService;
-import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.interfaces.web.dto.DeviceFeatureInstanceFormDto;
-import com.anicloud.sunny.interfaces.web.dto.DeviceFormDto;
 import com.anicloud.sunny.interfaces.web.dto.StrategyFormDto;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

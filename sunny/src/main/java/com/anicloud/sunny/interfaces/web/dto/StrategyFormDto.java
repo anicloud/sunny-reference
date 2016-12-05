@@ -6,6 +6,7 @@ import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +20,11 @@ public class StrategyFormDto {
     public Integer stage;
     public StrategyAction action;
 
+    public Date startTime;
+    public boolean isScheduleNow;
+    public boolean isRepeat;
+    public String[] repeatWeek;
+
     public List<DeviceFeatureInstanceFormDto> featureList;
 
     public static StrategyFormDto convertToStrategyForm(StrategyDto strategyDto){
@@ -30,6 +36,10 @@ public class StrategyFormDto {
             strategyFormDto.state = strategyDto.strategyInstanceDto.state;
             strategyFormDto.stage = strategyDto.strategyInstanceDto.stage;
             strategyFormDto.action = strategyDto.strategyInstanceDto.action;
+            strategyFormDto.startTime = strategyDto.startTime;
+            strategyFormDto.isScheduleNow = strategyDto.isScheduleNow;
+            strategyFormDto.isRepeat = strategyDto.isRepeat;
+            strategyFormDto.repeatWeek = strategyDto.repeatWeek;
             strategyFormDto.featureList = DeviceFeatureInstanceFormDto.convertToDeviceFeatureInstanceForms(strategyDto.deviceFeatureInstanceList);
         }
         return strategyFormDto;
@@ -54,6 +64,10 @@ public class StrategyFormDto {
             strategyDto.description = strategyFormDto.strategyDescription;
             strategyDto.owner = userDto;
             strategyDto.deviceFeatureInstanceList = DeviceFeatureInstanceFormDto.convertToFeatureInstanceDtos(strategyFormDto.featureList);
+            strategyDto.startTime = strategyFormDto.startTime;
+            strategyDto.isRepeat = strategyFormDto.isRepeat;
+            strategyDto.isScheduleNow = strategyFormDto.isScheduleNow;
+            strategyDto.repeatWeek = strategyFormDto.repeatWeek;
         }
 
         return  strategyDto;

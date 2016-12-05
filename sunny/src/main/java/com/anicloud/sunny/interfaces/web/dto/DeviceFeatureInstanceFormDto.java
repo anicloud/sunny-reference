@@ -18,6 +18,7 @@ public class DeviceFeatureInstanceFormDto {
     public List<FeatureArgValueDto> featureArgValueDtoList;
     public List<FeatureTriggerDto> triggerDtoList;
     public boolean isScheduleNow;
+    public Long intervalTime;
 
     public static DeviceFeatureInstanceFormDto convertToDeviceFeatureInstanceForm(DeviceFeatureInstanceDto deviceFeatureInstanceDto){
         DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto = new DeviceFeatureInstanceFormDto();
@@ -29,6 +30,7 @@ public class DeviceFeatureInstanceFormDto {
             deviceFeatureInstanceFormDto.featureArgValueDtoList = deviceFeatureInstanceDto.featureArgValueDtoList;
             deviceFeatureInstanceFormDto.triggerDtoList = deviceFeatureInstanceDto.triggerDtoList;
             deviceFeatureInstanceFormDto.isScheduleNow = deviceFeatureInstanceDto.isScheduleNow;
+            deviceFeatureInstanceFormDto.intervalTime = deviceFeatureInstanceDto.intervalTime;
         }
         return deviceFeatureInstanceFormDto;
 
@@ -53,6 +55,7 @@ public class DeviceFeatureInstanceFormDto {
             deviceFeatureInstanceDto.featureArgValueDtoList = deviceFeatureInstanceFormDto.featureArgValueDtoList;
             deviceFeatureInstanceDto.triggerDtoList = deviceFeatureInstanceFormDto.triggerDtoList;
             deviceFeatureInstanceDto.isScheduleNow = deviceFeatureInstanceFormDto.isScheduleNow;
+            deviceFeatureInstanceDto.intervalTime = deviceFeatureInstanceFormDto.intervalTime;
         }
         return deviceFeatureInstanceDto;
     }
