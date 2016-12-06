@@ -34,18 +34,18 @@ public class DeviceFeatureInstanceDto implements Serializable {
         this.triggerDtoList = triggerDtoList;
     }
 
-    public DeviceFeatureInstanceDto(String featureInstanceId, DeviceDto deviceDto,
-                                    DeviceFeatureDto deviceFeatureDto,
-                                    List<FeatureArgValueDto> featureArgValueDtoList,
-                                    List<FeatureTriggerDto> triggerDtoList,
-                                    boolean isScheduleNow) {
-        this.featureInstanceId = featureInstanceId;
-        this.deviceDto = deviceDto;
-        this.deviceFeatureDto = deviceFeatureDto;
-        this.featureArgValueDtoList = featureArgValueDtoList;
-        this.triggerDtoList = triggerDtoList;
-        this.isScheduleNow = isScheduleNow;
-    }
+//    public DeviceFeatureInstanceDto(String featureInstanceId, DeviceDto deviceDto,
+//                                    DeviceFeatureDto deviceFeatureDto,
+//                                    List<FeatureArgValueDto> featureArgValueDtoList,
+//                                    List<FeatureTriggerDto> triggerDtoList,
+//                                    boolean isScheduleNow) {
+//        this.featureInstanceId = featureInstanceId;
+//        this.deviceDto = deviceDto;
+//        this.deviceFeatureDto = deviceFeatureDto;
+//        this.featureArgValueDtoList = featureArgValueDtoList;
+//        this.triggerDtoList = triggerDtoList;
+//        this.isScheduleNow = isScheduleNow;
+//    }
 
     public DeviceFeatureInstanceDto(String featureInstanceId, DeviceDto deviceDto,
                                     DeviceFeatureDto deviceFeatureDto,

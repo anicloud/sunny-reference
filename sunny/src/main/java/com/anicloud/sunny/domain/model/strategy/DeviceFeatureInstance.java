@@ -22,6 +22,7 @@ public class DeviceFeatureInstance extends AbstractDomain {
     public List<FeatureTrigger> triggerList;
 
     public boolean isScheduleNow;
+    public Long intervalTime;
 
     public DeviceFeatureInstance() {
     }
@@ -30,13 +31,15 @@ public class DeviceFeatureInstance extends AbstractDomain {
                                  DeviceFeature deviceFeature,
                                  List<FeatureArgValue> featureArgValueList,
                                  List<FeatureTrigger> triggerList,
-                                 boolean isScheduleNow) {
+                                 boolean isScheduleNow,
+                                 Long intervalTime) {
         this.featureInstanceId = featureInstanceId;
         this.device = device;
         this.deviceFeature = deviceFeature;
         this.featureArgValueList = featureArgValueList;
         this.triggerList = triggerList;
         this.isScheduleNow = isScheduleNow;
+        this.intervalTime = intervalTime;
     }
 
     public static DeviceFeatureInstance toInstance(DeviceFeatureInstanceDao instanceDao) {
@@ -46,7 +49,8 @@ public class DeviceFeatureInstance extends AbstractDomain {
                 DeviceFeature.toDeviceFeature(instanceDao.deviceFeatureDao),
                 FeatureArgValue.toFunctionValueList(instanceDao.instanceFunctionValueDaoList),
                 FeatureTrigger.toFeatureTriggerList(instanceDao.triggerDaoList),
-                instanceDao.isScheduleNow
+                instanceDao.isScheduleNow,
+                instanceDao.intervalTime
         );
         return featureInstance;
     }
@@ -58,7 +62,8 @@ public class DeviceFeatureInstance extends AbstractDomain {
                 DeviceFeature.toDao(featureInstance.deviceFeature),
                 FeatureArgValue.toFeatureInstanceFuncValueList(featureInstance.featureArgValueList),
                 FeatureTrigger.toDaoList(featureInstance.triggerList),
-                featureInstance.isScheduleNow
+                featureInstance.isScheduleNow,
+                featureInstance.intervalTime
         );
         return instanceDao;
     }

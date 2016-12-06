@@ -25,7 +25,8 @@ public class DeviceFeatureInstanceDtoAssembler {
                 DeviceFeatureDtoAssembler.toDeviceFeature(instanceDto.deviceFeatureDto),
                 FunctionValueDtoAssembler.toFunctionValueList(instanceDto.featureArgValueDtoList),
                 FeatureTriggerDtoAssembler.toFeatureTriggerList(instanceDto.triggerDtoList),
-                instanceDto.isScheduleNow
+                instanceDto.isScheduleNow,
+                instanceDto.intervalTime
         );
         return instance;
     }
@@ -40,7 +41,8 @@ public class DeviceFeatureInstanceDtoAssembler {
                 DeviceFeatureDtoAssembler.toDto(featureInstance.deviceFeature),
                 FunctionValueDtoAssembler.toFunctionValueDtoList(featureInstance.featureArgValueList),
                 FeatureTriggerDtoAssembler.toDtoList(featureInstance.triggerList),
-                featureInstance.isScheduleNow
+                featureInstance.isScheduleNow,
+                featureInstance.intervalTime
         );
         return instanceDto;
     }

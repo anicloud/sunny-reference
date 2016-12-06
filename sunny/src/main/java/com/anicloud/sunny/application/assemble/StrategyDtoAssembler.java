@@ -40,6 +40,10 @@ public class StrategyDtoAssembler {
                 strategyDto.strategyName,
                 strategyDto.description,
                 UserDtoAssembler.toUser(strategyDto.owner),
+                strategyDto.startTime,
+                strategyDto.repeatWeek,
+                strategyDto.isRepeat,
+                strategyDto.isScheduleNow,
                 DeviceFeatureInstanceDtoAssembler.toFeatureInstanceList(strategyDto.deviceFeatureInstanceList)
         );
         // to instance
@@ -57,6 +61,10 @@ public class StrategyDtoAssembler {
                 strategy.strategyId,
                 strategy.strategyName,
                 strategy.description,
+                strategy.startTime,
+                strategy.isScheduleNow,
+                strategy.isRepeat,
+                strategy.repeatWeek,
                 UserDtoAssembler.fromUser(strategy.owner),
                 DeviceFeatureInstanceDtoAssembler.toDtoList(strategy.deviceFeatureInstanceList)
         );
@@ -103,7 +111,8 @@ public class StrategyDtoAssembler {
                     0,
                     functionInstanceList,
                     toTriggerInstanceList(deviceFeatureInstance.triggerList),
-                    deviceFeatureInstance.isScheduleNow
+                    deviceFeatureInstance.isScheduleNow,
+                    deviceFeatureInstance.intervalTime
             );
             featureInstanceList.add(featureInstance);
         }
@@ -114,7 +123,12 @@ public class StrategyDtoAssembler {
                 0,
                 featureInstanceList,
                 StrategyAction.START,
-                System.currentTimeMillis()
+                System.currentTimeMillis(),
+                false,
+                strategy.startTime,
+                strategy.isScheduleNow,
+                strategy.isRepeat,
+                strategy.repeatWeek
         );
         return instance;
     }
@@ -221,20 +235,20 @@ public class StrategyDtoAssembler {
         return value;
     }
 
-    public static Strategy fromRunDeviceFeatureInstanceDto(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto) {
-        DeviceFeatureInstance deviceFeatureInstance = DeviceFeatureInstanceDtoAssembler.
-                toFeatureInstance(deviceFeatureInstanceDto);
-
-        Strategy strategy = new Strategy(
-                NumGenerate.generate(),
-                Constants.STRATEGY_AS_DEVICE_FEATURE_RUN_NAME,
-                null,
-                UserDtoAssembler.toUser(userDto),
-                Arrays.asList(deviceFeatureInstance)
-        );
-        // to instance
-        StrategyInstance instance = toStrategyInstance(strategy);
-        strategy.strategyInstance = instance;
-        return strategy;
-    }
+//    public static Strategy fromRunDeviceFeatureInstanceDto(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto) {
+//        DeviceFeatureInstance deviceFeatureInstance = DeviceFeatureInstanceDtoAssembler.
+//                toFeatureInstance(deviceFeatureInstanceDto);
+//
+//        Strategy strategy = new Strategy(
+//                NumGenerate.generate(),
+//                Constants.STRATEGY_AS_DEVICE_FEATURE_RUN_NAME,
+//                null,
+//                UserDtoAssembler.toUser(userDto),
+//                Arrays.asList(deviceFeatureInstance)
+//        );
+//        // to instance
+//        StrategyInstance instance = toStrategyInstance(strategy);
+//        strategy.strategyInstance = instance;
+//        return strategy;
+//    }
 }

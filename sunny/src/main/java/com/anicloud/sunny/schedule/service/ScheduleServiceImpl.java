@@ -46,16 +46,22 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
             strategyInstance = strategy.strategyInstance;
             if (!strategyInstance.isScheduled) {
                 strategyInstance = strategy.strategyInstance;
-                strategyInstance.prepareSchedule(scheduleManager, this, strategy.owner.hashUserId);
+
                 strategyMap.put(strategy.strategyId, strategy);
             }
         }
         switch (strategyInstance.action) {
             case START:
-                strategyInstance.start();
+                if(!strategyInstance.isScheduled){
+                    strategyInstance.prepareSchedule(scheduleManager, this, strategy.owner.hashUserId);
+                    strategyInstance.start();
+                }
                 break;
             case STOP:
-                strategyInstance.stop();
+                if (strategyInstance.isScheduled) {
+                    strategyInstance.isScheduled = false;
+                    strategyInstance.stop();
+                }
                 break;
             case PAUSE:
                 strategyInstance.pause();

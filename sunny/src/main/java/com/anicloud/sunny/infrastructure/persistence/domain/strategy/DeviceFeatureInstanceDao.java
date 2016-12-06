@@ -35,17 +35,21 @@ public class DeviceFeatureInstanceDao extends AbstractEntity {
     @Column(name = "is_schedule_now")
     public boolean isScheduleNow;
 
+    @Column(name = "interval_time")
+    public Long intervalTime;
+
     public DeviceFeatureInstanceDao() {
     }
 
     public DeviceFeatureInstanceDao(String featureInstanceNum, DeviceDao deviceDao, DeviceFeatureDao deviceFeatureDao,
                                     List<FeatureInstanceFunctionValueDao> instanceFunctionValueDaoList,
-                                    List<FeatureTriggerDao> triggerDaoList, boolean isScheduleNow) {
+                                    List<FeatureTriggerDao> triggerDaoList, boolean isScheduleNow, Long intervalTime) {
         this.featureInstanceNum = featureInstanceNum;
         this.deviceDao = deviceDao;
         this.deviceFeatureDao = deviceFeatureDao;
         this.instanceFunctionValueDaoList = instanceFunctionValueDaoList;
         this.triggerDaoList = triggerDaoList;
         this.isScheduleNow = isScheduleNow;
+        this.intervalTime = intervalTime;
     }
 }

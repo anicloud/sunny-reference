@@ -28,6 +28,8 @@ public class FeatureInstanceDao extends AbstractEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "feature_id", referencedColumnName = "id")
     public List<TriggerInstanceDao> triggerInstanceDaoList;
+    @Column(name = "intervalTime")
+    public Long intervalTime;
 
     public FeatureInstanceDao() {
     }
@@ -35,7 +37,7 @@ public class FeatureInstanceDao extends AbstractEntity {
     public FeatureInstanceDao(String featureId, String deviceId, ScheduleState state, Integer stage,
                               List<FunctionInstanceDao> functionInstanceDaoList,
                               List<TriggerInstanceDao> triggerInstanceDaoList,
-                              boolean isScheduleNow) {
+                              boolean isScheduleNow,Long intervalTime) {
         this.featureId = featureId;
         this.deviceId = deviceId;
         this.state = state;
@@ -43,5 +45,6 @@ public class FeatureInstanceDao extends AbstractEntity {
         this.functionInstanceDaoList = functionInstanceDaoList;
         this.triggerInstanceDaoList = triggerInstanceDaoList;
         this.isScheduleNow = isScheduleNow;
+        this.intervalTime = intervalTime;
     }
 }

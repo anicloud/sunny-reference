@@ -19,7 +19,7 @@ public class DeviceFeature extends AbstractDomain {
     public String featureId;
     public String featureName;
     public String description;
-    public PrivilegeType type;
+    public PrivilegeType privilegeType;
 
     public List<FeatureArg> featureArgList;
     public List<FeatureFunction> featureFunctionList;
@@ -31,14 +31,14 @@ public class DeviceFeature extends AbstractDomain {
     public DeviceFeature(String description, List<Map<String, List<String>>> featureArgFuncArgMapList,
                          List<FeatureArg> featureArgList,
                          List<FeatureFunction> featureFunctionList,
-                         String featureId, String featureName,PrivilegeType type) {
+                         String featureId, String featureName,PrivilegeType privilegeType) {
         this.description = description;
         this.featureArgFuncArgMapList = featureArgFuncArgMapList;
         this.featureArgList = featureArgList;
         this.featureFunctionList = featureFunctionList;
         this.featureId = featureId;
         this.featureName = featureName;
-        this.type = type;
+        this.privilegeType = privilegeType;
     }
 
     public static DeviceFeature save(DeviceFeaturePersistenceService featurePersistenceService, DeviceFeature deviceFeature) {
@@ -86,7 +86,7 @@ public class DeviceFeature extends AbstractDomain {
                 FeatureFunction.toFeatureFunctionList(featureDao.featureFunctionDaoList),
                 featureDao.featureId,
                 featureDao.featureName,
-                featureDao.type
+                featureDao.privilegeType
         );
         return deviceFeature;
     }
@@ -102,7 +102,7 @@ public class DeviceFeature extends AbstractDomain {
                 FeatureFunction.toDaoList(deviceFeature.featureFunctionList),
                 deviceFeature.featureId,
                 deviceFeature.featureName,
-                deviceFeature.type
+                deviceFeature.privilegeType
         );
         return featureDao;
     }

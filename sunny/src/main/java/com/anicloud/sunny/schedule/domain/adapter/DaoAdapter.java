@@ -1,6 +1,7 @@
 package com.anicloud.sunny.schedule.domain.adapter;
 
 import com.anicloud.sunny.schedule.domain.strategy.*;
+import com.anicloud.sunny.schedule.dto.StrategyInstanceDto;
 import com.anicloud.sunny.schedule.persistence.dao.*;
 
 import java.util.ArrayList;
@@ -78,7 +79,8 @@ public class DaoAdapter {
                 featureInstance.stage,
                 toFunctionInstanceDaoList(featureInstance.functionInstanceList),
                 toTriggerInstanceDaoList(featureInstance.triggerInstanceList),
-                featureInstance.isScheduleNow
+                featureInstance.isScheduleNow,
+                featureInstance.intervalTime
         );
         return featureInstanceDao;
     }
@@ -102,7 +104,11 @@ public class DaoAdapter {
                 strategyInstance.stage,
                 toFeatureInstanceDaoList(strategyInstance.featureInstanceList),
                 strategyInstance.action,
-                strategyInstance.timeStamp);
+                strategyInstance.timeStamp,
+                strategyInstance.startTime,
+                StrategyInstanceDao.repeatWeektoString(strategyInstance.repeatWeek),
+                strategyInstance.isRepeat,
+                strategyInstance.isScheduleNow);
         return strategyInstanceDao;
     }
 
@@ -175,7 +181,8 @@ public class DaoAdapter {
                 featureInstanceDao.stage,
                 fromFunctionInstanceDaoList(featureInstanceDao.functionInstanceDaoList),
                 fromTriggerInstanceDaoList(featureInstanceDao.triggerInstanceDaoList),
-                featureInstanceDao.isScheduleNow
+                featureInstanceDao.isScheduleNow,
+                featureInstanceDao.intervalTime
         );
         return featureInstance;
     }
@@ -199,7 +206,13 @@ public class DaoAdapter {
                 strategyInstanceDao.stage,
                 fromFeatureInstanceDaoList(strategyInstanceDao.featureInstanceDaoList),
                 strategyInstanceDao.action,
-                strategyInstanceDao.timeStamp);
+                strategyInstanceDao.timeStamp,
+                false,
+                strategyInstanceDao.startTime,
+                strategyInstanceDao.isRepeat,
+                strategyInstanceDao.isScheduleNow,
+                StrategyInstanceDao.repeatWeektoArray(strategyInstanceDao.repeatWeek)
+                );
         return strategyInstance;
     }
 

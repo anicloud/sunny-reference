@@ -146,6 +146,7 @@ public class StrategyServiceHandler implements StrategyService {
         }
         return StrategyDtoAssembler.toDtoList(strategyList);
     }
+
     public List<StrategyDto> getStrategyByUser(Long hashUserId,int page,int number) {
         Specification<StrategyDao> specification = (root, criteriaQuery, criteriaBuilder) -> {
             Join<StrategyDao,UserDao> join = root.join(root.getModel().getSingularAttribute("owner", UserDao.class), JoinType.INNER);
@@ -174,8 +175,8 @@ public class StrategyServiceHandler implements StrategyService {
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public void runDeviceFeature(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto) {
         // generate the device feature run strategy, identify it by strategy name field
-        Strategy strategy = StrategyDtoAssembler.fromRunDeviceFeatureInstanceDto(userDto, deviceFeatureInstanceDto);
-        scheduleService.scheduleStrategy(strategy);
+//        Strategy strategy = StrategyDtoAssembler.fromRunDeviceFeatureInstanceDto(userDto, deviceFeatureInstanceDto);
+//        scheduleService.scheduleStrategy(strategy);
     }
 
     private Strategy getSingleStrategy(String strategyId) {

@@ -9,6 +9,7 @@ import com.anicloud.sunny.schedule.dto.StrategyInstanceDto;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +21,10 @@ public class Strategy extends AbstractDomain implements Cloneable {
     public String strategyId;
     public String strategyName;
     public String description;
-
+    public Date startTime;
+    public boolean isScheduleNow;
+    public boolean isRepeat;
+    public String[] repeatWeek;
     public User owner;
     public List<DeviceFeatureInstance> deviceFeatureInstanceList;
 
@@ -41,12 +45,34 @@ public class Strategy extends AbstractDomain implements Cloneable {
 
     public Strategy(String strategyId, String strategyName,
                     String description, User owner,
+                    Date startTime, String[] repeatWeek,
+                    boolean isRepeat, boolean isScheduleNow,
+                    List<DeviceFeatureInstance> deviceFeatureInstanceList) {
+        this.strategyId = strategyId;
+        this.strategyName = strategyName;
+        this.description = description;
+        this.owner = owner;
+        this.startTime = startTime;
+        this.repeatWeek = repeatWeek;
+        this.isRepeat = isRepeat;
+        this.isScheduleNow = isScheduleNow;
+        this.deviceFeatureInstanceList = deviceFeatureInstanceList;
+    }
+
+    public Strategy(String strategyId, String strategyName,
+                    String description, User owner,
+                    Date startTime, String[] repeatWeek,
+                    boolean isRepeat, boolean isScheduleNow,
                     List<DeviceFeatureInstance> deviceFeatureInstanceList,
                     StrategyInstance strategyInstance) {
         this.strategyId = strategyId;
         this.strategyName = strategyName;
         this.description = description;
         this.owner = owner;
+        this.startTime = startTime;
+        this.repeatWeek = repeatWeek;
+        this.isRepeat = isRepeat;
+        this.isScheduleNow = isScheduleNow;
         this.deviceFeatureInstanceList = deviceFeatureInstanceList;
         this.strategyInstance = strategyInstance;
     }

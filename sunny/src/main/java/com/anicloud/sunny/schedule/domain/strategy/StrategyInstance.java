@@ -26,22 +26,23 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
     public String[] repeatWeek;
 
     transient public ScheduleStateListener listener;
+    transient public ScheduleManager scheduleManager;
 
     public StrategyInstance() {
     }
 
-    public StrategyInstance(String strategyId, ScheduleState state,
-                            Integer stage, List<FeatureInstance> featureInstanceList,
-                            StrategyAction action,
-                            Long timeStamp) {
-        this.strategyId = strategyId;
-        this.state = state;
-        this.stage = stage;
-        this.featureInstanceList = featureInstanceList;
-        this.action = action;
-        this.timeStamp = timeStamp;
-        this.isScheduled = false;
-    }
+//    public StrategyInstance(String strategyId, ScheduleState state,
+//                            Integer stage, List<FeatureInstance> featureInstanceList,
+//                            StrategyAction action,
+//                            Long timeStamp) {
+//        this.strategyId = strategyId;
+//        this.state = state;
+//        this.stage = stage;
+//        this.featureInstanceList = featureInstanceList;
+//        this.action = action;
+//        this.timeStamp = timeStamp;
+//        this.isScheduled = false;
+//    }
 
     public StrategyInstance(String strategyId, ScheduleState state, Integer stage, List<FeatureInstance> featureInstanceList, StrategyAction action, Long timeStamp, boolean isScheduled, Date startTime, boolean isScheduleNow, boolean isRepeat, String[] repeatWeek) {
         this.strategyId = strategyId;
@@ -102,14 +103,12 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
         }
         featureInstanceList = newFeatureList;
         this.listener = listener;
+        this.scheduleManager = scheduleManager;
         this.isScheduled = true;
     }
 
     @Override
     public boolean start() {
-        if (!this.isScheduled) {
-            return false;
-        }
         switch (state) {
             case NONE:
                 featureInstanceList.get(stage).start();
@@ -128,9 +127,7 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
 
     @Override
     public boolean stop() {
-        if (!this.isScheduled) {
-            return false;
-        }
+        scheduleManager.deleteJob(featureInstanceList.get(0).scheduleJob);
         switch (state) {
             case NONE:
                 break;
@@ -200,37 +197,37 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
                 stage++;
                 if (stage < featureInstanceList.size()) {
                     this.state = ScheduleState.NONE;
-                    if(featureInstanceList.get(stage).scheduleJob == null) {
-                        FeatureInstance featureInstance = featureInstanceList.get(stage);
-                        Set<ScheduleTrigger> scheduleTriggers = new HashSet<>();
-                        Date startTime = new Date(System.currentTimeMillis()+featureInstanceList.get(stage-1).intervalTime);
-                        ScheduleTrigger scheduleTrigger = new ScheduleTrigger(
-                                strategyId + stage,
-                                strategyId,
-                                strategyId+stage+0,
-                                strategyId+stage,
-                                startTime,
-                                null,
-                                null,
-                                null,
-                                false
-                        );
-                        scheduleTriggers.add(scheduleTrigger);
-                        featureInstance.scheduleJob = new ScheduleJob(
-                                strategyId + stage,
-                                strategyId,
-                                ScheduleState.NONE,
-                                "",
-                                ScheduleJobEntry.class,
-                                scheduleTriggers,
-                                featureInstance,
-                                false
-                        );
-                    }
+                    FeatureInstance featureInstance = featureInstanceList.get(stage);
+                    Set<ScheduleTrigger> scheduleTriggers = new HashSet<>();
+                    Date startTime = new Date(System.currentTimeMillis()+featureInstanceList.get(stage-1).intervalTime);
+                    ScheduleTrigger scheduleTrigger = new ScheduleTrigger(
+                            strategyId + stage,
+                            strategyId,
+                            strategyId+stage+0,
+                            strategyId+stage,
+                            startTime,
+                            null,
+                            null,
+                            null,
+                            false
+                    );
+                    scheduleTriggers.add(scheduleTrigger);
+                    featureInstance.scheduleJob = null;
+                    featureInstance.scheduleJob = new ScheduleJob(
+                            strategyId + stage,
+                            strategyId,
+                            ScheduleState.NONE,
+                            "",
+                            ScheduleJobEntry.class,
+                            scheduleTriggers,
+                            featureInstance,
+                            false
+                    );
+
                     start();
                 } else {
-                    this.state = ScheduleState.DONE;
-                    listener.onScheduleStateChanged(this, this.state);
+                    this.state = ScheduleState.NONE;
+                    listener.onScheduleStateChanged(this, ScheduleState.DONE);
                 }
                 break;
             case RUNNING:

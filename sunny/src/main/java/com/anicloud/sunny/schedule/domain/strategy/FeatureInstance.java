@@ -35,19 +35,19 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     public FeatureInstance() {
     }
 
-    public FeatureInstance(String featureId, String deviceId,
-                           ScheduleState state, Integer stage,
-                           List<FunctionInstance> functionInstanceList,
-                           List<TriggerInstance> triggerInstanceList,
-                           boolean isScheduleNow) {
-        this.featureId = featureId;
-        this.deviceId = deviceId;
-        this.state = state;
-        this.stage = stage;
-        this.functionInstanceList = functionInstanceList;
-        this.triggerInstanceList = triggerInstanceList;
-        this.isScheduleNow = isScheduleNow;
-    }
+//    public FeatureInstance(String featureId, String deviceId,
+//                           ScheduleState state, Integer stage,
+//                           List<FunctionInstance> functionInstanceList,
+//                           List<TriggerInstance> triggerInstanceList,
+//                           boolean isScheduleNow) {
+//        this.featureId = featureId;
+//        this.deviceId = deviceId;
+//        this.state = state;
+//        this.stage = stage;
+//        this.functionInstanceList = functionInstanceList;
+//        this.triggerInstanceList = triggerInstanceList;
+//        this.isScheduleNow = isScheduleNow;
+//    }
 
     public FeatureInstance(String featureId, String deviceId, ScheduleState state, Integer stage, List<FunctionInstance> functionInstanceList, List<TriggerInstance> triggerInstanceList, boolean isScheduleNow, Long intervalTime) {
         this.featureId = featureId;
@@ -80,7 +80,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
         }
 
         if (stage == functionInstanceList.size()) {
-            state = ScheduleState.DONE;
+            state = ScheduleState.NONE;
             listener.onScheduleStateChanged(this, ScheduleState.DONE);
         }
 
@@ -115,7 +115,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
     @Override
     public boolean stop() {
         scheduleManager.deleteJob(scheduleJob);
-        state = ScheduleState.DONE;
+        state = ScheduleState.NONE;
         listener.onScheduleStateChanged(this, state);
         return true;
     }

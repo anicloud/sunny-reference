@@ -1,9 +1,6 @@
 package com.anicloud.sunny.infrastructure.jms;
 
 import com.anicloud.sunny.domain.model.strategy.Strategy;
-import com.anicloud.sunny.schedule.domain.adapter.DtoAdapter;
-import com.anicloud.sunny.schedule.domain.strategy.StrategyInstance;
-import com.anicloud.sunny.schedule.dto.StrategyInstanceDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;

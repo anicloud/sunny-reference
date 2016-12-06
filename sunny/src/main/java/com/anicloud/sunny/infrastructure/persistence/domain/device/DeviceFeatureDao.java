@@ -24,8 +24,8 @@ public class DeviceFeatureDao extends AbstractEntity {
     public String featureName;
     @Column(name = "description", length = 255)
     public String description;
-    @Column(name = "type")
-    public PrivilegeType type;
+    @Column(name = "privilegeType")
+    public PrivilegeType privilegeType;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "device_feature_id", referencedColumnName = "id")
@@ -46,14 +46,14 @@ public class DeviceFeatureDao extends AbstractEntity {
                             List<FeatureArgDao> featureArgDaoList,
                             List<FeatureArgFunctionArgRelationDao> argRelationDaoList,
                             List<FeatureFunctionDao> featureFunctionDaoList,
-                            String featureId, String featureName, PrivilegeType type) {
+                            String featureId, String featureName, PrivilegeType privilegeType) {
         this.description = description;
         this.featureArgDaoList = featureArgDaoList;
         this.argRelationDaoList = argRelationDaoList;
         this.featureFunctionDaoList = featureFunctionDaoList;
         this.featureId = featureId;
         this.featureName = featureName;
-        this.type = type;
+        this.privilegeType = privilegeType;
     }
 
     @Override
