@@ -53,8 +53,8 @@ public class ScheduleManager implements Serializable {
                 scheduler.addJob(jobDetail, false);
                 scheduler.triggerJob(jobDetail.getKey());
             } else {
+                Trigger trigger;
                 for (ScheduleTrigger scheduleTrigger : job.triggers) {
-                    Trigger trigger;
                     if(scheduleTrigger.isRepeat) {
                         trigger = TriggerBuilder.newTrigger()
                                 .withIdentity(scheduleTrigger.triggerName,scheduleTrigger.triggerGroup)
@@ -62,7 +62,7 @@ public class ScheduleManager implements Serializable {
                                 .withSchedule(CronScheduleBuilder.cronSchedule(getCronTriggerExpress(scheduleTrigger.startTime,scheduleTrigger.repeatWeek)))
                                 .build();
                     } else {
-                        trigger = (SimpleTrigger) newTrigger()
+                        trigger = TriggerBuilder.newTrigger()
                                 .withIdentity(scheduleTrigger.triggerName, scheduleTrigger.triggerGroup)
                                 .forJob(jobDetail)
                                 .startAt(scheduleTrigger.startTime)
