@@ -16,7 +16,7 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
                 scope: $scope,
                 controller: 'FeatureEditCtrl'
             });
-    }
+    };
     
     $scope.openRepeatTemplate = function () {
         ngDialog.open(
@@ -57,31 +57,44 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
     };
     
     $scope.addStrategy = function () {
-        $scope.strategyTemplate.valid = true;
-        if ($scope.strategyTemplate.strategyName.length == 0) {
-            $scope.strategyTemplate.valid = false;
-            $scope.strategyTemplate.error = "名称不能为空";
-            return false;
-        }
-        if ($scope.strategyTemplate.featureList.length == 0) {
-            $scope.strategyTemplate.valid = false;
-            $scope.strategyTemplate.error = "任务不能为空";
-            return false;
-        }
+        //$scope.strategyTemplate.valid = true;
+        // if ($scope.strategyTemplate.strategyName.length == 0) {
+        //     $scope.strategyTemplate.valid = false;
+        //     $scope.strategyTemplate.error = "名称不能为空";
+        //     return false;
+        // }
+        // if ($scope.strategyTemplate.featureList.length == 0) {
+        //     $scope.strategyTemplate.valid = false;
+        //     $scope.strategyTemplate.error = "任务不能为空";
+        //     return false;
+        // }
         //sort featureList by time
-        $scope.strategyTemplate.featureList.sort(function (strategy1,strategy2) {
-           var time1=moment(strategy1.triggerDtoList[0].triggerValue);
-            var time2=moment(strategy2.triggerDtoList[0].triggerValue);
-            console.log('time',time1,time2);
-            if(time1.isBefore(time2))return -1;
-            else  return 1;
+        // $scope.strategyTemplate.featureList.sort(function (strategy1,strategy2) {
+        //    var time1=moment(strategy1.triggerDtoList[0].triggerValue);
+        //     var time2=moment(strategy2.triggerDtoList[0].triggerValue);
+        //     console.log('time',time1,time2);
+        //     if(time1.isBefore(time2))return -1;
+        //     else  return 1;
+        // });
+        $scope.strategyTemplate.featureList.forEach(function (feature,index) {
+            if(!index){
+                feature.intervalTime=Math.abs($scope.strategyRepeat.startTime.diff(feature.absTime));
+            }else{
+                feature.intervalTime=$scope.strategyTemplate.featureList[index-1].absTime.diff(feature.absTime);
+            }
+            return feature
+        });
+        $scope.strategyTemplate.featureList.forEach(function (feature) {
+            delete feature.absTime
         });
         var strategyInstance = new anicloud.sunny.model.StrategyInstance(
             $scope.strategyTemplate.strategyId,
             $scope.strategyTemplate.strategyName,
             null,
             null,
-            jsonClone($scope.strategyTemplate.featureList));
+            $scope.strategyTemplate.featureList,
+            $scope.strategyRepeat
+        );
     
         ManagerService.addStrategy(strategyInstance);
         return true;
@@ -101,6 +114,6 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
         startTime:moment(),
         isScheduleNow:false   //
     };
-
+    $scope.ngDialogOpenNum=0;
    
 };

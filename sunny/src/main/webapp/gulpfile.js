@@ -155,8 +155,8 @@ gulp.task('copy:prod', function () {
         gulp.src(app.src+'/replace/plugin/'+fileName)
             .pipe(gulp.dest(replacePluginMapProd[fileName]))
     }
-    gulp.src(app.src+'/replace/index.html')
-        .pipe(gulp.dest(app.dist));
+    gulp.src(app.src+'/replace/index.jsp')
+        .pipe(gulp.dest('WEB-INF/views'));
     gulp.src(paths.views.files)
         // .pipe($.rev())
         // .pipe($.revReplace())
@@ -276,7 +276,7 @@ gulp.task('link', $.shell.task([
 ]));
 
 gulp.task('link:prod', $.shell.task([
-    'ln -sf'+__dirname+'/bower_components ' + app.dist + '/bower_components'
+    'ln -sf '+__dirname+'/bower_components ' + app.dist + '/bower_components'
 ]));
 
 

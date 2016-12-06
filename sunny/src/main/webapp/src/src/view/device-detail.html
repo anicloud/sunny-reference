@@ -53,7 +53,7 @@
                         <div class="feature-background">
                             <div class="feature-title">
                             <div style="display: inline-block"><strong>{{feature.featureName}}</strong></div>
-                            <div style="display: inline-block; float: right">
+                            <div style="display: inline-block; float: right" ng-show="feature.privilegeType==='EXECUTE'">
                                 <a ng-click="deviceDetail.start(feature)">
                                     应用
                                 </a>
@@ -75,13 +75,10 @@
                                 <div ng-if="arg.dataType == 'FLOAT'">
                                     {{arg.screenName}}:
                                     <div style="display: inline-block; float: right">
-                                        <input type="text" ng-model="deviceDetail.arguments[feature.featureId][arg.name]"
+                                        <input ng-disabled="feature.privilegeType!=='EXECUTE'" type="text" ng-model="deviceDetail.arguments[feature.featureId][arg.name]"
                                                ng-init="deviceDetail.arguments[feature.featureId][arg.name]=deviceDetail.device.initParam[arg.name]" style="width: 40px;" ng-blur="deviceDetail.start(feature)">
                                     </div>
-
-                                    <input ng-model="deviceDetail.arguments[feature.featureId][arg.name]" type="range" step=".1" min="0" max="100" ng-mouseup="deviceDetail.start(feature)">
-
-
+                                    <input ng-show="feature.privilegeType==='EXECUTE'" ng-model="deviceDetail.arguments[feature.featureId][arg.name]" type="range" step=".1" min="0" max="100" ng-mouseup="deviceDetail.start(feature)">
                                 </div>
                                 <div ng-if="arg.dataType == 'STRING'">
                                     <input type="text" ng-model="deviceDetail.arguments[feature.featureId][arg.name]">

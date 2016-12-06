@@ -108,16 +108,23 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
             feature,
             argumentList,
             [],
-            true
+            true,
+            moment()
         );
-
+        featureInstance.intervalTime=0;
+        delete featureInstance.absTime;
         var strategyInstance = new anicloud.sunny.model.StrategyInstance(
             "",
             "_PHONY_STRATEGY_",
             null,
             null,
-            [featureInstance]);
-
+            [featureInstance],
+            {
+                startTime:moment(),
+                isScheduleNow:false,
+                isRepeat:false,
+                weekRepeat:[]
+            });
         console.log(strategyInstance);
         ManagerService.addStrategy(jsonClone(strategyInstance));
     };

@@ -12,7 +12,8 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
 
     return {
         addFeature: function (feature, strategy) {
-            strategy.featureList.push(jsonClone(feature));
+         //   strategy.featureList.push(jsonClone(feature));
+            strategy.featureList.push(feature);
         },
 
         deleteFeature: function (index, strategy) {

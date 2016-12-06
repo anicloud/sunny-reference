@@ -17,7 +17,8 @@ anicloud.sunny.controller.RepeatCtrl = function ($rootScope, $scope, ManagerServ
             isRepeat:$scope.strategyRepeat.isRepeat,
             startTime:$scope.strategyRepeat.startTime,
             name:$scope.strategyTemplate.strategyName,
-            nameRequired:true
+            nameRequired:true,
+            weekRequired:true
         };
         $scope.tempRepeat.repWeek=[false,false,false,false,false,false,false];
         $scope.strategyRepeat.weekRepeat.forEach(function(item,index){
@@ -27,6 +28,10 @@ anicloud.sunny.controller.RepeatCtrl = function ($rootScope, $scope, ManagerServ
             if(!$scope.tempRepeat.name){
                 $scope.tempRepeat.nameRequired=false;
                 return false;
+            }
+            if($scope.tempRepeat.isRepeat&&$scope.tempRepeat.repWeek.toString()===[false,false,false,false,false,false,false].toString()){
+                $scope.tempRepeat.weekRequired=false;
+                return false
             }
             $scope.strategyTemplate.strategyName=$scope.tempRepeat.name;
             $scope.strategyRepeat.startTime=$scope.tempRepeat.startTime;

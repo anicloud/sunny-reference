@@ -7,6 +7,6 @@ var RetData=require('./ret-data');
 var router=express.Router();
 
 router.post('/',function (req,res) {
-    //res.send(new RetData('success','',null));
+    res.send(new RetData('success','',null));
 });
 module.exports=router;

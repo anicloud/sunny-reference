@@ -13,7 +13,8 @@ anicloud.sunny.model.StrategyInstance = function (
     strategyName,
     state,
     stage,
-    featureList
+    featureList,
+    strategyRepeat
 ) {
     var _this = this;
     _this.strategyId = strategyId;
@@ -21,4 +22,8 @@ anicloud.sunny.model.StrategyInstance = function (
     _this.state = state;
     _this.stage = stage;
     _this.featureList = featureList;
+    _this.startTime=strategyRepeat.startTime;
+    _this.isScheduleNow=strategyRepeat.isScheduleNow;
+    _this.isRepeat=strategyRepeat.isRepeat;
+    _this.repeatWeek=strategyRepeat.weekRepeat
 };

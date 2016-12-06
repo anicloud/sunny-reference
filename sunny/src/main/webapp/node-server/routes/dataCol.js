@@ -44,6 +44,7 @@ var dataCol = function () {
                     featureId: "1",
                     featureName: "Power On",
                     description: "light power on feature.",
+                    privilegeType: "EXECUTE",
                     argDtoList: [
                         {
                             name: "brightnessLux",
@@ -56,13 +57,14 @@ var dataCol = function () {
                     featureId: "2",
                     featureName: "Power Off",
                     description: "light power off feature.",
+                    privilegeType: "EXECUTE",
                     argDtoList: []
                 },
                 {
                     featureId:"3",
                     featureName:"temperature",
                     description:"temperature Sensor.",
-                    type: "READ",
+                    privilegeType: "READ",
                     argDtoList: [
                         {
                             "name": "temperature",
@@ -75,7 +77,7 @@ var dataCol = function () {
                     featureId:"4",
                     featureName:"humidity",
                     description:"humidity Sensor.",
-                    type: "READ",
+                    privilegeType: "READ",
                     argDtoList: [
                         {
                             "name": "humidity",
