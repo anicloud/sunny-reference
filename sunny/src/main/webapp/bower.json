@@ -1,0 +1,40 @@
+{
+  "name": "anicloud-app",
+  "description": "The Anicloud app project",
+  "main": "gulpfile.js",
+  "authors": [
+    "zhangdongming1989 <806684620@qq.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "timeline": "^2.29.1",
+    "simple-sidebar": "^2.8.3",
+    "bootstrap-switch": "^3.3.2",
+    "font-awesome": "^4.7.0",
+    "material-design-iconic-font": "^2.2.0",
+    "ng-dialog": "^0.6.4",
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-cookies": "^1.5.8",
+    "angular-translate": "^2.13.0",
+    "angular-ui-router": "^0.3.2",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.43",
+    "sockjs": "^0.3.4",
+    "jquery-md5": "*",
+    "js-md5": "md5#^0.4.1",
+    "angular-bootstrap": "^2.2.0"
+  },
+  "devDependencies": {
+    "jquery.cookie": "^1.4.1",
+    "html5shiv": "^3.7.3"
+  }
+}

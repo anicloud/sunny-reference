@@ -1,0 +1,53 @@
+<div ng-controller="StrategyEditCtrl" class="row">
+    <div class="group-wrapper" style="padding-left:20px; padding-top: 28px">
+        <span>新建任务</span>
+    </div>
+    <div class="strategy-template">
+        <div class="list-group-item col-lg-12">
+            <div class="panel-input row" style="padding-left:20px">
+                <div>
+                    <span>{{strategyTemplate.strategyName||'未命名'}}</span>&nbsp;&nbsp;
+                    <span>{{strategyRepeat.startTime.calendar()}}开始</span>&nbsp;&nbsp;
+                    <span>{{strategyRepeat.isRepeat?'按星期重复':"不重复"}}</span>
+                    <span ng-show="strategyRepeat.isRepeat">
+                        每周<span ng-repeat="weekDay in strategyRepeat.weekRepeat">{{['日','一','二','三','四','五','六'][weekDay]}}</span>
+                    </span>
+                <span>
+                      &nbsp;&nbsp;<button class="btn btn-default" ng-click="openRepeatTemplate()">{{strategyTemplate.strategyName?'修改':'创建'}}</button>
+                </span>
+                    <!--</ul>-->
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="feature-cel col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                         ng-repeat="feature in strategyTemplate.featureList">
+                        <div class="col-xs-4 device-description">
+                            <div class="feature-num">{{$index+1}}</div>
+                            <div class="device-panel">
+                                <i class="icon icon-appliances-lamp device-icon"></i>
+                                <p>{{feature.device.name}}</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-8 device-feature">
+                            <i class="fa fa-times close" ng-click="deleteFeature($index, strategyTemplate)"></i>
+                            <p><strong>{{feature.deviceFeature.featureName}}</strong></p>
+                            <p class="device-trigger">{{strategyTemplate.featureList[$index].absTime.from($index?strategyTemplate.featureList[$index-1].absTime:strategyRepeat.startTime)}}</p>
+                            <!--<p class="device-trigger">{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date}}</p>-->
+                            <!--<p class="device-trigger">{{triggerTimerToDate(triggerTimer.startTime)}}</p>-->
+                        </div>
+                    </div>
+                    <div ng-show="strategyTemplate.strategyName!==''" class="feature-cel col-lg-3 col-md-4 col-sm-6 col-xs-12 glyphicon glyphicon-plus-sign"
+                         style="width:30px;height:30px;font-size: 30px;color:#e79f32;line-height:80px;margin-bottom:50px" ng-click="ngDialogOpenNum=strategyTemplate.featureList.length;openFeatureEditTemplate()"></div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="alert alert-danger" ng-show="!strategyTemplate.valid">-->
+            <!--{{strategyTemplate.error}}-->
+        <!--</div>-->
+        <div class="btn-submit">
+            <button class="btn btn-default btn-long" ng-show="strategyTemplate.featureList.length>0" ng-click="addStrategy()">提交</button>
+            <!--<button class="btn btn-default">取消</button>-->
+        </div>
+    </div>
+</div>

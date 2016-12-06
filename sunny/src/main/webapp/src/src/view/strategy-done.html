@@ -1,0 +1,11 @@
+<div ng-controller="StrategyCtrl" class="row">
+    <div class="group-wrapper">
+        <span>已完成</span>
+    </div>
+    <div class="strategy-running" ng-model="strategies">
+        <div ng-repeat="strategy in strategies | filter: strategyFilterDone" ng-init="index=$index; toggleStatus.push(false)">
+            <div ng-include="'src/view/strategy-list.html'">
+            </div>
+        </div>
+    </div>
+</div>
