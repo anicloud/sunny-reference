@@ -12,7 +12,7 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
     $scope.openFeatureEditTemplate = function () {
         ngDialog.open(
             {
-                template: 'src/view/feature-edit.html',
+                template: 'public/src/view/feature-edit.html',
                 scope: $scope,
                 controller: 'FeatureEditCtrl'
             });
@@ -21,7 +21,7 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
     $scope.openRepeatTemplate = function () {
         ngDialog.open(
             {
-                template: 'src/view/repeat.html',
+                template: 'public/src/view/repeat.html',
                 scope: $scope,
                 controller: 'RepeatCtrl'
             });

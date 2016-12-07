@@ -35,7 +35,7 @@ anicloud.sunny.service.StrategyService = function($http, $cookies){
                 $http({
                     method:'POST',
                     url: 'strategy',
-                    data: {hashUserId:hashUserId,strategyInstance:strategyInstance}
+                    params: {hashUserId:hashUserId,strategyInstance:strategyInstance}
                 }).success(function(data){
                     callback(data);
                 }).error(function(data){
