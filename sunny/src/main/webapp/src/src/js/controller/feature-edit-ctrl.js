@@ -55,7 +55,9 @@ anicloud.sunny.controller.FeatureEditCtrl = function ($rootScope, $scope, Manage
         if ($scope.device == null) {
             return null;
         }
-        return $rootScope.features[$scope.device.id];
+        return $rootScope.features[$scope.device.id].filter(function (feature) {
+            return feature.privilegeType==="EXECUTE";
+        });
     };
 
     $scope.addFeature = function (strategy) {
@@ -88,7 +90,7 @@ anicloud.sunny.controller.FeatureEditCtrl = function ($rootScope, $scope, Manage
 
         if ($scope.trigger.triggerType == "TIMER") {
             console.log($scope.triggerTimer);
-            $scope.trigger.triggerValue = JSON.stringify(moment());
+            $scope.trigger.triggerValue = $scope.triggerTimer;
             console.log($scope.trigger.triggerValue);
         }
 

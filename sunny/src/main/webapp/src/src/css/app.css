@@ -279,10 +279,10 @@ fieldset .form-group {
 /* ========================================================================
    Component: typo.less
  ========================================================================== */
-body {
-  font-family: "Source Sans Pro", sans-serif;
-  color: #656565;
-}
+/*body {*/
+  /*font-family: "Source Sans Pro", sans-serif;*/
+  /*color: #656565;*/
+/*}*/
 h1,
 h2,
 h3,

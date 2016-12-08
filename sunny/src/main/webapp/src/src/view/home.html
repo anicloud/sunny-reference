@@ -1,6 +1,6 @@
 <div class="homepage row" ng-controller="HomePageCtrl">
     <div ng-controller="DeviceCtrl">
-        <div ng-include="'public/src/view/device-detail.html'"></div>
+        <div ng-include="currentConfig.defaultPath+'/src/view/device-detail.html'"></div>
         <div>
             <h4>
                 <i class="fa fa-tablet"></i>
@@ -9,21 +9,33 @@
 
             <div id="device-wrapper" style="line-height: 14px;font-size: 14px">
                 <div class="device-body device-body-homepage">
-                    <div class="device-cel" ng-repeat="device in devices" ng-click="deviceDetail.show(device)">
-                        <!--<div class="panel">-->
-                        <div class="panel-heading">
-                            <i class="icon icon-appliances-lamp device-icon"></i>
+                    <div ng-repeat="device in devices">
+                        <!--device block always show-->
+                        <div style="display: inline-block;float: left" ng-click="deviceToggle($index)">
+                            <div class="device-cel">
+                                <p><strong>{{device.name}}</strong><br>
+                                <div class="panel-heading">
+                                    <i class="flaticon flaticon-air-conditioning device-icon"></i>
+                                </div>
+                                <small>{{device.deviceState}}</small>
+                            </div>
+                            <!--device block show params-->
+                            <div class="device-cel" ng-click="deviceDetail.show(device)" ng-show="showIndex===$index">
+                                <div style="vertical-align:middle">
+                                    <div ng-repeat="feature in features[device.id]">
+                                        <div ng-repeat="arg in feature.argDtoList">
+                                            <p>
+                                                <small>{{arg.screenName}}:{{device.initParam[arg.name]}}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <p><strong>{{device.name}}</strong><br>
-                            <div ng-repeat="feature in features[device.id]">
-                                <div ng-repeat="arg in feature.argDtoList">
-                        <p>
-                            <small>{{arg.screenName}}:{{device.initParam[arg.name]}}</small>
-                        </p>
+
                     </div>
                 </div>
-                <small>{{device.deviceState}}</small>
-                </p>
             </div>
         </div>
     </div>
@@ -36,7 +48,7 @@
         <div class="strategy-running" ng-model="strategies">
             <div ng-repeat="strategy in strategies | filter: strategyFilterRunning"
                  ng-init="index=$index; toggleStatus.push(false)">
-                <div ng-include="'public/src/view/strategy-list.html'">
+                <div ng-include="currentConfig.defaultPath+'/src/view/strategy-list.html'">
                 </div>
             </div>
         </div>

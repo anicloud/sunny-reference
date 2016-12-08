@@ -5,7 +5,7 @@
         </div>
         <div>
             <label>策略开始时间:</label>
-            <span>&nbsp;&nbsp;{{tempRepeat.startTime.calendar()}}</span>
+            <span ng-show="!tempRepeat.isRepeat">&nbsp;&nbsp;{{tempRepeat.startTime.calendar()}}</span>
             <div>
                 <div class="row">
                     <div style="overflow:hidden;">

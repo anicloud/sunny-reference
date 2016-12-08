@@ -86,15 +86,27 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         DeviceService.getFeatureTrigger(function (data) {
             $rootScope.triggers = data;
         });
-
+        $rootScope.defaultPath="";
+        $rootScope.config={
+            dev:{
+                defaultPath:'',
+                wsPath:'ws://localhost:9000/'
+            },
+            prod:{
+                defaultPath:'public',
+                wsPath:"ws://localhost:8080/sunny/socket/strategy"
+            }
+        };
+        $rootScope.currentConfig=$rootScope.config.dev;
         WebSocketService.openSocket(
-             "ws://localhost:8080/sunny/socket/strategy",
-            //   "ws://localhost:9000/",
+            // "ws://localhost:8080/sunny/socket/strategy",
+            $rootScope.currentConfig.wsPath,
             null,
             null,
             null,
             ManagerService.updateFrontInfo
         );
+
     });
     moment.locale('zh-cn');
 };

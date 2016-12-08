@@ -196,12 +196,12 @@ gulp.task('minimizeCss',function () {
   //  var cssFilter=$.filter();
     return gulp.src(app.dev+'/src/css/**/*.css')
           .pipe($.order([
-              "/src/css/app.css",
+             // "/src/css/app.css",
               "/src/css/sunny.css",
               "/src/css/timeline.css"
           ]))
           .pipe($.concat('app.min.css'))
-          .pipe($.minifyCss({cache: true}))
+          //.pipe($.minifyCss({cache: true}))
           .pipe(gulp.dest(app.dist+'/src/css'))
 });
 gulp.task('minimizeJs',function () {

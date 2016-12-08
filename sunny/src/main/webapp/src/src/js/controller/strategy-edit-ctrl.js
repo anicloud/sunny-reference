@@ -12,7 +12,7 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
     $scope.openFeatureEditTemplate = function () {
         ngDialog.open(
             {
-                template: 'public/src/view/feature-edit.html',
+                template: $rootScope.currentConfig.defaultPath+'/src/view/feature-edit.html',
                 scope: $scope,
                 controller: 'FeatureEditCtrl'
             });
@@ -21,7 +21,7 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
     $scope.openRepeatTemplate = function () {
         ngDialog.open(
             {
-                template: 'public/src/view/repeat.html',
+                template: $rootScope.currentConfig.defaultPath+'/src/view/repeat.html',
                 scope: $scope,
                 controller: 'RepeatCtrl'
             });
@@ -87,6 +87,8 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
         $scope.strategyTemplate.featureList.forEach(function (feature) {
             delete feature.absTime
         });
+        var index=$scope.strategyRepeat.weekRepeat.indexOf(0);
+        if(index>-1)$scope.strategyRepeat.weekRepeat.splice(index,1,7);
         var strategyInstance = new anicloud.sunny.model.StrategyInstance(
             $scope.strategyTemplate.strategyId,
             $scope.strategyTemplate.strategyName,

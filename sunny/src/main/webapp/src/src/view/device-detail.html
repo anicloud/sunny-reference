@@ -3,7 +3,7 @@
         <!--<div class="device-icon">-->
         <!--<img src="public/images/icon/light.png">-->
         <!--</div>-->
-        <div class="icon icon-appliances-lamp icon-background"></div>
+        <div class="icon {{classLamp}} icon-background"></div>
         <div class="device-name">
             <div class="first-title" style="text-align: center; margin-bottom: 15px;">
                 <strong>{{deviceDetail.device.name}}</strong>
@@ -100,7 +100,7 @@
                     stop
                 </button>
             </div>
-
+            <button class="btn btn-default" style="float: right" ng-click="deviceDetail.visible=false">finish</button>
         </div>
     </div>
 </aside>

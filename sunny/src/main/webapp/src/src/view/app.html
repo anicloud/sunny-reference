@@ -1,8 +1,8 @@
 <!-- top navbar-->
-<header ng-include="'public/src/view/top-navbar.html'" class="topnavbar-wrapper"></header>
+<header ng-include="currentConfig.currentConfig.defaultPath+'/src/view/top-navbar.html'" class="topnavbar-wrapper"></header>
 
 <!-- sidebar-->
-<aside ng-include="'public/src/view/sidebar.html'" class="aside"></aside>
+<aside ng-include="currentConfig.currentConfig.defaultPath+'/src/view/sidebar.html'" class="aside"></aside>
 
 <!-- Main section-->
 <section>
@@ -13,5 +13,5 @@
 </section>
 
 <!-- Page footer-->
-<footer ng-include="'public/src/view/footer.html'"></footer>
+<footer ng-include="currentConfig.defaultPath+'/src/view/footer.html'"></footer>
 

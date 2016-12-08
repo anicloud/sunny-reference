@@ -1,5 +1,5 @@
 <div ng-controller="DeviceCtrl">
-    <div ng-include="'public/src/view/device-detail.html'" ng-controller="DeviceDetailCtrl"></div>
+    <div ng-include="defaultPath+'/src/view/device-detail.html'" ng-controller="DeviceDetailCtrl"></div>
     <div class="">
         <div class="row group-wrapper">
             <div class="group btn btn-info " ng-repeat="group in getGroups()"
