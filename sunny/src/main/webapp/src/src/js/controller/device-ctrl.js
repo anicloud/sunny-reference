@@ -121,7 +121,7 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
             [featureInstance],
             {
                 startTime:moment(),
-                isScheduleNow:false,
+                isScheduleNow:true,
                 isRepeat:false,
                 weekRepeat:[]
             });

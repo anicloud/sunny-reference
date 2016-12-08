@@ -71,7 +71,8 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         DeviceService.getDevices(function (data) {
             $rootScope.devices = data;
             for (var i = 0; i < $rootScope.devices.length; i++) {
-                $rootScope.devices[i].initParam = JSON.parse($rootScope.devices[i].initParam);
+                if($rootScope.devices[i].initParam != null && !$rootScope.devices[i].initParam.match("\s*"))
+                    $rootScope.devices[i].initParam = JSON.parse($rootScope.devices[i].initParam);
             }
         });
 

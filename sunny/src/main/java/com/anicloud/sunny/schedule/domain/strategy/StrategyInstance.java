@@ -1,7 +1,18 @@
 package com.anicloud.sunny.schedule.domain.strategy;
 
+import com.ani.bus.service.commons.dto.anistub.AniDataType;
+import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
+import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
+import com.anicloud.sunny.application.service.holder.SpringContextHolder;
 import com.anicloud.sunny.schedule.domain.schedule.*;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
@@ -27,6 +38,7 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
 
     transient public ScheduleStateListener listener;
     transient public ScheduleManager scheduleManager;
+    transient public static ObjectMapper objectMapper = new ObjectMapper();
 
     public StrategyInstance() {
     }
@@ -59,7 +71,7 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
     }
 
     public void  prepareSchedule(ScheduleManager scheduleManager, ScheduleStateListener listener, Long hashUserId) {
-        List<FeatureInstance> newFeatureList = new ArrayList<>();
+//        List<FeatureInstance> newFeatureList = new ArrayList<>();
         if(featureInstanceList != null && featureInstanceList.size()>0) {
             FeatureInstance startFeature = featureInstanceList.get(0);
             startFeature.scheduleManager = scheduleManager;
@@ -91,7 +103,7 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
             startFeature.hashUserId = hashUserId;
             startFeature.scheduleJob = startJob;
             startFeature.listener = this;
-            newFeatureList.add(startFeature);
+//            newFeatureList.add(startFeature);
 
             for (int i = 0; i < featureInstanceList.size(); i++) {
                 FeatureInstance featureInstance = featureInstanceList.get(i);
@@ -99,9 +111,9 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
                 featureInstance.hashUserId = hashUserId;
                 featureInstance.listener = this;
             }
-            newFeatureList.addAll(featureInstanceList);
+//            newFeatureList.addAll(featureInstanceList);
         }
-        featureInstanceList = newFeatureList;
+//        featureInstanceList = newFeatureList;
         this.listener = listener;
         this.scheduleManager = scheduleManager;
         this.isScheduled = true;
@@ -194,6 +206,9 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
                 listener.onScheduleStateChanged(this, this.state);
                 break;
             case DONE:
+                //更新initparam
+                updateInitParam();
+
                 stage++;
                 if (stage < featureInstanceList.size()) {
                     this.state = ScheduleState.NONE;
@@ -226,14 +241,49 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
 
                     start();
                 } else {
-                    this.state = ScheduleState.NONE;
-                    listener.onScheduleStateChanged(this, ScheduleState.DONE);
+                    if(!isRepeat) {
+                        this.state = ScheduleState.NONE;
+                        listener.onScheduleStateChanged(this, ScheduleState.DONE);
+                    } else {
+                        stage = 0;
+                    }
                 }
                 break;
             case RUNNING:
                 this.state = ScheduleState.RUNNING;
                 listener.onScheduleStateChanged(this, this.state);
                 break;
+        }
+    }
+
+    private void updateInitParam(){
+        try{
+            DeviceAndUserRelationServcie relationService = (DeviceAndUserRelationServcie) SpringContextHolder.getBean("deviceAndUserRelationServcie");
+            JmsTemplate paramJmsTemplate = (JmsTemplate) SpringContextHolder.getBean("paramJmsTemplate");
+            FeatureInstance featureInstance = featureInstanceList.get(stage);
+            DeviceAndUserRelationDto relationDto = relationService.getDeviceAndUserRelation(featureInstance.deviceId,featureInstance.hashUserId);
+
+            Map<String,String> params;
+            boolean isChanged = false;
+            if (!StringUtils.isEmpty(relationDto.initParam))
+                params =  objectMapper.readValue(relationDto.initParam,Map.class);
+            else
+                params = new HashMap<>();
+            for (FunctionInstance func : featureInstance.functionInstanceList) {
+                if(func.inputList != null) {
+                    for (Argument arg : func.inputList) {
+                        params.put(arg.name,arg.value);
+                        isChanged = true;
+                    }
+                }
+            }
+            if (isChanged) {
+                relationDto.initParam = objectMapper.writeValueAsString(params);
+                relationService.modifyRelation(relationDto);
+                paramJmsTemplate.convertAndSend(relationDto);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

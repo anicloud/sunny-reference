@@ -80,6 +80,7 @@ public class FeatureInstance implements ScheduleTask, Schedulable, Serializable 
         }
 
         if (stage == functionInstanceList.size()) {
+            stage = 0;
             state = ScheduleState.NONE;
             listener.onScheduleStateChanged(this, ScheduleState.DONE);
         }
