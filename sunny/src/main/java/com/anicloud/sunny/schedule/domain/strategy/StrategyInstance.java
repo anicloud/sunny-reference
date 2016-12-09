@@ -78,12 +78,13 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
 
             Set<ScheduleTrigger> scheduleTriggers = new HashSet<>();
             startFeature.triggerInstanceList = null;
+            Date featureStartTime = new Date(startTime.getTime()+startFeature.intervalTime);
             ScheduleTrigger startTrigger = new ScheduleTrigger(
                     strategyId + 0,
                     strategyId,
                     strategyId+0+0,
                     strategyId+0,
-                    startTime,
+                    featureStartTime,
                     null,
                     null,
                     repeatWeek,
