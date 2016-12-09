@@ -242,6 +242,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                         console.log("update phony strategy:");
                         console.log(strategy);
                     }
+                    location.reload();
                     break;
                 case 3:
 

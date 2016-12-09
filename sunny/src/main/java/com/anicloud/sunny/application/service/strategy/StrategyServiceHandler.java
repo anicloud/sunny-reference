@@ -10,6 +10,7 @@ import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.infrastructure.jms.StrategyStateQueueService;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.StrategyDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
+import com.anicloud.sunny.infrastructure.persistence.repository.schedule.StrategyInstanceRepository;
 import com.anicloud.sunny.infrastructure.persistence.repository.strategy.StrategyRepository;
 import com.anicloud.sunny.infrastructure.persistence.service.StrategyPersistenceService;
 import com.anicloud.sunny.schedule.domain.adapter.DaoAdapter;
@@ -58,6 +59,8 @@ public class StrategyServiceHandler implements StrategyService {
     private ScheduleService scheduleService;
     @Resource
     private StrategyRepository strategyRepository;
+    @Resource
+    private StrategyInstanceRepository strategyInstanceRepository;
 
     @Override
     public void saveStrategy(StrategyDto strategyDto) {
@@ -82,7 +85,6 @@ public class StrategyServiceHandler implements StrategyService {
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public void saveStrategy(Strategy strategySrc) {
         Strategy strategy = strategySrc.clone();
-
         Assert.notNull(strategy.strategyInstance);
         Strategy strategyOrg = getSingleStrategy(strategy.strategyId);
         StrategyInstanceDao dao = strategyInstancePersistenceService.
@@ -165,6 +167,19 @@ public class StrategyServiceHandler implements StrategyService {
             strategyList.add(strategy);
         }
         return StrategyDtoAssembler.toDtoList(strategyList);
+    }
+
+    public List<Strategy> getRunningStrategy() {
+        List<Strategy> result = new ArrayList<>();
+            Specification<StrategyDao> specification = (root, criteriaQuery, criteriaBuilder) -> {
+                Join<StrategyDao,StrategyInstanceDao> join = root.join(root.getModel().getSingularAttribute("state", StrategyInstanceDao.class), JoinType.LEFT);
+                Predicate predicate1 = criteriaBuilder.equal(join,ScheduleState.RUNNING);
+                Predicate predicate2 = criteriaBuilder.equal(join,ScheduleState.NONE);
+                Predicate prep = criteriaBuilder.or(predicate1,predicate2);
+                criteriaQuery.where(prep);
+                return criteriaQuery.getRestriction();
+            };
+        return strategyRepository.findAll(specification);
     }
 
     public int getCountByHashUserId(Long hashUserId) {
