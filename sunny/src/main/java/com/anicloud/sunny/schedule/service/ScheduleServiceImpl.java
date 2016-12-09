@@ -100,6 +100,7 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
                 stateStr = "unknow";
         }
         log.info("[state]: " + stateStr);
-        strategyService.saveStrategy(strategy);
+        if(!strategy.isScheduleNow)
+            strategyService.saveStrategy(strategy);
     }
 }

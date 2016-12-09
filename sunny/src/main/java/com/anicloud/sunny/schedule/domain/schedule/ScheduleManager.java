@@ -92,7 +92,8 @@ public class ScheduleManager implements Serializable {
                 sb.append(",");
             }
             sb.deleteCharAt(sb.lastIndexOf(","));
-            return "0\b" + minute + "\b" + hour + "\b" + "?\b" + "*\b" + sb.toString();
+            String str = "0 " + minute + " " + hour + " ? " + "* " + sb.toString();
+            return  str;
         }
         return null;
     }

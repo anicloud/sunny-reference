@@ -124,9 +124,9 @@
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
     font-family: Flaticon;
-    font-size: 20px;
+    font-size: 35px;
     font-style: normal;
-    margin-left: 20px;
+    margin: 10px 0;
 }
 
 .flaticon-air-conditioning:before { content: "\f100"; }

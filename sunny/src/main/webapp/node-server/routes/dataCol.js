@@ -9,6 +9,7 @@ var dataCol = function () {
             deviceState: "CONNECTED",
             deviceType: "Light",
             deviceGroup: "default",
+            loadUrl:'flaticon-lamp',
             initParam: '{"brightnessLux":"11.1","humidity":"78%","temperature":"25°C"}'
         },
         {
@@ -17,6 +18,7 @@ var dataCol = function () {
             deviceState: "CONNECTED",
             deviceType: "Light",
             deviceGroup: "default",
+            loadUrl:'flaticon-router',
             initParam: '{"brightnessLux":"22.2","humidity":"77%","temperature":"24°C"}'
         },
         {
@@ -25,6 +27,7 @@ var dataCol = function () {
             deviceState: "CONNECTED",
             deviceType: "Light2",
             deviceGroup: "default",
+            loadUrl:'flaticon-alarm-clock',
             initParam: '{"brightnessLux":"33.3","humidity":"76%","temperature":"23°C"}'
         }
     ];

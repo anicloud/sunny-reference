@@ -25,7 +25,7 @@
             <!--<div class="">{{feature.featureName}}</div>-->
         </select>
     </div>
-    <div ng-if="feature != {} && feature.argDtoList.length > 0">
+    <div ng-if="feature != {} && feature.argDtoList.length > 0" ng-init="initFeatureParam(feature)">
         <label>任务参数：</label>
         <div ng-repeat="arg in feature.argDtoList">
             <!--<label>-->
@@ -37,7 +37,7 @@
                 <!--<div class="btn btn-default" ng-click="deviceDetail.arguments[feature.featureId][arg.name] = deviceDetail.arguments[feature.featureId][arg.name] - 1">-->
                 <!-&#45;&#45;-->
                 <!--</div>-->
-                <input type="number" ng-model="deviceDetail.arguments[feature.featureId][arg.name]">
+                <input type="number" ng-model="featureArgMap[arg.name]">
 
                 <!--<div class="btn btn-default" ng-click="deviceDetail.arguments[feature.featureId][arg.name] = deviceDetail.arguments[feature.featureId][arg.name] + 1">-->
                 <!--+-->
@@ -46,18 +46,17 @@
             <div ng-if="arg.dataType == 'FLOAT'">
                 {{arg.screenName}}:
                 <div style="display: inline-block; float: right">
-                    <input type="text" ng-model="deviceDetail.arguments[feature.featureId][arg.name]"
-                           ng-init="deviceDetail.arguments[feature.featureId][arg.name]=device.initParam[arg.name]"
+                    <input type="text" ng-model="featureArgMap[arg.name]"
                            style="width: 40px;">
                 </div>
 
-                <input ng-model="deviceDetail.arguments[feature.featureId][arg.name]" type="range" step=".1" min="0"
+                <input ng-model="featureArgMap[arg.name]" type="range" step=".1" min="0"
                        max="100">
 
 
             </div>
             <div ng-if="arg.dataType == 'STRING'">
-                <input type="text" ng-model="deviceDetail.arguments[feature.featureId][arg.name]">
+                <input type="text" ng-model="featureArgMap[arg.name]">
             </div>
         </div>
     </div>

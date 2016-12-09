@@ -1,6 +1,7 @@
 package com.anicloud.sunny.interfaces.web;
 
 import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
+import com.anicloud.sunny.application.dto.share.FeatureArgValueDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
@@ -67,7 +68,7 @@ public class StrategyController {
             UserDto userDto = userService.getUserByHashUserId(hashUserId);
             strategyService.saveStrategy(StrategyFormDto.convertToStrategyDto(strategyFormDto, userDto));
 
-            saveDeviceParam(strategyFormDto.featureList,hashUserId);
+//            saveDeviceParam(strategyFormDto.featureList,hashUserId);
             message.put("status", "success");
         }catch (Exception e){
             message.put("status", "error");
@@ -81,7 +82,15 @@ public class StrategyController {
         try {
             for (DeviceFeatureInstanceFormDto featureForm : featureList) {
                 DeviceAndUserRelationDto deviceDto = deviceAndUserRelationServcie.getDeviceAndUserRelation(featureForm.device.id, hashUserId);
-                deviceDto.initParam = objectMapper.writeValueAsString(featureForm.device.initParam);
+                Map<String,String> params;
+                if(featureForm.device.initParam == null)
+                    params = new HashMap<>();
+                else
+                    params = (HashMap)featureForm.device.initParam;
+                for(FeatureArgValueDto argValueDto : featureForm.featureArgValueDtoList)
+                    params.put(argValueDto.argName,argValueDto.value);
+                featureForm.device.initParam = params;
+                deviceDto.initParam = objectMapper.writeValueAsString(params);
                 deviceAndUserRelationServcie.modifyRelation(deviceDto);
             }
         } catch (JsonProcessingException e) {

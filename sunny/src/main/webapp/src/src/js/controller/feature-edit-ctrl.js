@@ -47,7 +47,6 @@ anicloud.sunny.controller.FeatureEditCtrl = function ($rootScope, $scope, Manage
         "repeatCount": 0
     };
     $scope.isCalenderOpen = true;
-    $scope.argumentMap = {};
     $scope.valid = true;
     $scope.error = "";
 
@@ -59,7 +58,12 @@ anicloud.sunny.controller.FeatureEditCtrl = function ($rootScope, $scope, Manage
             return feature.privilegeType==="EXECUTE";
         });
     };
-
+    $scope.initFeatureParam=function (feature) {
+        $scope.featureArgMap = {};
+        feature.argDtoList.forEach(function (item) {
+            $scope.featureArgMap[item.name]=$scope.device.initParam[item.name];
+        });
+    };
     $scope.addFeature = function (strategy) {
         $scope.valid = true;
 
@@ -80,17 +84,17 @@ anicloud.sunny.controller.FeatureEditCtrl = function ($rootScope, $scope, Manage
         // }
 
         var argumentList = [];
-        for (var arg in $scope.argumentMap) {
+        for (var arg in $scope.featureArgMap) {
             var obj = {};
             obj.argName = arg;
-            obj.value = $scope.argumentMap[arg];
+            obj.value = $scope.featureArgMap[arg];
             argumentList.push(obj);
         }
         console.log(argumentList);
 
         if ($scope.trigger.triggerType == "TIMER") {
             console.log($scope.triggerTimer);
-            $scope.trigger.triggerValue = $scope.triggerTimer;
+            $scope.trigger.triggerValue = JSON.stringify($scope.triggerTimer);
             console.log($scope.trigger.triggerValue);
         }
 

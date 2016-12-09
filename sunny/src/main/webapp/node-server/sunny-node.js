@@ -48,9 +48,9 @@ wss.on('connection', function connection(ws) {
     setTimeout(function () {
         ws.send(JSON.stringify(wsData.strategy1));
     },5000);
-    setTimeout(function () {
-        ws.send(JSON.stringify(wsData.strategy2));
-    },10000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(wsData.strategy2));
+    // },10000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(wsData.strategy3));
     // },11000);

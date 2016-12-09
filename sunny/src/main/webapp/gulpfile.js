@@ -192,16 +192,17 @@ gulp.task('copy:prod', function () {
 //         .pipe(gulp.dest(app.dist));
 // });
 gulp.task('minimize',['minimizeCss','minimizeJs']);
+//gulp.task('minimize',['minimizeJs']);
 gulp.task('minimizeCss',function () {
   //  var cssFilter=$.filter();
-    return gulp.src(app.dev+'/src/css/**/*.css')
+    return gulp.src([app.dev+'/src/css/sunny.css',app.dev+'/src/css/timeline.css',app.dev+'/src/css/app.css'])
           .pipe($.order([
-             // "/src/css/app.css",
+              "/src/css/app.css",
               "/src/css/sunny.css",
               "/src/css/timeline.css"
           ]))
           .pipe($.concat('app.min.css'))
-          //.pipe($.minifyCss({cache: true}))
+         // .pipe($.minifyCss({cache: true}))
           .pipe(gulp.dest(app.dist+'/src/css'))
 });
 gulp.task('minimizeJs',function () {
