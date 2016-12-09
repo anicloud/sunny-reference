@@ -14,5 +14,4 @@ public interface StrategyInstancePersistenceService  {
     public StrategyInstanceDao update(StrategyInstanceDao strategyInstanceDao);
     public StrategyInstanceDao getByStrategyId(String strategyId);
     public void remove(String strategyId);
-    List<StrategyInstanceDao> findRunningStragegy(Long hashUserId);
 }

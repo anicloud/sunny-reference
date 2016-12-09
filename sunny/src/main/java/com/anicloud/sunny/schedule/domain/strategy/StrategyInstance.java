@@ -215,13 +215,13 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
                     this.state = ScheduleState.NONE;
                     FeatureInstance featureInstance = featureInstanceList.get(stage);
                     Set<ScheduleTrigger> scheduleTriggers = new HashSet<>();
-                    Date startTime = new Date(System.currentTimeMillis()+featureInstanceList.get(stage-1).intervalTime);
+                    Date _startTime = new Date(System.currentTimeMillis()+featureInstanceList.get(stage).intervalTime);
                     ScheduleTrigger scheduleTrigger = new ScheduleTrigger(
                             strategyId + stage,
                             strategyId,
                             strategyId+stage+0,
                             strategyId+stage,
-                            startTime,
+                            _startTime,
                             null,
                             null,
                             null,
@@ -247,6 +247,7 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
                         listener.onScheduleStateChanged(this, ScheduleState.DONE);
                     } else {
                         stage = 0;
+                        listener.onScheduleStateChanged(this,ScheduleState.RUNNING);
                     }
                 }
                 break;

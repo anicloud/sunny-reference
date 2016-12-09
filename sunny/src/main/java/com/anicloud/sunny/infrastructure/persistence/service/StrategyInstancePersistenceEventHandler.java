@@ -1,6 +1,7 @@
 package com.anicloud.sunny.infrastructure.persistence.service;
 
 import com.anicloud.sunny.infrastructure.persistence.domain.user.UserDao;
+import com.anicloud.sunny.schedule.persistence.dao.FeatureInstanceDao;
 import com.anicloud.sunny.schedule.persistence.dao.StrategyInstanceDao;
 import com.anicloud.sunny.infrastructure.persistence.repository.schedule.StrategyInstanceRepository;
 import org.springframework.data.jpa.domain.Specification;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import java.util.List;
 
 /**
@@ -47,11 +49,4 @@ public class StrategyInstancePersistenceEventHandler implements StrategyInstance
         }
     }
 
-    @Override
-    public List<StrategyInstanceDao> findRunningStragegy(Long hashUserId) {
-        Specification<StrategyInstanceDao> specification = (root, criteriaQuery, criteriaBuilder) -> {
-            return criteriaQuery.getRestriction();
-        };
-        return null;
-    }
 }

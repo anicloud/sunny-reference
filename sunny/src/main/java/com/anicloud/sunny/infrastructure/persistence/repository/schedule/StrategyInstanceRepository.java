@@ -4,6 +4,8 @@ import com.anicloud.sunny.schedule.persistence.dao.StrategyInstanceDao;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
  * Created by zhaoyu on 15-7-20.
  */

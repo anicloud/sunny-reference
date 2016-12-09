@@ -46,5 +46,6 @@ public interface StrategyService {
      * @param userDto
      * @param deviceFeatureInstanceDto
      */
-    public void runDeviceFeature(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto);
+    void runDeviceFeature(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto);
+    List<Strategy> getRunningStrategy();
 }
