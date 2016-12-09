@@ -99,7 +99,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
                 wsPath:"ws://localhost:8080/sunny/socket/strategy"
             }
         };
-        $rootScope.currentConfig=$rootScope.config.dev;
+        $rootScope.currentConfig=$rootScope.config.prod;
         WebSocketService.openSocket(
             // "ws://localhost:8080/sunny/socket/strategy",
             $rootScope.currentConfig.wsPath,
