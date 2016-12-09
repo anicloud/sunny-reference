@@ -7,7 +7,7 @@
                 name="deviceId"
                 ng-model="device"
                 style="border-width: 0"
-                ng-options="device as device.name for device in devices"
+                ng-options="device as device.name for device in connectedDevices"
                 required>
             <option value="">选择设备</option>
             <!--<button class="feature-device-icon">{{device.name}}</button>-->
@@ -116,16 +116,17 @@
             <div>time interval:{{currentRelTime}}<span ng-hide="strategyRepeat.isRepeat">({{currentAbsTime.format('lll')}})</span>
                 <div>
                     <div>
-                        <td><button class="btn btn-default" style="width:100px;margin:1px" ng-click="changeInterval([3,'hours'])">+3 hours</button></td>
-                        <td><button class="btn btn-default" style="width:100px;margin:1px" ng-click="changeInterval([1,'hours'])">+1 hours</button></td>
-                        <td><button class="btn btn-default" style="width:100px;margin:1px" ng-click="changeInterval([10,'minutes'])">+10 minutes</button></td>
+                        <td><button class="btn btn-default" style="width:80px;margin:1px" ng-click="changeInterval([3,'hours'])">+3 hours</button></td>
+                        <td><button class="btn btn-default" style="width:80px;margin:1px" ng-click="changeInterval([1,'hours'])">+1 hours</button></td>
+                        <td><button class="btn btn-default" style="width:80px;margin:1px" ng-click="changeInterval([10,'minutes'])">+10 minutes</button></td>
+                        <td><button class="btn btn-default" style="width:80px;margin:1px" ng-click="changeInterval([1,'minutes'])">+1 minutes</button></td>
                     </div>
                     <div>
-                        <td><button class="btn btn-default" style="width:100px;margin:1px" ng-click="changeInterval([-3,'hours'])">-3 hours</button></td>
-                        <td><button class="btn btn-default" style="width:100px;margin:1px"  ng-click="changeInterval([-1,'hours'])">-1 hours</button></td>
-                        <td><button class="btn btn-default" style="width:100px;margin:1px" ng-click="changeInterval([-10,'minutes'])">-10 minutes</button></td>
+                        <td><button class="btn btn-default" style="width:80px;margin:1px" ng-click="changeInterval([-3,'hours'])">-3 hours</button></td>
+                        <td><button class="btn btn-default" style="width:80px;margin:1px"  ng-click="changeInterval([-1,'hours'])">-1 hours</button></td>
+                        <td><button class="btn btn-default" style="width:80px;margin:1px" ng-click="changeInterval([-10,'minutes'])">-10 minutes</button></td>
+                        <td><button class="btn btn-default" style="width:80px;margin:1px" ng-click="changeInterval([-1,'minutes'])">-1 minutes</button></td>
                     </div>
-                    <button class="btn btn-default" onclick="alert('excited!')">+1s</button>
                 </div>
             </div>
             <!--<div>-->
@@ -150,7 +151,7 @@
         <div class="alert alert-danger" ng-show="!valid">
             {{error}}
         </div>
-        <div class="btn btn-default btn-long"
+        <div class="btn btn-default btn-long" style="margin-top: 5px"
              ng-click="addFeature(strategyTemplate) && closeThisDialog('')">
             添加
         </div>

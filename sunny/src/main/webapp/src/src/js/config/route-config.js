@@ -17,8 +17,8 @@ anicloud.sunny.config.route = ['$stateProvider', '$locationProvider', '$urlRoute
         $urlRouterProvider.otherwise('/app/dashboard');
 
         // Application Routes
-        var basepath = '/sunny/public/src/view/';
-      //  var basepath=$rootScope.currentConfig.defaultPath+'src/view/';
+     //   var basepath = '/sunny/public/src/view/';
+        var basepath='src/view/';
         $stateProvider
             .state('app', {
                 url: '/app',

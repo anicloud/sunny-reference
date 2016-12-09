@@ -9,16 +9,16 @@ var dataCol = function () {
             deviceState: "CONNECTED",
             deviceType: "Light",
             deviceGroup: "default",
-            loadUrl:'flaticon-lamp',
+            logoUrl:'flaticon-lamp',
             initParam: '{"brightnessLux":"11.1","humidity":"78%","temperature":"25°C"}'
         },
         {
             id: "4281056279305915936:-1",
             name: "haier_router",
-            deviceState: "CONNECTED",
+            deviceState: "DISCONNECTED",
             deviceType: "Light",
             deviceGroup: "default",
-            loadUrl:'flaticon-router',
+            logoUrl:'flaticon-router',
             initParam: '{"brightnessLux":"22.2","humidity":"77%","temperature":"24°C"}'
         },
         {
@@ -27,7 +27,7 @@ var dataCol = function () {
             deviceState: "CONNECTED",
             deviceType: "Light2",
             deviceGroup: "default",
-            loadUrl:'flaticon-alarm-clock',
+            logoUrl:'',
             initParam: '{"brightnessLux":"33.3","humidity":"76%","temperature":"23°C"}'
         }
     ];

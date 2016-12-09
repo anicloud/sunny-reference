@@ -80,7 +80,7 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
             if(!index){
                 feature.intervalTime=Math.abs($scope.strategyRepeat.startTime.diff(feature.absTime));
             }else{
-                feature.intervalTime=$scope.strategyTemplate.featureList[index-1].absTime.diff(feature.absTime);
+                feature.intervalTime=Math.abs($scope.strategyTemplate.featureList[index-1].absTime.diff(feature.absTime));
             }
             return feature
         });

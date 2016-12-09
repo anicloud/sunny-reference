@@ -35,6 +35,9 @@ anicloud.sunny.controller.FeatureEditCtrl = function ($rootScope, $scope, Manage
     //     }
     // },true);
     // feature Template
+    $scope.connectedDevices=$scope.devices.filter(function (device) {
+       return device.deviceState==="CONNECTED";
+    });
     $scope.device = null;
     $scope.feature = null;
     $scope.trigger = {
