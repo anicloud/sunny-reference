@@ -15,7 +15,6 @@ if (window.console) {
 }
 
 
-
 anicloud.sunny.global.loadApp = function (config, controller, service, directive, appName) {
     var app = angular.module(appName, [
         'ngRoute',
@@ -54,6 +53,27 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         $rootScope.busyDeviceMap = {};
         $rootScope.initParam = {};
 
+        $rootScope.deviceDetailVisible=false;
+        //$rootScope.sidebarToggle=function(event){
+        //  console.log('sidebarToggle',event)
+        //};
+        document.addEventListener('click',function(e){
+            //console.log(e.target.scope())
+            var sidebarObj=angular.element('#sidebar');
+            if(sidebarObj.length>0) var sidebarCtrl=sidebarObj.scope();
+            var clickCtrl=angular.element(e.target).scope();
+            var result=null;
+            function scopeBelong(sidebarCtrl,clickCtrl){
+                if(!clickCtrl.$parent) return result=false;
+                else if(clickCtrl===sidebarCtrl) return result=true;
+                else scopeBelong(sidebarCtrl,clickCtrl.$parent)
+            }
+            if(sidebarCtrl&&$rootScope.DOMClickHasRun&&$rootScope.deviceDetailVisible&&!scopeBelong(sidebarCtrl,clickCtrl)&&result!==true)
+                $rootScope.deviceDetailVisible=false;
+            $rootScope.$apply();
+            $rootScope.DOMClickHasRun=true;
+            console.log(angular.element(e.target).scope(),sidebarCtrl)
+        });
         StrategyService.getStrategies(function (data) {
             $rootScope.strategies = data;
             for (var strategy in data) {

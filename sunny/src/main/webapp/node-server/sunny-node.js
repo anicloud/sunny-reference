@@ -45,12 +45,12 @@ wss.on('connection', function connection(ws) {
     // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
     ws.on('message', function incoming(message) {
     });
-    // setTimeout(function () {
-    //     ws.send(JSON.stringify(wsData.strategy1));
-    // },5000);
-    // setTimeout(function () {
-    //     ws.send(JSON.stringify(wsData.strategy2));
-    // },10000);
+     //setTimeout(function () {
+     //    ws.send(JSON.stringify(wsData.strategyNew));
+     //},5000);
+     //setTimeout(function () {
+     //    ws.send(JSON.stringify(wsData.strategyFinish));
+     //},10000);
     setTimeout(function () {
         ws.send(JSON.stringify(wsData.strategyDeviceParamUpdate));
     },5000);
