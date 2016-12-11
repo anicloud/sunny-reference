@@ -46,11 +46,11 @@ wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
     });
     setTimeout(function () {
-        ws.send(JSON.stringify(wsData.strategy1));
+        ws.send(JSON.stringify(wsData.strategyDeviceParamUpdate));
     },5000);
-    setTimeout(function () {
-        ws.send(JSON.stringify(wsData.strategy2));
-    },10000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(wsData.strategy2));
+    // },10000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(wsData.strategy3));
     // },11000);

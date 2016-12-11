@@ -145,9 +145,22 @@ var strategy4 = {
         }]
     }
 };
+var strategyDeviceParamUpdate={
+    "kind":0,
+    "instance":{
+        id: "6827881482365236091:-1",
+        name: "公司控制中心",
+        deviceState: "CONNECTED",
+        deviceType: "Light",
+        deviceGroup: "default",
+        logoUrl:'flaticon-lamp',
+        initParam: '{"brightnessLux":"40.1","humidity":"78%","temperature":"25°C"}'
+    }
+};
 module.exports = {
     strategy1: strategy1,
     strategy2: strategy2,
     strategy3: strategy3,
-    strategy4: strategy4
+    strategy4: strategy4,
+    strategyDeviceParamUpdate:strategyDeviceParamUpdate
 };

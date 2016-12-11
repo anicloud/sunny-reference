@@ -109,87 +109,96 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
             });
         },
 
-        updateStrategyDevice: function (obj) {
-           // alert(JSON.stringify(obj));
-           if(obj.kind == 0) {//device update
-               var device = obj.instance;
-               var isNew = true;
-               for (var i = 0; i < $rootScope.devices.length; i++) {
-                   if ($rootScope.devices[i].id == device.id) {
-                       $rootScope.devices.splice(i, 1, JSON.parse(JSON.stringify(device)));
-                       isNew = false;
-                       console.log("update device:");
-                       console.log(device);
-                   }
-               }
-               if (isNew) {
-                   console.log("update device:");
-                   console.log(device);
-                   $rootScope.devices.push(device);
-                   console.log(device);
-               }
-               location.reload();
-           } else if(obj.kind == 1){//strategy update
-               // handle normal strategy
-               var isNew = true;
-               var strategy = obj.instance;
-               for (var i = 0; i < $rootScope.strategies.length; i++) {
-                   if ($rootScope.strategies[i].strategyId == strategy.strategyId) {
-                       $rootScope.strategies.splice(i, 1, JSON.parse(JSON.stringify(strategy)));
-                       isNew = false;
-                       console.log("update strategy:");
-                       console.log(strategy);
-                   }
-               }
-               if (isNew) {
-                   console.log("update strategy:");
-                   console.log(strategy);
-                   $rootScope.strategies.push(strategy);
-               }
-
-               // handle phony strategy
-               if (strategy.strategyName == "_PHONY_STRATEGY_") {
-                   var deviceId = strategy.featureList[0].device.id;
-                   if (strategy.state == "RUNNING" || obj.state == "SUSPENDED") {
-                       $rootScope.phonyStrategyMap[deviceId] = strategy;
-                   } else if (strategy.state == "DONE") {
-                       if (deviceId in $rootScope.phonyStrategyMap) {
-                           delete $rootScope.phonyStrategyMap[deviceId];
-                       }
-                       var notifyMsg = "设备任务完成";
-                       var notifyOpts = {
-                           status: 'info',
-                           pos: 'bottom-center'
-                       };
-                       Notify.alert(notifyMsg, notifyOpts);
-                   }
-                   console.log("update phony strategy:");
-                   console.log(strategy);
-               }
-           }
-        },
+        // updateStrategyDevice: function (obj) {
+        //    // alert(JSON.stringify(obj));
+        //    if(obj.kind == 0) {//device update
+        //        var device = obj.instance;
+        //        var isNew = true;
+        //        for (var i = 0; i < $rootScope.devices.length; i++) {
+        //            if ($rootScope.devices[i].id == device.id) {
+        //                $rootScope.devices.splice(i, 1, JSON.parse(JSON.stringify(device)));
+        //                isNew = false;
+        //                console.log("update device:");
+        //                console.log(device);
+        //            }
+        //        }
+        //        if (isNew) {
+        //            console.log("update device:");
+        //            console.log(device);
+        //            $rootScope.devices.push(device);
+        //            console.log(device);
+        //        }
+        //        //location.reload();
+        //    } else if(obj.kind == 1){//strategy update
+        //        // handle normal strategy
+        //        var isNew = true;
+        //        var strategy = obj.instance;
+        //        for (var i = 0; i < $rootScope.strategies.length; i++) {
+        //            if ($rootScope.strategies[i].strategyId == strategy.strategyId) {
+        //                $rootScope.strategies.splice(i, 1, JSON.parse(JSON.stringify(strategy)));
+        //                isNew = false;
+        //                console.log("update strategy:");
+        //                console.log(strategy);
+        //            }
+        //        }
+        //        if (isNew) {
+        //            console.log("update strategy:");
+        //            console.log(strategy);
+        //            $rootScope.strategies.push(strategy);
+        //        }
+        //
+        //        // handle phony strategy
+        //        if (strategy.strategyName == "_PHONY_STRATEGY_") {
+        //            var deviceId = strategy.featureList[0].device.id;
+        //            if (strategy.state == "RUNNING" || obj.state == "SUSPENDED") {
+        //                $rootScope.phonyStrategyMap[deviceId] = strategy;
+        //            } else if (strategy.state == "DONE") {
+        //                if (deviceId in $rootScope.phonyStrategyMap) {
+        //                    delete $rootScope.phonyStrategyMap[deviceId];
+        //                }
+        //                var notifyMsg = "设备任务完成";
+        //                var notifyOpts = {
+        //                    status: 'info',
+        //                    pos: 'bottom-center'
+        //                };
+        //                Notify.alert(notifyMsg, notifyOpts);
+        //            }
+        //            console.log("update phony strategy:");
+        //            console.log(strategy);
+        //        }
+        //    }
+        // },
 
         updateFrontInfo:function (obj) {
             switch (obj.kind) {
                 case 0:
                     //deviceinfo update
-                    var device = obj.instance;
-                    var isNew = true;
-                    for (var i = 0; i < $rootScope.devices.length; i++) {
-                        if ($rootScope.devices[i].id == device.id) {
-                            $rootScope.devices.splice(i, 1, JSON.parse(JSON.stringify(device)));
-                            isNew = false;
-                            console.log("update device:");
-                            console.log(device);
-                        }
-                    }
-                    if (isNew) {
-                        console.log("update device:");
-                        console.log(device);
-                        $rootScope.devices.push(device);
-                        console.log(device);
-                    }
-                    location.reload(); ///??????
+                    var msgDevice = obj.instance;
+                    // var isNew = true;
+                    // for (var i = 0; i < $rootScope.devices.length; i++) {
+                    //     if ($rootScope.devices[i].id == device.id) {
+                    //         $rootScope.devices.splice(i, 1, JSON.parse(JSON.stringify(device)));
+                    //         isNew = false;
+                    //         console.log("update device:");
+                    //         console.log(device);
+                    //     }
+                    // }
+                    // if (isNew) {
+                    //     console.log("update device:");
+                    //     console.log(device);
+                    //     $rootScope.devices.push(device);
+                    //     console.log(device);
+                    // }
+                    var updatingDevice=$rootScope.devices.filter(function (device,index) {
+                        return msgDevice.id==device.id;
+                    })[0];
+                    Object.keys(updatingDevice).forEach(function (key) {
+                        if(key==='initParam') msgDevice['initParam']=JSON.parse(msgDevice['initParam']);
+                       updatingDevice[key]=msgDevice[key];
+                    });
+                    console.log("update device:");
+                    console.log(updatingDevice);
+                  //  location.reload(); ///??????
                     break;
                 case 1:
                     //strategy update
@@ -242,7 +251,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                         console.log("update phony strategy:");
                         console.log(strategy);
                     }
-                    location.reload();
+                    //location.reload();
                     break;
                 case 3:
 

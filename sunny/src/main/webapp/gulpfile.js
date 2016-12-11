@@ -45,6 +45,32 @@ var paths = {
     ]
 };
 
+var bowerFileForProd=[
+    "bower_components/bootstrap/dist/css/sunny_bootstrap.min.css",
+    "bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
+    "bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css",
+    "bower_components/font-awesome/css/font-awesome.min.css",
+    "bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css",
+    "bower_components/ng-dialog/css/ngDialog.min.css",
+    "bower_components/ng-dialog/css/ngDialog-theme-default.min.css",
+    "bower_components/ng-dialog/css/ngDialog-theme-plain.min.css",
+    "bower_components/sockjs/sockjs.min.js",
+    "bower_components/jquery/dist/jquery.min.js",
+    "bower_components/jquery-md5/jquery.md5.js",
+    "bower_components/js-md5/src/md5.js",
+    "bower_components/jquery.cookie/jquery.cookie.js",
+    "bower_components/bootstrap/dist/js/bootstrap.min.js",
+    "bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js",
+    "bower_components/angular/angular.min.js",
+    "bower_components/angular-route/angular-route.min.js",
+    "bower_components/angular-cookies/angular-cookies.min.js",
+    "bower_components/angular-translate/angular-translate.min.js",
+    "bower_components/angular-ui-router/release/angular-ui-router.min.js",
+    "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
+    "bower_components/ng-dialog/js/ngDialog.min.js",
+    "bower_components/moment/min/moment-with-locales.min.js",
+    "bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"
+];
 var replacePluginMapDev={
     'sunny_bootstrap.css':'bower_components/bootstrap/dist/css',
     'simple-sidebar.css':'bower_components/simple-sidebar',
@@ -355,5 +381,10 @@ gulp.task('start:server:prod', function () {
         port: 8000
     });
 });
-
+gulp.task('bower:prod',function () {
+    gulp.src(bowerFileForProd).
+        pipe(gulp.dest('./bower_components:prod'));
+    gulp.src(paths.fonts).
+        pipe(gulp.dest('./bower_components:prod'));
+});
 gulp.task('default', ['serve:node']);
