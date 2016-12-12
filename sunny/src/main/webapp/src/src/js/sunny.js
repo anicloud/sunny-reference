@@ -15,7 +15,6 @@ if (window.console) {
 }
 
 
-
 anicloud.sunny.global.loadApp = function (config, controller, service, directive, appName) {
     var app = angular.module(appName, [
         'ngRoute',
