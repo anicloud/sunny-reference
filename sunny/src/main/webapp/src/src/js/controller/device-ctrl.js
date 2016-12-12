@@ -38,15 +38,16 @@ anicloud.sunny.controller.DeviceCtrl = function ($rootScope, $scope, ManagerServ
     $scope.deviceDetail.visible = false;
     $scope.deviceDetail.device = null;
     $scope.deviceDetail.show = function (device) {
-        $scope.deviceDetail.visible = true;
+        $rootScope.deviceDetailVisible = true;
         $scope.deviceDetail.device = device;
         $scope.deviceDetail.featureCqhosen = null;
+        $rootScope.DOMClickHasRun=false;
     };
 
-    $scope.deviceDetail.hide = function(event) {
-        $scope.deviceDetail.visible = false;
-        event.stopPropagation();
-    };
+    //$scope.deviceDetail.hide = function(event) {
+    //    $rootScope.deviceDetailVisible = false;
+    //    event.stopPropagation();
+    //};
 
     $scope.deviceDetail.nameEditable = false;
     $scope.deviceDetail.nameInput = "";

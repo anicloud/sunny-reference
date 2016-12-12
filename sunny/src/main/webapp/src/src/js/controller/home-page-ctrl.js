@@ -32,13 +32,13 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $cookies,
     //    }
     //    $scope.curDevice = device;
     //
-    //}
+    //};
     //$scope.toggleStatus = [];
-    //
+    ////
     //$scope.toggleOpen = function(index) {
     //    $scope.toggleStatus[index] = !$scope.toggleStatus[index];
-    //}
-
+    //};
+    //
     //$scope.deviceDetail.toggle = function (device) {
     //    if ($scope.deviceDetail.device == null) {
     //        $scope.deviceDetail.isToggled = !$scope.deviceDetail.isToggled;
@@ -50,11 +50,10 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $cookies,
     //    }
     //    $scope.deviceDetail.device = device;
     //    $scope.deviceDetail.featureChosen = null;
-    //}
+    //};
     $scope.showIndex=-1;
     $scope.deviceToggle=function (index) {
      $scope.showIndex===index?$scope.showIndex=-1:$scope.showIndex=index;
-    }
-    $scope.classLamp='icon-appliances-lamp';
+    };
 };
 
