@@ -2,7 +2,7 @@
     <div class="panel panel-default row">
         <!--<div class="panel-heading">-->
         <div class="col-lg-2 col-md-2 strategy-info">
-            <div class="strategy-name"><strong>{{strategy.strategyName}}</strong></div>
+            <div class="strategy-name"><strong>{{strategy.strategyName}}</strong>({{getAbsTime(strategy.startTime)}})</div>
             <div>
                 <small ng-bind="showState(strategy)"></small>
             </div>
@@ -76,11 +76,12 @@
                         <div class="timeline-body">
                             <strong><small class="timeline-title ng-binding">设备：{{feature.device.name}}</small></strong>
                             <small class="timeline-title pull-right ng-binding">
+                                timeInterval from last task:{{getRelTime(feature.intervalTime)}}
                                 <!--{{feature.triggerDtoList[0].value}}-->
-                                {{changeToObj(feature.triggerDtoList[0].value).startTime|date:'yyyy'}}/
-                                {{changeToObj(feature.triggerDtoList[0].value).startTime|date:'M'}}/
-                                {{changeToObj(feature.triggerDtoList[0].value).startTime|date:'d'}}&nbsp;
-                                {{changeToObj(feature.triggerDtoList[0].value).startTime | date:'HH:mm'}}
+                                <!--{{changeToObj(feature.triggerDtoList[0].value).startTime|date:'yyyy'}}/-->
+                                <!--{{changeToObj(feature.triggerDtoList[0].value).startTime|date:'M'}}/-->
+                                <!--{{changeToObj(feature.triggerDtoList[0].value).startTime|date:'d'}}&nbsp;-->
+                                <!--{{changeToObj(feature.triggerDtoList[0].value).startTime | date:'HH:mm'}}-->
                                 <!--{{changeToObj(feature.triggerDtoList[0].value).startTime | date:'hh:mm a'}}-->
                                 <!--{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date:'hh:mm a'}}-->
                             </small>

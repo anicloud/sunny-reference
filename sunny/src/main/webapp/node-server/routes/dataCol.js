@@ -40,7 +40,7 @@ var dataCol = function () {
                 deviceState: "CONNECTED",
                 deviceType: "Light",
                 deviceGroup: "default",
-                initParam: "{'brightnessLux':'33.3'}"
+                initParam: "{'brightnessLux':'33.3'}",
             },
             deviceFeatureFormDtoList: [
                 {
@@ -240,4 +240,5 @@ var dataCol = function () {
         triggers:triggers
     }
 };
+
 module.exports = dataCol();

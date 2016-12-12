@@ -54,6 +54,12 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $cookies,
     $scope.showIndex=-1;
     $scope.deviceToggle=function (index) {
      $scope.showIndex===index?$scope.showIndex=-1:$scope.showIndex=index;
+    };
+    $scope.getAbsTime=function (time) {
+        return moment(time).format('MM-DD HH:mm');
+    };
+    $scope.getRelTime=function(time){
+        return moment(time).from(moment(1));
     }
     $scope.classLamp='icon-appliances-lamp';
 };
