@@ -2,6 +2,7 @@ package com.anicloud.sunny.schedule.service;
 
 import com.anicloud.sunny.application.service.strategy.StrategyService;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
+import com.anicloud.sunny.infrastructure.persistence.domain.strategy.StrategyDao;
 import com.anicloud.sunny.schedule.domain.schedule.ScheduleManager;
 import com.anicloud.sunny.schedule.domain.strategy.ScheduleStateListener;
 import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
@@ -13,8 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -102,5 +105,16 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
         log.info("[state]: " + stateStr);
         if(!strategy.isScheduleNow)
             strategyService.saveStrategy(strategy);
+    }
+    @PostConstruct
+    public void initSchedule() {
+        List<StrategyInstance> instances = strategyService.getRunningStrategy();
+        if(instances != null && instances.size()>0) {
+            for(StrategyInstance instance : instances) {
+                StrategyDao strategyDao = strategyService.findByStrategyId(instance.strategyId);
+                instance.prepareSchedule(scheduleManager,this,strategyDao.owner.hashUserId);
+                instance.start();
+            }
+        }
     }
 }

@@ -61,7 +61,6 @@ public class StrategyServiceHandler implements StrategyService {
     private StrategyRepository strategyRepository;
     @Resource
     private StrategyInstanceRepository strategyInstanceRepository;
-
     @Override
     public void saveStrategy(StrategyDto strategyDto) {
         // generate the strategy number
@@ -169,17 +168,19 @@ public class StrategyServiceHandler implements StrategyService {
         return StrategyDtoAssembler.toDtoList(strategyList);
     }
 
-    public List<Strategy> getRunningStrategy() {
-        List<Strategy> result = new ArrayList<>();
-            Specification<StrategyDao> specification = (root, criteriaQuery, criteriaBuilder) -> {
-                Join<StrategyDao,StrategyInstanceDao> join = root.join(root.getModel().getSingularAttribute("state", StrategyInstanceDao.class), JoinType.LEFT);
-                Predicate predicate1 = criteriaBuilder.equal(join,ScheduleState.RUNNING);
-                Predicate predicate2 = criteriaBuilder.equal(join,ScheduleState.NONE);
-                Predicate prep = criteriaBuilder.or(predicate1,predicate2);
-                criteriaQuery.where(prep);
-                return criteriaQuery.getRestriction();
-            };
-        return strategyRepository.findAll(specification);
+    public List<StrategyInstance> getRunningStrategy() {
+        List<StrategyInstanceDao> instanceDaos = strategyInstanceRepository.findRunningStrategy();
+        List<StrategyInstance> instances = new ArrayList<>();
+        for(StrategyInstanceDao instanceDao:instanceDaos) {
+            StrategyInstance instance = DaoAdapter.fromStrategyInstanceDao(instanceDao);
+            instances.add(instance);
+        }
+        return instances;
+    }
+
+    @Override
+    public StrategyDao findByStrategyId(String strategyId) {
+        return strategyRepository.findByStrategyNum(strategyId);
     }
 
     public int getCountByHashUserId(Long hashUserId) {

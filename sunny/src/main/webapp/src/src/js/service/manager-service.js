@@ -201,6 +201,8 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     console.log("update device:");
                     console.log(updatingDevice);
                   //  location.reload(); ///??????
+                  //  if(angular.element("#device-list").scope())angular.element("#device-list").scope().$apply();
+                  //  $rootScope.$apply();
                     break;
                 case 1:
                     //strategy update
@@ -213,7 +215,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                             isNew = false;
                             console.log("update strategy:");
                             console.log(strategy);
-                            if(angular.element("#strategy-list").scope())angular.element("#strategy-list").scope().$apply();
+                       //     if(angular.element("#strategy-list").scope())angular.element("#strategy-list").scope().$apply();
                             console.log('apply delete');
                         }
                     }
@@ -221,7 +223,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                         console.log("update strategy:");
                         console.log(strategy);
                         $rootScope.strategies.push(strategy);
-                        if(angular.element("#strategy-list").scope())angular.element("#strategy-list").scope().$apply();
+                    //    if(angular.element("#strategy-list").scope())angular.element("#strategy-list").scope().$apply();
                         console.log('apply');
                     }
 
@@ -256,9 +258,9 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     //location.reload();
                     break;
                 case 3:
-
                     break;
             }
+            $rootScope.$apply();
         }
     };
 }

@@ -12,4 +12,6 @@ import java.util.List;
 public interface StrategyInstanceRepository extends CrudRepository<StrategyInstanceDao, Long> {
     @Query(value = "select s from StrategyInstanceDao s where s.strategyId = ?1")
     public StrategyInstanceDao findByStrategyId(String strategyId);
+    @Query(value = "select s from StrategyInstanceDao s where s.isRepeat=true and s.state='RUNNING'")
+    List<StrategyInstanceDao> findRunningStrategy();
 }

@@ -4,7 +4,9 @@ import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
+import com.anicloud.sunny.infrastructure.persistence.domain.strategy.StrategyDao;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
+import com.anicloud.sunny.schedule.domain.strategy.StrategyInstance;
 
 
 import java.util.List;
@@ -47,5 +49,6 @@ public interface StrategyService {
      * @param deviceFeatureInstanceDto
      */
     void runDeviceFeature(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto);
-    List<Strategy> getRunningStrategy();
+    List<StrategyInstance> getRunningStrategy();
+    StrategyDao findByStrategyId(String strategyId);
 }

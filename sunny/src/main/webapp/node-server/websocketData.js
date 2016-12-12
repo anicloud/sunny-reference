@@ -188,8 +188,8 @@ var strategyDeviceParamUpdate={
     }
 };
 module.exports = {
-    strategy1: strategy1,
-    strategy2: strategy2,
+    strategyNew: strategy1,
+    strategyFinish: strategy2,
     strategy3: strategy3,
     strategyNew: strategy4,
     strategyDeviceParamUpdate:strategyDeviceParamUpdate
