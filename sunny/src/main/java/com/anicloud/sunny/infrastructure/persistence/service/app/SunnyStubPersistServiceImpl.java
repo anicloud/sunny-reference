@@ -71,7 +71,7 @@ public class SunnyStubPersistServiceImpl implements SunnyStubPersistService {
             fos = new FileOutputStream(new File(path),true);
             pw = new PrintWriter(fos,true);
             if(aniStub != null && sunnyStub != null) {
-                String str = aniStub.getStubId() + "\t"+aniStub.getGroupId() + "\t" + sunnyStub.getClass().getName();
+                String str = aniStub.stubId + "\t"+aniStub.stubGroupId + "\t" + sunnyStub.getClass().getName();
                 pw.println();
                 pw.print(str);
             }

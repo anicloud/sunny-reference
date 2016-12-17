@@ -3,8 +3,8 @@ package com.anicloud.sunny.application.service.agent;
 import com.ani.agent.service.core.validate.DomainObjectValidator;
 import com.ani.agent.service.service.websocket.ClientInvokable;
 import com.ani.bus.service.commons.dto.anistub.AniStub;
-import com.ani.bus.service.commons.dto.anistub.Argument;
 
+import com.ani.octopus.commons.stub.dto.StubArgumentDto;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.service.strategy.CurrentFeatureService;
 import com.anicloud.sunny.application.service.sunny.stub.SunnyStub;
@@ -32,12 +32,12 @@ public class ClientInvokerImpl implements ClientInvokable {
     private CurrentFeatureService currentFeatureService;
 
     @Override
-    public List<Argument> invokeAniObjectSync(AniStub stub) throws IOException, EncodeException {
+    public List<StubArgumentDto> invokeAniObjectSync(AniStub stub) throws IOException, EncodeException {
         if (!DomainObjectValidator.isDomainObjectValid(stub)) {
             throw new ValidationException("Invalid AniStub Instance.");
         }
 
-        int hashCode = Objects.hash(stub.getGroupId(),stub.getStubId());
+        int hashCode = Objects.hash(stub.stubGroupId,stub.stubId);
 
         SunnyStub sunnyStub = Constants.SUNNY_STUB_MAPPINGS.get(hashCode);
         if(sunnyStub != null)

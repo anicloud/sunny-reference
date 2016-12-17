@@ -3,7 +3,7 @@ package com.anicloud.sunny.application.service.agent;
 import com.ani.agent.service.service.AgentTemplate;
 import com.ani.agent.service.service.websocket.AniInvokable;
 import com.ani.bus.service.commons.dto.anistub.AniStub;
-import com.ani.bus.service.commons.dto.anistub.Argument;
+import com.ani.octopus.commons.stub.dto.StubArgumentDto;
 import com.anicloud.sunny.application.constant.Constants;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class AniStubRunProxyImpl implements AniStubRunProxy {
     private AgentTemplate agentTemplate;
 
     @Override
-    public List<Argument> stubRunSync(AniStub aniStub) throws IOException, EncodeException {
+    public List<StubArgumentDto> stubRunSync(AniStub aniStub) throws IOException, EncodeException {
         AniInvokable aniInvokable = agentTemplate.getAniInvokable(Constants.aniServiceSession);
         return aniInvokable.invokeAniObjectSync(aniStub);
     }

@@ -1,9 +1,11 @@
 package com.anicloud.sunny.application.service.sunny.stub;
 
-import com.ani.bus.service.commons.dto.anistub.AniDataType;
 import com.ani.bus.service.commons.dto.anistub.AniStub;
-import com.ani.bus.service.commons.dto.anistub.Argument;
-import com.ani.bus.service.commons.dto.anistub.ArgumentType;
+import com.ani.octopus.commons.stub.dto.StubArgumentDto;
+import com.ani.octopus.commons.stub.type.DataCollectionType;
+import com.ani.octopus.commons.stub.type.DataCollectionTypes;
+import com.ani.octopus.commons.stub.type.DataPrimitiveType;
+import com.ani.octopus.commons.stub.type.DataPrimitiveTypes;
 import com.anicloud.sunny.application.service.strategy.CurrentFeatureService;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.CurrentFeatureInstanceDao;
 import org.slf4j.Logger;
@@ -21,28 +23,28 @@ public class CurrentDeviceStub implements SunnyStub {
     @Resource
     private CurrentFeatureService currentFeatureService;
     @Override
-    public List<Argument> invokeStub(AniStub stub) {
-        List<Argument> input = stub.getInputValues();
+    public List<StubArgumentDto> invokeStub(AniStub stub) {
+        List<StubArgumentDto> input = stub.inputArguments;
         if (input != null) {
             LOGGER.info("\tsize:" + input.size());
             for (int i = 0; i < input.size(); i++) {
-                Argument argument = input.get(i);
-                LOGGER.info("\targument[" + i + "] name:" + argument.getName());
+                StubArgumentDto argument = input.get(i);
+                LOGGER.info("\targument[" + i + "] value:" + argument.getValue());
             }
             LOGGER.info("Invocation begins.......");
             List<CurrentFeatureInstanceDao> featureInstanceDaos = currentFeatureService.findAll();
             Object value = input.get(0).getValue();
             int num = (int) value;
-            List<Argument> deviceIds = new ArrayList<>();
-            Argument argument = new Argument();
-            argument.setArgumentType(new ArgumentType(AniDataType.ARRAY));
+            List<StubArgumentDto> deviceIds = new ArrayList<>();
+            StubArgumentDto argument = new StubArgumentDto();
+//            argument.setArgumentType(new DataCollectionType(new DataPrimitiveType(DataPrimitiveTypes.LONG), DataCollectionTypes.LIST));
             List<Long> args = new ArrayList<>();
             for (int i = 0; i < num; i++) {
                 args.add(Long.valueOf(featureInstanceDaos.get(i).deviceId));
             }
             argument.setValue(args);
             deviceIds.add(argument);
-            stub.setOutputValues(deviceIds);
+            stub.outputArguments = deviceIds;
             LOGGER.info("Invocation ends......");
             return deviceIds;
         } else {

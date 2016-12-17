@@ -9,6 +9,7 @@ import com.ani.bus.service.commons.dto.anidevice.stub.StubMeta;
 import com.ani.earth.commons.dto.AccountDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.stub.dto.StubDto;
+import com.ani.octopus.commons.stub.dto.StubInfoDto;
 import com.ani.utils.core.AniByte;
 import com.anicloud.sunny.application.dto.device.*;
 import com.anicloud.sunny.application.dto.user.UserDto;
@@ -263,7 +264,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         return deviceMasterId + Device.DEVICE_CODE_SEPARATOR + slaveId;
     }
 
-    public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubMeta> stubDtos) {
+    public List<DeviceFeatureDto> buildDeviceFeatureByStubDto(List<StubInfoDto> stubDtos) {
         List<DeviceFeatureDto> deviceFeatureDtoList = new ArrayList<>();
         if (stubDtos != null) {
             Set<StubIdentity> deviceStubSet = fetchDeviceStubSet(stubDtos);
@@ -278,9 +279,9 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         return deviceFeatureDtoList;
     }
 
-    public Set<StubIdentity> fetchDeviceStubSet(List<StubMeta> stubDtos) {
+    public Set<StubIdentity> fetchDeviceStubSet(List<StubInfoDto> stubDtos) {
         Set<StubIdentity> stubIdentitySet = new HashSet<>();
-        for (StubMeta stubDto : stubDtos) {
+        for (StubInfoDto stubDto : stubDtos) {
             StubIdentity stubIdentity = new StubIdentity(
                     stubDto.stubId,
                     stubDto.group.groupId

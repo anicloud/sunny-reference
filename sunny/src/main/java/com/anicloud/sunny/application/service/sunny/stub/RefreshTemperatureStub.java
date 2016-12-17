@@ -1,8 +1,8 @@
 package com.anicloud.sunny.application.service.sunny.stub;
 
-import com.ani.bus.service.commons.dto.anistub.AniDataType;
 import com.ani.bus.service.commons.dto.anistub.AniStub;
-import com.ani.bus.service.commons.dto.anistub.Argument;
+import com.ani.octopus.commons.stub.dto.StubArgumentDto;
+import com.ani.octopus.commons.stub.type.DataPrimitiveType;
 import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
 import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,21 +33,20 @@ public class RefreshTemperatureStub implements SunnyStub {
     private ObjectMapper objectMapper;
 
     @Override
-    public List<Argument> invokeStub(AniStub stub) {
+    public List<StubArgumentDto> invokeStub(AniStub stub) {
         try {
-            String fromObjectId = stub.getFromObjectId()+":"+stub.getFromslaveId();
-            Long accountId = stub.getAccountId();
+            String fromObjectId = stub.fromObjectId+":"+stub.fromslaveId;
+            Long accountId = stub.accountId;
             DeviceAndUserRelationDto relationDto = relationService.getDeviceAndUserRelation(fromObjectId,accountId);
-            List<Argument> inputValues = stub.getInputValues();
+            List<StubArgumentDto> inputValues = stub.inputArguments;
             Map<String,String> params;
             if (relationDto.initParam != null)
                 params =  objectMapper.readValue(relationDto.initParam,Map.class);
             else
                 params = new HashMap<>();
-            for (Argument arg : inputValues) {
-                if (arg.getArgumentType().getType() != AniDataType.ARRAY){
-                    params.put(arg.getName(),arg.getValue().toString());
-                }
+
+            for (StubArgumentDto arg : inputValues) {
+                params.put("temperature",arg.getValue().toString());
             }
             relationDto.initParam = objectMapper.writeValueAsString(params);
             relationService.modifyRelation(relationDto);

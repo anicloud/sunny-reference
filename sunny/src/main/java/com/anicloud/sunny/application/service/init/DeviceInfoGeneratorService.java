@@ -2,6 +2,7 @@ package com.anicloud.sunny.application.service.init;
 
 import com.ani.bus.service.commons.dto.anidevice.stub.StubMeta;
 import com.ani.octopus.commons.stub.dto.StubDto;
+import com.ani.octopus.commons.stub.dto.StubInfoDto;
 import com.anicloud.sunny.domain.model.device.Device;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +20,7 @@ public abstract class DeviceInfoGeneratorService {
     protected static Map<String, String> deviceLogoUrls; //key is type, value is logo url
 
     public abstract void initDeviceTypeGeneratorRule();
-    public abstract String generatorDeviceType(List<StubMeta> stubs);
+    public abstract String generatorDeviceType(List<StubInfoDto> stubs);
     public abstract void initDeviceLogoUrl();
     public abstract String getDeviceLogoUrl(String deviceType);
 }

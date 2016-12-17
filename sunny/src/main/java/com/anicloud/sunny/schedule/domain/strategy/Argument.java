@@ -1,6 +1,7 @@
 package com.anicloud.sunny.schedule.domain.strategy;
 
-import com.ani.bus.service.commons.dto.anistub.ArgumentType;
+
+import com.ani.octopus.commons.stub.type.DataType;
 
 import java.io.Serializable;
 
@@ -10,7 +11,7 @@ import java.io.Serializable;
 public class Argument implements Serializable {
     public String name;
     public String value;
-    public ArgumentType argumentType;
+    public DataType argumentType;
     public Argument() {
     }
 
@@ -18,7 +19,7 @@ public class Argument implements Serializable {
         this.name = name;
         this.value = value;
     }
-    public Argument(String name, String value,ArgumentType argumentType) {
+    public Argument(String name, String value,DataType argumentType) {
         this.name = name;
         this.value = value;
         this.argumentType = argumentType;

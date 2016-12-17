@@ -1,7 +1,7 @@
 package com.anicloud.sunny.application.service.agent;
 
 import com.ani.bus.service.commons.dto.anistub.AniStub;
-import com.ani.bus.service.commons.dto.anistub.Argument;
+import com.ani.octopus.commons.stub.dto.StubArgumentDto;
 
 import javax.websocket.EncodeException;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.List;
  * @since JDK 1.7
  */
 public interface AniStubRunProxy {
-    List<Argument> stubRunSync(AniStub aniStub) throws IOException, EncodeException;
+    List<StubArgumentDto> stubRunSync(AniStub aniStub) throws IOException, EncodeException;
     void stubRunAsyn(AniStub aniStub);
 
 }

@@ -1,13 +1,9 @@
 package com.anicloud.sunny.application.assemble;
 
 import com.ani.agent.service.commons.object.enumeration.DataType;
-import com.ani.bus.service.commons.dto.anistub.AniDataType;
-import com.ani.bus.service.commons.dto.anistub.ArgumentType;
-import com.anicloud.sunny.application.constant.Constants;
-import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
+import com.ani.octopus.commons.stub.type.DataPrimitiveType;
+import com.ani.octopus.commons.stub.type.DataPrimitiveTypes;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
-import com.anicloud.sunny.application.dto.user.UserDto;
-import com.anicloud.sunny.application.utils.NumGenerate;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.domain.model.device.FeatureFunction;
 import com.anicloud.sunny.domain.model.device.FunctionArgument;
@@ -21,7 +17,6 @@ import com.anicloud.sunny.schedule.domain.strategy.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -181,27 +176,27 @@ public class StrategyDtoAssembler {
         return triggerInstanceList;
     }
 
-    public static ArgumentType getArgumentType(DataType dataType) {
-        ArgumentType type = null;
+    public static DataPrimitiveType getArgumentType(DataType dataType) {
+        DataPrimitiveType type = null;
         if (dataType != null) {
             switch (dataType) {
                 case INTEGER:
-                    type = new ArgumentType(AniDataType.INTEGER);
+                    type = new DataPrimitiveType(DataPrimitiveTypes.INTEGER);
                     break;
                 case PERCENTAGE:
-                    type = new ArgumentType(AniDataType.SHORT);
+                    type = new DataPrimitiveType(DataPrimitiveTypes.PERCENTAGE);
                     break;
                 case FLOAT:
-                    type = new ArgumentType(AniDataType.FLOAT);
+                    type = new DataPrimitiveType(DataPrimitiveTypes.FLOAT);
                     break;
                 case BOOLEAN:
-                    type = new ArgumentType(AniDataType.BOOLEAN);
+                    type = new DataPrimitiveType(DataPrimitiveTypes.BOOLEAN);
                     break;
                 case STRING:
-                    type = new ArgumentType(AniDataType.STRING);
+                    type = new DataPrimitiveType(DataPrimitiveTypes.STRING);
                     break;
                 default:
-                    type = new ArgumentType(AniDataType.STRING);
+                    type = new DataPrimitiveType(DataPrimitiveTypes.STRING);
                     break;
             }
         }
