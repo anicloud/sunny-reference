@@ -32,30 +32,38 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
     };
     
     // strategy Template
-    $scope.strategyTemplate = {
-        "strategyId": "",
-        "strategyName": "",
-        "strategyState": "",
-        "strategyDescription": "",
-        "strategyStage": "",
-        "featureList": [],
-        "valid": true,
-        "error": "",
-        "repeatConfig": {
-            "week": [],
-            "end":{
-                "type":"count",
-                "value":"1"
+    $scope.strategyTemplateInit=function () {
+        $scope.strategyTemplate = {
+            "strategyId": "",
+            "strategyName": "",
+            "strategyState": "",
+            "strategyDescription": "",
+            "strategyStage": "",
+            "featureList": [],
+            "valid": true,
+            "error": "",
+            "repeatConfig": {
+                "week": [],
+                "end":{
+                    "type":"count",
+                    "value":"1"
+                }
             }
-        }
+        };
+        $scope.strategyRepeat={ //init
+            isRepeat:false, //once,week
+            weekRepeat:[],  //[] if isRepeat is once
+            startTime:moment(),
+            isScheduleNow:false   //
+        };
+        $scope.ngDialogOpenNum=0;
     };
-    
+    $scope.strategyTemplateInit();
     $scope.strategyTemplate.clearAll = function () {
         $scope.strategyTemplate.strategyName = "";
         $scope.strategyTemplate.strategyDescription = "";
         $scope.strategyTemplate.strategyState = "";
     };
-    
     $scope.addStrategy = function () {
         //$scope.strategyTemplate.valid = true;
         // if ($scope.strategyTemplate.strategyName.length == 0) {
@@ -98,7 +106,14 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
             $scope.strategyRepeat
         );
     
-        ManagerService.addStrategy(strategyInstance);
+        // ManagerService.addStrategy(strategyInstance).then(function (data) {
+        //     console.log(data);
+        // });
+        ManagerService.addStrategy(strategyInstance).then(function (res) {
+            if(res.data.status.toString()==='success'){
+                $scope.strategyTemplateInit()
+            }
+        });
         return true;
     };
     $scope.triggerTimerToDate = function(value) {
@@ -110,12 +125,6 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
-    $scope.strategyRepeat={ //init
-        isRepeat:false, //once,week
-        weekRepeat:[],  //[] if isRepeat is once
-        startTime:moment(),
-        isScheduleNow:false   //
-    };
-    $scope.ngDialogOpenNum=0;
+
    
 };

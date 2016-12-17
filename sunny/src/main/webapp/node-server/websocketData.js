@@ -118,13 +118,19 @@ var strategy4 = {
     "kind": 1,
     "instance": {
         "strategyId": "fbffe8bb8c3744aaa132f313c99cdaa7",
-        "strategyName": "_PHONY_STRATEGY_",
+        "strategyName": "11111",
         "strategyDescription": null,
-        "state": "DONE",
-        "stage": 1,
+        "state": "RUNNING",
+        "stage": 0,
         "action": "START",
+        "isRepeat":false,
+        "isScheduleNow":true,
+        "repeatWeek":[],
+        "name":'test1',
+        "startTime":1481513857788,
         "featureList": [{
             "featureInstanceId": "",
+            "intervalTime": 1200000,
             "device": {
                 "id": "6827881482365236091:-1",
                 "name": "公司控制中心",
@@ -140,9 +146,33 @@ var strategy4 = {
                 "argDtoList": [{"name": "brightnessLux", "dataType": "FLOAT", "screenName": "Bright Lux"}]
             },
             "featureArgValueDtoList": [{"argName": "brightnessLux", "value": "70.5"}],
-            "triggerDtoList": [],
-            "isScheduleNow": true
-        }]
+            "triggerDtoList": [{
+                "triggerType":"TIMER",
+                "triggerValue":'{"startTime":"2016-12-12T07:56:58.459Z","repeatInterval":0,"repeatCount":0}'
+            }],
+            "isScheduleNow": false
+        },
+            {
+                "featureInstanceId": "",
+                "intervalTime": 1500000,
+                "device": {
+                    "id": "6827881482365236091:-1",
+                    "name": "公司控制中心",
+                    "deviceState": "CONNECTED",
+                    "deviceType": "Light",
+                    "deviceGroup": "default",
+                    "initParam": null
+                },
+                "deviceFeature": {
+                    "featureId": "1",
+                    "featureName": "Power On",
+                    "description": "light power on feature.",
+                    "argDtoList": [{"name": "brightnessLux", "dataType": "FLOAT", "screenName": "Bright Lux"}]
+                },
+                "featureArgValueDtoList": [{"argName": "brightnessLux", "value": "70.5"}],
+                "triggerDtoList": [],
+                "isScheduleNow": false
+            }]
     }
 };
 var strategyDeviceParamUpdate={
@@ -161,6 +191,6 @@ module.exports = {
     strategyNew: strategy1,
     strategyFinish: strategy2,
     strategy3: strategy3,
-    strategy4: strategy4,
+    strategyNew: strategy4,
     strategyDeviceParamUpdate:strategyDeviceParamUpdate
 };

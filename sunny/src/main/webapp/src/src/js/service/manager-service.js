@@ -21,8 +21,9 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
         },
 
         addStrategy: function (strategy) {
-            StrategyService.saveStrategies(strategy, function (data) {
-                if (data.status == "success") {
+            return StrategyService.saveStrategies(strategy).then(function (data) {
+                console.log(data);
+                if (data.data.status == "success") {
                     var notifyMsg = "计划已添加";
                     var notifyOpts = {
                         status: 'info',
@@ -30,11 +31,12 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     };
                     Notify.alert(notifyMsg, notifyOpts);
                     console.log("add strategy ok:");
-                   // updateStrategy(data.strategy);
+                    // updateStrategy(data.strategy);
                 } else if (data.status == "error") {
                     console.error("add strategy error: ");
                     console.error(data.message);
                 }
+                return data;
             });
         },
 

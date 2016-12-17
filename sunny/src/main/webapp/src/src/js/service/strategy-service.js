@@ -27,21 +27,22 @@ anicloud.sunny.service.StrategyService = function($http, $cookies){
             }
 
         },
-        saveStrategies:function(strategyInstance,callback){
-            var user = $.cookie('sunny_user');
-            if (user != undefined) {
-                var usercookie = JSON.parse(user);
-                var hashUserId = usercookie.hashUserId;
-                $http({
-                    method:'POST',
-                    url: 'strategy',
-                    params: {hashUserId:hashUserId,strategyInstance:strategyInstance}
-                }).success(function(data){
-                    callback(data);
-                }).error(function(data){
-                    console.log('save strategies failures');
-                });
-            }
+        saveStrategies:function(strategyInstance){
+                var user = $.cookie('sunny_user');
+                if (user != undefined) {
+                    var usercookie = JSON.parse(user);
+                    var hashUserId = usercookie.hashUserId;
+                  return  $http({
+                        method:'POST',
+                        url: 'strategy',
+                        params: {hashUserId:hashUserId,strategyInstance:strategyInstance}
+                    }).success(function (res) {
+                      console.log('save strategies successful')
+                      })
+                      .error(function(data){
+                        console.log('save strategies failures');
+                    });
+                }
     },
     deleteStrategy:function(strategyId,callback){
         var user = $.cookie('sunny_user');
