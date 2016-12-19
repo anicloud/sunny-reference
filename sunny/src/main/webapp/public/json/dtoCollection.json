@@ -1,0 +1,1782 @@
+[
+  {
+    "deviceId": "6b4a9f8a32b99651c2f2ae37640457bb",
+    "owner": {
+      "uid": "4c781d51d638cf133df74e6176f839e2",
+      "screenName": "Yeh",
+      "email": "ching-zhou@anicloud.com",
+      "firstHashedPass": null
+    },
+    "name": "AniTestCtrl_189",
+    "description": "AniTestCtrl_189",
+    "deviceState": "CONNECTED",
+    "physicalId": "anirdbjtest20150",
+    "physicalAddress": "10:a1:7c:34:19:38",
+    "functions": [
+      {
+        "name": "reset",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      },
+      {
+        "name": "lock",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      }
+    ],
+    "slaves": [
+      {
+        "deviceId": "cc86893c7073c459eb64fdcafaaaad1c",
+        "physicalId": "anitestslave0101",
+        "name": "Bathroom-Light",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "brightnessLux",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      },
+      {
+        "deviceId": "bc5445f8cdbdcccca02e51b1bc34b8b4",
+        "physicalId": "anitestslave0102",
+        "name": "Air-Sensor",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "getTemperature",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          },
+          {
+            "name": "getHumidity",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "rhp",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      }
+    ]
+  },
+  {
+    "deviceId": "8f4cbf895652012b6303d9d26b06d8fa",
+    "owner": {
+      "uid": "4c781d51d638cf133df74e6176f839e2",
+      "screenName": "Yeh",
+      "email": "ching-zhou@anicloud.com",
+      "firstHashedPass": null
+    },
+    "name": "AniTestCtrl_379",
+    "description": "AniTestCtrl_379",
+    "deviceState": "CONNECTED",
+    "physicalId": "anirdbjtest20151",
+    "physicalAddress": "10:a1:7c:23:46:62",
+    "functions": [
+      {
+        "name": "reset",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      },
+      {
+        "name": "lock",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      }
+    ],
+    "slaves": [
+      {
+        "deviceId": "91997b2ddc99a4ee8e63b63d4a96551d",
+        "physicalId": "anitestslave0101",
+        "name": "Bathroom-Light",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "brightnessLux",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      },
+      {
+        "deviceId": "c78e3229f028803768af982ae366295c",
+        "physicalId": "anitestslave0102",
+        "name": "Air-Sensor",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "getTemperature",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          },
+          {
+            "name": "getHumidity",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "rhp",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      }
+    ]
+  },
+  {
+    "deviceId": "b07e021a9dbcf872398bb48c89a50bcf",
+    "owner": {
+      "uid": "4c781d51d638cf133df74e6176f839e2",
+      "screenName": "Yeh",
+      "email": "ching-zhou@anicloud.com",
+      "firstHashedPass": null
+    },
+    "name": "AniTestCtrl_298",
+    "description": "AniTestCtrl_298",
+    "deviceState": "CONNECTED",
+    "physicalId": "anirdbjtest20152",
+    "physicalAddress": "10:a1:7c:83:86:60",
+    "functions": [
+      {
+        "name": "reset",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      },
+      {
+        "name": "lock",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      }
+    ],
+    "slaves": [
+      {
+        "deviceId": "744c5c1f1a0e74d805a310ae12f32797",
+        "physicalId": "anitestslave0101",
+        "name": "Bathroom-Light",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "brightnessLux",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      },
+      {
+        "deviceId": "f4b0b78647e17705bf68d7662d9b4257",
+        "physicalId": "anitestslave0102",
+        "name": "Air-Sensor",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "getTemperature",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          },
+          {
+            "name": "getHumidity",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "rhp",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      }
+    ]
+  },
+  {
+    "deviceId": "bbcb6b135496f1ff5b5806a8ed342c40",
+    "owner": {
+      "uid": "4c781d51d638cf133df74e6176f839e2",
+      "screenName": "Yeh",
+      "email": "ching-zhou@anicloud.com",
+      "firstHashedPass": null
+    },
+    "name": "AniTestCtrl_609",
+    "description": "AniTestCtrl_609",
+    "deviceState": "CONNECTED",
+    "physicalId": "anirdbjtest20153",
+    "physicalAddress": "10:a1:7c:61:60:44",
+    "functions": [
+      {
+        "name": "reset",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      },
+      {
+        "name": "lock",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      }
+    ],
+    "slaves": [
+      {
+        "deviceId": "51c2dba2a2804d9ab1da64671446a133",
+        "physicalId": "anitestslave0101",
+        "name": "Bathroom-Light",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "brightnessLux",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      },
+      {
+        "deviceId": "143474e2880e3137a84b9a59dd79d5f0",
+        "physicalId": "anitestslave0102",
+        "name": "Air-Sensor",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "getTemperature",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          },
+          {
+            "name": "getHumidity",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "rhp",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      }
+    ]
+  },
+  {
+    "deviceId": "9fb45a4ee0f1417bb2c6d6d52cf52821",
+    "owner": {
+      "uid": "4c781d51d638cf133df74e6176f839e2",
+      "screenName": "Yeh",
+      "email": "ching-zhou@anicloud.com",
+      "firstHashedPass": null
+    },
+    "name": "AniTestCtrl_565",
+    "description": "AniTestCtrl_565",
+    "deviceState": "CONNECTED",
+    "physicalId": "anirdbjtest20154",
+    "physicalAddress": "10:a1:7c:61:89:26",
+    "functions": [
+      {
+        "name": "reset",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      },
+      {
+        "name": "lock",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      }
+    ],
+    "slaves": [
+      {
+        "deviceId": "ea47411caeae757d8007989a3d45c7ca",
+        "physicalId": "anitestslave0101",
+        "name": "Bathroom-Light",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "brightnessLux",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      },
+      {
+        "deviceId": "fd22155ed2cd6898e2c8c44dd495a934",
+        "physicalId": "anitestslave0102",
+        "name": "Air-Sensor",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "getTemperature",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          },
+          {
+            "name": "getHumidity",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "rhp",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      }
+    ]
+  },
+  {
+    "deviceId": "12e9f94baea9874ed1b8919a0d185a6d",
+    "owner": {
+      "uid": "4c781d51d638cf133df74e6176f839e2",
+      "screenName": "Yeh",
+      "email": "ching-zhou@anicloud.com",
+      "firstHashedPass": null
+    },
+    "name": "AniTestCtrl_837",
+    "description": "AniTestCtrl_837",
+    "deviceState": "CONNECTED",
+    "physicalId": "anirdbjtest20155",
+    "physicalAddress": "10:a1:7c:95:55:28",
+    "functions": [
+      {
+        "name": "reset",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      },
+      {
+        "name": "lock",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      }
+    ],
+    "slaves": [
+      {
+        "deviceId": "b2a4c303aab16aedae97f9c3d92ea7e7",
+        "physicalId": "anitestslave0101",
+        "name": "Bathroom-Light",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "brightnessLux",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      },
+      {
+        "deviceId": "2dbe2cf8d70ecdb87b4b1f2e1116a530",
+        "physicalId": "anitestslave0102",
+        "name": "Air-Sensor",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "getTemperature",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          },
+          {
+            "name": "getHumidity",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "rhp",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      }
+    ]
+  },
+  {
+    "deviceId": "9fda811eaaff26883307b569eae8b7ab",
+    "owner": {
+      "uid": "4c781d51d638cf133df74e6176f839e2",
+      "screenName": "Yeh",
+      "email": "ching-zhou@anicloud.com",
+      "firstHashedPass": null
+    },
+    "name": "AniTestCtrl_368",
+    "description": "AniTestCtrl_368",
+    "deviceState": "CONNECTED",
+    "physicalId": "anirdbjtest20156",
+    "physicalAddress": "10:a1:7c:92:99:22",
+    "functions": [
+      {
+        "name": "reset",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      },
+      {
+        "name": "lock",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      }
+    ],
+    "slaves": [
+      {
+        "deviceId": "302d6a7e7488d72ce1b84d81fcf13958",
+        "physicalId": "anitestslave0101",
+        "name": "Bathroom-Light",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "brightnessLux",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      },
+      {
+        "deviceId": "b4bb597f1a494129cc53c5c8843756c3",
+        "physicalId": "anitestslave0102",
+        "name": "Air-Sensor",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "getTemperature",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          },
+          {
+            "name": "getHumidity",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "rhp",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      }
+    ]
+  },
+  {
+    "deviceId": "06a03a2be62699fca75d8f8a9b212901",
+    "owner": {
+      "uid": "4c781d51d638cf133df74e6176f839e2",
+      "screenName": "Yeh",
+      "email": "ching-zhou@anicloud.com",
+      "firstHashedPass": null
+    },
+    "name": "AniTestCtrl_159",
+    "description": "AniTestCtrl_159",
+    "deviceState": "CONNECTED",
+    "physicalId": "anirdbjtest20157",
+    "physicalAddress": "10:a1:7c:43:44:53",
+    "functions": [
+      {
+        "name": "reset",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      },
+      {
+        "name": "lock",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      }
+    ],
+    "slaves": [
+      {
+        "deviceId": "a797ce0db14f3b1e1312607c1aea4232",
+        "physicalId": "anitestslave0101",
+        "name": "Bathroom-Light",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "brightnessLux",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      },
+      {
+        "deviceId": "a02ad75a79bd576f08ccafc29f7161e3",
+        "physicalId": "anitestslave0102",
+        "name": "Air-Sensor",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "getTemperature",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          },
+          {
+            "name": "getHumidity",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "rhp",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      }
+    ]
+  },
+  {
+    "deviceId": "cc0f6c7a89270a732c4fb3d3db6e67c4",
+    "owner": {
+      "uid": "4c781d51d638cf133df74e6176f839e2",
+      "screenName": "Yeh",
+      "email": "ching-zhou@anicloud.com",
+      "firstHashedPass": null
+    },
+    "name": "AniTestCtrl_10",
+    "description": "AniTestCtrl_10",
+    "deviceState": "CONNECTED",
+    "physicalId": "anirdbjtest20158",
+    "physicalAddress": "10:a1:7c:49:32:10",
+    "functions": [
+      {
+        "name": "reset",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      },
+      {
+        "name": "lock",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      }
+    ],
+    "slaves": [
+      {
+        "deviceId": "703a259fa41cf19688c853f840e948c0",
+        "physicalId": "anitestslave0101",
+        "name": "Bathroom-Light",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "brightnessLux",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      },
+      {
+        "deviceId": "91b63e4473652f33703c3894dd2a7252",
+        "physicalId": "anitestslave0102",
+        "name": "Air-Sensor",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "getTemperature",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          },
+          {
+            "name": "getHumidity",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "rhp",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      }
+    ]
+  },
+  {
+    "deviceId": "a80877872f319a9d8b2588909e7734b9",
+    "owner": {
+      "uid": "4c781d51d638cf133df74e6176f839e2",
+      "screenName": "Yeh",
+      "email": "ching-zhou@anicloud.com",
+      "firstHashedPass": null
+    },
+    "name": "AniTestCtrl_220",
+    "description": "AniTestCtrl_220",
+    "deviceState": "CONNECTED",
+    "physicalId": "anirdbjtest20159",
+    "physicalAddress": "10:a1:7c:28:50:91",
+    "functions": [
+      {
+        "name": "reset",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      },
+      {
+        "name": "lock",
+        "group": {
+          "name": "DeviceMasterBasic",
+          "privacy": "PUBLIC",
+          "functions": [],
+          "type": "MASTER",
+          "objectState": "ACTIVE"
+        },
+        "privacy": "PUBLIC",
+        "inputArguments": [],
+        "outputArguments": [],
+        "functionType": "SYNC",
+        "objectState": null
+      }
+    ],
+    "slaves": [
+      {
+        "deviceId": "584f5beb181d90be933f9a6547ff9dbc",
+        "physicalId": "anitestslave0101",
+        "name": "Bathroom-Light",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "brightnessLux",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Light",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      },
+      {
+        "deviceId": "6717e115ad9301161fbae2b8806f5541",
+        "physicalId": "anitestslave0102",
+        "name": "Air-Sensor",
+        "description": "",
+        "deviceState": "CONNECTED",
+        "functions": [
+          {
+            "name": "powerOn",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "powerOff",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [],
+            "functionType": "SYNC",
+            "objectState": null
+          },
+          {
+            "name": "getTemperature",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "degreesC",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          },
+          {
+            "name": "getHumidity",
+            "group": {
+              "name": "Air",
+              "privacy": "PUBLIC",
+              "functions": [],
+              "type": "NORMAL",
+              "objectState": "ACTIVE"
+            },
+            "privacy": "PUBLIC",
+            "inputArguments": [],
+            "outputArguments": [
+              {
+                "name": "rhp",
+                "dataType": "FLOAT"
+              }
+            ],
+            "functionType": "ASYNC",
+            "objectState": null
+          }
+        ],
+        "objectState": "ACTIVE"
+      }
+    ]
+  }
+]

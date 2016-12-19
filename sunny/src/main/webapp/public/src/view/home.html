@@ -1,0 +1,64 @@
+<div class="homepage row" ng-controller="HomePageCtrl">
+    <div ng-controller="DeviceCtrl">
+        <div ng-include="currentConfig.defaultPath+'/src/view/device-detail.html'"></div>
+        <div>
+            <h4>
+                <i class="fa fa-tablet"></i>
+                设备
+            </h4>
+
+            <div id="device-wrapper" style="line-height: 14px;font-size: 14px">
+                <div class="device-body device-body-homepage" id="device-list">
+                    <div ng-repeat="device in devices">
+                        <!--device block always show-->
+                        <div style="display: inline-block;float: left" ng-click="device.deviceState==='CONNECTED'&&deviceToggle($index)">
+                            <div class="device-cel">
+                                <p><strong>{{device.name}}</strong><br>
+                                <div class="panel-heading" style="margin: 15px 0">
+                                    <i class="flaticon {{device.logoUrl||'flaticon-info'}} device-icon"></i>
+                                </div>
+                                <small>{{device.deviceState}}</small>
+                            </div>
+                            <!--device block show params-->
+                            <div class="device-cel" ng-click="deviceDetail.show(device)" ng-show="showIndex===$index">
+                                <div style="vertical-align:middle">
+                                    <div ng-repeat="feature in features[device.id]">
+                                        <div ng-repeat="arg in feature.argDtoList">
+                                            <p>
+                                                <small>{{arg.screenName}}:{{device.initParam[arg.name]}}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="coverlayer" ng-click="deviceDetail.hide($event)" ng-show="deviceDetail.visible"></div>
+
+    <div>
+        <h4><i class="fa fa-pencil"></i>正在执行</h4>
+    </div>
+    <div ng-controller="StrategyCtrl" id="strategy-list">
+        <div class="strategy-running" ng-model="strategies">
+            <div ng-repeat="strategy in strategies | filter: strategyFilterRunning"
+                 ng-init="index=$index; toggleStatus.push(false)">
+                <div ng-include="currentConfig.defaultPath+'/src/view/strategy-list.html'">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+

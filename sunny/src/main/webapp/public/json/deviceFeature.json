@@ -1,0 +1,167 @@
+[
+  {
+    "featureId": "b27c79633c844d01be7d00a6b6555190",
+    "featureName": "#Bathroom-Light--powerOn",
+    "description": "light power on feature.",
+    "argDtoList": [
+      {
+        "name": "brightnessLux",
+        "dataType": "FLOAT",
+        "screenName": "Bright Lux"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "d8ae0ea40686445dab58dc1b30f6bbb2",
+        "functionGroup": "Light",
+        "functionName": "powerOn",
+        "functionType": "SYNC",
+        "functionArgumentDtoSet": [
+          {
+            "name": "brightnessLux",
+            "dataType": "FLOAT"
+          }
+        ]
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "brightnessLux": [
+          "d8ae0ea40686445dab58dc1b30f6bbb2:brightnessLux"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "857f9cb45f3f4e53a83c854ed8a34dc4",
+    "featureName": "#Bathroom-Light--powerOff",
+    "description": "light power off feature.",
+    "argDtoList": [],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "9c7e93e8a74c4134a346c54d09b74594",
+        "functionGroup": "Light",
+        "functionName": "powerOff",
+        "functionType": "SYNC",
+        "functionArgumentDtoSet": []
+      }
+    ],
+    "featureArgFuncArgMapList": []
+  },
+  {
+    "featureId": "aaa229b59f3f4de084a7b9f98bb70563",
+    "featureName": "#Air-Sensor--powerOn",
+    "description": "Air Sensor power on feature.",
+    "argDtoList": [
+      {
+        "name": "degreesC",
+        "dataType": "FLOAT",
+        "screenName": "degrees C"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "a039a43c22cc4313812bf9a19dfb255f",
+        "functionGroup": "Air",
+        "functionName": "powerOn",
+        "functionType": "SYNC",
+        "functionArgumentDtoSet": [
+          {
+            "name": "degreesC",
+            "dataType": "FLOAT"
+          }
+        ]
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "degreesC": [
+          "a039a43c22cc4313812bf9a19dfb255f:degreesC"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "a1c3e1484a1c4c599c30a1bb33e5bbad",
+    "featureName": "#Air-Sensor--powerOff",
+    "description": "Air Sensor power off feature.",
+    "argDtoList": [],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "3f90746847ca4a6f8101da2c971bedfc",
+        "functionGroup": "Air",
+        "functionName": "powerOff",
+        "functionType": "SYNC",
+        "functionArgumentDtoSet": []
+      }
+    ],
+    "featureArgFuncArgMapList": []
+  },
+  {
+    "featureId": "0644e5235316437ab8ef004748b7014f",
+    "featureName": "#Air-Sensor--getTemperature",
+    "description": "Air Sensor get Temperature feature.",
+    "argDtoList": [
+      {
+        "name": "degreesC",
+        "dataType": "FLOAT",
+        "screenName": "degrees C"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "34c8a2e1a4284b0c88f78d737e7687f0",
+        "functionGroup": "Air",
+        "functionName": "getTemperature",
+        "functionType": "SYNC",
+        "functionArgumentDtoSet": [
+          {
+            "name": "degreesC",
+            "dataType": "FLOAT"
+          }
+        ]
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "degreesC": [
+          "34c8a2e1a4284b0c88f78d737e7687f0:degreesC"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "96e64f991c434c6aa7cf69e5a5461700",
+    "featureName": "#Air-Sensor--getHumidity",
+    "description": "Air Sensor get Humidity feature.",
+    "argDtoList": [
+      {
+        "name": "rhp",
+        "dataType": "FLOAT",
+        "screenName": "rhp"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "80707beee33b4e339d3bf8ceb6a4916c",
+        "functionGroup": "Air",
+        "functionName": "getHumidity",
+        "functionType": "SYNC",
+        "functionArgumentDtoSet": [
+          {
+            "name": "rhp",
+            "dataType": "FLOAT"
+          }
+        ]
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "rhp": [
+          "80707beee33b4e339d3bf8ceb6a4916c:rhp"
+        ]
+      }
+    ]
+  }
+]
+

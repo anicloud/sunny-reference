@@ -1,0 +1,150 @@
+[
+  {
+    "deviceId": "12345",
+    "featureList": [
+      {
+        "featureId": "1",
+        "featureName": "调节空调温度1",
+        "functionList": [
+          {
+            "functionGroup": "温度",
+            "functionName": "升高"
+          },
+          {
+            "functionGroup": "温度",
+            "functionName": "降低"
+          }
+        ],
+        "triggerList": [
+        ]
+      },
+      {
+        "featureId": "2",
+        "featureName": "调节空调温度2",
+        "functionList": [
+          {
+            "functionGroup": "温度",
+            "functionName": "升高"
+          },
+          {
+            "functionGroup": "温度",
+            "functionName": "降低"
+          }
+        ],
+        "triggerList": [
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "12346",
+    "featureList": [
+      {
+        "featureId": "3",
+        "featureName": "调节空调温度3",
+        "functionList": [
+          {
+            "functionGroup": "温度",
+            "functionName": "升高"
+          },
+          {
+            "functionGroup": "温度",
+            "functionName": "降低"
+          }
+        ],
+        "triggerList": [
+        ]
+      },
+      {
+        "featureId": "4",
+        "featureName": "调节空调温度4",
+        "functionList": [
+          {
+            "functionGroup": "温度",
+            "functionName": "升高"
+          },
+          {
+            "functionGroup": "温度",
+            "functionName": "降低"
+          }
+        ],
+        "triggerList": [
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "12347",
+    "featureList": [
+      {
+        "featureId": "5",
+        "featureName": "调节空调温度3",
+        "functionList": [
+          {
+            "functionGroup": "温度",
+            "functionName": "升高"
+          },
+          {
+            "functionGroup": "温度",
+            "functionName": "降低"
+          }
+        ],
+        "triggerList": [
+        ]
+      },
+      {
+        "featureId": "6",
+        "featureName": "调节空调温度4",
+        "functionList": [
+          {
+            "functionGroup": "温度",
+            "functionName": "升高"
+          },
+          {
+            "functionGroup": "温度",
+            "functionName": "降低"
+          }
+        ],
+        "triggerList": [
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "12348",
+    "featureList": [
+      {
+        "featureId": "7",
+        "featureName": "调节空调温度3",
+        "functionList": [
+          {
+            "functionGroup": "温度",
+            "functionName": "升高"
+          },
+          {
+            "functionGroup": "温度",
+            "functionName": "降低"
+          }
+        ],
+        "triggerList": [
+        ]
+      },
+      {
+        "featureId": "8",
+        "featureName": "调节空调温度4",
+        "functionList": [
+          {
+            "functionGroup": "温度",
+            "functionName": "升高"
+          },
+          {
+            "functionGroup": "温度",
+            "functionName": "降低"
+          }
+        ],
+        "triggerList": [
+        ]
+      }
+    ]
+  }
+]

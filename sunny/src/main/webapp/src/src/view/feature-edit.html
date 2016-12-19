@@ -74,14 +74,14 @@
                 <small>开始时间：</small>
             </label>
             <div ng-show="ngDialogOpenNum===0">
-                <div>This is first feature of this strategy</div>
-                <div>strategy start time:{{strategyRepeat.startTime.calendar()}}
+                <div>这是该策略的第一个任务</div>
+                <div>策略开始时间：{{strategyRepeat.startTime.calendar()}}
                     <span ng-hide="strategyRepeat.isRepeat">({{strategyRepeat.startTime.format('lll')}})</span>
             </div>
             </div>
             <div ng-show="ngDialogOpenNum!==0">
-                <div>This feature will start after last feature</div>
-                <div>last feature:{{strategyTemplate.featureList[ngDialogOpenNum-1].device.name}}
+                <div>上一个任务完成后会开始执行该任务</div>
+                <div>上一个任务：{{strategyTemplate.featureList[ngDialogOpenNum-1].device.name}}
                     -{{strategyTemplate.featureList[ngDialogOpenNum-1].deviceFeature.featureName}}
                     <!-- -{{strategyTemplate.featureList[ngDialogOpenNum-1].deviceFeature.featureName}}</div>-->
                 </div>

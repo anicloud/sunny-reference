@@ -17,9 +17,9 @@ anicloud.sunny.service.UserService = function($http, $cookies) {
                     method:'POST',
                     url: 'logout',
                     params: {hashUserId:hashUserId}
-                }).success(function(data){
+                }).then(function(data){
                     callback(data);
-                }).error(function(data){
+                },function(data){
                     console.log('logout failures');
                 });
             } else {

@@ -44,6 +44,9 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         app.directive(key, directive[key]);
     }
 
+    app.config(['$qProvider', function ($qProvider) {
+        $qProvider.errorOnUnhandledRejections(false);
+    }]);
     app.run(function($rootScope, StrategyService, DeviceService, WebSocketService, ManagerService) {
         $rootScope.strategies = [];
         $rootScope.devices = [];
@@ -74,7 +77,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
             $rootScope.DOMClickHasRun=true;
             console.log(angular.element(e.target).scope(),sidebarCtrl)
         });
-        StrategyService.getStrategies(function (data) {
+        StrategyService.getStrategies().then(function (data) {
             $rootScope.strategies = data;
             for (var strategy in data) {
                 if (strategy.strategyName == "_PHONY_STRATEGY_") {

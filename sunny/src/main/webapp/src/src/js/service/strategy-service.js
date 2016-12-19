@@ -7,19 +7,19 @@ anicloud.sunny.service = anicloud.sunny.service || {};
 
 anicloud.sunny.service.StrategyService = function($http, $cookies){
     return{
-        getStrategies:function(callback){
+        getStrategies:function(){
             //var user = $cookies['sunny_user'];
             var user = $.cookie('sunny_user');
             if (user != undefined) {
                 var usercookie = JSON.parse(user);
                 var hashUserId = usercookie.hashUserId;
-                $http({
+               return $http({
                     method:'GET',
                     url: 'strategies',
                     params: {hashUserId:hashUserId}
-                }).success(function(data){
-                    callback(data);
-                }).error(function(data){
+                }).then(function(data){
+                    return data.data;
+                },function(data){
                     console.log('get strategies failures');
                 });
             } else {
@@ -36,10 +36,9 @@ anicloud.sunny.service.StrategyService = function($http, $cookies){
                         method:'POST',
                         url: 'strategy',
                         params: {hashUserId:hashUserId,strategyInstance:strategyInstance}
-                    }).success(function (res) {
+                    }).then(function (res) {
                       console.log('save strategies successful')
-                      })
-                      .error(function(data){
+                      },function(data){
                         console.log('save strategies failures');
                     });
                 }
@@ -53,14 +52,14 @@ anicloud.sunny.service.StrategyService = function($http, $cookies){
                 method:'GET',
                 url: 'strategy',
                 params: {hashUserId:hashUserId, strategyId:strategyId}
-            }).success(function(data){
+            }).then(function(data){
                 if(data.status == 'success'){
                     callback(data);
                     console.log('delete strategy success');
                 }else{
                     console.log('delete strategy failed');
                 }
-            }).error(function(data){
+            },function(data){
                 console.log('delete strategy failed');
             });
         }
@@ -70,14 +69,14 @@ anicloud.sunny.service.StrategyService = function($http, $cookies){
             method:'GET',
             url: 'operateStrategy',
             params: {strategyId:strategyId,action:action}
-        }).success(function(data){
+        }).then(function(data){
             if(data.status == 'success'){
                 console.log('operate strategy success');
                 callback(data);
             }else{
                 console.log('operate strategy failed');
             }
-        }).error(function(data){
+        },function(data){
             console.log('operate strategy failed');
         })
     }
