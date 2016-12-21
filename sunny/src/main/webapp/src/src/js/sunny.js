@@ -44,9 +44,9 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         app.directive(key, directive[key]);
     }
 
-    app.config(['$qProvider', function ($qProvider) {
-        $qProvider.errorOnUnhandledRejections(false);
-    }]);
+    //app.config(['$qProvider', function ($qProvider) {
+    //    $qProvider.errorOnUnhandledRejections(false);
+    //}]);
     app.run(function($rootScope, StrategyService, DeviceService, WebSocketService, ManagerService) {
         $rootScope.strategies = [];
         $rootScope.devices = [];
@@ -100,7 +100,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
             }
         });
 
-        DeviceService.getDeviceFeatures(function (data) {
+        DeviceService.getDeviceFeatures().then(function (data) {
             for (var i = 0; i < data.length; i++) {
                 var key = data[i].deviceFormDto.id;
                 var value = data[i].deviceFeatureFormDtoList;
@@ -122,7 +122,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
                 wsPath:"ws://localhost:8080/sunny/socket/strategy"
             }
         };
-        $rootScope.currentConfig=$rootScope.config.prod;
+        $rootScope.currentConfig=$rootScope.config.dev;
         WebSocketService.openSocket(
             // "ws://localhost:8080/sunny/socket/strategy",
             $rootScope.currentConfig.wsPath,
