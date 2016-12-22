@@ -37,6 +37,7 @@ anicloud.sunny.service.StrategyService = function($http, $cookies){
                         url: 'strategy',
                         params: {hashUserId:hashUserId,strategyInstance:strategyInstance}
                     }).then(function (res) {
+                        return res.data;
                       console.log('save strategies successful')
                       },function(data){
                         console.log('save strategies failures');

@@ -23,7 +23,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
         addStrategy: function (strategy) {
             return StrategyService.saveStrategies(strategy).then(function (data) {
                 console.log(data);
-                if (data.data.status == "success") {
+                if (data.status == "success") {
                     var notifyMsg = "计划已添加";
                     var notifyOpts = {
                         status: 'info',

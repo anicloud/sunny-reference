@@ -44,7 +44,7 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
             list.add(1);
             map.put(10L,list);
             AccountObject accountObj = new AccountObject(Long.parseLong(hashUserId),map);
-            SocketMessage socketMessage = accountInvoker.login(accountObj);
+            SocketMessage socketMessage = accountInvoker.registerAndLogin(accountObj);
         }
         LOG.info("afterConnectionEstablished" + hashUserId);
     }
