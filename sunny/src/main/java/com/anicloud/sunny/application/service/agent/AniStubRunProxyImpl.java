@@ -24,7 +24,7 @@ public class AniStubRunProxyImpl implements AniStubRunProxy {
     private AgentTemplate agentTemplate;
 
     @Override
-    public List<StubArgumentDto> stubRunSync(AniStub aniStub) throws IOException, EncodeException {
+    public AniStub stubRunSync(AniStub aniStub) throws IOException, EncodeException {
         AniInvokable aniInvokable = agentTemplate.getAniInvokable(Constants.aniServiceSession);
         return aniInvokable.invokeAniObjectSync(aniStub);
     }

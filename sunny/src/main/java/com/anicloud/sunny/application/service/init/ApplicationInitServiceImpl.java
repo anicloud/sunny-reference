@@ -73,7 +73,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         LOGGER.info("initUserDeviceAndDeviceFeatureRelation");
         List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList = agentTemplate
                 .getDeviceObjService(accessToken.getAccessToken())
-                .getDeviceObjInfo(userDto.hashUserId, Boolean.TRUE);
+                .getAccessibleDeviceObjInfoList(userDto.hashUserId, Boolean.TRUE);
         if(deviceMasterObjInfoDtoList!=null){
             LOGGER.info("deviceMasterObjInfoDtoList size is "+deviceMasterObjInfoDtoList.size());
             List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos =

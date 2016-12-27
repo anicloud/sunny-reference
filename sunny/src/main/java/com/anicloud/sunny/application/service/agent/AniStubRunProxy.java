@@ -13,7 +13,7 @@ import java.util.List;
  * @since JDK 1.7
  */
 public interface AniStubRunProxy {
-    List<StubArgumentDto> stubRunSync(AniStub aniStub) throws IOException, EncodeException;
+    AniStub stubRunSync(AniStub aniStub) throws IOException, EncodeException;
     void stubRunAsyn(AniStub aniStub);
 
 }
