@@ -1,7 +1,7 @@
 package com.anicloud.sunny.application.assemble;
 
-import com.anicloud.sunny.application.dto.share.FeatureArgValueDto;
-import com.anicloud.sunny.domain.model.share.FeatureArgValue;
+import com.anicloud.sunny.application.dto.device.FeatureArgValueDto;
+import com.anicloud.sunny.domain.model.device.FeatureArgValue;
 
 import java.util.ArrayList;
 import java.util.List;

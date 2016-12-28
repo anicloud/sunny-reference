@@ -1,9 +1,9 @@
 package com.anicloud.sunny.domain.model.app;
 
-import com.anicloud.sunny.domain.adapter.AniServiceDaoAdapter;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
 import com.anicloud.sunny.infrastructure.persistence.service.app.AniServicePersistService;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -18,9 +18,6 @@ import java.util.*;
 @Configurable
 public class AniService implements Serializable {
     private static final long serialVersionUID = 237465243070540574L;
-
-    @Resource
-    private AniServicePersistService aniServicePersistService;
 
     public Long id;
     public String aniServiceId;
@@ -105,15 +102,82 @@ public class AniService implements Serializable {
         entranceList.addAll(entranceList);
     }
 
-    public void update() throws IOException {
-        AniServiceDao aniServiceDao = AniServiceDaoAdapter.toDao(this);
+    public static void update(AniServicePersistService aniServicePersistService, AniService aniService) throws IOException {
+        AniServiceDao aniServiceDao = toDao(aniService);
         aniServicePersistService.update(aniServiceDao);
+    }
+
+    public static AniServiceDao toDao(AniService aniService) {
+        if (aniService == null) {
+            return null;
+        }
+
+        return new AniServiceDao(
+                aniService.id,
+                aniService.aniServiceId,
+                aniService.serviceName,
+                aniService.version,
+                aniService.clientSecret,
+                StringUtils.collectionToCommaDelimitedString(aniService.resourceIds),
+                StringUtils.collectionToCommaDelimitedString(aniService.scope),
+                StringUtils.collectionToCommaDelimitedString(aniService.authorizedGrantTypes),
+                StringUtils.collectionToCommaDelimitedString(aniService.authorities),
+                aniService.webServerRedirectUri,
+                aniService.accessTokenValidity,
+                aniService.refreshTokenValidity,
+                aniService.autoApprove,
+                aniService.registerDate,
+                aniService.archived,
+                aniService.trusted,
+                aniService.serviceServerUrl,
+                aniService.logoPath,
+                StringUtils.collectionToCommaDelimitedString(aniService.languageSet),
+                StringUtils.collectionToCommaDelimitedString(aniService.tagSet),
+                aniService.price,
+                aniService.onShelf,
+                aniService.description,
+                aniService.accountId,
+                AniServiceEntrance.toDaoList(aniService.entranceList)
+        );
+    }
+
+    public static AniService toDomain(AniServiceDao aniServiceDao) {
+        if (aniServiceDao == null) {
+            return null;
+        }
+
+        return new AniService(
+                aniServiceDao.id,
+                aniServiceDao.aniServiceId,
+                aniServiceDao.serviceName,
+                aniServiceDao.version,
+                aniServiceDao.clientSecret,
+                StringUtils.commaDelimitedListToSet(aniServiceDao.resourceIds),
+                StringUtils.commaDelimitedListToSet(aniServiceDao.scope),
+                StringUtils.commaDelimitedListToSet(aniServiceDao.authorizedGrantTypes),
+                StringUtils.commaDelimitedListToSet(aniServiceDao.authorities),
+                aniServiceDao.webServerRedirectUri,
+                aniServiceDao.accessTokenValidity,
+                aniServiceDao.refreshTokenValidity,
+                aniServiceDao.autoApprove,
+                aniServiceDao.registerDate,
+                aniServiceDao.archived,
+                aniServiceDao.trusted,
+                aniServiceDao.serviceServerUrl,
+                aniServiceDao.logoPath,
+                StringUtils.commaDelimitedListToSet(aniServiceDao.languageSet),
+                StringUtils.commaDelimitedListToSet(aniServiceDao.tagSet),
+                aniServiceDao.price,
+                aniServiceDao.onShelf,
+                aniServiceDao.description,
+                aniServiceDao.accountId,
+                AniServiceEntrance.toDomainList(aniServiceDao.entranceList)
+        );
     }
 
     @Override
     public String toString() {
         return "AniService{" +
-                "aniServicePersistService=" + aniServicePersistService +
                 ", id=" + id +
                 ", aniServiceId='" + aniServiceId + '\'' +
                 ", serviceName='" + serviceName + '\'' +

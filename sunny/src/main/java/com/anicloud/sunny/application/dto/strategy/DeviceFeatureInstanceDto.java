@@ -2,7 +2,7 @@ package com.anicloud.sunny.application.dto.strategy;
 
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
-import com.anicloud.sunny.application.dto.share.FeatureArgValueDto;
+import com.anicloud.sunny.application.dto.device.FeatureArgValueDto;
 
 import java.io.Serializable;
 import java.util.List;

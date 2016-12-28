@@ -7,7 +7,7 @@ import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.domain.model.device.FeatureFunction;
 import com.anicloud.sunny.domain.model.device.FunctionArgument;
-import com.anicloud.sunny.domain.model.share.FeatureArgValue;
+import com.anicloud.sunny.domain.model.device.FeatureArgValue;
 import com.anicloud.sunny.domain.model.strategy.DeviceFeatureInstance;
 import com.anicloud.sunny.domain.model.strategy.FeatureTrigger;
 import com.anicloud.sunny.domain.model.strategy.Strategy;

@@ -72,7 +72,7 @@ anicloud.sunny.service.DeviceService = function ($http, $cookies) {
                 method: 'GET',
                 url: 'triggers'
             }).then(function (data) {
-                callback(data);
+                callback(data.data);
             },function (data) {
                 console.log('get feature failures');
             })

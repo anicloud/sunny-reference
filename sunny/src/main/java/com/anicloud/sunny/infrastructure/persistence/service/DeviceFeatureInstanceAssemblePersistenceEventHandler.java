@@ -1,9 +1,7 @@
 package com.anicloud.sunny.infrastructure.persistence.service;
 
-import com.anicloud.sunny.domain.model.strategy.DeviceFeatureInstanceAssemble;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.DeviceFeatureInstanceAssembleDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.DeviceFeatureInstanceDao;
-import com.anicloud.sunny.infrastructure.persistence.repository.device.DeviceFeatureRepository;
 import com.anicloud.sunny.infrastructure.persistence.repository.strategy.DeviceFeatureInstanceAssembleRepository;
 import com.anicloud.sunny.infrastructure.persistence.repository.strategy.DeviceFeatureInstanceRepository;
 import org.springframework.stereotype.Component;

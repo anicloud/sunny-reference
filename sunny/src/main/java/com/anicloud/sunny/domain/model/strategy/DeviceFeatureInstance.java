@@ -2,7 +2,7 @@ package com.anicloud.sunny.domain.model.strategy;
 
 import com.anicloud.sunny.domain.model.device.Device;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
-import com.anicloud.sunny.domain.model.share.FeatureArgValue;
+import com.anicloud.sunny.domain.model.device.FeatureArgValue;
 import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.DeviceFeatureInstanceDao;
 

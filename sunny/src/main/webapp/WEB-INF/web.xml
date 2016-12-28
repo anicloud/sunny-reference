@@ -34,7 +34,7 @@
     </listener>
 
     <listener>
-        <listener-class>com.anicloud.sunny.interfaces.web.listener.SessionListener</listener-class>
+        <listener-class>com.anicloud.sunny.web.listener.SessionListener</listener-class>
     </listener>
 
     <servlet>

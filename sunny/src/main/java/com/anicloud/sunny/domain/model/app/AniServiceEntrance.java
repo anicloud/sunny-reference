@@ -1,9 +1,11 @@
 package com.anicloud.sunny.domain.model.app;
 
+import com.ani.bus.service.commons.dto.aniservice.AniServiceEntranceDto;
+import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceEntranceDao;
+import org.springframework.util.StringUtils;
+
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @autor zhaoyu
@@ -54,6 +56,71 @@ public class AniServiceEntrance implements Serializable {
             this.tagSet = new HashSet<>();
         }
         this.tagSet.add(tag);
+    }
+
+    public static AniServiceEntranceDao toDao(AniServiceEntrance serviceEntrance) {
+        if (serviceEntrance == null) {
+            return null;
+        }
+        return new AniServiceEntranceDao(
+                serviceEntrance.entranceId,
+                serviceEntrance.entranceName,
+                serviceEntrance.entranceUrl,
+                serviceEntrance.logoPath,
+                StringUtils.collectionToCommaDelimitedString(serviceEntrance.tagSet),
+                serviceEntrance.description
+        );
+    }
+
+    public static AniServiceEntrance toDomain(AniServiceEntranceDao entranceDao) {
+        return new AniServiceEntrance(
+                entranceDao.entranceName,
+                entranceDao.entranceUrl,
+                entranceDao.logoPath,
+                StringUtils.commaDelimitedListToSet(entranceDao.tagSet),
+                entranceDao.description
+        );
+    }
+
+    public static List<AniServiceEntranceDao> toDaoList(List<AniServiceEntrance> entranceList) {
+        if (entranceList == null) {
+            return null;
+        }
+        List<AniServiceEntranceDao> serviceEntranceDaoList = new ArrayList<>();
+        for (AniServiceEntrance serviceEntrance : entranceList) {
+            serviceEntranceDaoList.add(toDao(serviceEntrance));
+        }
+        return serviceEntranceDaoList;
+    }
+
+    public static List<AniServiceEntrance> toDomainList(List<AniServiceEntranceDao> daoList) {
+        if (daoList == null){
+            return null;
+        }
+        List<AniServiceEntrance> serviceEntranceList = new ArrayList<AniServiceEntrance>();
+        for (AniServiceEntranceDao serviceEntrance : daoList) {
+            serviceEntranceList.add(toDomain(serviceEntrance));
+        }
+
+        return serviceEntranceList;
+    }
+    public static List<AniServiceEntranceDto> fromCommonsToLocal(List<com.anicloud.sunny.application.dto.app.AniServiceEntranceDto> entranceDtoList)
+    {
+        if (entranceDtoList == null){
+            return null;
+        }
+        List<AniServiceEntranceDto> commonsEntranceList = new ArrayList<>();
+        for (com.anicloud.sunny.application.dto.app.AniServiceEntranceDto entranceDto: entranceDtoList) {
+            commonsEntranceList.add(new AniServiceEntranceDto(
+                    entranceDto.entranceId,
+                    entranceDto.entranceName,
+                    entranceDto.entranceUrl,
+                    entranceDto.logoPath,
+                    entranceDto.tagSet,
+                    entranceDto.description)
+            );
+        }
+        return commonsEntranceList;
     }
 
     @Override
