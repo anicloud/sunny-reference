@@ -119,5 +119,4 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
         }
     }
 
-
 }

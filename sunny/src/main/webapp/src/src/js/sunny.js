@@ -3,11 +3,11 @@
  */
 var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
-anicloud.sunny.controller = anicloud.sunny.controller || {}
-anicloud.sunny.service = anicloud.sunny.service || {}
-anicloud.sunny.config = anicloud.sunny.config || {}
-anicloud.sunny.directive = anicloud.sunny.directive || {}
-anicloud.sunny.global = anicloud.sunny.global || {}
+anicloud.sunny.controller = anicloud.sunny.controller || {};
+anicloud.sunny.service = anicloud.sunny.service || {};
+anicloud.sunny.config = anicloud.sunny.config || {};
+anicloud.sunny.directive = anicloud.sunny.directive || {};
+anicloud.sunny.global = anicloud.sunny.global || {};
 
 
 if (window.console) {
@@ -44,9 +44,9 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         app.directive(key, directive[key]);
     }
 
-    app.config(['$qProvider', function ($qProvider) {
-        $qProvider.errorOnUnhandledRejections(false);
-    }]);
+    // app.config(['$qProvider', function ($qProvider) {
+    //     $qProvider.errorOnUnhandledRejections(false);
+    // }]);
     app.run(function($rootScope, StrategyService, DeviceService, WebSocketService, ManagerService) {
         $rootScope.strategies = [];
         $rootScope.devices = [];

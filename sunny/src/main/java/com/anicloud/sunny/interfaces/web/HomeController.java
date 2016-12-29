@@ -8,11 +8,9 @@ import com.ani.agent.service.core.websocket.WebSocketSessionFactory;
 import com.ani.agent.service.service.aniservice.AniServiceManager;
 import com.ani.agent.service.service.websocket.*;
 import com.ani.agent.service.service.websocket.observer.AniObjectCallMessageObserver;
-import com.ani.bus.service.commons.dto.accountobject.AccountObject;
 import com.ani.bus.service.commons.dto.aniservice.AniServiceDto;
 import com.ani.bus.service.commons.dto.aniservice.AniServiceRegisterDto;
 import com.ani.bus.service.commons.dto.aniservice.LanguageEnum;
-import com.ani.bus.service.commons.message.SocketMessage;
 import com.ani.agent.service.service.AgentTemplate;
 import com.ani.bus.service.commons.observer.MessageObserver;
 import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
@@ -25,30 +23,23 @@ import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.domain.adapter.AniServiceDaoAdapter;
 import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
 import com.anicloud.sunny.interfaces.web.dto.UserSessionInfo;
-import com.anicloud.sunny.interfaces.web.listener.SessionListener;
 import com.anicloud.sunny.interfaces.web.session.SessionManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.deser.impl.CreatorCollector;
-import javassist.bytecode.stackmap.BasicBlock;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.CookieGenerator;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -312,10 +303,10 @@ public class HomeController extends BaseController {
     {
         Set<LanguageEnum> languageEnumSet  =new HashSet<>();
         for(String lan :Constants.aniServiceDto.languageSet){
-            LanguageEnum languageEnum = (LanguageEnum)Enum.valueOf(LanguageEnum.class,lan.trim());
+            LanguageEnum languageEnum = Enum.valueOf(LanguageEnum.class,lan.trim());
             languageEnumSet.add(languageEnum);
         }
-        AniServiceInfoDto aniserviceinfo = new AniServiceInfoDto(
+        AniServiceInfoDto aniServiceInfo = new AniServiceInfoDto(
                 null,
                 Constants.aniServiceDto.serviceServerUrl,
                 Constants.aniServiceDto.logoPath,
@@ -335,7 +326,7 @@ public class HomeController extends BaseController {
                 Constants.aniServiceDto.webServerRedirectUri,
                 Constants.aniServiceDto.accountId,
                 aniServiceEntranceDto,
-                aniserviceinfo,
+                aniServiceInfo,
                 null
         );
         aniServiceRegisterDto.addStub(1L, 1);

@@ -41,7 +41,7 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
 
     @Override
     public void scheduleStrategy(Strategy strategy) {
-        StrategyInstance strategyInstance = null;
+        StrategyInstance strategyInstance;
         if (strategyMap.containsKey(strategy.strategyId)) {
             strategyInstance = strategyMap.get(strategy.strategyId).strategyInstance;
             strategyInstance.action = strategy.strategyInstance.action;
@@ -112,8 +112,10 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
         if(instances != null && instances.size()>0) {
             for(StrategyInstance instance : instances) {
                 StrategyDao strategyDao = strategyService.findByStrategyId(instance.strategyId);
-                instance.prepareSchedule(scheduleManager,this,strategyDao.owner.hashUserId);
-                instance.start();
+                if(strategyDao != null) {
+                    instance.prepareSchedule(scheduleManager, this, strategyDao.owner.hashUserId);
+                    instance.start();
+                }
             }
         }
     }

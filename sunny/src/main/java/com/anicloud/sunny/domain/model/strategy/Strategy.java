@@ -121,14 +121,13 @@ public class Strategy extends AbstractDomain implements Cloneable {
             return null;
         }
 
-        StrategyDao strategyDao = new StrategyDao(
+        return new StrategyDao(
                 strategy.strategyId,
                 strategy.strategyName,
                 strategy.description,
                 User.toDao(strategy.owner),
                 DeviceFeatureInstance.toDaoList(strategy.deviceFeatureInstanceList)
         );
-        return strategyDao;
     }
 
     public static List<Strategy> toStrategyList(List<StrategyDao> daoList) {

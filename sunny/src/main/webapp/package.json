@@ -53,7 +53,8 @@
     "dev":"node node-server/sunny-node",
     "prod":"node node-server/sunny-node-dist",
     "gulp-dev":"node ./node_modules/gulp/bin/gulp serve:node",
-    "gulp-prod":"node ./node_modules/gulp/bin/gulp serve:prod"
+    "gulp-prod":"node ./node_modules/gulp/bin/gulp serve:prod",
+    "bower-install":"node ./node_modules/bower/bin/bower install "
   },
   "bugs": {
     "url": "https://github.com/yqz411/sunny/issues"
