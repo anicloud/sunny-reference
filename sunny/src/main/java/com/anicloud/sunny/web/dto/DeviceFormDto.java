@@ -2,8 +2,8 @@ package com.anicloud.sunny.web.dto;
 
 
 import com.ani.agent.service.commons.object.enumeration.DeviceState;
-import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
-import com.anicloud.sunny.application.dto.device.DeviceDto;
+import com.anicloud.sunny.domain.model.device.Device;
+import com.anicloud.sunny.domain.model.device.DeviceAndUserRelation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,61 +33,61 @@ public class DeviceFormDto {
         this.logoUrl = logoUrl;
     }
 
-    public static DeviceFormDto convertToDeviceForm(DeviceDto deviceDto){
+    public static DeviceFormDto convertToDeviceForm(Device device){
         DeviceFormDto deviceFormDto = new DeviceFormDto();
-        if(deviceDto != null) {
-            deviceFormDto.id = deviceDto.identificationCode;
-            deviceFormDto.name = deviceDto.name;
-            deviceFormDto.deviceState = deviceDto.deviceState;
-            deviceFormDto.deviceType = deviceDto.deviceType;
-            deviceFormDto.deviceGroup = deviceDto.deviceGroup;
-            deviceFormDto.logoUrl = deviceDto.logoUrl;
+        if(device != null) {
+            deviceFormDto.id = device.identificationCode;
+            deviceFormDto.name = device.name;
+            deviceFormDto.deviceState = device.deviceState;
+            deviceFormDto.deviceType = device.deviceType;
+            deviceFormDto.deviceGroup = device.deviceGroup;
+            deviceFormDto.logoUrl = device.logoUrl;
         }
         return deviceFormDto;
     }
 
-    public static List<DeviceFormDto> convertToDeviceForms(List<DeviceDto> deviceDtos){
+    public static List<DeviceFormDto> convertToDeviceForms(List<Device> devices){
         List<DeviceFormDto> deviceFormDtos = new ArrayList<>();
-        if(deviceDtos != null) {
-            for (DeviceDto deviceDto : deviceDtos) {
-                deviceFormDtos.add(convertToDeviceForm(deviceDto));
+        if(devices != null) {
+            for (Device device : devices) {
+                deviceFormDtos.add(convertToDeviceForm(device));
             }
         }
         return deviceFormDtos;
     }
 
-    public static DeviceDto convertToDeviceDto(DeviceFormDto deviceFormDto){
-        DeviceDto deviceDto = new DeviceDto();
+    public static Device convertToDeviceDto(DeviceFormDto deviceFormDto){
+        Device device = new Device();
         if(deviceFormDto != null) {
-            deviceDto.identificationCode = deviceFormDto.id;
-            deviceDto.name = deviceFormDto.name;
-            deviceDto.deviceState = deviceFormDto.deviceState;
-            deviceDto.deviceType = deviceFormDto.deviceType;
-            deviceDto.deviceGroup = deviceFormDto.deviceGroup;
-            deviceDto.logoUrl = deviceFormDto.logoUrl;
+            device.identificationCode = deviceFormDto.id;
+            device.name = deviceFormDto.name;
+            device.deviceState = deviceFormDto.deviceState;
+            device.deviceType = deviceFormDto.deviceType;
+            device.deviceGroup = deviceFormDto.deviceGroup;
+            device.logoUrl = deviceFormDto.logoUrl;
         }
-        return deviceDto;
+        return device;
     }
 
-    public static DeviceFormDto convertToDeviceForm(DeviceAndUserRelationDto relationDto){
+    public static DeviceFormDto convertToDeviceForm(DeviceAndUserRelation relation){
         DeviceFormDto deviceFormDto = new DeviceFormDto();
-        if(relationDto != null) {
-            deviceFormDto.id = relationDto.deviceDto.identificationCode;
-            deviceFormDto.name = relationDto.screenName;
-            deviceFormDto.deviceState = relationDto.deviceDto.deviceState;
-            deviceFormDto.deviceType = relationDto.deviceDto.deviceType;
-            deviceFormDto.deviceGroup = relationDto.deviceGroup;
-            deviceFormDto.initParam = relationDto.initParam;
-            deviceFormDto.logoUrl = relationDto.deviceDto.logoUrl;
+        if(relation != null) {
+            deviceFormDto.id = relation.device.identificationCode;
+            deviceFormDto.name = relation.screenName;
+            deviceFormDto.deviceState = relation.device.deviceState;
+            deviceFormDto.deviceType = relation.device.deviceType;
+            deviceFormDto.deviceGroup = relation.deviceGroup;
+            deviceFormDto.initParam = relation.initParam;
+            deviceFormDto.logoUrl = relation.device.logoUrl;
         }
         return deviceFormDto;
     }
 
-    public static List<DeviceFormDto> convertToDeviceFormsByRelations(List<DeviceAndUserRelationDto> relations){
+    public static List<DeviceFormDto> convertToDeviceFormsByRelations(List<DeviceAndUserRelation> relations){
         List<DeviceFormDto> deviceFormDtos = new ArrayList<>();
         if(relations != null) {
-            for (DeviceAndUserRelationDto relationDto : relations) {
-                deviceFormDtos.add(convertToDeviceForm(relationDto));
+            for (DeviceAndUserRelation relation : relations) {
+                deviceFormDtos.add(convertToDeviceForm(relation));
             }
         }
         return deviceFormDtos;

@@ -1,8 +1,9 @@
 package com.anicloud.sunny.web.dto;
 
-import com.anicloud.sunny.application.dto.device.FeatureArgValueDto;
 import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
-import com.anicloud.sunny.application.dto.strategy.FeatureTriggerDto;
+import com.anicloud.sunny.domain.model.device.FeatureArgValue;
+import com.anicloud.sunny.domain.model.strategy.DeviceFeatureInstance;
+import com.anicloud.sunny.domain.model.strategy.FeatureTrigger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,59 +15,58 @@ public class DeviceFeatureInstanceFormDto {
     public String featureInstanceId;
     public DeviceFormDto device;
     public DeviceFeatureFormDto deviceFeature;
-    public List<FeatureArgValueDto> featureArgValueDtoList;
-    public List<FeatureTriggerDto> triggerDtoList;
+    public List<FeatureArgValue> featureArgValueDtoList;
+    public List<FeatureTrigger> triggerDtoList;
     public boolean isScheduleNow;
     public Long intervalTime;
 
-    public static DeviceFeatureInstanceFormDto convertToDeviceFeatureInstanceForm(DeviceFeatureInstanceDto deviceFeatureInstanceDto){
+    public static DeviceFeatureInstanceFormDto convertToDeviceFeatureInstanceForm(DeviceFeatureInstance deviceFeatureInstance){
         DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto = new DeviceFeatureInstanceFormDto();
-        if(deviceFeatureInstanceDto != null) {
-            deviceFeatureInstanceFormDto.featureInstanceId = deviceFeatureInstanceDto.featureInstanceId;
-            deviceFeatureInstanceFormDto.device = DeviceFormDto.convertToDeviceForm(deviceFeatureInstanceDto.deviceDto);
-            deviceFeatureInstanceFormDto.deviceFeature = DeviceFeatureFormDto.convertToDeviceFeatureForm(deviceFeatureInstanceDto.deviceFeatureDto);
+        if(deviceFeatureInstance != null) {
+            deviceFeatureInstanceFormDto.featureInstanceId = deviceFeatureInstance.featureInstanceId;
+            deviceFeatureInstanceFormDto.device = DeviceFormDto.convertToDeviceForm(deviceFeatureInstance.device);
+            deviceFeatureInstanceFormDto.deviceFeature = DeviceFeatureFormDto.convertToDeviceFeatureForm(deviceFeatureInstance.deviceFeature);
 
-            deviceFeatureInstanceFormDto.featureArgValueDtoList = deviceFeatureInstanceDto.featureArgValueDtoList;
-            deviceFeatureInstanceFormDto.triggerDtoList = deviceFeatureInstanceDto.triggerDtoList;
-            deviceFeatureInstanceFormDto.isScheduleNow = deviceFeatureInstanceDto.isScheduleNow;
-            deviceFeatureInstanceFormDto.intervalTime = deviceFeatureInstanceDto.intervalTime;
+            deviceFeatureInstanceFormDto.featureArgValueDtoList = deviceFeatureInstance.featureArgValueList;
+            deviceFeatureInstanceFormDto.triggerDtoList = deviceFeatureInstance.triggerList;
+            deviceFeatureInstanceFormDto.isScheduleNow = deviceFeatureInstance.isScheduleNow;
+            deviceFeatureInstanceFormDto.intervalTime = deviceFeatureInstance.intervalTime;
         }
         return deviceFeatureInstanceFormDto;
-
     }
 
-    public static List<DeviceFeatureInstanceFormDto> convertToDeviceFeatureInstanceForms(List<DeviceFeatureInstanceDto> deviceFeatureInstanceDtos){
+    public static List<DeviceFeatureInstanceFormDto> convertToDeviceFeatureInstanceForms(List<DeviceFeatureInstance> deviceFeatureInstances){
         List<DeviceFeatureInstanceFormDto> deviceFeatureInstanceFormDtos = new ArrayList<>();
-        if(deviceFeatureInstanceDtos != null) {
-            for (DeviceFeatureInstanceDto deviceFeatureInstanceDto : deviceFeatureInstanceDtos) {
-                deviceFeatureInstanceFormDtos.add(convertToDeviceFeatureInstanceForm(deviceFeatureInstanceDto));
+        if(deviceFeatureInstances != null) {
+            for (DeviceFeatureInstance deviceFeatureInstance : deviceFeatureInstances) {
+                deviceFeatureInstanceFormDtos.add(convertToDeviceFeatureInstanceForm(deviceFeatureInstance));
             }
         }
         return deviceFeatureInstanceFormDtos;
     }
 
-    public static DeviceFeatureInstanceDto convertToFeatureInstanceDto(DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto){
-        DeviceFeatureInstanceDto deviceFeatureInstanceDto = new DeviceFeatureInstanceDto();
+    public static DeviceFeatureInstance convertToFeatureInstanceDto(DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto){
+        DeviceFeatureInstance deviceFeatureInstance = new DeviceFeatureInstance();
         if(deviceFeatureInstanceFormDto != null) {
-            deviceFeatureInstanceDto.featureInstanceId = deviceFeatureInstanceFormDto.featureInstanceId;
-            deviceFeatureInstanceDto.deviceDto = DeviceFormDto.convertToDeviceDto(deviceFeatureInstanceFormDto.device);
-            deviceFeatureInstanceDto.deviceFeatureDto = DeviceFeatureFormDto.convertToDeviceFeatureDto(deviceFeatureInstanceFormDto.deviceFeature);
-            deviceFeatureInstanceDto.featureArgValueDtoList = deviceFeatureInstanceFormDto.featureArgValueDtoList;
-            deviceFeatureInstanceDto.triggerDtoList = deviceFeatureInstanceFormDto.triggerDtoList;
-            deviceFeatureInstanceDto.isScheduleNow = deviceFeatureInstanceFormDto.isScheduleNow;
-            deviceFeatureInstanceDto.intervalTime = deviceFeatureInstanceFormDto.intervalTime;
+            deviceFeatureInstance.featureInstanceId = deviceFeatureInstanceFormDto.featureInstanceId;
+            deviceFeatureInstance.device = DeviceFormDto.convertToDeviceDto(deviceFeatureInstanceFormDto.device);
+            deviceFeatureInstance.deviceFeature = DeviceFeatureFormDto.convertToDeviceFeatureDto(deviceFeatureInstanceFormDto.deviceFeature);
+            deviceFeatureInstance.featureArgValueList = deviceFeatureInstanceFormDto.featureArgValueDtoList;
+            deviceFeatureInstance.triggerList = deviceFeatureInstanceFormDto.triggerDtoList;
+            deviceFeatureInstance.isScheduleNow = deviceFeatureInstanceFormDto.isScheduleNow;
+            deviceFeatureInstance.intervalTime = deviceFeatureInstanceFormDto.intervalTime;
         }
-        return deviceFeatureInstanceDto;
+        return deviceFeatureInstance;
     }
 
-    public static List<DeviceFeatureInstanceDto> convertToFeatureInstanceDtos(List<DeviceFeatureInstanceFormDto> deviceFeatureInstanceFormDtos){
-        List<DeviceFeatureInstanceDto> deviceFeatureInstanceDtos = new ArrayList<>();
+    public static List<DeviceFeatureInstance> convertToFeatureInstanceDtos(List<DeviceFeatureInstanceFormDto> deviceFeatureInstanceFormDtos){
+        List<DeviceFeatureInstance> deviceFeatureInstances = new ArrayList<>();
         if(deviceFeatureInstanceFormDtos != null) {
             for (DeviceFeatureInstanceFormDto deviceFeatureInstanceFormDto : deviceFeatureInstanceFormDtos) {
-                deviceFeatureInstanceDtos.add(DeviceFeatureInstanceFormDto.convertToFeatureInstanceDto(deviceFeatureInstanceFormDto));
+                deviceFeatureInstances.add(DeviceFeatureInstanceFormDto.convertToFeatureInstanceDto(deviceFeatureInstanceFormDto));
             }
         }
-        return deviceFeatureInstanceDtos;
+        return deviceFeatureInstances;
     }
 
 }

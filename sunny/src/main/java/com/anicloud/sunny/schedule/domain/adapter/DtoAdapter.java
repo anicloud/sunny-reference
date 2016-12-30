@@ -1,5 +1,6 @@
 package com.anicloud.sunny.schedule.domain.adapter;
 
+import com.anicloud.sunny.application.assemble.StrategyDtoAssembler;
 import com.anicloud.sunny.schedule.domain.strategy.*;
 import com.anicloud.sunny.schedule.dto.*;
 
@@ -88,7 +89,8 @@ public class DtoAdapter {
 
     public static StrategyInstanceDto toStrategyInstanceDto(StrategyInstance strategyInstance) {
         StrategyInstanceDto strategyInstanceDto = new StrategyInstanceDto(
-                strategyInstance.strategyId,
+                StrategyDtoAssembler.toDto(strategyInstance.strategyModel),
+                strategyInstance.strategyInstanceId,
                 strategyInstance.state,
                 strategyInstance.stage,
                 toFeatureInstanceDtoList(strategyInstance.featureInstanceList),
@@ -155,38 +157,46 @@ public class DtoAdapter {
         return triggerInstanceList;
     }
 
-//    public static FeatureInstance fromFeatureInstanceDto(FeatureInstanceDto featureInstanceDto) {
-//        FeatureInstance featureInstance = new FeatureInstance(
-//                featureInstanceDto.featureId,
-//                featureInstanceDto.deviceDto.identificationCode,
-//                featureInstanceDto.state,
-//                featureInstanceDto.stage,
-//                fromFunctionInstanceDtoList(featureInstanceDto.functionInstanceDtoList),
-//                fromTriggerInstanceDtoList(featureInstanceDto.triggerInstanceDtoList),
-//                Boolean.FALSE
-//        );
-//        return featureInstance;
-//    }
+    public static FeatureInstance fromFeatureInstanceDto(FeatureInstanceDto featureInstanceDto) {
+        FeatureInstance featureInstance = new FeatureInstance(
+                featureInstanceDto.featureId,
+                featureInstanceDto.deviceDto.identificationCode,
+                featureInstanceDto.state,
+                featureInstanceDto.stage,
+                fromFunctionInstanceDtoList(featureInstanceDto.functionInstanceDtoList),
+                fromTriggerInstanceDtoList(featureInstanceDto.triggerInstanceDtoList),
+                Boolean.FALSE,
+                featureInstanceDto.intervalTime
+        );
+        return featureInstance;
+    }
 
-//    public static List<FeatureInstance> fromFeatureInstanceDtoList(List<FeatureInstanceDto> featureInstanceDtoList) {
-//        List<FeatureInstance> featureInstanceList = new ArrayList<>();
-//        if (featureInstanceDtoList != null) {
-//            for (FeatureInstanceDto featureInstanceDto : featureInstanceDtoList) {
-//                featureInstanceList.add(fromFeatureInstanceDto(featureInstanceDto));
-//            }
-//        }
-//        return featureInstanceList;
-//    }
+    public static List<FeatureInstance> fromFeatureInstanceDtoList(List<FeatureInstanceDto> featureInstanceDtoList) {
+        List<FeatureInstance> featureInstanceList = new ArrayList<>();
+        if (featureInstanceDtoList != null) {
+            for (FeatureInstanceDto featureInstanceDto : featureInstanceDtoList) {
+                featureInstanceList.add(fromFeatureInstanceDto(featureInstanceDto));
+            }
+        }
+        return featureInstanceList;
+    }
 
-//    public static StrategyInstance fromStrategyInstanceDto(StrategyInstanceDto strategyInstanceDto) {
-//        StrategyInstance strategyInstance = new StrategyInstance(
-//                strategyInstanceDto.strategyId,
-//                strategyInstanceDto.state,
-//                strategyInstanceDto.stage,
-//                fromFeatureInstanceDtoList(strategyInstanceDto.featureInstanceDtoList),
-//                strategyInstanceDto.action,
-//                strategyInstanceDto.timeStamp);
-//        return strategyInstance;
-//    }
+    public static StrategyInstance fromStrategyInstanceDto(StrategyInstanceDto strategyInstanceDto) {
+        StrategyInstance strategyInstance = new StrategyInstance(
+                StrategyDtoAssembler.toStrategy(strategyInstanceDto.strategyModel),
+                strategyInstanceDto.strategyInstanceId,
+                strategyInstanceDto.state,
+                strategyInstanceDto.stage,
+                fromFeatureInstanceDtoList(strategyInstanceDto.featureInstanceDtoList),
+                strategyInstanceDto.action,
+                strategyInstanceDto.timeStamp,
+                false,
+                strategyInstanceDto.startTime,
+                strategyInstanceDto.isScheduleNow,
+                strategyInstanceDto.isRepeat,
+                strategyInstanceDto.repeatWeek
+                );
+        return strategyInstance;
+    }
 
 }

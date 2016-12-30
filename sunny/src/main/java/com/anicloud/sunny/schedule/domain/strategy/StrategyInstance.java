@@ -3,6 +3,7 @@ package com.anicloud.sunny.schedule.domain.strategy;
 import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
 import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
 import com.anicloud.sunny.application.service.holder.SpringContextHolder;
+import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.schedule.domain.schedule.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.jms.core.JmsTemplate;
@@ -17,7 +18,8 @@ import java.util.*;
 public class StrategyInstance implements Schedulable, ScheduleStateListener, Serializable {
     private static final long serialVersionUID = 2408334140270041423L;
 
-    public String strategyId;
+    public Strategy strategyModel;
+    public String strategyInstanceId;
     public ScheduleState state;
     public Integer stage;
     public List<FeatureInstance> featureInstanceList;
@@ -38,21 +40,10 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
     public StrategyInstance() {
     }
 
-//    public StrategyInstance(String strategyId, ScheduleState state,
-//                            Integer stage, List<FeatureInstance> featureInstanceList,
-//                            StrategyAction action,
-//                            Long timeStamp) {
-//        this.strategyId = strategyId;
-//        this.state = state;
-//        this.stage = stage;
-//        this.featureInstanceList = featureInstanceList;
-//        this.action = action;
-//        this.timeStamp = timeStamp;
-//        this.isScheduled = false;
-//    }
-
-    public StrategyInstance(String strategyId, ScheduleState state, Integer stage, List<FeatureInstance> featureInstanceList, StrategyAction action, Long timeStamp, boolean isScheduled, Date startTime, boolean isScheduleNow, boolean isRepeat, String[] repeatWeek) {
-        this.strategyId = strategyId;
+    public StrategyInstance(Strategy strategyModel,String strategyInstanceId, ScheduleState state, Integer stage, List<FeatureInstance> featureInstanceList,
+                            StrategyAction action, Long timeStamp, boolean isScheduled,Date startTime, boolean isScheduleNow, boolean isRepeat, String[] repeatWeek) {
+        this.strategyModel = strategyModel;
+        this.strategyInstanceId = strategyInstanceId;
         this.state = state;
         this.stage = stage;
         this.featureInstanceList = featureInstanceList;
@@ -75,10 +66,10 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
             startFeature.triggerInstanceList = null;
             Date featureStartTime = new Date(startTime.getTime()+startFeature.intervalTime);
             ScheduleTrigger startTrigger = new ScheduleTrigger(
-                    strategyId + 0,
-                    strategyId,
-                    strategyId+0+0,
-                    strategyId+0,
+                    strategyInstanceId + 0,
+                    strategyInstanceId,
+                    strategyInstanceId+0+0,
+                    strategyInstanceId+0,
                     featureStartTime,
                     null,
                     null,
@@ -87,8 +78,8 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
             );
             scheduleTriggers.add(startTrigger);
             ScheduleJob startJob = new ScheduleJob(
-                    strategyId + 0,
-                    strategyId,
+                    strategyInstanceId + 0,
+                    strategyInstanceId,
                     ScheduleState.NONE,
                     "",
                     ScheduleJobEntry.class,
@@ -212,10 +203,10 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
                     Set<ScheduleTrigger> scheduleTriggers = new HashSet<>();
                     Date _startTime = new Date(System.currentTimeMillis()+featureInstanceList.get(stage).intervalTime);
                     ScheduleTrigger scheduleTrigger = new ScheduleTrigger(
-                            strategyId + stage,
-                            strategyId,
-                            strategyId+stage+0,
-                            strategyId+stage,
+                            strategyInstanceId + stage,
+                            strategyInstanceId,
+                            strategyInstanceId+stage+0,
+                            strategyInstanceId+stage,
                             _startTime,
                             null,
                             null,
@@ -225,8 +216,8 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
                     scheduleTriggers.add(scheduleTrigger);
                     featureInstance.scheduleJob = null;
                     featureInstance.scheduleJob = new ScheduleJob(
-                            strategyId + stage,
-                            strategyId,
+                            strategyInstanceId + stage,
+                            strategyInstanceId,
                             ScheduleState.NONE,
                             "",
                             ScheduleJobEntry.class,
@@ -291,12 +282,12 @@ public class StrategyInstance implements Schedulable, ScheduleStateListener, Ser
 
         StrategyInstance that = (StrategyInstance) o;
 
-        return strategyId.equals(that.strategyId);
+        return strategyInstanceId.equals(that.strategyInstanceId);
 
     }
 
     @Override
     public int hashCode() {
-        return strategyId.hashCode();
+        return strategyInstanceId.hashCode();
     }
 }

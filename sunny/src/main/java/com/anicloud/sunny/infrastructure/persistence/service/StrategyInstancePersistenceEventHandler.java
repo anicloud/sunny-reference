@@ -31,7 +31,7 @@ public class StrategyInstancePersistenceEventHandler implements StrategyInstance
 
     @Override
     public StrategyInstanceDao update(StrategyInstanceDao strategyInstanceDao) {
-        StrategyInstanceDao orgInstance = strategyInstanceRepository.findByStrategyId(strategyInstanceDao.strategyId);
+        StrategyInstanceDao orgInstance = strategyInstanceRepository.findByStrategyId(strategyInstanceDao.strategyInstanceId);
         strategyInstanceDao.id = orgInstance.id;
         return strategyInstanceRepository.save(strategyInstanceDao);
     }

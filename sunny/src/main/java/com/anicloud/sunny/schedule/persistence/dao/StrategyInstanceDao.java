@@ -1,5 +1,6 @@
 package com.anicloud.sunny.schedule.persistence.dao;
 
+import com.anicloud.sunny.infrastructure.persistence.domain.strategy.StrategyDao;
 import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
 
@@ -14,8 +15,14 @@ import java.util.List;
 @Entity
 @Table(name = "t_schedule_strategy")
 public class StrategyInstanceDao extends AbstractEntity {
-    @Column(name = "strategyId", nullable = false, unique = true)
-    public String strategyId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "strategyModel", referencedColumnName = "id")
+    public StrategyDao strategyModel;
+
+    @Column(name = "strategyInstanceId", nullable = false, unique = true)
+    public String strategyInstanceId;
+
     @Column(name = "state", nullable = false)
     @Enumerated(EnumType.STRING)
     public ScheduleState state;
@@ -40,31 +47,16 @@ public class StrategyInstanceDao extends AbstractEntity {
     @Column(name = "isScheduleNow")
     public boolean isScheduleNow;
 
-    public static String repeatWeektoString(String[] weeks){
-        String result = null;
-        if(weeks != null && weeks.length >0 ) {
-            result = Arrays.toString(weeks);
-            result = result.substring(1,result.length());
-        }
-        return result;
-    }
-
-    public static String[] repeatWeektoArray(String repeatWeek){
-        if(repeatWeek != null)
-            return repeatWeek.split(",");
-        else
-            return null;
-    }
-
     public StrategyInstanceDao() {
     }
 
-    public StrategyInstanceDao(String strategyId, ScheduleState state, Integer stage,
+    public StrategyInstanceDao(StrategyDao strategyModel,String strategyInstanceId, ScheduleState state, Integer stage,
                                List<FeatureInstanceDao> featureInstanceDaoList,
                                StrategyAction action,
                                Long timeStamp,Date startTime,String repeatWeek,
                                boolean isRepeat, boolean isScheduleNow) {
-        this.strategyId = strategyId;
+        this.strategyModel = strategyModel;
+        this.strategyInstanceId = strategyInstanceId;
         this.state = state;
         this.stage = stage;
         this.featureInstanceDaoList = featureInstanceDaoList;

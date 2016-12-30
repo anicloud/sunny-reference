@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface StrategyStateQueueService {
-    public void updateStrategyState(Strategy strategy);
+    public void updateStrategyState(StrategyInstance strategyInstance);
 }

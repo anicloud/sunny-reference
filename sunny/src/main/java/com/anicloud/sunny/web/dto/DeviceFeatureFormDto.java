@@ -1,8 +1,8 @@
 package com.anicloud.sunny.web.dto;
 
 import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
-import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
-import com.anicloud.sunny.application.dto.device.FeatureArgDto;
+import com.anicloud.sunny.domain.model.device.DeviceFeature;
+import com.anicloud.sunny.domain.model.device.FeatureArg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,50 +17,50 @@ public class DeviceFeatureFormDto {
     public String description;
     public PrivilegeType privilegeType;
 
-    public List<FeatureArgDto> argDtoList;
+    public List<FeatureArg> argDtoList;
 
-    public static DeviceFeatureFormDto convertToDeviceFeatureForm(DeviceFeatureDto deviceFeatureDto){
+    public static DeviceFeatureFormDto convertToDeviceFeatureForm(DeviceFeature deviceFeature){
         DeviceFeatureFormDto deviceFeatureFormDto = new DeviceFeatureFormDto();
-        if(deviceFeatureDto != null) {
-            deviceFeatureFormDto.featureId = deviceFeatureDto.featureId;
-            deviceFeatureFormDto.featureName = deviceFeatureDto.featureName;
-            deviceFeatureFormDto.description = deviceFeatureDto.description;
-            deviceFeatureFormDto.argDtoList = deviceFeatureDto.argDtoList;
-            deviceFeatureFormDto.privilegeType = deviceFeatureDto.privilegeType;
+        if(deviceFeature != null) {
+            deviceFeatureFormDto.featureId = deviceFeature.featureId;
+            deviceFeatureFormDto.featureName = deviceFeature.featureName;
+            deviceFeatureFormDto.description = deviceFeature.description;
+            deviceFeatureFormDto.argDtoList = deviceFeature.featureArgList;
+            deviceFeatureFormDto.privilegeType = deviceFeature.privilegeType;
         }
         return deviceFeatureFormDto;
     }
 
-    public static List<DeviceFeatureFormDto> convertToDeviceFeatureForms(List<DeviceFeatureDto> deviceFeatureDtos){
+    public static List<DeviceFeatureFormDto> convertToDeviceFeatureForms(List<DeviceFeature> deviceFeatures){
         List<DeviceFeatureFormDto>  deviceFeatureFormDtos = new ArrayList<>();
-        if(deviceFeatureDtos != null) {
-            for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtos) {
-                deviceFeatureFormDtos.add(convertToDeviceFeatureForm(deviceFeatureDto));
+        if(deviceFeatures != null) {
+            for (DeviceFeature deviceFeature : deviceFeatures) {
+                deviceFeatureFormDtos.add(convertToDeviceFeatureForm(deviceFeature));
             }
         }
         return deviceFeatureFormDtos;
     }
 
-    public static DeviceFeatureDto convertToDeviceFeatureDto(DeviceFeatureFormDto deviceFeatureFormDto){
-        DeviceFeatureDto deviceFeatureDto = new DeviceFeatureDto();
+    public static DeviceFeature convertToDeviceFeatureDto(DeviceFeatureFormDto deviceFeatureFormDto){
+        DeviceFeature deviceFeature = new DeviceFeature();
         if(deviceFeatureFormDto != null) {
-            deviceFeatureDto.featureId = deviceFeatureFormDto.featureId;
-            deviceFeatureDto.featureName = deviceFeatureFormDto.featureName;
-            deviceFeatureDto.description = deviceFeatureFormDto.description;
-            deviceFeatureDto.argDtoList = deviceFeatureFormDto.argDtoList;
-            deviceFeatureDto.privilegeType = deviceFeatureFormDto.privilegeType;
+            deviceFeature.featureId = deviceFeatureFormDto.featureId;
+            deviceFeature.featureName = deviceFeatureFormDto.featureName;
+            deviceFeature.description = deviceFeatureFormDto.description;
+            deviceFeature.featureArgList = deviceFeatureFormDto.argDtoList;
+            deviceFeature.privilegeType = deviceFeatureFormDto.privilegeType;
         }
-        return deviceFeatureDto;
+        return deviceFeature;
     }
 
-    public static List<DeviceFeatureDto> convertToDeviceFeatureDtos(List<DeviceFeatureFormDto> deviceFeatureFormDtos){
-        List<DeviceFeatureDto>  deviceFeatureDtos = new ArrayList<>();
+    public static List<DeviceFeature> convertToDeviceFeatureDtos(List<DeviceFeatureFormDto> deviceFeatureFormDtos){
+        List<DeviceFeature>  deviceFeatures = new ArrayList<>();
         if(deviceFeatureFormDtos != null) {
             for (DeviceFeatureFormDto deviceFeatureFormDto : deviceFeatureFormDtos) {
-                deviceFeatureDtos.add(convertToDeviceFeatureDto(deviceFeatureFormDto));
+                deviceFeatures.add(convertToDeviceFeatureDto(deviceFeatureFormDto));
             }
         }
-        return deviceFeatureDtos;
+        return deviceFeatures;
     }
 
 

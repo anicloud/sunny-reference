@@ -56,8 +56,8 @@ public class StrategyServiceHandlerTest {
 
     @Test
     public void testSaveStrategy() throws Exception {
-        strategyService.saveStrategy(strategyDto);
-        System.out.println(objectMapper.writeValueAsString(strategyDto));
+//        strategyService.saveStrategy(strategyDto);
+//        System.out.println(objectMapper.writeValueAsString(strategyDto));
     }
 
     @Ignore

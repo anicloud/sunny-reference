@@ -33,30 +33,16 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
     @Resource
     private StrategyService strategyService;
 
-    private Map<String, Strategy> strategyMap;
-
     public ScheduleServiceImpl() {
-        strategyMap = new HashMap<>();
+
     }
 
     @Override
-    public void scheduleStrategy(Strategy strategy) {
-        StrategyInstance strategyInstance = null;
-        if (strategyMap.containsKey(strategy.strategyId)) {
-            strategyInstance = strategyMap.get(strategy.strategyId).strategyInstance;
-            strategyInstance.action = strategy.strategyInstance.action;
-        } else {
-            strategyInstance = strategy.strategyInstance;
-            if (!strategyInstance.isScheduled) {
-                strategyInstance = strategy.strategyInstance;
-
-                strategyMap.put(strategy.strategyId, strategy);
-            }
-        }
+    public void scheduleStrategy(StrategyInstance strategyInstance) {
         switch (strategyInstance.action) {
             case START:
                 if(!strategyInstance.isScheduled){
-                    strategyInstance.prepareSchedule(scheduleManager, this, strategy.owner.hashUserId);
+                    strategyInstance.prepareSchedule(scheduleManager, this, strategyInstance.strategyModel.owner.hashUserId);
                     strategyInstance.start();
                 }
                 break;
@@ -81,10 +67,9 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
     @Override
     public void onScheduleStateChanged(Object src, ScheduleState state) {
         StrategyInstance strategyInstance = (StrategyInstance)src;
-        Strategy strategy = strategyMap.get(strategyInstance.strategyId);
         log.info("-----------------strategy state changed-------------------");
-        log.info("[name]: " + strategy.strategyName);
-        log.info("[stage]: " + strategy.strategyInstance.stage);
+        log.info("[name]: " + strategyInstance.strategyModel.strategyName);
+        log.info("[stage]: " + strategyInstance.stage);
         String stateStr = "";
         switch (state) {
             case RUNNING:
@@ -103,16 +88,15 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleStateListen
                 stateStr = "unknow";
         }
         log.info("[state]: " + stateStr);
-        if(!strategy.isScheduleNow)
-            strategyService.saveStrategy(strategy);
+        if(!strategyInstance.isScheduleNow)
+            strategyService.saveStrategyInstance(strategyInstance);
     }
     @PostConstruct
     public void initSchedule() {
         List<StrategyInstance> instances = strategyService.getRunningStrategy();
         if(instances != null && instances.size()>0) {
             for(StrategyInstance instance : instances) {
-                StrategyDao strategyDao = strategyService.findByStrategyId(instance.strategyId);
-                instance.prepareSchedule(scheduleManager,this,strategyDao.owner.hashUserId);
+                instance.prepareSchedule(scheduleManager,this,instance.strategyModel.owner.hashUserId);
                 instance.start();
             }
         }

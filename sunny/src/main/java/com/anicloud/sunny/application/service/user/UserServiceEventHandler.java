@@ -31,57 +31,50 @@ public class UserServiceEventHandler implements UserService {
     private AgentTemplate agentTemplate;
 
     @Override
-    public UserDto saveUser(UserDto userDao) {
-        User user = UserDtoAssembler.toUser(userDao);
-        user = User.save(userPersistenceService, user);
-        return UserDtoAssembler.fromUser(user);
+    public User saveUser(User userDao) {
+        User user = User.save(userPersistenceService, userDao);
+        return user;
     }
 
     @Override
-    public UserDto modifyUser(UserDto userDao) {
-        User user = UserDtoAssembler.toUser(userDao);
-        user = User.modify(userPersistenceService, user);
-        return UserDtoAssembler.fromUser(user);
+    public User modifyUser(User userDao) {
+        return User.modify(userPersistenceService, userDao);
     }
 
     @Override
-    public void removeUser(UserDto userDao) {
-        User user = UserDtoAssembler.toUser(userDao);
-        User.remove(userPersistenceService, user);
+    public void removeUser(User userDao) {
+        User.remove(userPersistenceService, userDao);
     }
 
     @Override
-    public UserDto getUserByHashUserId(Long hashUserId) {
-        User user = User.getUserByHashUserId(userPersistenceService, hashUserId);
-        return UserDtoAssembler.fromUser(user);
+    public User getUserByHashUserId(Long hashUserId) {
+        return User.getUserByHashUserId(userPersistenceService, hashUserId);
     }
 
     @Override
-    public UserDto getUserByEmail(String email) {
-        User user = User.getUserByEmail(userPersistenceService, email);
-        return UserDtoAssembler.fromUser(user);
+    public User getUserByEmail(String email) {
+        return User.getUserByEmail(userPersistenceService, email);
     }
 
     @Override
-    public UserDto refreshUserToken(Long hashUserId) {
-        UserDto userDto = getUserByHashUserId(hashUserId);
+    public User refreshUserToken(Long hashUserId) {
+        User user = getUserByHashUserId(hashUserId);
 
         Long currentTimeStamp = System.currentTimeMillis();
-        if (userDto.expiresIn - (currentTimeStamp - userDto.createTime) / 1000 < Constants.TOKEN_REFRESH_TIME_INTERVAL_IN_SECONDS) {
+        if (user.expiresIn - (currentTimeStamp - user.createTime) / 1000 < Constants.TOKEN_REFRESH_TIME_INTERVAL_IN_SECONDS) {
             LOGGER.info("refresh user token.");
             AuthorizationCodeParameter authorizationCodeParameter = OAuth2ParameterBuilder.buildForRefreshToken(Constants.aniServiceDto);
             AniOAuthAccessToken accessToken = agentTemplate.getAniOAuthService()
-                    .refreshAccessToken(userDto.refreshToken, authorizationCodeParameter);
+                    .refreshAccessToken(user.refreshToken, authorizationCodeParameter);
             LOGGER.info("refresh token {}.", accessToken);
 
-            userDto.accessToken = accessToken.getAccessToken();
-            userDto.tokenType = accessToken.getTokenType();
-            userDto.refreshToken = accessToken.getRefreshToken();
-            userDto.expiresIn = accessToken.getExpiresIn();
-            userDto.scope = accessToken.getScope();
-
-            userDto = modifyUser(userDto);
+            user.accessToken = accessToken.getAccessToken();
+            user.tokenType = accessToken.getTokenType();
+            user.refreshToken = accessToken.getRefreshToken();
+            user.expiresIn = accessToken.getExpiresIn();
+            user.scope = accessToken.getScope();
+            user = modifyUser(user);
         }
-        return userDto;
+        return user;
     }
 }

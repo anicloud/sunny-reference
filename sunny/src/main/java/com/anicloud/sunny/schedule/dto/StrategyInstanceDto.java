@@ -1,6 +1,7 @@
 package com.anicloud.sunny.schedule.dto;
 
 
+import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.schedule.domain.strategy.ScheduleState;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
 
@@ -11,7 +12,8 @@ import java.util.List;
  * Created by huangbin on 7/17/15.
  */
 public class StrategyInstanceDto {
-    public String strategyId;
+    public StrategyDto strategyModel;
+    public String strategyInstanceId;
     public ScheduleState state;
     public Integer stage;
 
@@ -24,13 +26,14 @@ public class StrategyInstanceDto {
     public boolean isRepeat;
     public String[] repeatWeek;
 
-    public StrategyInstanceDto(String strategyId,
+    public StrategyInstanceDto(StrategyDto strategyModel, String strategyInstanceId,
                                ScheduleState state, Integer stage,
                                List<FeatureInstanceDto> featureInstanceDtoList,
                                StrategyAction action, Long timeStamp,
                                Date startTime, String[] repeatWeek,
                                boolean isRepeat, boolean isScheduleNow) {
-        this.strategyId = strategyId;
+        this.strategyModel = strategyModel;
+        this.strategyInstanceId = strategyInstanceId;
         this.state = state;
         this.stage = stage;
         this.featureInstanceDtoList = featureInstanceDtoList;

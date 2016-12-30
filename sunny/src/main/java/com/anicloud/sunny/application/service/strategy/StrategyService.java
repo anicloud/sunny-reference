@@ -7,6 +7,7 @@ import com.anicloud.sunny.domain.model.strategy.Strategy;
 import com.anicloud.sunny.infrastructure.persistence.domain.strategy.StrategyDao;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyAction;
 import com.anicloud.sunny.schedule.domain.strategy.StrategyInstance;
+import com.anicloud.sunny.schedule.dto.StrategyInstanceDto;
 
 
 import java.util.List;
@@ -17,17 +18,18 @@ import java.util.List;
 public interface StrategyService {
     /**
      * save the strategyDto and send the strategyInstanceDto into Schedule
-     * @param strategyDto
+     * @param strategyInstance
      * @return
      */
-    public void saveStrategy(StrategyDto strategyDto);
+    public void initStrategyInstance(StrategyInstance strategyInstance);
 
     /**
      * for schedule to save the running info of the strategy
-     * @param strategy
+     * @param strategyDto
      */
-    public void saveStrategy(Strategy strategy);
-    public void operateStrategy(String strategyId, StrategyAction action);
+    public void saveStrategy(StrategyDto strategyDto);
+    public void saveStrategyInstance(StrategyInstance strategyInstance);
+    public void operateStrategy(String strategyInstanceId, StrategyAction action);
     /**
      * just can modify the strategyName, description
      * @param strategyDto

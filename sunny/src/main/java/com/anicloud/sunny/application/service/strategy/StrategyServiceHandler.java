@@ -14,8 +14,10 @@ import com.anicloud.sunny.infrastructure.persistence.repository.schedule.Strateg
 import com.anicloud.sunny.infrastructure.persistence.repository.strategy.StrategyRepository;
 import com.anicloud.sunny.infrastructure.persistence.service.StrategyPersistenceService;
 import com.anicloud.sunny.schedule.domain.adapter.DaoAdapter;
+import com.anicloud.sunny.schedule.domain.adapter.DtoAdapter;
 import com.anicloud.sunny.schedule.domain.strategy.*;
 import com.anicloud.sunny.infrastructure.persistence.service.StrategyInstancePersistenceService;
+import com.anicloud.sunny.schedule.dto.StrategyInstanceDto;
 import com.anicloud.sunny.schedule.persistence.dao.StrategyInstanceDao;
 import com.anicloud.sunny.schedule.service.ScheduleService;
 import org.apache.commons.lang3.StringUtils;
@@ -62,8 +64,22 @@ public class StrategyServiceHandler implements StrategyService {
     @Resource
     private StrategyInstanceRepository strategyInstanceRepository;
     @Override
-    public void saveStrategy(StrategyDto strategyDto) {
+    public void initStrategyInstance(StrategyInstance strategyInstance) {
         // generate the strategy number
+        if (StringUtils.isEmpty(strategyInstance.strategyInstanceId)) {
+            strategyInstance.strategyInstanceId = NumGenerate.generate();
+            strategyInstance.action = StrategyAction.START;
+            strategyInstance.state = ScheduleState.NONE;
+            strategyInstance.stage = 0;
+            strategyInstance.timeStamp = System.currentTimeMillis();
+        }
+
+        scheduleService.scheduleStrategy(strategyInstance);
+    }
+
+    @Override
+    public void saveStrategy(StrategyDto strategyDto) {
+
         if (StringUtils.isEmpty(strategyDto.strategyId)) {
             strategyDto.strategyId = NumGenerate.generate();
         }
@@ -75,38 +91,37 @@ public class StrategyServiceHandler implements StrategyService {
             }
         }
         Strategy strategy = StrategyDtoAssembler.toStrategy(strategyDto);
-        // saveStrategy(strategy);
-        // send to the schedule
-        scheduleService.scheduleStrategy(strategy);
+
+        if (strategy == null) {
+            Strategy.save(strategyPersistenceService, strategy);
+        } else {
+            Strategy.modify(strategyPersistenceService,strategy);
+        }
     }
 
     @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void saveStrategy(Strategy strategySrc) {
-        Strategy strategy = strategySrc.clone();
-        Assert.notNull(strategy.strategyInstance);
-        Strategy strategyOrg = getSingleStrategy(strategy.strategyId);
+    public void saveStrategyInstance(StrategyInstance strategyInstance) {
         StrategyInstanceDao dao = strategyInstancePersistenceService.
-                getByStrategyId(strategy.strategyId);
-        if (strategyOrg == null && dao == null) {
-            Strategy.save(strategyPersistenceService, strategy);
-            strategyInstancePersistenceService.save(DaoAdapter.toStrategyInstanceDao(strategy.strategyInstance));
+                getByStrategyId(strategyInstance.strategyInstanceId);
+        if ( dao == null) {
+            strategyInstancePersistenceService.save(DaoAdapter.toStrategyInstanceDao(strategyInstance));
         } else {
-            strategyInstancePersistenceService.update(DaoAdapter.toStrategyInstanceDao(strategy.strategyInstance));
+            strategyInstancePersistenceService.update(DaoAdapter.toStrategyInstanceDao(strategyInstance));
         }
         // send the state to jms
-        strategyStateQueueService.updateStrategyState(strategy);
+        strategyStateQueueService.updateStrategyState(strategyInstance);
     }
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void operateStrategy(String strategyId, StrategyAction action) {
-        Assert.notNull(strategyId);
+    public void operateStrategy(String strategyInstanceId, StrategyAction action) {
+        Assert.notNull(strategyInstanceId);
         Assert.notNull(action);
-        Strategy strategy = getStrategyById(strategyId);
-        strategy.strategyInstance.action = action;
-        strategy.strategyInstance.timeStamp = System.currentTimeMillis();
-        scheduleService.scheduleStrategy(strategy);
+        StrategyInstanceDao instanceDao = strategyInstancePersistenceService.getByStrategyId(strategyInstanceId);
+        StrategyInstance strategyInstance = DaoAdapter.fromStrategyInstanceDao(instanceDao);
+        strategyInstance.action = action;
+        strategyInstance.timeStamp = System.currentTimeMillis();
+        scheduleService.scheduleStrategy(strategyInstance);
     }
 
     @Override
@@ -130,21 +145,14 @@ public class StrategyServiceHandler implements StrategyService {
     }
 
     @Override
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public Strategy getStrategyById(String strategyId) {
         Strategy strategy = Strategy.getStrategyById(strategyPersistenceService, strategyId);
-        StrategyInstanceDao instanceDao = strategyInstancePersistenceService.getByStrategyId(strategyId);
-        strategy.strategyInstance = DaoAdapter.fromStrategyInstanceDao(instanceDao);
         return strategy;
     }
 
     @Override
     public List<StrategyDto> getStrategyByUser(Long hashUserId) {
         List<Strategy> strategyList = Strategy.getStrategyListByUser(strategyPersistenceService, hashUserId);
-        for (Strategy strategy : strategyList) {
-            StrategyInstanceDao instanceDao = strategyInstancePersistenceService.getByStrategyId(strategy.strategyId);
-            strategy.strategyInstance = DaoAdapter.fromStrategyInstanceDao(instanceDao);
-        }
         return StrategyDtoAssembler.toDtoList(strategyList);
     }
 
@@ -161,8 +169,6 @@ public class StrategyServiceHandler implements StrategyService {
         List<Strategy> strategyList = new ArrayList<>();
         while(iterator.hasNext()) {
             Strategy strategy = Strategy.toStrategy(iterator.next());
-            StrategyInstanceDao instanceDao = strategyInstancePersistenceService.getByStrategyId(strategy.strategyId);
-            strategy.strategyInstance = DaoAdapter.fromStrategyInstanceDao(instanceDao);
             strategyList.add(strategy);
         }
         return StrategyDtoAssembler.toDtoList(strategyList);

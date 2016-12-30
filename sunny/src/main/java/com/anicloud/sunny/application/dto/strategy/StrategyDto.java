@@ -19,28 +19,17 @@ public class StrategyDto implements Serializable {
     public String description;
 
     public UserDto owner;
-    public Date startTime;
-    public boolean isScheduleNow;
-    public boolean isRepeat;
-    public String[] repeatWeek;
     public List<DeviceFeatureInstanceDto> deviceFeatureInstanceList;
-
-    public StrategyInstanceDto strategyInstanceDto;
 
     public StrategyDto() {
     }
 
-    public StrategyDto(String strategyId, String strategyName, String description,Date startTime,
-                       boolean isScheduleNow, boolean isRepeat, String[] repeatWeek,
+    public StrategyDto(String strategyId, String strategyName, String description,
                        UserDto owner, List<DeviceFeatureInstanceDto> deviceFeatureInstanceList) {
         this.strategyId = strategyId;
         this.strategyName = strategyName;
         this.description = description;
         this.owner = owner;
-        this.startTime = startTime;
-        this.isScheduleNow = isScheduleNow;
-        this.isRepeat = isRepeat;
-        this.repeatWeek = repeatWeek;
         this.deviceFeatureInstanceList = deviceFeatureInstanceList;
     }
 
@@ -55,23 +44,6 @@ public class StrategyDto implements Serializable {
 //        this.deviceFeatureInstanceList = deviceFeatureInstanceList;
 //        this.strategyInstanceDto = strategyInstanceDto;
 //    }
-
-    public StrategyDto(String strategyId, String strategyName,
-                       String description, UserDto owner, Date startTime,
-                       boolean isScheduleNow, boolean isRepeat, String[] repeatWeek,
-                       List<DeviceFeatureInstanceDto> deviceFeatureInstanceList,
-                       StrategyInstanceDto strategyInstanceDto) {
-        this.strategyId = strategyId;
-        this.strategyName = strategyName;
-        this.description = description;
-        this.owner = owner;
-        this.startTime = startTime;
-        this.isScheduleNow = isScheduleNow;
-        this.isRepeat = isRepeat;
-        this.repeatWeek = repeatWeek;
-        this.deviceFeatureInstanceList = deviceFeatureInstanceList;
-        this.strategyInstanceDto = strategyInstanceDto;
-    }
 
     @Override
     public String toString() {
