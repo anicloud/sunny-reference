@@ -16,7 +16,7 @@
 	<context:property-placeholder location="classpath:properties/config.properties" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<!-- 下面标签内建的就是 FormattingConversionServiceFactoryBean 所以 Spring MVC 对处理方法的入参绑定就支持注解驱动的功能-->
-	<context:component-scan base-package="com.anicloud.sunny.interfaces.web" />
+	<context:component-scan base-package="com.anicloud.sunny.web.controller" />
 	<!-- 该标签会默认配置 DefaultAnnotationHandlerMapping 和一个 AnnotionMethodHandlerAdapter
 		同时还会注册一个默认的ConversionService 即FormattingConversionServiceFactoryBean
 		LocalValidatorFactoryBean 
@@ -73,7 +73,7 @@
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/"/>
 			<mvc:exclude-mapping path="/public/**"/>
-			<bean class="com.anicloud.sunny.interfaces.web.inteceptor.SecurityInterceptor">
+			<bean class="com.anicloud.sunny.web.inteceptor.SecurityInterceptor">
 				<property name="excludeUrls">
 					<list>
 						<value>/redirect</value>
@@ -94,11 +94,11 @@
 
 	<!-- websocket -->
 
-	<bean id="strategyInfoHandler" class="com.anicloud.sunny.interfaces.web.websocket.DeviceStrategyInfoHandler"></bean>
+	<bean id="strategyInfoHandler" class="com.anicloud.sunny.web.websocket.DeviceStrategyInfoHandler"></bean>
 	<websocket:handlers>
 		<websocket:mapping path="/socket/strategy" handler="strategyInfoHandler"/>
 		<websocket:handshake-interceptors>
-			<bean class="com.anicloud.sunny.interfaces.web.websocket.DeviceStrategyInfoHandshake"/>
+			<bean class="com.anicloud.sunny.web.websocket.DeviceStrategyInfoHandshake"/>
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 

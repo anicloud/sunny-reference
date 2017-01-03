@@ -1,7 +1,6 @@
 package com.anicloud.sunny.application.service.device;
 
 import com.ani.agent.service.commons.object.enumeration.DeviceState;
-import com.anicloud.sunny.application.builder.DeviceDtoBuilder;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.user.UserService;
@@ -111,27 +110,9 @@ public class DeviceServiceHandlerTest {
         System.out.println(objectMapper.writeValueAsString(deviceDto));
     }
 
-    @Test
-    public void testDeviceDtoBuilder() throws JsonProcessingException {
-        DeviceDto deviceDto = createData();
-        System.out.println(objectMapper.writeValueAsString(deviceDto));
-    }
-
     @After
     public void after() {
 
     }
 
-    private DeviceDto createData() {
-        userDto = userService.getUserByEmail("ching-zhou@anicloud.com");
-        DeviceDtoBuilder dtoBuilder = new DeviceDtoBuilder();
-        DeviceDto deviceDto = dtoBuilder.setDeviceName("air002")
-                .setIdentificationCode("abcdef001|fedcsaa001")
-                .setDeviceGroup("Air Conditioner")
-                .setDeviceState(DeviceState.CONNECTED)
-                .setDeviceType("Conditioner")
-                .setOwner(userDto.hashUserId)
-                .instance();
-        return deviceDto;
-    }
 }

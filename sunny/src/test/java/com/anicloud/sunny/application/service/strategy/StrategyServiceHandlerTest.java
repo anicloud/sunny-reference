@@ -1,6 +1,6 @@
 package com.anicloud.sunny.application.service.strategy;
 
-import com.anicloud.sunny.application.dto.share.FeatureArgValueDto;
+import com.anicloud.sunny.application.dto.device.FeatureArgValueDto;
 import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.application.dto.strategy.FeatureTriggerDto;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;

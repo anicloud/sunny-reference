@@ -2,7 +2,6 @@ package com.anicloud.sunny.application.service.init;
 
 import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
 import com.ani.bus.service.commons.dto.anidevice.DeviceMasterObjInfoDto;
-import com.ani.earth.commons.dto.AccountDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 
 

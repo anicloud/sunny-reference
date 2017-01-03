@@ -1,10 +1,8 @@
 package com.anicloud.sunny.application.assemble;
 
 
-import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceAssembleDto;
 import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.domain.model.strategy.DeviceFeatureInstance;
-import com.anicloud.sunny.domain.model.strategy.DeviceFeatureInstanceAssemble;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,35 +61,4 @@ public class DeviceFeatureInstanceDtoAssembler {
         return instanceDtoList;
     }
 
-    public static DeviceFeatureInstanceAssemble toAssemble(DeviceFeatureInstanceAssembleDto assembleDao) {
-        DeviceFeatureInstanceAssemble instanceAssemble = new DeviceFeatureInstanceAssemble(
-                DeviceFeatureInstanceDtoAssembler.toFeatureInstance(assembleDao.featureInstanceDto),
-                DeviceFeatureInstanceDtoAssembler.toFeatureInstance(assembleDao.assembleInstanceDto)
-        );
-        return instanceAssemble;
-    }
-
-    public static DeviceFeatureInstanceAssembleDto toAssembleDto(DeviceFeatureInstanceAssemble assemble) {
-        DeviceFeatureInstanceAssembleDto assembleDto = new DeviceFeatureInstanceAssembleDto(
-                DeviceFeatureInstanceDtoAssembler.toDto(assemble.fatherInstance),
-                DeviceFeatureInstanceDtoAssembler.toDto(assemble.assembleInstance)
-        );
-        return assembleDto;
-    }
-
-    public static List<DeviceFeatureInstanceAssemble> toAssembleList(List<DeviceFeatureInstanceAssembleDto> assembleDtoList) {
-        List<DeviceFeatureInstanceAssemble> assembleList = new ArrayList<>();
-        for (DeviceFeatureInstanceAssembleDto assembleDto : assembleDtoList) {
-            assembleList.add(toAssemble(assembleDto));
-        }
-        return assembleList;
-    }
-
-    public static List<DeviceFeatureInstanceAssembleDto> toAssembleDtoList(List<DeviceFeatureInstanceAssemble> assembleList) {
-        List<DeviceFeatureInstanceAssembleDto> assembleDtoList = new ArrayList<>();
-        for (DeviceFeatureInstanceAssemble assemble : assembleList) {
-            assembleDtoList.add(toAssembleDto(assemble));
-        }
-        return assembleDtoList;
-    }
 }

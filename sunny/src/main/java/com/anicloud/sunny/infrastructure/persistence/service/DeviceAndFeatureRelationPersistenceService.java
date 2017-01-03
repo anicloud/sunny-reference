@@ -12,5 +12,5 @@ import java.util.List;
 public interface DeviceAndFeatureRelationPersistenceService {
     public DeviceAndFeatureRelationDao saveRelation(DeviceAndFeatureRelationDao relationDao);
     public DeviceAndFeatureRelationDao getRelationByDeviceIdentificationCode(String identificationCode);
-    public List<DeviceAndFeatureRelationDao> getAll(Long hashUserId);
+    public List<DeviceAndFeatureRelationDao> getAll();
 }

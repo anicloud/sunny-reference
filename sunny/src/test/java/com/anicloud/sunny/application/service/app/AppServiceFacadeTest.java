@@ -10,13 +10,11 @@ import com.ani.earth.commons.dto.AccountPhoneDto;
 import com.ani.earth.commons.dto.AccountRegisterDto;
 import com.ani.earth.commons.enumeration.AccountType;
 import com.anicloud.sunny.application.constant.Constants;
-import com.anicloud.sunny.domain.adapter.AniServiceDaoAdapter;
+import com.anicloud.sunny.domain.model.app.AniServiceEntrance;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceEntranceDao;
-import com.anicloud.sunny.interfaces.facade.AppServiceFacade;
-import com.anicloud.sunny.interfaces.facade.dto.AniServiceDto;
+import com.anicloud.sunny.application.dto.app.AniServiceDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -40,8 +38,8 @@ import java.util.*;
 public class AppServiceFacadeTest {
     private final static String FILE_PATH = "properties/AniServiceInfo.json";
 
-    @Resource
-    private AppServiceFacade appServiceFacade;
+    @Resource(name = "appService")
+    private AppService appService;
 
     @Resource
     private ObjectMapper objectMapper;
@@ -51,7 +49,7 @@ public class AppServiceFacadeTest {
 
     @Test
     public void testGetAniServiceInfo() throws Exception {
-        AniServiceDto aniServiceDto = appServiceFacade.getAniServiceInfo();
+        AniServiceDto aniServiceDto = appService.getAniServiceInfo();
         System.out.println(aniServiceDto);
     }
 
@@ -118,7 +116,7 @@ public class AppServiceFacadeTest {
         aniServiceDao.entranceList = entranceDaoList;
         AniServiceManager aniServiceManager = agentTemplate.getAniServiceManager();
         List<com.ani.bus.service.commons.dto.aniservice.AniServiceEntranceDto> aniServiceEntranceDto =
-                AniServiceDaoAdapter.fromCommonsToLocal(Constants.aniServiceDto.entranceList);
+                AniServiceEntrance.fromCommonsToLocal(Constants.aniServiceDto.entranceList);
         AniServiceRegisterDto aniServiceRegisterDto = new AniServiceRegisterDto(
                 Constants.aniServiceDto.aniServiceId,
                 "yihealth-app",

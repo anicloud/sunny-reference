@@ -11,14 +11,14 @@ import java.util.List;
  */
 public class DeviceAndFeatureRelation {
 
-    public DeviceAndUserRelation deviceAndUserRelation;
+    public Device device;
     public List<DeviceFeature> deviceFeatureList;
 
     public DeviceAndFeatureRelation() {
     }
 
-    public DeviceAndFeatureRelation(DeviceAndUserRelation deviceAndUserRelation, List<DeviceFeature> deviceFeatureList) {
-        this.deviceAndUserRelation = deviceAndUserRelation;
+    public DeviceAndFeatureRelation(Device device, List<DeviceFeature> deviceFeatureList) {
+        this.device = device;
         this.deviceFeatureList = deviceFeatureList;
     }
 
@@ -41,7 +41,7 @@ public class DeviceAndFeatureRelation {
     public static DeviceAndFeatureRelationDao toDao(DeviceAndFeatureRelation relation) {
         if (relation == null) return null;
         DeviceAndFeatureRelationDao relationDao = new DeviceAndFeatureRelationDao(
-                DeviceAndUserRelation.toDao(relation.deviceAndUserRelation),
+                Device.toDao(relation.device),
                 DeviceFeature.toDaoList(relation.deviceFeatureList)
         );
         return relationDao;
@@ -50,7 +50,7 @@ public class DeviceAndFeatureRelation {
     public static DeviceAndFeatureRelation toRelation(DeviceAndFeatureRelationDao relationDao) {
         if (relationDao == null) return null;
         DeviceAndFeatureRelation featureRelation = new DeviceAndFeatureRelation(
-                DeviceAndUserRelation.toDeviceAndUserRelation(relationDao.deviceAndUserRelationDao),
+                Device.toDevice(relationDao.deviceDao),
                 DeviceFeature.toDeviceFeatureList(relationDao.deviceFeatureDaoList)
         );
         return featureRelation;

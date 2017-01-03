@@ -2,10 +2,7 @@ package com.anicloud.sunny.application.service.device;
 
 import com.anicloud.sunny.application.assemble.DeviceAndFeatureRelationDtoAssembler;
 import com.anicloud.sunny.application.assemble.DeviceDtoAssembler;
-import com.anicloud.sunny.application.builder.DeviceAndFeatureRelationDtoBuilder;
 import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
-import com.anicloud.sunny.application.dto.device.DeviceDto;
-import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.domain.model.device.Device;
 import com.anicloud.sunny.domain.model.device.DeviceAndFeatureRelation;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceAndFeatureRelationPersistenceService;
@@ -16,10 +13,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by zhaoyu on 15-7-8.

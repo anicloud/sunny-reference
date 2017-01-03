@@ -5,7 +5,7 @@ import com.ani.agent.service.commons.oauth.dto.AniOAuthAccessToken;
 import com.ani.agent.service.commons.oauth.dto.AuthorizationCodeParameter;
 import com.ani.agent.service.service.AgentTemplate;
 import com.anicloud.sunny.application.assemble.UserDtoAssembler;
-import com.anicloud.sunny.application.builder.OAuth2ParameterBuilder;
+import com.anicloud.sunny.application.utils.OAuth2ParameterBuilder;
 import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.domain.model.user.User;

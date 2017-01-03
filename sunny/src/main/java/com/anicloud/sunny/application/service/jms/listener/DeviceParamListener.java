@@ -1,8 +1,7 @@
 package com.anicloud.sunny.application.service.jms.listener;
 
 import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
-import com.anicloud.sunny.application.dto.device.DeviceDto;
-import com.anicloud.sunny.interfaces.web.websocket.DeviceStrategyInfoHandler;
+import com.anicloud.sunny.web.websocket.DeviceStrategyInfoHandler;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;

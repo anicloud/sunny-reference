@@ -17,10 +17,8 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components-->
 	<bean class="com.anicloud.sunny.application.service.holder.SpringContextHolder"/>
-	<context:component-scan base-package="com.anicloud.sunny.interfaces.facade" />
 	<context:component-scan base-package="com.anicloud.sunny.application.service" />
 	<context:component-scan base-package="com.anicloud.sunny.domain.model" />
-	<context:component-scan base-package="com.anicloud.sunny.infrastructure.convert" />
 	<context:component-scan base-package="com.anicloud.sunny.infrastructure.jms" />
 
 	<import resource="classpath:/application-context/service/service-agent.xml" />

@@ -3,7 +3,7 @@ package com.anicloud.sunny.application.service.jms.listener;
 import com.anicloud.sunny.application.assemble.StrategyDtoAssembler;
 import com.anicloud.sunny.application.dto.strategy.StrategyDto;
 import com.anicloud.sunny.domain.model.strategy.Strategy;
-import com.anicloud.sunny.interfaces.web.websocket.DeviceStrategyInfoHandler;
+import com.anicloud.sunny.web.websocket.DeviceStrategyInfoHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

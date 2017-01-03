@@ -6,7 +6,6 @@ import com.anicloud.sunny.application.dto.device.DeviceFeatureInfoDto;
 import com.anicloud.sunny.application.utils.NumGenerate;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceFeaturePersistenceService;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;

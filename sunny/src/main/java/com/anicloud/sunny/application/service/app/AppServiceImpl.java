@@ -1,6 +1,7 @@
 package com.anicloud.sunny.application.service.app;
 
-import com.anicloud.sunny.domain.adapter.AniServiceDaoAdapter;
+import com.anicloud.sunny.application.assemble.AniServiceDtoAssembler;
+import com.anicloud.sunny.application.dto.app.AniServiceDto;
 import com.anicloud.sunny.domain.model.app.AniService;
 import com.anicloud.sunny.infrastructure.persistence.domain.app.AniServiceDao;
 import com.anicloud.sunny.infrastructure.persistence.service.app.AniServicePersistService;
@@ -22,14 +23,14 @@ public class AppServiceImpl implements AppService {
     private AniServicePersistService aniServicePersistService;
 
     @Override
-    public AniService getAniServiceInfo() throws IOException {
+    public AniServiceDto getAniServiceInfo() throws IOException {
         AniServiceDao aniServiceDao = aniServicePersistService.fetchAniServiceInfo();
-        return AniServiceDaoAdapter.toDomain(aniServiceDao);
+        return AniServiceDtoAssembler.toDto(AniService.toDomain(aniServiceDao));
     }
 
     @Override
-    public void update(AniService aniService) throws IOException {
-        AniServiceDao aniServiceDao = AniServiceDaoAdapter.toDao(aniService);
-        aniServicePersistService.update(aniServiceDao);
+    public void update(AniServiceDto aniServiceDto) throws IOException {
+        AniService aniService = AniServiceDtoAssembler.toService(aniServiceDto);
+        AniService.update(aniServicePersistService,aniService);
     }
 }

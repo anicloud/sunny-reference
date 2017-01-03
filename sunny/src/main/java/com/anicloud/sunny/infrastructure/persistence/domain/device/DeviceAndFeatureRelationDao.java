@@ -1,6 +1,5 @@
 package com.anicloud.sunny.infrastructure.persistence.domain.device;
 
-import com.anicloud.sunny.domain.model.device.DeviceAndUserRelation;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.AbstractEntity;
 
 import javax.persistence.*;
@@ -16,7 +15,7 @@ public class DeviceAndFeatureRelationDao extends AbstractEntity {
 
     @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     @JoinColumn(name = "device_id", referencedColumnName = "id")
-    public DeviceAndUserRelationDao deviceAndUserRelationDao;
+    public DeviceDao deviceDao;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "t_device_and_feature_relation", inverseJoinColumns = @JoinColumn(name = "device_feature_id"), joinColumns = @JoinColumn(name = "relation_id"))
@@ -25,9 +24,9 @@ public class DeviceAndFeatureRelationDao extends AbstractEntity {
     public DeviceAndFeatureRelationDao() {
     }
 
-    public DeviceAndFeatureRelationDao(DeviceAndUserRelationDao deviceAndUserRelationDao,
+    public DeviceAndFeatureRelationDao(DeviceDao deviceDao,
                                        List<DeviceFeatureDao> deviceFeatureDaoList) {
-        this.deviceAndUserRelationDao = deviceAndUserRelationDao;
+        this.deviceDao = deviceDao;
         this.deviceFeatureDaoList = deviceFeatureDaoList;
     }
 }

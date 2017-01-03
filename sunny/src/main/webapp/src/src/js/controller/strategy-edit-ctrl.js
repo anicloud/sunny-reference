@@ -110,7 +110,7 @@ anicloud.sunny.controller.StrategyEditCtrl = function ($rootScope, $scope, ngDia
         //     console.log(data);
         // });
         ManagerService.addStrategy(strategyInstance).then(function (res) {
-            if(res.data.status.toString()==='success'){
+            if(res.status.toString()==='success'){
                 $scope.strategyTemplateInit()
             }
         });
