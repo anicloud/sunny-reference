@@ -6,6 +6,7 @@ import com.anicloud.sunny.domain.share.AbstractDomain;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureFunctionDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FunctionArgumentDao;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
+import com.anicloud.sunny.infrastructure.persistence.service.FeatureFunctionPersistenceService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -125,6 +126,11 @@ public class FeatureFunction extends AbstractDomain implements Cloneable {
         if (featureFunction.outputArgList != null)
             functionDaoList.addAll(FunctionArgument.toDaoList(featureFunction.outputArgList));
         return functionDaoList;
+    }
+
+    public static FeatureFunction getFeatureFunctionByStubIdAndGroupId(FeatureFunctionPersistenceService functionPersistenceService, Integer stubId, Long groupId) {
+        FeatureFunctionDao featureFunctionDao = functionPersistenceService.getFunctionByStubIdAndGroupId(stubId,groupId);
+        return toFeatureFunction(featureFunctionDao);
     }
 
     @Override

@@ -46,12 +46,12 @@ anicloud.sunny.service.DeviceService = function ($http, $cookies) {
                 console.log('edit device_name failures');
             })
         },
-        getDeviceFeatures: function (callback) {
-            $http({
+        getDeviceFeatures: function () {
+            return $http({
                 method: 'GET',
                 url: 'features'
             }).then(function (data) {
-                callback(data);
+                return data.data;
             },function (data) {
                 console.log('get feature failures');
             })
