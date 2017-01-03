@@ -12,7 +12,7 @@
                     <div ng-repeat="device in devices">
                         <!--device block always show-->
                         <div style="display: inline-block;float: left" ng-click="device.deviceState==='CONNECTED'&&deviceToggle($index)">
-                            <div class="device-cel">
+                            <div class="device-cel" ng-class={"device-cel-disconnect":device.deviceState==="DISCONNECTED","device-cel-connect":device.deviceState==="CONNECTED"}>
                                 <p><strong>{{device.name}}</strong><br>
                                 <div class="panel-heading" style="margin: 15px 0">
                                     <i class="flaticon {{device.logoUrl||'flaticon-info'}} device-icon"></i>
@@ -20,7 +20,7 @@
                                 <small>{{device.deviceState}}</small>
                             </div>
                             <!--device block show params-->
-                            <div class="device-cel" ng-click="deviceDetail.show(device)" ng-show="showIndex===$index">
+                            <div class="device-cel device-cel-connect" ng-click="deviceDetail.show(device)" ng-show="showIndex===$index">
                                 <div style="vertical-align:middle">
                                     <div ng-repeat="feature in features[device.id]">
                                         <div ng-repeat="arg in feature.argDtoList">
