@@ -35,7 +35,7 @@ public class FunctionInstance implements Serializable {
     public List<Argument> inputList;
     public List<Argument> outputList;
 
-    public synchronized boolean execute(Long hashUserId, String deviceId) {
+    public boolean execute(Long hashUserId, String deviceId) {
 
         //AniStubRunProxy aniStubRunProxy = (AniStubRunProxy)SpringContextHolder
          //       .getBean("aniStubRunProxy");
