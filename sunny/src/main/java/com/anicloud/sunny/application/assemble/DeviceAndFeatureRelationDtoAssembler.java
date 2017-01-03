@@ -2,6 +2,7 @@ package com.anicloud.sunny.application.assemble;
 
 import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
 import com.anicloud.sunny.domain.model.device.DeviceAndFeatureRelation;
+import com.anicloud.sunny.domain.model.device.DeviceAndUserRelation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class DeviceAndFeatureRelationDtoAssembler {
     public static DeviceAndFeatureRelation toRelation(DeviceAndFeatureRelationDto relationDto) {
         if (relationDto == null) return null;
         DeviceAndFeatureRelation relation = new DeviceAndFeatureRelation(
-                DeviceDtoAssembler.toDevice(relationDto.deviceDto),
+                DeviceAndUserRelationDtoAssembler.toRelation(relationDto.deviceAndUserRelationDto),
                 DeviceFeatureDtoAssembler.toDeviceFeatureList(relationDto.deviceFeatureDtoList)
         );
         return relation;
@@ -24,7 +25,7 @@ public class DeviceAndFeatureRelationDtoAssembler {
     public static DeviceAndFeatureRelationDto toDto(DeviceAndFeatureRelation relation) {
         if (relation == null) return null;
         DeviceAndFeatureRelationDto relationDto = new DeviceAndFeatureRelationDto(
-                DeviceDtoAssembler.fromDevice(relation.device),
+                DeviceAndUserRelationDtoAssembler.toDto(relation.deviceAndUserRelation),
                 DeviceFeatureDtoAssembler.toDtoList(relation.deviceFeatureList)
         );
         return relationDto;
