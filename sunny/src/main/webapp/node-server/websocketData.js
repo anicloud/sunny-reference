@@ -123,9 +123,9 @@ var strategy4 = {
         "state": "RUNNING",
         "stage": 0,
         "action": "START",
-        "isRepeat":false,
+        "isRepeat":true,
         "isScheduleNow":true,
-        "repeatWeek":[],
+        "repeatWeek":[1,2,7],
         "name":'test1',
         "startTime":1481513857788,
         "featureList": [{
@@ -188,9 +188,8 @@ var strategyDeviceParamUpdate={
     }
 };
 module.exports = {
-    strategyNew: strategy1,
+    strategyNew: strategy4,
     strategyFinish: strategy2,
     strategy3: strategy3,
-    strategyNew: strategy4,
     strategyDeviceParamUpdate:strategyDeviceParamUpdate
 };
