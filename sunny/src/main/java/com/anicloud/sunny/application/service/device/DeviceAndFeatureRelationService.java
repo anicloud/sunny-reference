@@ -16,4 +16,5 @@ public interface DeviceAndFeatureRelationService {
     public void batchModify(List<DeviceAndFeatureRelationDto> relationDtoList);
     public DeviceAndFeatureRelationDto findByDeviceIdentificationCode(String identificationCode);
     public List<DeviceAndFeatureRelationDto> findAll();
+    List<DeviceAndFeatureRelationDto> findAll(Long hashUserId);
 }

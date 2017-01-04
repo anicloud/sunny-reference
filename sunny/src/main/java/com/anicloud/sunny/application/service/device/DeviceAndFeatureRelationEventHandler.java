@@ -5,6 +5,7 @@ import com.anicloud.sunny.application.assemble.DeviceDtoAssembler;
 import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
 import com.anicloud.sunny.domain.model.device.Device;
 import com.anicloud.sunny.domain.model.device.DeviceAndFeatureRelation;
+import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceAndFeatureRelationDao;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceAndFeatureRelationPersistenceService;
 import com.anicloud.sunny.infrastructure.persistence.service.DevicePersistenceService;
 import org.springframework.cache.annotation.Cacheable;
@@ -64,5 +65,11 @@ public class DeviceAndFeatureRelationEventHandler implements DeviceAndFeatureRel
         List<DeviceAndFeatureRelation> relationList = DeviceAndFeatureRelation
                 .findAll(deviceAndFeatureRelationPersistenceService);
         return DeviceAndFeatureRelationDtoAssembler.toDtoList(relationList);
+    }
+
+    @Override
+    public List<DeviceAndFeatureRelationDto> findAll(Long hashUserId) {
+        List<DeviceAndFeatureRelationDao> relationDaos = deviceAndFeatureRelationPersistenceService.findByHashUserId(hashUserId);
+        return DeviceAndFeatureRelationDtoAssembler.toDtoList(DeviceAndFeatureRelation.toRelationList(relationDaos));
     }
 }
