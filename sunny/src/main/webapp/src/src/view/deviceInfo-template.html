@@ -15,7 +15,8 @@
             <div ng-repeat="feature in features[device.id]">
                 <div ng-repeat="arg in feature.argDtoList">
                     <p>
-                        <small>{{arg.screenName}}:{{device.initParam[arg.name]}}</small>
+                        <small>{{arg.screenName}}:
+                            {{(device.initParam[arg.name]||(device.initParam[arg.name]===0))?device.initParam[arg.name]:'未获取'}}</small>
                     </p>
                 </div>
             </div>

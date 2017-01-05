@@ -47,10 +47,10 @@ wss.on('connection', function connection(ws) {
     });
     setTimeout(function () {
         ws.send(JSON.stringify(wsData.strategyNew));
-    },5000);
-    // setTimeout(function () {
-    //     ws.send(JSON.stringify(wsData.strategyNew));
-    // },2000);
+    },2000);
+     setTimeout(function () {
+         ws.send(JSON.stringify(wsData.strategyFinish));
+     },5000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(wsData.strategyDeviceParamUpdate));
     // },5000);

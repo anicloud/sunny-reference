@@ -10,7 +10,7 @@ var dataCol = function () {
             deviceType: "Light",
             deviceGroup: "default",
             logoUrl:'flaticon-lamp',
-            initParam: '{"brightnessLux":11.1,"humidity":78,"temperature":25}'
+            initParam: '{"brightnessLux":null,"humidity":78,"temperature":25}'
         },
         {
             id: "4281056279305915936:-1",

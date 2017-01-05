@@ -26,16 +26,22 @@ anicloud.sunny.directive.deviceInfo = function ($rootScope) {
             var $BoxBlockTop=$(element[0]).find('.device-block-top');
             var $BoxBlockBottom=$(element[0]).find('.device-block-bottom');
             var $BoxToggle=$(element[0]).find('.device-toggle');
-           !function(){
+           function initFirstParam(){
                 var deviceFeatures=scope.features[scope.device.id];
                 for(var i=0;i<deviceFeatures.length;i++){
                     var feature=deviceFeatures[i];
                     if(feature.argDtoList.length>0){
+                        var firstParam=scope.device.initParam[feature.argDtoList[0].name];
+                        firstParam=firstParam||firstParam===0?firstParam:'未获取';
                         return scope.firstParamName=feature.argDtoList[0].screenName,
-                               scope.firstParam=scope.device.initParam[feature.argDtoList[0].name]
+                               scope.firstParam=firstParam;
                     }
                 }
-            }();
+            };
+            initFirstParam();
+            scope.$watch('device.initParam',function(newVal,oldVal){
+                initFirstParam();
+            },true);
            // console.log($Box,$BoxBlockBottom,$BoxBlockTop,$BoxToggle);
 
             //$Box.find('.device-box').(function(e){
