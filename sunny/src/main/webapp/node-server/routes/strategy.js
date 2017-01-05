@@ -9,4 +9,7 @@ var router=express.Router();
 router.post('/',function (req,res) {
     res.send(new RetData('success','',null));
 });
+router.get('/',function (req,res) {
+    res.send(new RetData('success','',null));
+});
 module.exports=router;

@@ -58,6 +58,29 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
 
         $rootScope.deviceDetailVisible=false;
         $rootScope.DOMClickHasRun=false;
+        $rootScope.queryObjectByPropertyValue=function (body,property,value) {
+            function propertyInArray (body,property,value) { //body can be group device account,etc
+                for(var i=0;i<body.length;i++){
+                    if(body[i][property]==value){
+                        return [i,body[i]];
+                    }
+                }
+                return null;
+            };
+            function propertyInObject (body,property,value) {
+                for(var key in body){
+                    if(key[property]==value){
+                        return [key,body[key]];
+                    }
+                }
+                return null;
+            }
+            if(Object.prototype.toString.call(body).indexOf('Array')>-1){
+                return propertyInArray(body,property,value);
+            }else if(Object.prototype.toString.call(body).indexOf('Object')>-1){
+                return propertyInObject(body,property,value);
+            }
+        };
         //$rootScope.sidebarToggle=function(event){
         //  console.log('sidebarToggle',event)
         //};
@@ -122,7 +145,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
                 wsPath:"ws://localhost:8080/sunny/socket/strategy"
             }
         };
-        $rootScope.currentConfig=$rootScope.config.prod;
+        $rootScope.currentConfig=$rootScope.config.dev;
         WebSocketService.openSocket(
             // "ws://localhost:8080/sunny/socket/strategy",
             $rootScope.currentConfig.wsPath,

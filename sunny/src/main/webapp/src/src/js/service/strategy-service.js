@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.service = anicloud.sunny.service || {};
 
-anicloud.sunny.service.StrategyService = function($http, $cookies){
+anicloud.sunny.service.StrategyService = function($http, $cookies,$rootScope){
     return{
         getStrategies:function(){
             //var user = $cookies['sunny_user'];
@@ -70,10 +70,10 @@ anicloud.sunny.service.StrategyService = function($http, $cookies){
             method:'GET',
             url: 'operateStrategy',
             params: {strategyId:strategyId,action:action}
-        }).then(function(data){
-            if(data.status == 'success'){
+        }).then(function(res){
+            if(res.data.status == 'success'){
                 console.log('operate strategy success');
-                callback(data);
+                callback(res.data);
             }else{
                 console.log('operate strategy failed');
             }
