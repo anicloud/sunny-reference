@@ -1,0 +1,24 @@
+<div class="device-box" style="display: inline-block;float: left">
+    <div class=" device-cel device-block"
+         ng-class={"device-cel-disconnect":device.deviceState==="DISCONNECTED","device-cel-connect":device.deviceState==="CONNECTED"}>
+        <div class="device-block-top" ng-click="device.deviceState==='CONNECTED'&&deviceToggle($event)"><strong>{{device.name}}</strong><br></div>
+        <div class="device-block-bottom">
+            <div class="panel-heading" style="margin: 15px 0">
+                <i class="flaticon {{device.logoUrl||'flaticon-info'}} device-icon"></i>
+            </div>
+            <small ng-show="device.deviceState==='CONNECTED'&&firstParamName">{{firstParamName}}:{{firstParam}}</small>
+        </div>
+    </div>
+    <!--device block show params-->
+    <div class="device-toggle device-hide device-cel">
+        <div style="vertical-align:middle">
+            <div ng-repeat="feature in features[device.id]">
+                <div ng-repeat="arg in feature.argDtoList">
+                    <p>
+                        <small>{{arg.screenName}}:{{device.initParam[arg.name]}}</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

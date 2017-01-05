@@ -14,7 +14,7 @@ anicloud.sunny.directive.deviceInfo = function ($rootScope) {
             features:'=',
             index:"="
         },
-            templateUrl:'src/view/deviceInfo-template.html',
+            templateUrl:$rootScope.currentConfig.defaultPath+'/src/view/deviceInfo-template.html',
         link: function (scope, element, attrs) {
             scope.deviceToggle=function ($event) {
                 $event.stopPropagation();

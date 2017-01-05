@@ -6003,8 +6003,6 @@ body {
 
 
 .device-cel {
-    height: 140px;
-    width: 140px;
     display: inline-block;
     background-color: #ffffff;
     /*padding: 58px;*/
@@ -6019,12 +6017,37 @@ body {
     /*margin-bottom: 10px;*/
     padding: 15px;
 }
+.device-box{
+    height: 140px;
+    width: 140px;
+    position: relative;
+    overflow: hidden;
+}
+.device-block{
+    width: 140px;
+    height: 140px;
+}
+.device-toggle{
+    width: 140px;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    top:0;
+    transition:transform 0.5s;
+
+}
+.device-hide{
+    transform: translateY(140px);
+}
+.device-show{
+    transform: translateY(40px);
+}
 .device-cel-connect{
 background-color: #ffffff;
 }
-.device-cel-connect:hover {
-    background-color: #fffccc;
-}
+/*.device-cel-connect:hover {*/
+    /*background-color: #fffccc;*/
+/*}*/
 .device-cel-disconnect{
     background-color: #dddddd;
 }
