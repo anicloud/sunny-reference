@@ -10,7 +10,7 @@ var dataCol = function () {
             deviceType: "Light",
             deviceGroup: "default",
             logoUrl:'flaticon-lamp',
-            initParam: '{"brightnessLux":"11.1","humidity":"78%","temperature":"25°C"}'
+            initParam: '{"brightnessLux":11.1,"humidity":78,"temperature":25}'
         },
         {
             id: "4281056279305915936:-1",
@@ -19,7 +19,7 @@ var dataCol = function () {
             deviceType: "Light",
             deviceGroup: "default",
             logoUrl:'flaticon-router',
-            initParam: '{"brightnessLux":"22.2","humidity":"77%","temperature":"24°C"}'
+            initParam: '{"brightnessLux":22.2,"humidity":77,"temperature":24}'
         },
         {
             id: "4281056279305915936:14402508",
@@ -28,7 +28,7 @@ var dataCol = function () {
             deviceType: "Light2",
             deviceGroup: "default",
             logoUrl:'',
-            initParam: '{"brightnessLux":"33.3","humidity":"76%","temperature":"23°C"}'
+            initParam: '{"brightnessLux":33.3,"humidity":76,"temperature":3}'
         }
     ];
     var features = [

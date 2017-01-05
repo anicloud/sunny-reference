@@ -243,6 +243,7 @@ gulp.task('minimizeJs',function () {
             "src/js/service/websocket-service.js",
             "src/js/service/manager-service.js",
             "src/js/service/notify-service.js",
+            "src/js/directive/device-info.js",
             "src/js/controller/home-page-ctrl.js",
             "src/js/controller/strategy-ctrl.js",
             "src/js/controller/strategy-edit-ctrl.js",

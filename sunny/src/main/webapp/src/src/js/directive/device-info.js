@@ -1,0 +1,60 @@
+/**
+ * Created by zhangdongming on 2017/1/4.
+ */
+var anicloud = anicloud || {};
+anicloud.sunny = anicloud.sunny || {};
+anicloud.sunny.directive = anicloud.sunny.directive || {};
+anicloud.sunny.directive.deviceInfo = function ($rootScope) {
+        return {
+        restrict: 'AEC',
+        scope:{
+          device:'=',
+          deviceDetail:'=',
+            showIndex:'=',
+            features:'=',
+            index:"="
+        },
+            templateUrl:'src/view/deviceInfo-template.html',
+        link: function (scope, element, attrs) {
+            scope.deviceToggle=function ($event) {
+                $event.stopPropagation();
+                scope.showIndex===scope.index?scope.showIndex=-1:scope.showIndex=scope.index;
+                scope.deviceDetail.device=scope.device;
+                $rootScope.deviceDetailVisible=true;
+            };
+            var $Box=$(element[0]).find('.device-box');
+            var $BoxBlockTop=$(element[0]).find('.device-block-top');
+            var $BoxBlockBottom=$(element[0]).find('.device-block-bottom');
+            var $BoxToggle=$(element[0]).find('.device-toggle');
+           !function(){
+                var deviceFeatures=scope.features[scope.device.id];
+                for(var i=0;i<deviceFeatures.length;i++){
+                    var feature=deviceFeatures[i];
+                    if(feature.argDtoList.length>0){
+                        return scope.firstParamName=feature.argDtoList[0].screenName,
+                               scope.firstParam=scope.device.initParam[feature.argDtoList[0].name]
+                    }
+                }
+            }();
+           // console.log($Box,$BoxBlockBottom,$BoxBlockTop,$BoxToggle);
+
+            //$Box.find('.device-box').(function(e){
+            //    if($(element[0]).find('.device-cel-disconnect')[0]) return;
+            //    $(element[0]).find('.device-toggle').removeClass('device-hide').addClass('device-show');
+            //    scope.$apply()
+            //},function(e){
+            //    if($(element[0]).find('.device-cel-disconnect')[0]) return;
+            //    $(element[0]).find('.device-toggle').removeClass('device-show').addClass('device-hide');
+            //    scope.$apply()
+            //});
+            $BoxBlockBottom.click(function(event){
+                if($(element[0]).find('.device-cel-disconnect')[0]) return;
+                    $BoxToggle.removeClass('device-hide').addClass('device-show');
+            });
+            $BoxToggle.click(function(event){
+                if($(element[0]).find('.device-cel-disconnect')[0]) return;
+                $BoxToggle.removeClass('device-show').addClass('device-hide');
+            })
+        }
+    }
+};

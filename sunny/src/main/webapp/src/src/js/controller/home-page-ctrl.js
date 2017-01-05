@@ -52,9 +52,6 @@ anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $cookies,
     //    $scope.deviceDetail.featureChosen = null;
     //}
     $scope.showIndex=-1;
-    $scope.deviceToggle=function (index) {
-     $scope.showIndex===index?$scope.showIndex=-1:$scope.showIndex=index;
-    };
     $scope.getAbsTime=function (time) {
         return moment(time).format('MM-DD HH:mm');
     };

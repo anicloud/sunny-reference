@@ -57,6 +57,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
         $rootScope.initParam = {};
 
         $rootScope.deviceDetailVisible=false;
+        $rootScope.DOMClickHasRun=false;
         //$rootScope.sidebarToggle=function(event){
         //  console.log('sidebarToggle',event)
         //};
@@ -71,11 +72,10 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
                 else if(clickCtrl===sidebarCtrl) return result=true;
                 else scopeBelong(sidebarCtrl,clickCtrl.$parent)
             }
-            if(sidebarCtrl&&$rootScope.DOMClickHasRun&&$rootScope.deviceDetailVisible&&!scopeBelong(sidebarCtrl,clickCtrl)&&result!==true)
+            if(sidebarCtrl&&$rootScope.deviceDetailVisible&&!scopeBelong(sidebarCtrl,clickCtrl)&&result!==true)
                 $rootScope.deviceDetailVisible=false;
             $rootScope.$apply();
-            $rootScope.DOMClickHasRun=true;
-            console.log(angular.element(e.target).scope(),sidebarCtrl)
+            //console.log(angular.element(e.target).scope(),sidebarCtrl)
         });
         StrategyService.getStrategies().then(function (data) {
             $rootScope.strategies = data;
@@ -122,7 +122,7 @@ anicloud.sunny.global.loadApp = function (config, controller, service, directive
                 wsPath:"ws://localhost:8080/sunny/socket/strategy"
             }
         };
-        $rootScope.currentConfig=$rootScope.config.prod;
+        $rootScope.currentConfig=$rootScope.config.dev;
         WebSocketService.openSocket(
             // "ws://localhost:8080/sunny/socket/strategy",
             $rootScope.currentConfig.wsPath,
