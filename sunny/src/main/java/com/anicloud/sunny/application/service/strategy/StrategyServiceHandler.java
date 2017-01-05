@@ -190,7 +190,8 @@ public class StrategyServiceHandler implements StrategyService {
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public void runDeviceFeature(UserDto userDto, DeviceFeatureInstanceDto deviceFeatureInstanceDto) {
-        // generate the device feature run strategy, identify it by strategy name field
+        // generate the device feature run strategy,
+        // identify it by strategy name field
 //        Strategy strategy = StrategyDtoAssembler.fromRunDeviceFeatureInstanceDto(userDto, deviceFeatureInstanceDto);
 //        scheduleService.scheduleStrategy(strategy);
     }

@@ -15,7 +15,7 @@ public interface DeviceAndFeatureRelationRepository extends
         JpaRepository<DeviceAndFeatureRelationDao, Long>,JpaSpecificationExecutor {
 
     @Query(value = "select d from DeviceAndFeatureRelationDao d where d.deviceDao.identificationCode = ?1")
-    public DeviceAndFeatureRelationDao findByDeviceIdentificationCode(String identificationCode);
+    DeviceAndFeatureRelationDao findByDeviceIdentificationCode(String identificationCode);
     @Query(value = "select d from DeviceAndFeatureRelationDao d where d.deviceDao.identificationCode in ?1")
     List<DeviceAndFeatureRelationDao> findByDeviceIds(List<Long> deviceIds);
 }

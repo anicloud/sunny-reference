@@ -14,9 +14,9 @@ import java.util.List;
 public interface CurrentFeatureInstanceRepository extends JpaRepository<CurrentFeatureInstanceDao,Long> {
     @Modifying(clearAutomatically = true)
     @Query(value="update CurrentFeatureInstanceDao c set c.deviceNum = ?1 where c.deviceId = ?2")
-    public void updateCurrentFeature(Integer deviceNum,String deviceId);
+    void updateCurrentFeature(Integer deviceNum,String deviceId);
 
     @Query(value="select c from CurrentFeatureInstanceDao c where c.deviceId = ?1")
-    public List<CurrentFeatureInstanceDao> selectDeviceById(String deviceId);
+    List<CurrentFeatureInstanceDao> selectDeviceById(String deviceId);
 
 }

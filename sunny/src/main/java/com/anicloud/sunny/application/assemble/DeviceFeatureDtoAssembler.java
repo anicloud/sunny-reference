@@ -3,11 +3,9 @@ package com.anicloud.sunny.application.assemble;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureDto;
 import com.anicloud.sunny.application.dto.device.DeviceFeatureInfoDto;
 import com.anicloud.sunny.domain.model.device.DeviceFeature;
-import com.anicloud.sunny.domain.model.device.FeatureArg;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by zhaoyu on 15-6-15.

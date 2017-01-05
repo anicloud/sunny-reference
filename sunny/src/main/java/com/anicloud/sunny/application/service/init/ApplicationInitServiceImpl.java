@@ -95,7 +95,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     protected boolean isUserNotExists(Long accountId) {
         // return userService.getUserByHashUserId(hashUserId);
         UserDto userDto = userService.getUserByHashUserId(accountId);
-        return userDto == null ? true : false;
+        return userDto == null;
     }
 
     @Override

@@ -2,7 +2,7 @@
     <div class="panel panel-default row">
         <!--<div class="panel-heading">-->
         <div class="col-lg-2 col-md-2 strategy-info">
-            <div class="strategy-name"><strong>{{strategy.strategyName}}</strong>({{getAbsTime(strategy.startTime)}})</div>
+            <div class="strategy-name"><strong>{{strategy.strategyName}}</strong></div>
             <div>
                 <small ng-bind="showState(strategy)"></small>
             </div>
@@ -22,33 +22,38 @@
         <div class="col-lg-5 col-md-5 strategy-control">
             <ul>
                 <li>
-                    <a ng-click="resumeStrategy(index, strategy)">
-                        <i class="fa fa-play"></i>
-                    </a>
+                    策略开始时间：{{getAbsTime(strategy.startTime)}}&nbsp;&nbsp;&nbsp;
+                    重复策略：<span ng-show="!strategy.isRepeat">不重复</span>
+                    <span ng-show="strategy.isRepeat">每周<span ng-repeat="weekDay in strategy.repeatWeek">{{['','一','二','三','四','五','六','日'][weekDay]}}</span>执行</span>
+                    <!--<a ng-click="resumeStrategy(index, strategy)">-->
+                        <!--<i class="fa fa-play"></i>-->
+                    <!--</a>-->
                 </li>
-                <li>
-                    <a ng-if="strategy.state == 'DONE'">
-                        <i class="fa fa-pause" ng-style="setOpStyle(strategy)"></i>
-                    </a>
-                    <a ng-if="strategy.state == 'RUNNING' || strategy.state == 'SUSPENDED'" ng-click="pauseStrategy(index, strategy)">
-                        <i class="fa fa-pause"></i>
-                    </a>
+                <!--<li>-->
+                    <!--<a ng-if="strategy.state == 'DONE'">-->
+                        <!--<i class="fa fa-pause" ng-style="setOpStyle(strategy)"></i>-->
+                    <!--</a>-->
+                    <!--<a ng-if="strategy.state == 'RUNNING' || strategy.state == 'SUSPENDED'" ng-click="pauseStrategy(index, strategy)">-->
+                        <!--<i class="fa fa-pause"></i>-->
+                    <!--</a>-->
 
-                </li>
+                <!--</li>-->
                 <!--<li ng-disabled="strategy.state == 'DONE'">-->
                 <li>
-                    <a ng-if="strategy.state == 'DONE'">
-                        <i class="fa fa-stop" ng-style="setOpStyle(strategy)"></i>
+                    <a class="btn btn-primary" ng-if="strategy.state == 'DONE'">
+                        <!--<i class="fa fa-stop" ng-style="setOpStyle(strategy)"></i>-->
+                        停止策略
                     </a>
-                    <a ng-if="strategy.state == 'RUNNING' || strategy.state == 'SUSPENDED'" ng-click="stopStrategy(index, strategy)">
-                        <i class="fa fa-stop"></i>
-                    </a>
+                    <button class="btn btn-primary" ng-if="strategy.state == 'RUNNING' || strategy.state == 'SUSPENDED'" ng-click="deleteStrategy(index, strategy)">
+                        <!--<i class="fa fa-stop"></i>-->
+                        停止策略
+                    </button>
                 </li>
-                <li>
-                    <a ng-click="deleteStrategy(index, strategy)">
-                        <i class="fa fa-close"></i>
-                    </a>
-                </li>
+                <!--<li>-->
+                    <!--<a ng-click="deleteStrategy(index, strategy)">-->
+                        <!--<i class="fa fa-close"></i>-->
+                    <!--</a>-->
+                <!--</li>-->
             </ul>
         </div>
         <div class="col-lg-1 col-md-1 strategy-toggle">
@@ -75,8 +80,8 @@
                         </div>
                         <div class="timeline-body">
                             <strong><small class="timeline-title ng-binding">设备：{{feature.device.name}}</small></strong>
-                            <small class="timeline-title pull-right ng-binding">
-                                timeInterval from last task:{{getRelTime(feature.intervalTime)}}
+                            <small ng-show="$index===0" class="timeline-title pull-right ng-binding">
+                                在策略开始后 {{getRelTime(feature.intervalTime)}} 开始
                                 <!--{{feature.triggerDtoList[0].value}}-->
                                 <!--{{changeToObj(feature.triggerDtoList[0].value).startTime|date:'yyyy'}}/-->
                                 <!--{{changeToObj(feature.triggerDtoList[0].value).startTime|date:'M'}}/-->
@@ -84,6 +89,9 @@
                                 <!--{{changeToObj(feature.triggerDtoList[0].value).startTime | date:'HH:mm'}}-->
                                 <!--{{changeToObj(feature.triggerDtoList[0].value).startTime | date:'hh:mm a'}}-->
                                 <!--{{triggerTimerToDate(feature.triggerDtoList[0].triggerValue) | date:'hh:mm a'}}-->
+                            </small>
+                            <small ng-show="$index>0" ng-show="$index===0" class="timeline-title pull-right ng-binding">
+                                在前一个任务执行后 {{getRelTime(feature.intervalTime)}} 开始
                             </small>
                         </div>
                     </div>

@@ -6019,9 +6019,18 @@ body {
     /*margin-bottom: 10px;*/
     padding: 15px;
 }
-
-.device-cel:hover {
+.device-cel-connect{
+background-color: #ffffff;
+}
+.device-cel-connect:hover {
     background-color: #fffccc;
+}
+.device-cel-disconnect{
+    background-color: #dddddd;
+}
+.device-cel-disconnect:hover {
+    background-color: #dddddd;
+    cursor: not-allowed;
 }
 
 .device-cel p {

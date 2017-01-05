@@ -1,7 +1,6 @@
 package com.anicloud.sunny.application.assemble;
 
 import com.anicloud.sunny.application.dto.device.FeatureArgDto;
-import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 import com.anicloud.sunny.application.dto.strategy.FeatureTriggerDto;
 import com.anicloud.sunny.domain.model.device.FeatureArg;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.FeatureArgDao;

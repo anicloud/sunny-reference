@@ -54,8 +54,8 @@ anicloud.sunny.service.StrategyService = function($http, $cookies){
                 url: 'strategy',
                 params: {hashUserId:hashUserId, strategyId:strategyId}
             }).then(function(data){
-                if(data.status == 'success'){
-                    callback(data);
+                if(data.data.status == 'success'){
+                    callback(data.data);
                     console.log('delete strategy success');
                 }else{
                     console.log('delete strategy failed');

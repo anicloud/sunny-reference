@@ -50,6 +50,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                         pos: 'bottom-center'
                     };
                     Notify.alert(notifyMsg, notifyOpts);
+                    $rootScope.$apply();
                     console.log("delete strategy ok:");
                 } else if (data.status == "error") {
                     console.error("delete strategy error: ");
