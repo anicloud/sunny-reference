@@ -176,21 +176,6 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                 case 0:
                     //deviceinfo update
                     var msgDevice = obj.instance;
-                    // var isNew = true;
-                    // for (var i = 0; i < $rootScope.devices.length; i++) {
-                    //     if ($rootScope.devices[i].id == device.id) {
-                    //         $rootScope.devices.splice(i, 1, JSON.parse(JSON.stringify(device)));
-                    //         isNew = false;
-                    //         console.log("update device:");
-                    //         console.log(device);
-                    //     }
-                    // }
-                    // if (isNew) {
-                    //     console.log("update device:");
-                    //     console.log(device);
-                    //     $rootScope.devices.push(device);
-                    //     console.log(device);
-                    // }
                     var updatingDevice=$rootScope.devices.filter(function (device,index) {
                         return msgDevice.id==device.id;
                     })[0];
@@ -257,7 +242,8 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     }
                     //location.reload();
                     break;
-                case 3:
+                case 2: //deviceAdd
+                    var msgDevice = obj.instance;
                     break;
             }
             $rootScope.$apply();

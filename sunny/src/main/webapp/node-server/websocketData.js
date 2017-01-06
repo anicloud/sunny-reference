@@ -207,9 +207,13 @@ var strategyDeviceParamUpdate={
         initParam: '{"brightnessLux":40.1,"humidity":78,"temperature":25}'
     }
 };
+var deviceDelete={
+    //'kind':
+}
 module.exports = {
     strategyNew: strategy4,
     strategyFinish: strategy2,
     strategy3: strategy3,
-    strategyDeviceParamUpdate:strategyDeviceParamUpdate
+    strategyDeviceParamUpdate:strategyDeviceParamUpdate,
+    addDevice:deviceDelete
 };

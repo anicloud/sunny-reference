@@ -8,6 +8,7 @@ anicloud.sunny.controller = anicloud.sunny.controller || {};
 
 
 anicloud.sunny.controller.HomePageCtrl = function ($scope, $rootScope, $cookies, WebSocketService, StrategyService, DeviceService) {
+    $rootScope.routeIndex=0;
 //    For Dashboard page
 
     //
