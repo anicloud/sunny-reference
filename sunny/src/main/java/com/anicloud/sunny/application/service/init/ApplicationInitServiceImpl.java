@@ -139,10 +139,15 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
         List<DeviceAndUserRelationDto> relations = new ArrayList<>(deviceAndFeatureRelationDtos.size());
         for (DeviceAndFeatureRelationDto featureRelationDto : deviceAndFeatureRelationDtos) {
             DeviceAndUserRelationDto relationDto = new DeviceAndUserRelationDto(featureRelationDto.
-                    deviceDto,userDto,null,featureRelationDto.deviceDto.name,"default");
+                    deviceDto,userDto,initDefaultParam(),featureRelationDto.deviceDto.name,"default");
             relations.add(relationDto);
         }
         return relations;
+    }
+
+    private String initDefaultParam() {
+        //返回一个空json对象
+        return "{}";
     }
 
     public List<DeviceAndFeatureRelationDto> getRelation(

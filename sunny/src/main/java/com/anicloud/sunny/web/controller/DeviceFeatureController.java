@@ -43,10 +43,11 @@ public class DeviceFeatureController {
         DeviceAndFeatureRelationDto deviceAndFeatureRelationDto = deviceAndFeatureRelationService.findByDeviceIdentificationCode(deviceId);
         return  DeviceFeatureFormDto.convertToDeviceFeatureForms(deviceAndFeatureRelationDto.deviceFeatureDtoList);
     }
-    @RequestMapping("/getFeaturesByUserId")
+
+    @RequestMapping("/featuresOfUser")
     @ResponseBody
-    public List<DeviceAndFeatureRelationFromDto> getRelations(Long hashUserId) {
-        List<DeviceAndFeatureRelationDto> dtos = deviceAndFeatureRelationService.findAll(hashUserId);
+    public List<DeviceAndFeatureRelationFromDto> getDeviceFeaturesByUser(@RequestParam("hashUserId")Long hashUserId) {
+        List<DeviceAndFeatureRelationDto> dtos = deviceAndFeatureRelationService.findByHashUserId(hashUserId);
         return DeviceAndFeatureRelationFromDto.convertToDeviceAndFeatureRelationFroms(dtos);
     }
 }

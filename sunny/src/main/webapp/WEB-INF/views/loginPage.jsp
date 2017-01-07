@@ -17,7 +17,7 @@
     </title>
 
     <link rel="shortcut icon" type="image/png"
-          href="${pageContext.request.contextPath}/public/images/logo/ani_logo.png">
+          href="${pageContext.request.contextPath}/public/images/logo/favicon.ico">
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">

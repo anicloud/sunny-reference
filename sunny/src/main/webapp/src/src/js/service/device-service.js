@@ -47,9 +47,13 @@ anicloud.sunny.service.DeviceService = function ($http, $cookies) {
             })
         },
         getDeviceFeatures: function () {
+            var user = $.cookie('sunny_user');
+            var usercookie = JSON.parse(user);
+            var hashUserId = usercookie.hashUserId;
             return $http({
                 method: 'GET',
-                url: 'features'
+                url: 'featuresOfUser',
+                params:{hashUserId:hashUserId}
             }).then(function (data) {
                 return data.data;
             },function (data) {

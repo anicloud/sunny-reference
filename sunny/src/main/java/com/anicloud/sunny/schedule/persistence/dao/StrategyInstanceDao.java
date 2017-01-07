@@ -44,7 +44,7 @@ public class StrategyInstanceDao extends AbstractEntity {
         String result = null;
         if(weeks != null && weeks.length >0 ) {
             result = Arrays.toString(weeks);
-            result = result.substring(1,result.length());
+            result = result.substring(1,result.length()-1);
         }
         return result;
     }

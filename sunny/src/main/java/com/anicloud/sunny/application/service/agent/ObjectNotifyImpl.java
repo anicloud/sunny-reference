@@ -46,24 +46,25 @@ public class ObjectNotifyImpl implements ObjectNotify{
     }
 
     @Override
-    public void deviceBoundNotify(Long objectId, String description) {
-        //TODO
+    public void deviceBoundNotify(DeviceMasterObjInfoDto deviceMasterObjInfoDto, String description) {
+        //todo
     }
 
     @Override
     public void deviceUnBoundNotify(Long objectId, String description) {
-        //TODO
+        //todo
     }
 
     @Override
-    public void deviceSharedNotify(Long objectId, String description) {
-        //TODO
+    public void deviceSharedNotify(DeviceMasterObjInfoDto deviceMasterObjInfoDto, Long hashUserId, String description) {
+        //todo
     }
 
     @Override
-    public void deviceUnsharedNotify(Long objectId, String description) {
-        //TODO
+    public void deviceUnsharedNotify(Long objectId, Long hashUserId, String description) {
+        //todo
     }
+
 
     @Override
     public void deviceUpdatedNotify(DeviceMasterObjInfoDto deviceMasterObjInfoDto) {
