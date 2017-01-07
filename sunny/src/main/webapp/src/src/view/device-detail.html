@@ -1,4 +1,4 @@
-<aside ng-if="deviceDetailVisible" class="offsidebar" id="sidebar">
+<aside ng-controller="DeviceDetailCtrl" ng-if="deviceDetailVisible" class="offsidebar" id="sidebar">
     <div class="devicename-panel">
         <!--<div class="device-icon">-->
         <!--<img src="public/images/icon/light.png">-->
@@ -45,33 +45,38 @@
         </div>
 
         <div class="feature-name">
+            <strong>设备开关:
+                <switch-button  style="margin-left: 5px;font-weight: normal"
+                                device-detail="deviceDetail"
+                                switch-features="switchFeatures",
+                ></switch-button>
+            </strong>
             <div class="first-title"><strong>设备功能</strong></div>
-
             <div ng-if="!deviceDetail.isBusy()">
                 <div class="">
                     <div ng-repeat="feature in deviceDetail.getFeatureList()" ng-init="deviceDetail.arguments[feature.featureId] = {}">
                         <div class="feature-background">
                             <div class="feature-title">
                             <div style="display: inline-block"><strong>{{feature.featureName}}</strong></div>
-                            <div style="display: inline-block; float: right" ng-show="feature.privilegeType==='EXECUTE'">
-                                <a ng-click="deviceDetail.start(feature)">
-                                    应用
-                                </a>
-                            </div>
+                            <!--<div style="display: inline-block; float: right" ng-show="feature.privilegeType==='EXECUTE'">-->
+                                <!--<a ng-click="deviceDetail.start(feature)">-->
+                                    <!--应用-->
+                                <!--</a>-->
+                            <!--</div>-->
                             </div>
 
                             <div ng-repeat="arg in feature.argDtoList">
                                 <div ng-if="arg.dataType == 'INTEGER'">
-                                    {{arg.screenName}}:
-                                    <div class="btn btn-default" ng-click="deviceDetail.arguments[feature.featureId][arg.name] = deviceDetail.arguments[feature.featureId][arg.name] - 1">
-                                        -
-                                    </div>
-                                    <input type="number" style="width: 50px" ng-model="deviceDetail.arguments[feature.featureId][arg.name]">
-
-                                    <div class="btn btn-default" ng-click="deviceDetail.arguments[feature.featureId][arg.name] = deviceDetail.arguments[feature.featureId][arg.name] + 1">
-                                        +
-                                    </div>
+                                {{arg.screenName}}:
+                                <div class="btn btn-default" ng-click="deviceDetail.arguments[feature.featureId][arg.name] = deviceDetail.arguments[feature.featureId][arg.name] - 1">
+                                    -
                                 </div>
+                                <input type="number" style="width: 50px" ng-model="deviceDetail.arguments[feature.featureId][arg.name]">
+
+                                <div class="btn btn-default" ng-click="deviceDetail.arguments[feature.featureId][arg.name] = deviceDetail.arguments[feature.featureId][arg.name] + 1">
+                                    +
+                                </div>
+                            </div>
                                 <div ng-if="arg.dataType == 'FLOAT'">
                                     {{arg.screenName}}:
                                     <div style="display: inline-block; float: right">
@@ -100,7 +105,6 @@
                     stop
                 </button>
             </div>
-            <button class="btn btn-default" style="float: right" ng-click="deviceDetail.visible=false">finish</button>
         </div>
     </div>
 </aside>

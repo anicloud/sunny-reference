@@ -54,6 +54,7 @@ var bowerFileForProd=[
     "bower_components/ng-dialog/css/ngDialog.min.css",
     "bower_components/ng-dialog/css/ngDialog-theme-default.min.css",
     "bower_components/ng-dialog/css/ngDialog-theme-plain.min.css",
+    "bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css",
     "bower_components/sockjs/sockjs.min.js",
     "bower_components/jquery/dist/jquery.min.js",
     "bower_components/jquery-md5/jquery.md5.js",
@@ -69,17 +70,20 @@ var bowerFileForProd=[
     "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
     "bower_components/ng-dialog/js/ngDialog.min.js",
     "bower_components/moment/min/moment-with-locales.min.js",
-    "bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"
+    "bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js",
+    "bower_components/bootstrap-switch/dist/js/bootstrap-switch.js",
 ];
 var replacePluginMapDev={
     'sunny_bootstrap.css':'bower_components/bootstrap/dist/css',
     'simple-sidebar.css':'bower_components/simple-sidebar',
-    'bootstrap-datetimepicker.css':'bower_components/eonasdan-bootstrap-datetimepicker/build/css'
+    'bootstrap-datetimepicker.css':'bower_components/eonasdan-bootstrap-datetimepicker/build/css',
+    'bootstrap-switch.css':"bower_components/bootstrap-switch/dist/css/bootstrap3"
 };
 var replacePluginMapProd={
     'sunny_bootstrap.min.css':'bower_components/bootstrap/dist/css',
     'simple-sidebar.min.css':'bower_components/simple-sidebar',
-    'bootstrap-datetimepicker.min.css':'bower_components/eonasdan-bootstrap-datetimepicker/build/css'
+    'bootstrap-datetimepicker.min.css':'bower_components/eonasdan-bootstrap-datetimepicker/build/css',
+    'bootstrap-switch.css':"bower_components/bootstrap-switch/dist/css/bootstrap3"
 };
 ///////////////////////
 // Development tasks //
@@ -244,6 +248,7 @@ gulp.task('minimizeJs',function () {
             "src/js/service/manager-service.js",
             "src/js/service/notify-service.js",
             "src/js/directive/device-info.js",
+            "src/js/directive/switch-directive.js",
             "src/js/controller/home-page-ctrl.js",
             "src/js/controller/strategy-ctrl.js",
             "src/js/controller/strategy-edit-ctrl.js",

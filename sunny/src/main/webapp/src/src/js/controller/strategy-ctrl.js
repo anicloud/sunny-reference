@@ -7,7 +7,6 @@ anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.controller = anicloud.sunny.controller || {};
 
 anicloud.sunny.controller.StrategyCtrl = function ($rootScope, $scope, ngDialog, ManagerService) {
-
     $scope.deleteStrategy = function (index, strategy) {
         ManagerService.stopStrategy(strategy);
         ManagerService.deleteStrategy(index, strategy);
