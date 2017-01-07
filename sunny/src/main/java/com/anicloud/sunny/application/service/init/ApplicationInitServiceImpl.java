@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhaoyu on 15-7-11.
@@ -109,9 +110,8 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
             for(DeviceMasterObjInfoDto deviceMasterObjInfoDto:deviceMasterObjInfoDtoList) {
                 List<Integer> slaveIds = new ArrayList<>();
                 if(deviceMasterObjInfoDto.slaves != null && deviceMasterObjInfoDto.slaves.size()>0) {
-                    for(DeviceSlaveObjInfoDto deviceSlaveObjInfoDto:deviceMasterObjInfoDto.slaves) {
-                        slaveIds.add(deviceSlaveObjInfoDto.objectSlaveId);
-                    }
+                    slaveIds.addAll(deviceMasterObjInfoDto.slaves.stream().
+                            map(deviceSlaveObjInfoDto -> deviceSlaveObjInfoDto.objectSlaveId).collect(Collectors.toList()));
                 }
                 Constants.DEVICE_ID_RELATION_MAP.put(deviceMasterObjInfoDto.objectId,slaveIds);
             }
