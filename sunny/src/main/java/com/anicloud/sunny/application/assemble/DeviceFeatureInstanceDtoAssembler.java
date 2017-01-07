@@ -4,8 +4,8 @@ package com.anicloud.sunny.application.assemble;
 import com.anicloud.sunny.application.dto.strategy.DeviceFeatureInstanceDto;
 import com.anicloud.sunny.domain.model.strategy.DeviceFeatureInstance;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhaoyu on 15-6-17.
@@ -17,7 +17,7 @@ public class DeviceFeatureInstanceDtoAssembler {
         if (instanceDto == null) {
             return null;
         }
-        DeviceFeatureInstance instance = new DeviceFeatureInstance(
+        return new DeviceFeatureInstance(
                 instanceDto.featureInstanceId,
                 DeviceDtoAssembler.toDevice(instanceDto.deviceDto),
                 DeviceFeatureDtoAssembler.toDeviceFeature(instanceDto.deviceFeatureDto),
@@ -26,14 +26,13 @@ public class DeviceFeatureInstanceDtoAssembler {
                 instanceDto.isScheduleNow,
                 instanceDto.intervalTime
         );
-        return instance;
     }
 
     public static DeviceFeatureInstanceDto toDto(DeviceFeatureInstance featureInstance) {
         if (featureInstance == null) {
             return null;
         }
-        DeviceFeatureInstanceDto instanceDto = new DeviceFeatureInstanceDto(
+        return new DeviceFeatureInstanceDto(
                 featureInstance.featureInstanceId,
                 DeviceDtoAssembler.fromDevice(featureInstance.device),
                 DeviceFeatureDtoAssembler.toDto(featureInstance.deviceFeature),
@@ -42,23 +41,16 @@ public class DeviceFeatureInstanceDtoAssembler {
                 featureInstance.isScheduleNow,
                 featureInstance.intervalTime
         );
-        return instanceDto;
     }
 
     public static List<DeviceFeatureInstance> toFeatureInstanceList(List<DeviceFeatureInstanceDto> instanceDtoList) {
-        List<DeviceFeatureInstance> instanceList = new ArrayList<>();
-        for (DeviceFeatureInstanceDto instanceDto : instanceDtoList) {
-            instanceList.add(toFeatureInstance(instanceDto));
-        }
-        return instanceList;
+        return instanceDtoList.stream().map(DeviceFeatureInstanceDtoAssembler::toFeatureInstance)
+                .collect(Collectors.toList());
     }
 
     public static List<DeviceFeatureInstanceDto> toDtoList(List<DeviceFeatureInstance> instanceList) {
-        List<DeviceFeatureInstanceDto> instanceDtoList = new ArrayList<>();
-        for (DeviceFeatureInstance featureInstance : instanceList) {
-            instanceDtoList.add(toDto(featureInstance));
-        }
-        return instanceDtoList;
+        return instanceList.stream().map(DeviceFeatureInstanceDtoAssembler::toDto)
+                .collect(Collectors.toList());
     }
 
 }

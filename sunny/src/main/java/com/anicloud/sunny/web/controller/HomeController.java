@@ -135,13 +135,13 @@ public class HomeController extends BaseController {
         LOGGER.info("welcome to sunny login action. cookie user : {}", currentUser);
         HttpSession session = request.getSession();
         session.setAttribute(Constants.MODEL_NAME, model);
-        if (currentUser != null) {
-            UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
-            return userSession(request, response, userInfoDto);
-        } else {
+//        if (currentUser != null) {
+//            UserInfoDto userInfoDto = objectMapper.readValue(currentUser, UserInfoDto.class);
+//            return userSession(request, response, userInfoDto);
+//        } else {
             LOGGER.info("redirect:"+OAUTH_URL);
             return "redirect:"+OAUTH_URL;
-        }
+//        }
     }
 
     @RequestMapping(value = {"/loginPage"}, method = RequestMethod.GET)
@@ -262,7 +262,7 @@ public class HomeController extends BaseController {
         writeUserInfoToCookie(userInfoDto, response);
 //        if(sessionOld == null) {
 //            writeUserInfoToCookie(userInfoDto, response);
-            session.setAttribute(Constants.SUNNY_SESSION_NAME, userSessionInfo);
+        session.setAttribute(Constants.SUNNY_SESSION_NAME, userSessionInfo);
 //        }
         return "redirect:home#/app/" + model;
     }

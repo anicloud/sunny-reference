@@ -65,7 +65,6 @@ public class ObjectNotifyImpl implements ObjectNotify{
         //todo
     }
 
-
     @Override
     public void deviceUpdatedNotify(DeviceMasterObjInfoDto deviceMasterObjInfoDto) {
         applicationInitService.updateUserDeviceAndDeviceFeatureRelation(deviceMasterObjInfoDto);

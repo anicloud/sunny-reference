@@ -6,6 +6,7 @@ import com.anicloud.sunny.domain.model.device.DeviceFeature;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhaoyu on 15-6-15.
@@ -19,7 +20,7 @@ public class DeviceFeatureDtoAssembler {
             return null;
         }
 
-        DeviceFeature deviceFeature = new DeviceFeature(
+        return new DeviceFeature(
                 deviceFeatureDto.description,
                 deviceFeatureDto.featureArgFuncArgMapList,
                 FeatureArgAssembler.toFeatureArgList(deviceFeatureDto.argDtoList),
@@ -28,8 +29,6 @@ public class DeviceFeatureDtoAssembler {
                 deviceFeatureDto.featureName,
                 deviceFeatureDto.privilegeType
         );
-
-        return deviceFeature;
     }
 
     public static DeviceFeatureDto toDto(DeviceFeature deviceFeature) {
@@ -37,7 +36,7 @@ public class DeviceFeatureDtoAssembler {
             return null;
         }
 
-        DeviceFeatureDto deviceFeatureDto = new DeviceFeatureDto(
+        return new DeviceFeatureDto(
                 FeatureArgAssembler.toDtoList(deviceFeature.featureArgList),
                 deviceFeature.description,
                 deviceFeature.featureArgFuncArgMapList,
@@ -46,7 +45,6 @@ public class DeviceFeatureDtoAssembler {
                 deviceFeature.featureName,
                 deviceFeature.privilegeType
         );
-        return deviceFeatureDto;
     }
 
     public static List<DeviceFeature> toDeviceFeatureList(List<DeviceFeatureDto> deviceFeatureDtoList) {
@@ -54,9 +52,8 @@ public class DeviceFeatureDtoAssembler {
             return null;
         }
         List<DeviceFeature> deviceFeatureList = new ArrayList<>(deviceFeatureDtoList.size());
-        for (DeviceFeatureDto deviceFeatureDto : deviceFeatureDtoList) {
-            deviceFeatureList.add(toDeviceFeature(deviceFeatureDto));
-        }
+        deviceFeatureList.addAll(deviceFeatureDtoList.stream()
+                .map(DeviceFeatureDtoAssembler::toDeviceFeature).collect(Collectors.toList()));
         return deviceFeatureList;
     }
 
@@ -65,9 +62,8 @@ public class DeviceFeatureDtoAssembler {
             return null;
         }
         List<DeviceFeatureDto> deviceFeatureDtoList = new ArrayList<>(deviceFeatureList.size());
-        for (DeviceFeature deviceFeature : deviceFeatureList) {
-            deviceFeatureDtoList.add(toDto(deviceFeature));
-        }
+        deviceFeatureDtoList.addAll(deviceFeatureList.stream().map(DeviceFeatureDtoAssembler::toDto)
+                .collect(Collectors.toList()));
         return deviceFeatureDtoList;
     }
 
@@ -83,10 +79,7 @@ public class DeviceFeatureDtoAssembler {
 
     public static List<DeviceFeatureInfoDto> toDeviceFeatureInfoDtoList(List<DeviceFeature> deviceFeatureList) {
         if (deviceFeatureList == null) return null;
-        List<DeviceFeatureInfoDto> infoDtoList = new ArrayList<>();
-        for (DeviceFeature deviceFeature : deviceFeatureList) {
-            infoDtoList.add(toDeviceFeatureInfoDto(deviceFeature));
-        }
-        return infoDtoList;
+        return deviceFeatureList.stream().map(DeviceFeatureDtoAssembler::toDeviceFeatureInfoDto)
+                .collect(Collectors.toList());
     }
 }

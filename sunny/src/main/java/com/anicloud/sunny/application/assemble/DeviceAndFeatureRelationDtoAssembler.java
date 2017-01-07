@@ -3,8 +3,8 @@ package com.anicloud.sunny.application.assemble;
 import com.anicloud.sunny.application.dto.device.DeviceAndFeatureRelationDto;
 import com.anicloud.sunny.domain.model.device.DeviceAndFeatureRelation;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhaoyu on 15-7-8.
@@ -14,37 +14,28 @@ public class DeviceAndFeatureRelationDtoAssembler {
 
     public static DeviceAndFeatureRelation toRelation(DeviceAndFeatureRelationDto relationDto) {
         if (relationDto == null) return null;
-        DeviceAndFeatureRelation relation = new DeviceAndFeatureRelation(
+        return new DeviceAndFeatureRelation(
                 DeviceDtoAssembler.toDevice(relationDto.deviceDto),
                 DeviceFeatureDtoAssembler.toDeviceFeatureList(relationDto.deviceFeatureDtoList)
         );
-        return relation;
     }
 
     public static DeviceAndFeatureRelationDto toDto(DeviceAndFeatureRelation relation) {
         if (relation == null) return null;
-        DeviceAndFeatureRelationDto relationDto = new DeviceAndFeatureRelationDto(
+        return new DeviceAndFeatureRelationDto(
                 DeviceDtoAssembler.fromDevice(relation.device),
                 DeviceFeatureDtoAssembler.toDtoList(relation.deviceFeatureList)
         );
-        return relationDto;
     }
 
     public static List<DeviceAndFeatureRelation> toRelationList(List<DeviceAndFeatureRelationDto> relationDtoList) {
         if (relationDtoList == null) return null;
-        List<DeviceAndFeatureRelation> relationList = new ArrayList<>();
-        for (DeviceAndFeatureRelationDto relationDto : relationDtoList) {
-            relationList.add(toRelation(relationDto));
-        }
-        return relationList;
+        return relationDtoList.stream().map(DeviceAndFeatureRelationDtoAssembler::toRelation).collect(Collectors.toList());
     }
 
     public static List<DeviceAndFeatureRelationDto> toDtoList(List<DeviceAndFeatureRelation> relationList) {
         if (relationList == null) return null;
-        List<DeviceAndFeatureRelationDto> relationDtoList = new ArrayList<>();
-        for (DeviceAndFeatureRelation relation : relationList) {
-            relationDtoList.add(toDto(relation));
-        }
-        return relationDtoList;
+        return relationList.stream().map(DeviceAndFeatureRelationDtoAssembler::toDto)
+                .collect(Collectors.toList());
     }
 }

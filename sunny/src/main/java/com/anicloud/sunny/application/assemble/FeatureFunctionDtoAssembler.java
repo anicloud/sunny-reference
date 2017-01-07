@@ -4,9 +4,8 @@ import com.anicloud.sunny.application.dto.device.FeatureFunctionDto;
 import com.anicloud.sunny.domain.model.device.FeatureFunction;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.ArgumentType;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhaoyu on 15-6-15.
@@ -19,7 +18,7 @@ public class FeatureFunctionDtoAssembler {
             return null;
         }
 
-        FeatureFunction featureFunction = new FeatureFunction(
+        return new FeatureFunction(
                 featureFunctionDto.featureFunctionId,
                 featureFunctionDto.stubId,
                 featureFunctionDto.groupId,
@@ -28,14 +27,13 @@ public class FeatureFunctionDtoAssembler {
                 FunctionArgumentDtoAssembler.toFunctionArgumentList(featureFunctionDto.inputArgList, ArgumentType.INPUT_ARGUMENT),
                 FunctionArgumentDtoAssembler.toFunctionArgumentList(featureFunctionDto.outputArgList, ArgumentType.OUTPUT_ARGUMENT)
         );
-        return featureFunction;
     }
 
     public static FeatureFunctionDto toDto(FeatureFunction featureFunction) {
         if (featureFunction == null) {
             return null;
         }
-        FeatureFunctionDto featureFunctionDto = new FeatureFunctionDto(
+        return new FeatureFunctionDto(
                 featureFunction.featureFunctionId,
                 featureFunction.stubId,
                 featureFunction.groupId,
@@ -44,28 +42,21 @@ public class FeatureFunctionDtoAssembler {
                 FunctionArgumentDtoAssembler.toDtoList(featureFunction.inputArgList),
                 FunctionArgumentDtoAssembler.toDtoList(featureFunction.outputArgList)
         );
-        return featureFunctionDto;
     }
 
     public static List<FeatureFunction> toFeatureFunctionList(List<FeatureFunctionDto> featureFunctionDtoList) {
         if (featureFunctionDtoList == null) {
             return null;
         }
-        List<FeatureFunction> functionSet = new ArrayList<>();
-        for (FeatureFunctionDto featureFunctionDto : featureFunctionDtoList) {
-            functionSet.add(toFeatureFunction(featureFunctionDto));
-        }
-        return functionSet;
+        return featureFunctionDtoList.stream().map(FeatureFunctionDtoAssembler::toFeatureFunction)
+                .collect(Collectors.toList());
     }
 
     public static List<FeatureFunctionDto> toDtoList(List<FeatureFunction> featureFunctionList) {
         if (featureFunctionList == null) {
             return null;
         }
-        List<FeatureFunctionDto> functionDtoList = new ArrayList<>();
-        for (FeatureFunction featureFunction : featureFunctionList) {
-            functionDtoList.add(toDto(featureFunction));
-        }
-        return functionDtoList;
+        return featureFunctionList.stream().map(FeatureFunctionDtoAssembler::toDto)
+                .collect(Collectors.toList());
     }
 }
