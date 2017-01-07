@@ -39,12 +39,14 @@ public class ObjectNotifyImpl implements ObjectNotify{
 
     private void updateObjectState(Long objectId, DeviceState state) {
         List<Integer> slaves = Constants.DEVICE_ID_RELATION_MAP.get(objectId);
-        for (Integer slaveId:slaves) {
-            DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(objectId,slaveId));
-            if(deviceDto != null){
-                deviceService.modifyDeviceState(deviceDto,state);
-                deviceDto.deviceState = state;
-                deviceStateQueueService.updateDeviceState(deviceDto);
+        if(slaves != null) {
+            for (Integer slaveId : slaves) {
+                DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(objectId, slaveId));
+                if (deviceDto != null) {
+                    deviceService.modifyDeviceState(deviceDto, state);
+                    deviceDto.deviceState = state;
+                    deviceStateQueueService.updateDeviceState(deviceDto);
+                }
             }
         }
         DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(objectId,-1));
