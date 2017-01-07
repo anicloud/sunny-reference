@@ -5,7 +5,9 @@ import com.anicloud.sunny.application.service.sunny.stub.SunnyStub;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
 import com.anicloud.sunny.application.dto.app.AniServiceDto;
 
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by zhaoyu on 15-6-27.
@@ -45,4 +47,5 @@ public class Constants {
      * the web socket session
      */
     public static AniServiceSession aniServiceSession;
+    public static final ConcurrentHashMap<Long, List<Integer>> DEVICE_ID_RELATION_MAP = new ConcurrentHashMap<>();
 }

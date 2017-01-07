@@ -8,6 +8,7 @@ import com.ani.bus.service.commons.dto.anidevice.DeviceSlaveObjInfoDto;
 import com.ani.earth.commons.dto.AccountDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.stub.dto.StubInfoDto;
+import com.anicloud.sunny.application.constant.Constants;
 import com.anicloud.sunny.application.dto.device.*;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationService;
@@ -62,16 +63,12 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     @Override
-    protected void initUserDeviceAndDeviceFeatureRelation(UserDto userDto,
-                                                          AniOAuthAccessToken accessToken) throws Exception {
+    protected void initUserDeviceAndDeviceFeatureRelation(UserDto userDto,List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList) throws Exception {
         LOGGER.info("initUserDeviceAndDeviceFeatureRelation");
-        List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList = agentTemplate
-                .getDeviceObjService(accessToken.getAccessToken())
-                .getAccessibleDeviceObjInfoList(userDto.hashUserId, Boolean.TRUE);
         if(deviceMasterObjInfoDtoList!=null){
             LOGGER.info("deviceMasterObjInfoDtoList size is "+deviceMasterObjInfoDtoList.size());
             List<DeviceAndFeatureRelationDto> deviceAndFeatureRelationDtos =
-                    getRelation(deviceMasterObjInfoDtoList, accessToken);
+                    getRelation(deviceMasterObjInfoDtoList);
             LOGGER.info("Initialize DeviceAndFeatureRelation...");
             deviceAndFeatureRelationService.batchSave(deviceAndFeatureRelationDtos);
             List<DeviceAndUserRelationDto> deviceAndUserRelationDtoList =
@@ -105,11 +102,25 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                 .getByAccessToken();
         UserDto userDto = fetchUserInfo(accountDto, accessToken);
         // not exists
+        List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList = agentTemplate
+                .getDeviceObjService(accessToken.getAccessToken())
+                .getAccessibleDeviceObjInfoList(userDto.hashUserId, Boolean.TRUE);
+        if(deviceMasterObjInfoDtoList != null && deviceMasterObjInfoDtoList.size() >0) {
+            for(DeviceMasterObjInfoDto deviceMasterObjInfoDto:deviceMasterObjInfoDtoList) {
+                List<Integer> slaveIds = new ArrayList<>();
+                if(deviceMasterObjInfoDto.slaves != null && deviceMasterObjInfoDto.slaves.size()>0) {
+                    for(DeviceSlaveObjInfoDto deviceSlaveObjInfoDto:deviceMasterObjInfoDto.slaves) {
+                        slaveIds.add(deviceSlaveObjInfoDto.objectSlaveId);
+                    }
+                }
+                Constants.DEVICE_ID_RELATION_MAP.put(deviceMasterObjInfoDto.objectId,slaveIds);
+            }
+        }
         if (isUserNotExists(accountDto.accountId)) {
             // init user
             initUser(userDto);
             // init user-device-devicefeature relation
-            initUserDeviceAndDeviceFeatureRelation(userDto, accessToken);
+            initUserDeviceAndDeviceFeatureRelation(userDto, deviceMasterObjInfoDtoList);
 
         }else{
             initUser(userDto);
@@ -151,8 +162,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
     }
 
     public List<DeviceAndFeatureRelationDto> getRelation(
-            List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList,
-            AniOAuthAccessToken accessToken) throws Exception {
+            List<DeviceMasterObjInfoDto> deviceMasterObjInfoDtoList) throws Exception {
         List<DeviceAndFeatureRelationDto> deviceAndFeatureDtos = new ArrayList<>();
         for (DeviceMasterObjInfoDto masterDto : deviceMasterObjInfoDtoList) {
             String masterType = deviceInfoGeneratorService.generatorDeviceType(masterDto.stubs);
