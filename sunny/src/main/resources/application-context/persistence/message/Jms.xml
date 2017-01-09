@@ -98,4 +98,27 @@
           p:destination-ref="paramTopic"
           p:messageListener-ref="deviceParamListener"
           p:sessionAcknowledgeMode="1"/>
+
+    <amq:topic id="stateTopic" physicalName="${jms.queue.sunny.device.notify}" />
+    <!--jms template-->
+    <bean id="stateJmsTemplate"
+          class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+        <!-- publish sub mode -->
+        <property name="pubSubDomain" value="true"/>
+        <!--<property name="defaultDestinationName" value="${jms.queue.sunny.strategy.state}"/>-->
+        <property name="defaultDestination" ref="stateTopic"/>
+        <!-- Value = javax.jms.DeliveryMode.PERSISTENT -->
+        <property name="deliveryMode" value="2"/>
+        <!-- Value = javax.jms.Session.CLIENT_ACKNOWLEDGE -->
+        <property name="sessionAcknowledgeMode" value="1"/>
+        <!-- Needs to be true for the deliveryMode to work -->
+        <property name="explicitQosEnabled" value="true"/>
+    </bean>
+    <bean id="stateJmsListener" class="org.springframework.jms.listener.DefaultMessageListenerContainer"
+          p:connectionFactory-ref="jmsConnectionFactory"
+          p:sessionTransacted="true"
+          p:destination-ref="stateTopic"
+          p:messageListener-ref="stateListener"
+          p:sessionAcknowledgeMode="1"/>
 </beans>

@@ -39,11 +39,6 @@ public class StrategyStateQueueServiceImpl implements StrategyStateQueueService 
                         return message;
                     }
                 });*/
-        strategyJmsTemplate.send(new MessageCreator() {
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                return session.createObjectMessage(strategy);
-            }
-        });
+        strategyJmsTemplate.send(session -> session.createObjectMessage(strategy));
     }
 }

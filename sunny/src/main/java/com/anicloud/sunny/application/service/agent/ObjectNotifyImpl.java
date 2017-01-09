@@ -14,8 +14,8 @@ import com.anicloud.sunny.application.service.device.DeviceService;
 import com.anicloud.sunny.application.service.init.ApplicationInitService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.domain.model.device.Device;
-import com.anicloud.sunny.domain.model.device.DeviceAndUserRelation;
 import com.anicloud.sunny.infrastructure.jms.DeviceStateQueueService;
+import com.anicloud.sunny.infrastructure.jms.StateQueueService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -40,6 +40,8 @@ public class ObjectNotifyImpl implements ObjectNotify{
     private DeviceAndUserRelationServcie deviceAndUserRelationServcie;
     @Resource
     private DeviceAndFeatureRelationService deviceAndFeatureRelationService;
+    @Resource
+    private StateQueueService stateQueueService;
 
     @Override
     public void deviceConectedNotify(Long objectId, String description) {
@@ -90,17 +92,21 @@ public class ObjectNotifyImpl implements ObjectNotify{
         }
         deviceAndUserRelationServcie.batchSave(relationDtos);
         //todo: notify UI
+        stateQueueService.updateBoundAndShareState(relationDtos);
     }
 
     @Override
     public void deviceUnBoundNotify(Long objectId, String description) {
         List<Integer> slaves = Constants.DEVICE_ID_RELATION_MAP.get(objectId);
+        List<String> deviceIds = new ArrayList<>();
+        deviceIds.add(Device.buildIdentificationCode(objectId,-1));
         if(slaves != null) {
             for (Integer slaveId : slaves) {
                 DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(objectId, slaveId));
                 if (deviceDto != null) {
                     deviceAndUserRelationServcie.removeRelationsWithDeviceId(deviceDto.identificationCode);
                     deviceAndFeatureRelationService.removeByDeviceId(deviceDto.identificationCode);
+                    deviceIds.add(deviceDto.identificationCode);
                 }
             }
         }
@@ -108,6 +114,7 @@ public class ObjectNotifyImpl implements ObjectNotify{
         deviceAndUserRelationServcie.removeRelationsWithDeviceId(deviceDto.identificationCode);
         deviceAndFeatureRelationService.removeByDeviceId(deviceDto.identificationCode);
         //todo: notify UI
+        stateQueueService.updateUnBoundState(deviceIds);
     }
 
     @Override
@@ -131,8 +138,8 @@ public class ObjectNotifyImpl implements ObjectNotify{
             }
         }
         deviceAndUserRelationServcie.batchSave(relationDtos);
-
         //todo: notify UI
+        stateQueueService.updateBoundAndShareState(relationDtos);
     }
 
     @Override
