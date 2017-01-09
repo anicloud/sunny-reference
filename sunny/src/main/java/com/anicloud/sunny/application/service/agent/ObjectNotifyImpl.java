@@ -82,11 +82,14 @@ public class ObjectNotifyImpl implements ObjectNotify{
         relationDtos.add(relationDto);
 
         if (deviceMasterObjInfoDto.slaves != null && deviceMasterObjInfoDto.slaves.size() > 0) {
+            List<Integer> slaveIds =  new ArrayList<>();
             for (DeviceSlaveObjInfoDto slaveObjInfoDto : deviceMasterObjInfoDto.slaves) {
                 DeviceDto slaveDeviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(deviceMasterObjInfoDto.objectId, slaveObjInfoDto.objectSlaveId));
                 DeviceAndUserRelationDto slaveRelationDto = new DeviceAndUserRelationDto(slaveDeviceDto, userDto, "{}", slaveDeviceDto.name, "default");
                 relationDtos.add(slaveRelationDto);
+                slaveIds.add(slaveObjInfoDto.objectSlaveId);
             }
+            Constants.DEVICE_ID_RELATION_MAP.put(deviceMasterObjInfoDto.objectId,slaveIds);
         }
         deviceAndUserRelationServcie.batchSave(relationDtos);
         //todo: notify UI
@@ -124,11 +127,14 @@ public class ObjectNotifyImpl implements ObjectNotify{
         relationDtos.add(relationDto);
 
         if (deviceMasterObjInfoDto.slaves != null && deviceMasterObjInfoDto.slaves.size() > 0) {
+            List<Integer> slaveIds =  new ArrayList<>();
             for (DeviceSlaveObjInfoDto slaveObjInfoDto : deviceMasterObjInfoDto.slaves) {
                 DeviceDto slaveDeviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(deviceMasterObjInfoDto.objectId, slaveObjInfoDto.objectSlaveId));
                 DeviceAndUserRelationDto slaveRelationDto = new DeviceAndUserRelationDto(slaveDeviceDto, userDto, "{}", slaveDeviceDto.name, "default");
                 relationDtos.add(slaveRelationDto);
+                slaveIds.add(slaveObjInfoDto.objectSlaveId);
             }
+            Constants.DEVICE_ID_RELATION_MAP.put(deviceMasterObjInfoDto.objectId,slaveIds);
         }
         deviceAndUserRelationServcie.batchSave(relationDtos);
 
@@ -137,7 +143,25 @@ public class ObjectNotifyImpl implements ObjectNotify{
 
     @Override
     public void deviceUnsharedNotify(Long objectId, Long hashUserId, String description) {
-        //todo
+        List<Integer> slaves = Constants.DEVICE_ID_RELATION_MAP.get(objectId);
+        List<DeviceAndUserRelationDto> relationDtos = new ArrayList<>();
+        if(slaves != null) {
+            for (Integer slaveId : slaves) {
+                DeviceAndUserRelationDto relationDto = deviceAndUserRelationServcie.getDeviceAndUserRelation(
+                        Device.buildIdentificationCode(objectId, slaveId),
+                        hashUserId
+                );
+                relationDtos.add(relationDto);
+            }
+        }
+        DeviceAndUserRelationDto relationDto = deviceAndUserRelationServcie.getDeviceAndUserRelation(
+                Device.buildIdentificationCode(objectId, -1),
+                hashUserId
+        );
+        relationDtos.add(relationDto);
+        deviceAndUserRelationServcie.batchRemove(relationDtos);
+
+        //todo: notify UI
     }
 
     @Override
