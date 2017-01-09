@@ -34,7 +34,7 @@ app.get('/',function (req,res) {
 });
 app.use(express.static(path.join(__dirname, '../dev')));
 app.use('/',routes);
-app.use('/features',features);
+app.use('/featuresOfUser',features);
 app.use('/strategies',strategies);
 app.use('/devices',devices);
 app.use('/triggers',triggers);
@@ -48,11 +48,11 @@ wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
     });
     setTimeout(function () {
-        ws.send(JSON.stringify(wsData.strategyNew));
+        ws.send(JSON.stringify(wsData.addDevice));
     },2000);
-     //setTimeout(function () {
-     //    ws.send(JSON.stringify(wsData.strategyFinish));
-     //},5000);
+     setTimeout(function () {
+         ws.send(JSON.stringify(wsData.deleteDevice));
+     },5000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(wsData.strategyDeviceParamUpdate));
     // },5000);

@@ -60,6 +60,20 @@ anicloud.sunny.service.DeviceService = function ($http, $cookies) {
                 console.log('get feature failures');
             })
         },
+        getDeviceFeatures2: function () {
+            var user = $.cookie('sunny_user');
+            var usercookie = JSON.parse(user);
+            var hashUserId = usercookie.hashUserId;
+            return $http({
+                method: 'GET',
+                url: 'featuresOfUser/refresh',
+                params:{hashUserId:hashUserId}
+            }).then(function (data) {
+                return data.data;
+            },function (data) {
+                console.log('get feature failures');
+            })
+        },
         getDeviceFeatureByID: function (callback, deviceId) {
             $http({
                 method: 'GET',
