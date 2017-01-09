@@ -161,5 +161,185 @@
         ]
       }
     ]
+  },
+  {
+    "featureId": "6",
+    "featureName": "CarbonDioxide",
+    "description": "CarbonDioxide Sensor.",
+    "privilegeType": "READ",
+    "argDtoList": [
+      {
+        "name": "CO2Concentration",
+        "dataType": "FLOAT",
+        "screenName": "二氧化碳浓度"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "1",
+        "stubId": 11,
+        "groupId": 2,
+        "functionName": "CarbonDioxideNotify",
+        "functionType": "SYNC",
+        "inputArgList": [
+          {
+            "name": "CO2Concentration",
+            "dataType": "FLOAT"
+          }
+        ],
+        "outputArgList": null
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "humidity": [
+          "1:CO2Concentration"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "7",
+    "featureName": "PM2.5",
+    "description": "PM2.5 Sensor.",
+    "privilegeType": "READ",
+    "argDtoList": [
+      {
+        "name": "PM2.5Concentration",
+        "dataType": "FLOAT",
+        "screenName": "PM2.5浓度"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "1",
+        "stubId": 12,
+        "groupId": 2,
+        "functionName": "PM2.5Notify",
+        "functionType": "SYNC",
+        "inputArgList": [
+          {
+            "name": "PM2.5Concentration",
+            "dataType": "FLOAT"
+          }
+        ],
+        "outputArgList": null
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "humidity": [
+          "1:PM2.5Concentration"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "8",
+    "featureName": "Formaldehyde",
+    "description": "Formaldehyde Sensor.",
+    "privilegeType": "READ",
+    "argDtoList": [
+      {
+        "name": "FormaldehydeConcentration",
+        "dataType": "FLOAT",
+        "screenName": "甲醛浓度"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "1",
+        "stubId": 13,
+        "groupId": 2,
+        "functionName": "FormaldehydeNotify",
+        "functionType": "SYNC",
+        "inputArgList": [
+          {
+            "name": "FormaldehydeConcentration",
+            "dataType": "FLOAT"
+          }
+        ],
+        "outputArgList": null
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "humidity": [
+          "1:FormaldehydeConcentration"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "9",
+    "featureName": "SmokeMonitoring",
+    "description": "SmokeMonitoring Sensor.",
+    "privilegeType": "READ",
+    "argDtoList": [
+      {
+        "name": "SmokeMonitoringValue",
+        "dataType": "INTEGER",
+        "screenName": "烟雾监测"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "1",
+        "stubId": 14,
+        "groupId": 2,
+        "functionName": "SmokeMonitoring",
+        "functionType": "SYNC",
+        "inputArgList": [
+          {
+            "name": "SmokeMonitoringValue",
+            "dataType": "INTEGER"
+          }
+        ],
+        "outputArgList": null
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "humidity": [
+          "1:SmokeMonitoringValue"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "10",
+    "featureName": "HumanbodyMonitoring",
+    "description": "HumanbodyMonitoring Sensor.",
+    "privilegeType": "READ",
+    "argDtoList": [
+      {
+        "name": "MonitoringValue",
+        "dataType": "INTEGER",
+        "screenName": "人体监测"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "1",
+        "stubId": 1,
+        "groupId": 3,
+        "functionName": "HumanbodyMonitoringNotify",
+        "functionType": "SYNC",
+        "inputArgList": [
+          {
+            "name": "MonitoringValue",
+            "dataType": "INTEGER"
+          }
+        ],
+        "outputArgList": null
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "humidity": [
+          "1:MonitoringValue"
+        ]
+      }
+    ]
   }
 ]
