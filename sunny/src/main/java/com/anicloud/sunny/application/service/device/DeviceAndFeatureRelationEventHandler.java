@@ -68,7 +68,7 @@ public class DeviceAndFeatureRelationEventHandler implements DeviceAndFeatureRel
     }
 
     @Override
-    @Cacheable(value = "deviceFeatureRelationsOfUserCache")
+//    @Cacheable(value = "deviceFeatureRelationsOfUserCache")
     public List<DeviceAndFeatureRelationDto> findByHashUserId(Long hashUserId) {
         List<DeviceAndFeatureRelationDao> relationDaos = deviceAndFeatureRelationPersistenceService.findByHashUserId(hashUserId);
         return DeviceAndFeatureRelationDtoAssembler.toDtoList(DeviceAndFeatureRelation.toRelationList(relationDaos));
