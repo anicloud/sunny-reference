@@ -57,6 +57,11 @@ public class DeviceAndUserRelationPersistenceEventHandler implements DeviceAndUs
     }
 
     @Override
+    public void removeRelationsWithDeviceId(String identificationCode) {
+        deviceAndUserRelationRepository.removeRelationsWithDeviceId(identificationCode);
+    }
+
+    @Override
     public List<DeviceAndUserRelationDao> getRelationsByHashUserId(Long hashUserId) {
         return deviceAndUserRelationRepository.findByUserId(hashUserId);
     }
