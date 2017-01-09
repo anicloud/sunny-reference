@@ -77,4 +77,9 @@ public class DeviceAndUserRelationEventHandler implements DeviceAndUserRelationS
         DeviceAndUserRelation relation = DeviceAndUserRelation.getRelaionByDeviceIdAndHashUserId(deviceAndUserRelationPersistenceService,identificationCode,hashUserId);
         return DeviceAndUserRelationDtoAssembler.toDto(relation);
     }
+
+    @Override
+    public List<Long> findUserIdByDeviceId(String deviceId) {
+        return deviceAndUserRelationPersistenceService.getHashUserIdByDeviceId(deviceId);
+    }
 }

@@ -1,5 +1,6 @@
 package com.anicloud.sunny.infrastructure.jms;
 
+import com.anicloud.sunny.application.dto.JmsTypicalMessage;
 import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
@@ -17,16 +18,8 @@ public class StateQueueServiceImpl implements StateQueueService {
     private JmsTemplate stateJmsTemplate;
 
     @Override
-    public void updateBoundAndShareState(final List<DeviceAndUserRelationDto> relationDtos) {
-        for(DeviceAndUserRelationDto relationDto : relationDtos) {
-            stateJmsTemplate.send(session -> session.createObjectMessage(relationDto));
-        }
+    public void updateState(JmsTypicalMessage message) {
+        stateJmsTemplate.send(session -> session.createObjectMessage(message));
     }
 
-    @Override
-    public void updateUnBoundState(List<String> deviceIds) {
-        for(String deviceId : deviceIds) {
-            stateJmsTemplate.send(session -> session.createObjectMessage(deviceId));
-        }
-    }
 }

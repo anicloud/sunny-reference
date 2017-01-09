@@ -18,4 +18,6 @@ public interface DeviceAndUserRelationRepository extends JpaRepository<DeviceAnd
     List<Long> findDeviceIdByUserId(Long hashUserId);
     @Query(value = "delete from DeviceAndUserRelationDao d where d.device.identificationCode = ?1")
     void removeRelationsWithDeviceId(String identificationCode);
+    @Query(value = "select d.user.hashUserId from DeviceAndUserRelationDao d where d.device.identificationCode = ?1")
+    List<Long> findUserIdByDeviceId(String deviceId);
 }

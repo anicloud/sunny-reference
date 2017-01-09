@@ -20,4 +20,5 @@ public interface DeviceAndUserRelationServcie {
 
     List<DeviceAndUserRelationDto> getRelationsByUser(UserDto userDto);
     DeviceAndUserRelationDto getDeviceAndUserRelation(String identificationCode,Long hashUserId);
+    List<Long> findUserIdByDeviceId(String deviceId);
 }

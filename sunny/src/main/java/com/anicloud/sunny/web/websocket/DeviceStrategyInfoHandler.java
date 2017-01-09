@@ -5,6 +5,7 @@ import com.ani.agent.service.service.websocket.AniInvokerImpl;
 import com.ani.bus.service.commons.dto.accountobject.AccountObject;
 import com.ani.bus.service.commons.message.SocketMessage;
 import com.anicloud.sunny.application.constant.Constants;
+import com.anicloud.sunny.application.dto.JmsTypicalMessage;
 import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
 import com.anicloud.sunny.application.dto.device.DeviceDto;
 import com.anicloud.sunny.application.dto.device.DeviceStrategyInfoDto;
@@ -115,6 +116,46 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public static void sendDeviceStateToUser(JmsTypicalMessage message) {
+        try {
+                Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(String.valueOf(message.hashUserId));
+                Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();
+                ObjectMapper mapper = new ObjectMapper();
+                while (sessionEnumeration.hasMoreElements()) {
+                    WebSocketSession session = sessionEnumeration.nextElement();
+                    if (session != null && session.isOpen()) {
+                        DeviceStrategyInfoDto infoDto = null;
+                        if (message.messageType.equals(Constants.DEVICE_BOUND_MESSAGE)) {
+                            List<DeviceAndUserRelationDto> deviceAndUserRelationDtos = (List<DeviceAndUserRelationDto>) message.messageInstance;
+                            List<DeviceFormDto> deviceFormDtos = new ArrayList<>();
+                            for (DeviceAndUserRelationDto relationDto : deviceAndUserRelationDtos) {
+                                deviceFormDtos.add(DeviceFormDto.convertToDeviceForm(relationDto));
+                            }
+                            infoDto = new DeviceStrategyInfoDto(2, deviceFormDtos);
+                        } else if(message.messageType.equals(Constants.DEVICE_UNBOUND_MESSAGE)){
+                            infoDto = new DeviceStrategyInfoDto(3,message.messageInstance);
+                        }else if (message.messageType.equals(Constants.DEVICE_SHARE_MESSAGE)) {
+                            List<DeviceAndUserRelationDto> deviceAndUserRelationDtos = (List<DeviceAndUserRelationDto>) message.messageInstance;
+                            List<DeviceFormDto> deviceFormDtos = new ArrayList<>();
+                            for (DeviceAndUserRelationDto relationDto : deviceAndUserRelationDtos) {
+                                deviceFormDtos.add(DeviceFormDto.convertToDeviceForm(relationDto));
+                            }
+                            infoDto = new DeviceStrategyInfoDto(4, deviceFormDtos);
+                        } else if (message.messageType.equals(Constants.DEVICE_UNSHARE_MESSAGE)) {
+                            infoDto = new DeviceStrategyInfoDto(5, message.messageInstance);
+                        }
+                        if (infoDto != null) {
+                            String jsonData = mapper.writeValueAsString(infoDto);
+                            TextMessage socketMessage = new TextMessage(jsonData);
+                            session.sendMessage(socketMessage);
+                        }
+                    }
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

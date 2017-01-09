@@ -14,4 +14,5 @@ public interface DeviceAndUserRelationPersistenceService {
     void removeRelationsWithDeviceId(String identificationCode);
     List<DeviceAndUserRelationDao> getRelationsByHashUserId(Long hashUserId);
     DeviceAndUserRelationDao getRelationByHashUserIdAndDeviceId(Long hashUserId, String identificationCode);
+    List<Long> getHashUserIdByDeviceId(String identifyCode);
 }

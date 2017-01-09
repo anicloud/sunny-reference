@@ -48,4 +48,8 @@ public class Constants {
      */
     public static AniServiceSession aniServiceSession;
     public static final ConcurrentHashMap<Long, List<Integer>> DEVICE_ID_RELATION_MAP = new ConcurrentHashMap<>();
+    public static final String DEVICE_SHARE_MESSAGE = "deviceShareMessage";
+    public static final String DEVICE_UNSHARE_MESSAGE = "deviceUnShareMessage";
+    public static final String DEVICE_BOUND_MESSAGE = "deviceBoundMessage";
+    public static final String DEVICE_UNBOUND_MESSAGE = "deviceUnboundMessage";
 }
