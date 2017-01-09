@@ -207,13 +207,42 @@ var strategyDeviceParamUpdate={
         initParam: '{"brightnessLux":40.1,"humidity":78,"temperature":25}'
     }
 };
+var deviceAdd={
+    'kind':2,
+    'instance':[
+        {
+            id: "6827881482365236092:-1",
+            name: "公司控制中心2",
+            deviceState: "CONNECTED",
+            deviceType: "Light",
+            deviceGroup: "default",
+            logoUrl:'flaticon-lamp',
+            initParam: '{"brightnessLux":null,"humidity":78,"temperature":25}'
+        },
+        {
+            id: "4281056279305915937:-1",
+            name: "haier_router2",
+            deviceState: "DISCONNECTED",
+            deviceType: "Light",
+            deviceGroup: "default",
+            logoUrl:'flaticon-router',
+            initParam: '{"brightnessLux":22.2,"humidity":77,"temperature":24}'
+        }
+    ]
+};
 var deviceDelete={
-    //'kind':
-}
+    'kind':3,
+    'id':[
+        "6827881482365236092:-1",
+        "4281056279305915937:-1"
+    ]
+};
+
 module.exports = {
     strategyNew: strategy4,
     strategyFinish: strategy2,
     strategy3: strategy3,
     strategyDeviceParamUpdate:strategyDeviceParamUpdate,
-    addDevice:deviceDelete
+    addDevice:deviceAdd,
+    deleteDevice:deviceDelete
 };

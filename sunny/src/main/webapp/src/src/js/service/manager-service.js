@@ -5,7 +5,7 @@ var anicloud = anicloud || {};
 anicloud.sunny = anicloud.sunny || {};
 anicloud.sunny.service = anicloud.sunny.service || {};
 
-anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, Notify) {
+anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, Notify,DeviceService) {
     var jsonClone = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
@@ -243,7 +243,72 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     //location.reload();
                     break;
                 case 2: //deviceAdd
-                    var msgDevice = obj.instance;
+                    var msgDevices = obj.instance;
+                    msgDevices.map(function(item,index){
+                        item.initParam=JSON.parse(item.initParam);
+                        $rootScope.devices.push(item);
+                    });
+                    DeviceService.getDeviceFeatures2().then(function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            var key = data[i].deviceFormDto.id;
+                            var value = data[i].deviceFeatureFormDtoList;
+                            $rootScope.features[key] = value;
+                        }
+                        notifyMsg = "设备添加成功";
+                        notifyOpts = {
+                            status: 'info',
+                            pos: 'bottom-center'
+                        };
+                        Notify.alert(notifyMsg, notifyOpts);
+                    });
+                    break;
+                case 4: //deviceShare
+                    var msgDevices = obj.instance;
+                    msgDevices.map(function(item,index){
+                        item.initParam=JSON.parse(item.initParam);
+                        $rootScope.devices.push(item);
+                    });
+                    DeviceService.getDeviceFeatures().then(function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            var key = data[i].deviceFormDto.id;
+                            var value = data[i].deviceFeatureFormDtoList;
+                            $rootScope.features[key] = value;
+                        }
+                        notifyMsg = "有新设备共享给您";
+                        notifyOpts = {
+                            status: 'info',
+                            pos: 'bottom-center'
+                        };
+                        Notify.alert(notifyMsg, notifyOpts);
+                    });
+                    break;
+                case 3:
+                    var msgIdAry=obj.id;
+                    msgIdAry.map(function(item,index){
+                        var deviceObj=$rootScope.queryObjectByPropertyValue($rootScope.devices,'id',item);
+                        if(deviceObj) $rootScope.devices.splice(deviceObj[0]);
+                        delete $rootScope.features[item];
+                    });
+                    notifyMsg = "设备移除成功";
+                    notifyOpts = {
+                        status: 'info',
+                        pos: 'bottom-center'
+                    };
+                    Notify.alert(notifyMsg, notifyOpts);
+                    break;
+                case 5:
+                    var msgIdAry=obj.id;
+                    msgIdAry.map(function(item,index){
+                        var deviceObj=$rootScope.queryObjectByPropertyValue($rootScope.devices,'id',item);
+                        if(deviceObj) $rootScope.devices.splice(deviceObj[0]);
+                        delete $rootScope.features[item];
+                    });
+                    notifyMsg = "有设备被取消共享";
+                    notifyOpts = {
+                        status: 'info',
+                        pos: 'bottom-center'
+                    };
+                    Notify.alert(notifyMsg, notifyOpts);
                     break;
             }
             $rootScope.$apply();

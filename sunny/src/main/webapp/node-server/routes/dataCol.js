@@ -33,16 +33,16 @@ var dataCol = function () {
     ];
     var features = [
         {
-            deviceFormDto:
-            {
-                id: "6827881482365236091:-1",
-                name: "公司控制中心",
-                deviceState: "CONNECTED",
-                deviceType: "Light",
-                deviceGroup: "default",
-                initParam: "{'brightnessLux':'33.3'}",
-            },
-            deviceFeatureFormDtoList: [
+                deviceFormDto:
+                {
+                    id: "6827881482365236091:-1",
+                    name: "公司控制中心",
+                    deviceState: "CONNECTED",
+                    deviceType: "Light",
+                    deviceGroup: "default",
+                    initParam: "{'brightnessLux':'33.3'}",
+                },
+                deviceFeatureFormDtoList: [
                 {
                     featureId: "1",
                     featureName: "Power On",
@@ -231,13 +231,97 @@ var dataCol = function () {
             ]
         }
     ];
+var featuresAdd=[
+    {
+        deviceFormDto:
+        {
+            id: "6827881482365236092:-1",
+            name: "公司控制中心",
+            deviceState: "CONNECTED",
+            deviceType: "Light",
+            deviceGroup: "default",
+        },
+        deviceFeatureFormDtoList: [
+            {
+                featureId: "1",
+                featureName: "Power On",
+                description: "light power on feature.",
+                privilegeType: "EXECUTE",
+                argDtoList: [
+                    {
+                        name: "brightnessLux",
+                        dataType: "FLOAT",
+                        screenName: "Bright Lux"
+                    }
+                ]
+            },
+            {
+                featureId: "2",
+                featureName: "Power Off",
+                description: "light power off feature.",
+                privilegeType: "EXECUTE",
+                argDtoList: []
+            },
+            {
+                featureId:"3",
+                featureName:"temperature",
+                description:"temperature Sensor.",
+                privilegeType: "READ",
+                argDtoList: [
+                    {
+                        "name": "temperature",
+                        "dataType": "FLOAT",
+                        "screenName": "temperature"
+                    }
+                ]
+            },
+            {
+                featureId:"4",
+                featureName:"humidity",
+                description:"humidity Sensor.",
+                privilegeType: "READ",
+                argDtoList: [
+                    {
+                        "name": "humidity",
+                        "dataType": "FLOAT",
+                        "screenName": "humidity"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        deviceFormDto: {
+            id: "4281056279305915937:-1",
+            name: "haier_router",
+            deviceState: "CONNECTED",
+            deviceType: "Light",
+            deviceGroup: "default",
+        },
+        deviceFeatureFormDtoList: [
+            {
+                featureId: "1",
+                featureName: "Power On",
+                description: "light power on feature.",
+                argDtoList: [
+                    {
+                        name: "brightnessLux",
+                        dataType: "FLOAT",
+                        screenName: "Bright Lux"
+                    }
+                ]
+            }
+        ]
+    },
+]
     var strategies=[];
     var triggers=["TIMER"];
     return {
         devices: devices,
         features:features,
         strategies:strategies,
-        triggers:triggers
+        triggers:triggers,
+        featuresRefresh:features.concat(featuresAdd)
     }
 };
 

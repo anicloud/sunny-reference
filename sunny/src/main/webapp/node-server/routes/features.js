@@ -11,4 +11,7 @@ router.get('/',function (req,res) {
     //},5000);
     res.send(dataCol.features);
 });
+router.get('/refresh',function(req,res){
+   res.send(dataCol.featuresRefresh)
+});
 module.exports=router;
