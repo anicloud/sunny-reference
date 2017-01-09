@@ -27,6 +27,10 @@ public class DeviceAndFeatureRelation {
         return toRelation(relationDao);
     }
 
+    public static void remove(DeviceAndFeatureRelationPersistenceService relationService, DeviceAndFeatureRelation relation) {
+        relationService.removeRelation(toDao(relation));
+    }
+
     public static DeviceAndFeatureRelation findByDeviceIdentificationCode(
             DeviceAndFeatureRelationPersistenceService relationService, String identificationCode) {
         DeviceAndFeatureRelationDao relationDao = relationService.getRelationByDeviceIdentificationCode(identificationCode);

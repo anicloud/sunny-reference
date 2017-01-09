@@ -63,4 +63,9 @@ public class DeviceAndFeatureRelationPersistenceEventHandler implements DeviceAn
         return deviceAndFeatureRelationRepository.findByDeviceIds(deviceIds);
     }
 
+    @Override
+    public void removeRelation(DeviceAndFeatureRelationDao relationDao) {
+        deviceAndFeatureRelationRepository.delete(relationDao);
+    }
+
 }

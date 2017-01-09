@@ -73,4 +73,11 @@ public class DeviceAndFeatureRelationEventHandler implements DeviceAndFeatureRel
         List<DeviceAndFeatureRelationDao> relationDaos = deviceAndFeatureRelationPersistenceService.findByHashUserId(hashUserId);
         return DeviceAndFeatureRelationDtoAssembler.toDtoList(DeviceAndFeatureRelation.toRelationList(relationDaos));
     }
+
+    @Override
+    public void removeByDeviceId(String identificationCode) {
+        DeviceAndFeatureRelation relation = DeviceAndFeatureRelation.findByDeviceIdentificationCode(deviceAndFeatureRelationPersistenceService,identificationCode);
+        if (relation != null)
+            DeviceAndFeatureRelation.remove(deviceAndFeatureRelationPersistenceService, relation);
+    }
 }

@@ -11,6 +11,7 @@ public interface DeviceAndUserRelationPersistenceService {
     DeviceAndUserRelationDao save(DeviceAndUserRelationDao relationDao);
     DeviceAndUserRelationDao modify(DeviceAndUserRelationDao relationDao);
     void remove(DeviceAndUserRelationDao relationDao);
+    void removeRelationsWithDeviceId(String identificationCode);
     List<DeviceAndUserRelationDao> getRelationsByHashUserId(Long hashUserId);
     DeviceAndUserRelationDao getRelationByHashUserIdAndDeviceId(Long hashUserId, String identificationCode);
 }

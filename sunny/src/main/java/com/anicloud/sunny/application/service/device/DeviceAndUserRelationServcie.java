@@ -15,6 +15,7 @@ public interface DeviceAndUserRelationServcie {
     void batchModify(List<DeviceAndUserRelationDto> relationDtoList);
 
     void removeRelation(DeviceAndUserRelationDto relationDto);
+    void removeRelationsWithDeviceId(String identificationCode);
     void batchRemove(List<DeviceAndUserRelationDto> relations);
 
     List<DeviceAndUserRelationDto> getRelationsByUser(UserDto userDto);

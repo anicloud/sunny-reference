@@ -14,4 +14,5 @@ public interface DeviceAndFeatureRelationPersistenceService {
     public DeviceAndFeatureRelationDao getRelationByDeviceIdentificationCode(String identificationCode);
     public List<DeviceAndFeatureRelationDao> getAll();
     List<DeviceAndFeatureRelationDao> findByHashUserId(Long hashUserId);
+    void removeRelation(DeviceAndFeatureRelationDao relationDao);
 }

@@ -55,6 +55,11 @@ public class DeviceAndUserRelationEventHandler implements DeviceAndUserRelationS
     }
 
     @Override
+    public void removeRelationsWithDeviceId(String identificationCode) {
+        deviceAndUserRelationPersistenceService.removeRelationsWithDeviceId(identificationCode);
+    }
+
+    @Override
     public void batchRemove(List<DeviceAndUserRelationDto> relations) {
         for (DeviceAndUserRelationDto relationDto : relations){
             removeRelation(relationDto);
