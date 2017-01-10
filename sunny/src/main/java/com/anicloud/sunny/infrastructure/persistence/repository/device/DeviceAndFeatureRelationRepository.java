@@ -17,5 +17,5 @@ public interface DeviceAndFeatureRelationRepository extends
     @Query(value = "select d from DeviceAndFeatureRelationDao d where d.deviceDao.identificationCode = ?1")
     DeviceAndFeatureRelationDao findByDeviceIdentificationCode(String identificationCode);
     @Query(value = "select d from DeviceAndFeatureRelationDao d where d.deviceDao.identificationCode in ?1")
-    List<DeviceAndFeatureRelationDao> findByDeviceIds(List<Long> deviceIds);
+    List<DeviceAndFeatureRelationDao> findByDeviceIds(List<String> deviceIds);
 }

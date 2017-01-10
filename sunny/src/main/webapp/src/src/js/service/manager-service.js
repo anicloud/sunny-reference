@@ -248,7 +248,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                         item.initParam=JSON.parse(item.initParam);
                         $rootScope.devices.push(item);
                     });
-                    DeviceService.getDeviceFeatures2().then(function (data) {
+                    DeviceService.getDeviceFeatures().then(function (data) {
                         for (var i = 0; i < data.length; i++) {
                             var key = data[i].deviceFormDto.id;
                             var value = data[i].deviceFeatureFormDtoList;
@@ -283,7 +283,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     });
                     break;
                 case 3:
-                    var msgIdAry=obj.id;
+                    var msgIdAry=obj.instance;
                     msgIdAry.map(function(item,index){
                         var deviceObj=$rootScope.queryObjectByPropertyValue($rootScope.devices,'id',item);
                         if(deviceObj) $rootScope.devices.splice(deviceObj[0]);
@@ -297,7 +297,7 @@ anicloud.sunny.service.ManagerService = function ($rootScope, StrategyService, N
                     Notify.alert(notifyMsg, notifyOpts);
                     break;
                 case 5:
-                    var msgIdAry=obj.id;
+                    var msgIdAry=obj.instance;
                     msgIdAry.map(function(item,index){
                         var deviceObj=$rootScope.queryObjectByPropertyValue($rootScope.devices,'id',item);
                         if(deviceObj) $rootScope.devices.splice(deviceObj[0]);

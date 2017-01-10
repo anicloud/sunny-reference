@@ -34,13 +34,17 @@ public class DeviceAndUserRelationPersistenceEventHandler implements DeviceAndUs
             relationDao.device.id = oldDevice.id;
         if (oldUser != null)
             relationDao.user.id = oldUser.id;
+        DeviceAndUserRelationDao oldDao = deviceAndUserRelationRepository.findUniqueRelationByDeviceIdAndUserId(relationDao.device.identificationCode,relationDao.user.hashUserId);
+        if(oldDao != null) {
+            relationDao.id = oldDao.id;
+        }
         return deviceAndUserRelationRepository.save(relationDao);
     }
 
     @Override
     public DeviceAndUserRelationDao modify(DeviceAndUserRelationDao relationDao) {
         DeviceAndUserRelationDao oldDao = deviceAndUserRelationRepository.findUniqueRelationByDeviceIdAndUserId(relationDao.device.identificationCode,relationDao.user.hashUserId);
-        if(oldDao.id != null) {
+        if(oldDao != null) {
             relationDao.id = oldDao.id;
             relationDao.device.id = oldDao.device.id;
             relationDao.user.id = oldDao.user.id;

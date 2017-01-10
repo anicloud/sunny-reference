@@ -13,7 +13,7 @@ import java.util.List;
 public class DeviceAndFeatureRelationDao extends AbstractEntity {
     private static final long serialVersionUID = -7155254617419368104L;
 
-    @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
     @JoinColumn(name = "device_id", referencedColumnName = "id")
     public DeviceDao deviceDao;
 

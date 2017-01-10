@@ -118,6 +118,7 @@ public class ObjectNotifyImpl implements ObjectNotify{
         DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(objectId,-1));
         deviceAndUserRelationServcie.removeRelationsWithDeviceId(deviceDto.identificationCode);
         deviceAndFeatureRelationService.removeByDeviceId(deviceDto.identificationCode);
+        Constants.DEVICE_ID_RELATION_MAP.remove(objectId);
         //todo: notify UI
         if(hashUserIds != null) {
             for(Long userId : hashUserIds) {

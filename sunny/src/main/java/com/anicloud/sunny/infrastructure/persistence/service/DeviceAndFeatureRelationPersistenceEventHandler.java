@@ -59,13 +59,14 @@ public class DeviceAndFeatureRelationPersistenceEventHandler implements DeviceAn
 
     @Override
     public List<DeviceAndFeatureRelationDao> findByHashUserId(Long hashUserId) {
-        List<Long> deviceIds = deviceAndUserRelationRepository.findDeviceIdByUserId(hashUserId);
+        List<String> deviceIds = deviceAndUserRelationRepository.findDeviceIdByUserId(hashUserId);
         return deviceAndFeatureRelationRepository.findByDeviceIds(deviceIds);
     }
 
     @Override
     public void removeRelation(DeviceAndFeatureRelationDao relationDao) {
-        deviceAndFeatureRelationRepository.delete(relationDao);
+        DeviceAndFeatureRelationDao oldRelation = deviceAndFeatureRelationRepository.findByDeviceIdentificationCode(relationDao.deviceDao.identificationCode);
+        deviceAndFeatureRelationRepository.delete(oldRelation);
     }
 
 }

@@ -27,6 +27,10 @@ public class DevicePersistenceEventHandler implements DevicePersistenceService {
 
     @Override
     public DeviceDao save(DeviceDao deviceDao) {
+        DeviceDao orgDeviceDao = deviceRepository.findByIdentificationCode(deviceDao.identificationCode);
+        if (orgDeviceDao != null) {
+            deviceDao.id = orgDeviceDao.id;
+        }
         return deviceRepository.save(deviceDao);
     }
 
