@@ -60,6 +60,8 @@ public class DeviceAndFeatureRelationPersistenceEventHandler implements DeviceAn
     @Override
     public List<DeviceAndFeatureRelationDao> findByHashUserId(Long hashUserId) {
         List<String> deviceIds = deviceAndUserRelationRepository.findDeviceIdByUserId(hashUserId);
+        if(deviceIds == null || deviceIds.size() == 0)
+            return null;
         return deviceAndFeatureRelationRepository.findByDeviceIds(deviceIds);
     }
 

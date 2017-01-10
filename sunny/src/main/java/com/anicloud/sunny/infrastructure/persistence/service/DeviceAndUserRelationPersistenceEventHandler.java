@@ -37,6 +37,8 @@ public class DeviceAndUserRelationPersistenceEventHandler implements DeviceAndUs
         DeviceAndUserRelationDao oldDao = deviceAndUserRelationRepository.findUniqueRelationByDeviceIdAndUserId(relationDao.device.identificationCode,relationDao.user.hashUserId);
         if(oldDao != null) {
             relationDao.id = oldDao.id;
+            relationDao.initParam = oldDao.initParam;
+            relationDao.screenName = oldDao.screenName;
         }
         return deviceAndUserRelationRepository.save(relationDao);
     }

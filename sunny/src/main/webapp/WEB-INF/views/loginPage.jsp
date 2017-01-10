@@ -16,7 +16,7 @@
         </fmt:bundle>
     </title>
 
-    <link rel="shortcut icon" type="image/png"
+    <link rel="shortcut icon" type="image/icon"
           href="${pageContext.request.contextPath}/public/images/logo/favicon.ico">
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/public/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
