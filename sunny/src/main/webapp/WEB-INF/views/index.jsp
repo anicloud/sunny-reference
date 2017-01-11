@@ -21,7 +21,7 @@
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/public/bower_components/bootstrap/dist/css/sunny_bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/public/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/public/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/public/bower_components/ng-dialog/css/ngDialog.min.css" rel="stylesheet">

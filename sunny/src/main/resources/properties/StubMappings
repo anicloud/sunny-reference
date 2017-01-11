@@ -1,2 +1,7 @@
 2 3 com.anicloud.sunny.application.service.sunny.stub.RefreshTemperatureStub
-2 4 com.anicloud.sunny.application.service.sunny.stub.RefreshTemperatureStub
+2 4 com.anicloud.sunny.application.service.sunny.stub.RefreshHumidityStub
+2 11 com.anicloud.sunny.application.service.sunny.stub.RefreshCarbonDioxideStub
+2 12 com.anicloud.sunny.application.service.sunny.stub.RefreshPM25Stub
+2 13 com.anicloud.sunny.application.service.sunny.stub.RefreshFormaldehydeStub
+2 14 com.anicloud.sunny.application.service.sunny.stub.SmokeMonitoringStub
+3 1 com.anicloud.sunny.application.service.sunny.stub.HumanbodyMonitoringNotifyStub
