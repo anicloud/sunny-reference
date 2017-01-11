@@ -47,11 +47,14 @@ wss.on('connection', function connection(ws) {
     // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
     ws.on('message', function incoming(message) {
     });
-    setTimeout(function () {
-        ws.send(JSON.stringify(wsData.addDevice));
-    },2000);
+    //setTimeout(function () {
+    //    ws.send(JSON.stringify(wsData.addDevice));
+    //},2000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(wsData.deleteDevice));
+    // },5000);
      setTimeout(function () {
-         ws.send(JSON.stringify(wsData.deleteDevice));
+         ws.send(JSON.stringify(wsData.strategyNew));
      },5000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(wsData.strategyDeviceParamUpdate));
