@@ -1,5 +1,10 @@
 {
   "Router" : "flaticon-router",
   "Light" : "flaticon-lamp",
-  "Detector":"flaticon-metal-detector"
+  "TempAndHumSensor":"flaticon-metal-detector",
+  "CarbonDioxideSensor":"flaticon-metal-detector",
+  "PM2.5Sensor":"flaticon-metal-detector",
+  "FormaldehydeSensor":"flaticon-metal-detector",
+  "SmokeSensor":"flaticon-metal-detector",
+  "HumanbodySensor":"flaticon-metal-detector"
 }

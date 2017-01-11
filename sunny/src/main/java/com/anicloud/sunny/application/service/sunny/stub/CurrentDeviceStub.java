@@ -10,6 +10,7 @@ import com.anicloud.sunny.application.service.strategy.CurrentFeatureService;
 import com.anicloud.sunny.infrastructure.persistence.domain.device.CurrentFeatureInstanceDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * Created by lihui on 16-10-28.
  */
+@Service
 public class CurrentDeviceStub implements SunnyStub {
     private static final Logger LOGGER = LoggerFactory.getLogger(CurrentDeviceStub.class);
     @Resource

@@ -7,6 +7,7 @@ import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServci
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.jms.JMSException;
@@ -20,6 +21,7 @@ import java.util.Map;
 /**
  * Created by wyf on 17-1-11.
  */
+@Service
 public class HumanbodyMonitoringNotifyStub implements SunnyStub{
     @Resource
     private DeviceAndUserRelationServcie relationService;
