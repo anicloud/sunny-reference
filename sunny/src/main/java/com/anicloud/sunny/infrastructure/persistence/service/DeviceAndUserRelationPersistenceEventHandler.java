@@ -81,4 +81,9 @@ public class DeviceAndUserRelationPersistenceEventHandler implements DeviceAndUs
     public List<Long> getHashUserIdByDeviceId(String identifyCode) {
         return deviceAndUserRelationRepository.findUserIdByDeviceId(identifyCode);
     }
+
+    @Override
+    public List<DeviceAndUserRelationDao> getRelationsByDeviceId(String identificationCode) {
+        return deviceAndUserRelationRepository.findByDeviceId(identificationCode);
+    }
 }

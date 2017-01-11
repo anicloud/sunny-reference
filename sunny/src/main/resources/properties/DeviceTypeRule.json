@@ -40,7 +40,7 @@
     "groupId" : 2
   } ],
   "HumanbodySensor" : [ {
-    "stubId" : 3,
-    "groupId" : 1
+    "stubId" : 1,
+    "groupId" : 3
   } ]
 }

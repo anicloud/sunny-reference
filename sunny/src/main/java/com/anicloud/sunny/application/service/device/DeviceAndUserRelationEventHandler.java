@@ -4,6 +4,7 @@ import com.anicloud.sunny.application.assemble.DeviceAndUserRelationDtoAssembler
 import com.anicloud.sunny.application.dto.device.DeviceAndUserRelationDto;
 import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.domain.model.device.DeviceAndUserRelation;
+import com.anicloud.sunny.infrastructure.persistence.domain.device.DeviceAndUserRelationDao;
 import com.anicloud.sunny.infrastructure.persistence.service.DeviceAndUserRelationPersistenceService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,5 +82,11 @@ public class DeviceAndUserRelationEventHandler implements DeviceAndUserRelationS
     @Override
     public List<Long> findUserIdByDeviceId(String deviceId) {
         return deviceAndUserRelationPersistenceService.getHashUserIdByDeviceId(deviceId);
+    }
+
+    @Override
+    public List<DeviceAndUserRelationDto> getRelationsByDeviceId(String identificationCode) {
+        List<DeviceAndUserRelationDao> relationDaos = deviceAndUserRelationPersistenceService.getRelationsByDeviceId(identificationCode);
+        return DeviceAndUserRelationDtoAssembler.toDtoList(DeviceAndUserRelation.toRelationList(relationDaos));
     }
 }

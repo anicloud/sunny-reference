@@ -15,4 +15,5 @@ public interface DeviceAndUserRelationPersistenceService {
     List<DeviceAndUserRelationDao> getRelationsByHashUserId(Long hashUserId);
     DeviceAndUserRelationDao getRelationByHashUserIdAndDeviceId(Long hashUserId, String identificationCode);
     List<Long> getHashUserIdByDeviceId(String identifyCode);
+    List<DeviceAndUserRelationDao> getRelationsByDeviceId(String identificationCode);
 }
