@@ -9,8 +9,8 @@
             <div ng-show="device.deviceState==='CONNECTED'" ng-repeat="feature in features[device.id]">
                 <div ng-repeat="arg in feature.argDtoList">
                     <p>
-                        <small style="line-height: 30px">{{arg.screenName}}:
-                            {{(device.initParam[arg.name]||(device.initParam[arg.name]===0))?device.initParam[arg.name]:'未获取'}}</small>
+                        <span style="line-height: 30px"><small>{{arg.screenName}}:</small>
+                    <small uib-popover={{(device.initParam[arg.name]||(device.initParam[arg.name]===0))?device.initParam[arg.name]:'未获取'}} popover-trigger="'mouseenter'">{{(device.initParam[arg.name]||(device.initParam[arg.name]===0))?device.initParam[arg.name]:'未获取'}}</small></span>
                     </p>
                 </div>
             </div>
@@ -22,8 +22,10 @@
             <div ng-repeat="feature in features[device.id]">
                 <div ng-repeat="arg in feature.argDtoList">
                     <p>
-                        <small>{{arg.screenName}}:
-                            {{(device.initParam[arg.name]||(device.initParam[arg.name]===0))?device.initParam[arg.name]:'未获取'}}</small>
+                        <!--<small uib-popover="I appeared on mouse enter!" popover-trigger="'mouseenter'">{{arg.screenName}}:-->
+                            <!--</small>-->
+                        <span><small>{{arg.screenName}}:</small>
+                    <small uib-popover={{(device.initParam[arg.name]||(device.initParam[arg.name]===0))?device.initParam[arg.name]:'未获取'}} popover-trigger="'mouseenter'">{{(device.initParam[arg.name]||(device.initParam[arg.name]===0))?device.initParam[arg.name]:'未获取'}}</small></span>
                     </p>
                 </div>
             </div>

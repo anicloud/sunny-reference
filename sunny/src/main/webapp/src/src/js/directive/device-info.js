@@ -26,6 +26,7 @@ anicloud.sunny.directive.deviceInfo = function ($rootScope) {
             var $BoxBlockTop=$(element[0]).find('.device-block-top');
             var $BoxBlockBottom=$(element[0]).find('.device-block-bottom');
             var $BoxToggle=$(element[0]).find('.device-toggle');
+
            //function initFirstParam(){
            //     var deviceFeatures=scope.features[scope.device.id];
            //     for(var i=0;i<deviceFeatures.length;i++){
