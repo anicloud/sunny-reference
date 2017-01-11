@@ -36,7 +36,7 @@ public class Constants {
      */
     public final static String TIME_TRIGGER_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
-    public final static Long TOKEN_REFRESH_TIME_INTERVAL_IN_SECONDS = 1 * 60 * 60L;
+    public final static Long TOKEN_REFRESH_TIME_INTERVAL_IN_SECONDS = 60 * 60L;
 
     public static AniServiceDto aniServiceDto = null;
     /**

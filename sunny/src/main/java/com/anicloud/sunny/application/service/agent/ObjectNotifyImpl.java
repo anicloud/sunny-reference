@@ -34,7 +34,7 @@ public class ObjectNotifyImpl implements ObjectNotify{
     @Resource
     private DeviceStateQueueService deviceStateQueueService;
     @Resource
-    ApplicationInitService applicationInitService;
+    private ApplicationInitService applicationInitService;
     @Resource
     private UserService userService;
     @Resource
