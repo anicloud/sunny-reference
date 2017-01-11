@@ -14,6 +14,7 @@ import com.anicloud.sunny.application.dto.user.UserDto;
 import com.anicloud.sunny.application.service.device.DeviceAndFeatureRelationService;
 import com.anicloud.sunny.application.service.device.DeviceAndUserRelationServcie;
 import com.anicloud.sunny.application.service.device.DeviceFeatureService;
+import com.anicloud.sunny.application.service.device.DeviceService;
 import com.anicloud.sunny.application.service.user.UserService;
 import com.anicloud.sunny.domain.model.device.Device;
 import com.anicloud.sunny.infrastructure.persistence.domain.share.DeviceLogicState;
@@ -40,6 +41,8 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
     @Resource
     private UserService userService;
+    @Resource
+    private DeviceService deviceService;
     @Resource
     private DeviceFeatureService deviceFeatureService;
     @Resource
@@ -125,6 +128,45 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
 
         }else{
             initUser(userDto);
+
+            if(deviceMasterObjInfoDtoList != null && deviceMasterObjInfoDtoList.size() >0) {
+                for(DeviceMasterObjInfoDto deviceMasterObjInfoDto:deviceMasterObjInfoDtoList) {
+                    DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(deviceMasterObjInfoDto.objectId, -1));
+                    if (deviceDto == null) {
+                        updateUserDeviceAndDeviceFeatureRelation(deviceMasterObjInfoDto);
+                    }
+                    deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(deviceMasterObjInfoDto.objectId, -1));
+                    DeviceAndUserRelationDto relationDto = new DeviceAndUserRelationDto(deviceDto,userDto,"{}",deviceDto.name,"default");
+                    List<DeviceAndUserRelationDto> relationDtos = new ArrayList<>();
+                    relationDtos.add(relationDto);
+
+                    if (deviceMasterObjInfoDto.slaves != null && deviceMasterObjInfoDto.slaves.size() > 0) {
+                        for (DeviceSlaveObjInfoDto slaveObjInfoDto : deviceMasterObjInfoDto.slaves) {
+                            DeviceDto slaveDeviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(deviceMasterObjInfoDto.objectId, slaveObjInfoDto.objectSlaveId));
+                            DeviceAndUserRelationDto slaveRelationDto = new DeviceAndUserRelationDto(slaveDeviceDto, userDto, "{}", slaveDeviceDto.name, "default");
+                            relationDtos.add(slaveRelationDto);
+                        }
+                    }
+                    List<DeviceAndUserRelationDto> orgRelations = deviceAndUserRelationServcie.getRelationsByUser(userDto);
+                    if (orgRelations != null && orgRelations.size() > 0){
+                        boolean flag;
+                        for (DeviceAndUserRelationDto orgRelation: orgRelations) {
+                            flag = false;
+                            for (DeviceAndUserRelationDto newRelation:relationDtos) {
+                                if(orgRelation.deviceDto.identificationCode.equals(newRelation.deviceDto.identificationCode)){
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if(!flag){
+                                deviceAndUserRelationServcie.removeRelation(orgRelation);
+                            }
+                        }
+                    }
+
+                    deviceAndUserRelationServcie.batchSave(relationDtos);
+                }
+            }
         }
         return userDto;
     }

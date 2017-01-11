@@ -98,6 +98,9 @@ public class FunctionInstance implements Serializable {
     }
 
     public static Object convetValueToCorrectObject(Object value, DataType dataType) {
+        if(value == null){
+            value = 0;
+        }
         if (dataType instanceof DataPrimitiveType) {
             switch (((DataPrimitiveType) dataType).getType()){
                 case INTEGER:

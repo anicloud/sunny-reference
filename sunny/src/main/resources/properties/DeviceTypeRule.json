@@ -15,5 +15,32 @@
   }, {
     "stubId" : 3,
     "groupId" : 1
+  } ],
+  "TempAndHumSensor" : [ {
+    "stubId" : 4,
+    "groupId" : 2
+  },{
+    "stubId" : 5,
+    "groupId" : 2
+  }],
+  "CarbonDioxideSensor" : [ {
+    "stubId" : 11,
+    "groupId" : 2
+  } ],
+  "PM2.5Sensor" : [ {
+    "stubId" : 12,
+    "groupId" : 2
+  } ],
+  "FormaldehydeSensor" : [ {
+    "stubId" : 13,
+    "groupId" : 2
+  } ],
+  "SmokeSensor" : [ {
+    "stubId" : 14,
+    "groupId" : 2
+  } ],
+  "HumanbodySensor" : [ {
+    "stubId" : 3,
+    "groupId" : 1
   } ]
 }

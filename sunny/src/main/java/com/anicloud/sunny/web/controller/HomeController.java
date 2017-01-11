@@ -152,6 +152,7 @@ public class HomeController extends BaseController {
 
     @RequestMapping(value = "/redirect")
     public String redirect(HttpServletRequest request, HttpServletResponse response, @RequestParam String code) {
+
         LOGGER.info("code is {}", code);
 
 
