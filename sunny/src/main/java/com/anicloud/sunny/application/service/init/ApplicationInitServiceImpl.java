@@ -130,6 +130,7 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
             initUser(userDto);
 
             if(deviceMasterObjInfoDtoList != null && deviceMasterObjInfoDtoList.size() >0) {
+                List<DeviceAndUserRelationDto> relationDtos = new ArrayList<>();
                 for(DeviceMasterObjInfoDto deviceMasterObjInfoDto:deviceMasterObjInfoDtoList) {
                     DeviceDto deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(deviceMasterObjInfoDto.objectId, -1));
                     if (deviceDto == null) {
@@ -137,7 +138,6 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                     }
                     deviceDto = deviceService.getDeviceByIdentificationCode(Device.buildIdentificationCode(deviceMasterObjInfoDto.objectId, -1));
                     DeviceAndUserRelationDto relationDto = new DeviceAndUserRelationDto(deviceDto,userDto,"{}",deviceDto.name,"default");
-                    List<DeviceAndUserRelationDto> relationDtos = new ArrayList<>();
                     relationDtos.add(relationDto);
 
                     if (deviceMasterObjInfoDto.slaves != null && deviceMasterObjInfoDto.slaves.size() > 0) {
@@ -147,25 +147,25 @@ public class ApplicationInitServiceImpl extends ApplicationInitService {
                             relationDtos.add(slaveRelationDto);
                         }
                     }
-                    List<DeviceAndUserRelationDto> orgRelations = deviceAndUserRelationServcie.getRelationsByUser(userDto);
-                    if (orgRelations != null && orgRelations.size() > 0){
-                        boolean flag;
-                        for (DeviceAndUserRelationDto orgRelation: orgRelations) {
-                            flag = false;
-                            for (DeviceAndUserRelationDto newRelation:relationDtos) {
-                                if(orgRelation.deviceDto.identificationCode.equals(newRelation.deviceDto.identificationCode)){
-                                    flag = true;
-                                    break;
-                                }
-                            }
-                            if(!flag){
-                                deviceAndUserRelationServcie.removeRelation(orgRelation);
+                }
+                List<DeviceAndUserRelationDto> orgRelations = deviceAndUserRelationServcie.getRelationsByUser(userDto);
+                if (orgRelations != null && orgRelations.size() > 0){
+                    boolean flag;
+                    for (DeviceAndUserRelationDto orgRelation: orgRelations) {
+                        flag = false;
+                        for (DeviceAndUserRelationDto newRelation:relationDtos) {
+                            if(orgRelation.deviceDto.identificationCode.equals(newRelation.deviceDto.identificationCode)){
+                                flag = true;
+                                break;
                             }
                         }
+                        if(!flag){
+                            deviceAndUserRelationServcie.removeRelation(orgRelation);
+                        }
                     }
-
-                    deviceAndUserRelationServcie.batchSave(relationDtos);
                 }
+
+                deviceAndUserRelationServcie.batchSave(relationDtos);
             }
         }
         return userDto;

@@ -15,6 +15,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,8 @@ public class RefreshTemperatureStub implements SunnyStub {
                 params = new HashMap<>();
 
             for (StubArgumentDto arg : inputValues) {
-                params.put("temperature",arg.getValue().toString());
+                DecimalFormat df=new DecimalFormat("#.#");
+                params.put("temperature",df.format(arg.getValue())+"℃");
             }
             relationDto.initParam = objectMapper.writeValueAsString(params);
             relationService.modifyRelation(relationDto);

@@ -16,6 +16,10 @@
     "stubId" : 3,
     "groupId" : 1
   } ],
+  "BrightnessSensor" : [ {
+    "stubId" : 4,
+    "groupId" : 1
+  } ],
   "TempAndHumSensor" : [ {
     "stubId" : 4,
     "groupId" : 2

@@ -8,7 +8,7 @@
       {
         "name": "brightnessLux",
         "dataType": "FLOAT",
-        "screenName": "Bright Lux"
+        "screenName": "光照度"
       }
     ],
     "featureFunctionDtoList": [
@@ -99,7 +99,7 @@
       {
         "name": "temperature",
         "dataType": "FLOAT",
-        "screenName": "temperature"
+        "screenName": "温度"
       }
     ],
     "featureFunctionDtoList": [
@@ -135,7 +135,7 @@
       {
         "name": "humidity",
         "dataType": "FLOAT",
-        "screenName": "humidity"
+        "screenName": "湿度"
       }
     ],
     "featureFunctionDtoList": [
@@ -278,7 +278,7 @@
     "argDtoList": [
       {
         "name": "SmokeMonitoringValue",
-        "dataType": "INTEGER",
+        "dataType": "FLOAT",
         "screenName": "烟雾监测"
       }
     ],
@@ -292,7 +292,7 @@
         "inputArgList": [
           {
             "name": "SmokeMonitoringValue",
-            "dataType": "INTEGER"
+            "dataType": "FLOAT"
           }
         ],
         "outputArgList": null
@@ -338,6 +338,42 @@
       {
         "humidity": [
           "1:MonitoringValue"
+        ]
+      }
+    ]
+  },
+  {
+    "featureId": "11",
+    "featureName": "Brightness",
+    "description": "Brightness Sensor.",
+    "privilegeType": "READ",
+    "argDtoList": [
+      {
+        "name": "brightnessLux",
+        "dataType": "FLOAT",
+        "screenName": "光照度"
+      }
+    ],
+    "featureFunctionDtoList": [
+      {
+        "featureFunctionId": "1",
+        "stubId": 4,
+        "groupId": 1,
+        "functionName": "BrightnessNotify",
+        "functionType": "SYNC",
+        "inputArgList": [
+          {
+            "name": "brightnessLux",
+            "dataType": "FLOAT"
+          }
+        ],
+        "outputArgList": null
+      }
+    ],
+    "featureArgFuncArgMapList": [
+      {
+        "brightnessLux": [
+          "1:brightnessLux"
         ]
       }
     ]

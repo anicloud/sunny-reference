@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by wyf on 17-1-11.
+ * Created by wyf on 17-1-12.
  */
 @Service
-public class RefreshPM25Stub implements SunnyStub{
+public class BrightnessNotifyStub implements SunnyStub{
     @Resource
     private DeviceAndUserRelationServcie relationService;
     @Resource(name = "paramJmsTemplate")
@@ -45,8 +45,8 @@ public class RefreshPM25Stub implements SunnyStub{
                 params = new HashMap<>();
 
             for (StubArgumentDto arg : inputValues) {
-                DecimalFormat df=new DecimalFormat("#.##");
-                params.put("PM2.5Concentration",df.format(arg.getValue())+"ug/m³");
+                DecimalFormat df=new DecimalFormat("#.#");
+                params.put("brightnessLux",df.format(arg.getValue())+"Lux");
             }
             relationDto.initParam = objectMapper.writeValueAsString(params);
             relationService.modifyRelation(relationDto);

@@ -44,7 +44,9 @@ public class HumanbodyMonitoringNotifyStub implements SunnyStub{
                 params = new HashMap<>();
 
             for (StubArgumentDto arg : inputValues) {
-                params.put("MonitoringValue",arg.getValue().toString());
+                Integer totalNum = Integer.valueOf(params.get("MonitoringValue"));
+                totalNum += Integer.valueOf(arg.getValue().toString());
+                params.put("MonitoringValue",totalNum.toString());
             }
             relationDto.initParam = objectMapper.writeValueAsString(params);
             relationService.modifyRelation(relationDto);
