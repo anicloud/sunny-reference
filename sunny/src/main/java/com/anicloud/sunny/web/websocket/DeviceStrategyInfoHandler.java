@@ -78,6 +78,7 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
     public static void sendMessageToUser(Long hashUserId, StrategyDto strategyDto) {
         //WebSocketSession session = sessionMaps.get(hashUserId);
         Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(String.valueOf(hashUserId));
+        if(sessionVector == null) return;
         Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();
         while (sessionEnumeration.hasMoreElements()) {
             WebSocketSession session = sessionEnumeration.nextElement();
@@ -124,6 +125,7 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
     public static void sendDeviceStateToUser(JmsTypicalMessage message) {
         try {
                 Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(String.valueOf(message.hashUserId));
+                if(sessionVector == null) return;
                 Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();
                 ObjectMapper mapper = new ObjectMapper();
                 while (sessionEnumeration.hasMoreElements()) {
