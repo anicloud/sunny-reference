@@ -44,7 +44,11 @@ public class HumanbodyMonitoringNotifyStub implements SunnyStub{
                 params = new HashMap<>();
 
             for (StubArgumentDto arg : inputValues) {
-                Integer totalNum = Integer.valueOf(params.get("MonitoringValue"));
+                String oldValue = params.get("MonitoringValue");
+                Integer totalNum = 0;
+                if (oldValue != null) {
+                    totalNum = Integer.valueOf(oldValue);
+                }
                 totalNum += Integer.valueOf(arg.getValue().toString());
                 params.put("MonitoringValue",totalNum.toString());
             }

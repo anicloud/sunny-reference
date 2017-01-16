@@ -98,6 +98,7 @@ public class DeviceStrategyInfoHandler extends TextWebSocketHandler {
 
     public static void sendDeviceMessageToUser(Long hashUserId,Object deviceDto) {
         Vector<WebSocketSession> sessionVector = SessionManager.getWebSocketSession(String.valueOf(hashUserId));
+        if(sessionVector == null) return;
         Enumeration<WebSocketSession> sessionEnumeration = sessionVector.elements();
         while (sessionEnumeration.hasMoreElements()) {
             WebSocketSession session = sessionEnumeration.nextElement();
