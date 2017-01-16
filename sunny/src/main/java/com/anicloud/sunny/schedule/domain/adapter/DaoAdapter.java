@@ -209,8 +209,8 @@ public class DaoAdapter {
                 strategyInstanceDao.timeStamp,
                 false,
                 strategyInstanceDao.startTime,
-                strategyInstanceDao.isRepeat,
                 strategyInstanceDao.isScheduleNow,
+                strategyInstanceDao.isRepeat,
                 StrategyInstanceDao.repeatWeektoArray(strategyInstanceDao.repeatWeek)
                 );
         return strategyInstance;

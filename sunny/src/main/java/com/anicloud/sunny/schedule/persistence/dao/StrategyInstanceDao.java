@@ -51,7 +51,7 @@ public class StrategyInstanceDao extends AbstractEntity {
 
     public static String[] repeatWeektoArray(String repeatWeek){
         if(repeatWeek != null)
-            return repeatWeek.split(",");
+            return repeatWeek.replaceAll(" ","").split(",");
         else
             return null;
     }
