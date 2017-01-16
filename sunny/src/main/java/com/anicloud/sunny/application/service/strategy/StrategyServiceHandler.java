@@ -143,7 +143,12 @@ public class StrategyServiceHandler implements StrategyService {
         List<Strategy> strategyList = Strategy.getStrategyListByUser(strategyPersistenceService, hashUserId);
         for (Strategy strategy : strategyList) {
             StrategyInstanceDao instanceDao = strategyInstancePersistenceService.getByStrategyId(strategy.strategyId);
-            strategy.strategyInstance = DaoAdapter.fromStrategyInstanceDao(instanceDao);
+            if(instanceDao != null){
+                strategy.strategyInstance = DaoAdapter.fromStrategyInstanceDao(instanceDao);
+                strategy.startTime = strategy.strategyInstance.startTime;
+                strategy.repeatWeek = strategy.strategyInstance.repeatWeek;
+                strategy.isRepeat = strategy.strategyInstance.isRepeat;
+            }
         }
         return StrategyDtoAssembler.toDtoList(strategyList);
     }
